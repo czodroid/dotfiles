@@ -7,15 +7,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mercredi 22 avril 2020, 14:54
-# Edit Time: 100:27:29
+# Last Modified: Vendredi 29 mai 2020, 00:36
+# Edit Time: 100:35:58
 # Description:
 #         .zshrc is sourced in interactive shells.
 #         C'est Alex Fenyo, mon guru, qui m'a fait decouvir cet
 #         exellent shell en 1996... Je lui en suis eternellement
 #         reconnaissant.
 #
-# $Id: .zshrc,v 1.137 2020/04/22 12:55:22 czo Exp $
+# $Id: .zshrc,v 1.141 2020/05/28 22:36:07 czo Exp $
 
 ##======= Zsh Settings ==============================================##
 
@@ -70,6 +70,8 @@ setopt RM_STAR_SILENT
 setopt SUN_KEYBOARD_HACK
 #setopt SHARE_HISTORY
 setopt SH_WORD_SPLIT
+
+# ZSH_COMPDUMP="${HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 
 export SAVEHIST=15000
 export HISTSIZE=11000
@@ -688,7 +690,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.137 2020/04/22 12:55:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.141 2020/05/28 22:36:07 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 #RPROMPT=' %~'     # prompt for right side of screen
@@ -751,6 +753,8 @@ export PATH=/opt/android-studio/bin:${PATH}
 ## config termux for android
 export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:${PATH}
 export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
+
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
 # config lang
 #export LC_ALL=C

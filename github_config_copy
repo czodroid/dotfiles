@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Filename: github_config_copy
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0
+# File Created: April 2020
+# Last Modified: Vendredi 10 juillet 2020, 00:48
+# Edit Time: 0:12:32
+# Description:
+#   copy my config files to github
+#   
+# $Id: github_config_copy,v 1.2 2020/07/09 22:48:56 czo Exp $
+
+for f in .Xresources .bashrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc .minttyrc
+do
+  echo "   <- $f"
+  cp -rp ~/etc/config/$f .
+done
+
+for f in config-fast-copy ssh-fast-allow czolsb Brewfile github_config_copy
+do
+  echo "   <- $f"
+  cp -rp ~/etc/shell/$f .
+done
+

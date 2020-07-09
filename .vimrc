@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Jeudi 23 avril 2020, 01:52
-" Edit Time: 170:15:39
+" Last Modified: mardi 26 mai 2020, 10:20
+" Edit Time: 170:17:34
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.154 2020/04/22 23:53:01 czo Exp $
+" $Id: .vimrc,v 1.155 2020/05/26 18:03:29 czo Exp $
 
 if version >= 580
 
@@ -118,9 +118,11 @@ set tags=./tags,tags,/users/soft5/newlabo/cvstree/alliance/sources/tags
 " dictionary completion: (Ctrl-X Ctrl-k)
 set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tags
 
-"set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:.
-set listchars=tab:>-,trail:~,space:.
-"set list
+
+if version >= 800
+    set listchars=tab:>-,trail:~,space:.
+    "set list
+endif
 
 " tmux will send xterm-style keys when xterm-keys is on
 if &term =~ '^screen'
