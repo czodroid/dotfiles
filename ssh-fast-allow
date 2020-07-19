@@ -4,13 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: Vendredi 10 juillet 2020, 00:20
-# Edit Time: 3:04:09
+# Last Modified: dimanche 19 juillet 2020, 16:42
+# Edit Time: 3:05:18
 # Description:
 #   configure ssh with my authorized_keys
 #   FIXME: deconne sous OSX : pb de cotes....
 #
-#   wget https://raw.githubusercontent.com/czodroid/dotfiles/master/ssh-fast-allow -O /tmp/ssh-fast-allow && sh /tmp/ssh-fast-allow
+#   wget https://raw.githubusercontent.com/czodroid/dotfiles/master/ssh-fast-allow -O /tmp/runit-$$ && sh /tmp/runit-$$
 #
 # $Id: ssh-fast-allow,v 1.7 2020/07/09 22:22:08 czo Exp $
 
