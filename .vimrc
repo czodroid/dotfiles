@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mardi 26 mai 2020, 10:20
-" Edit Time: 170:17:34
+" Last Modified: Dimanche 19 juillet 2020, 15:39
+" Edit Time: 170:19:18
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.155 2020/05/26 18:03:29 czo Exp $
+" $Id: .vimrc,v 1.156 2020/07/19 13:41:59 czo Exp $
 
 if version >= 580
 
@@ -213,10 +213,12 @@ set mousehide
 "gui fonts on win, osx, linux
   if has("gui_gtk2") || has("gui_gtk3")
     " Linux GUI
-    set guifont=Source\ Code\ Pro\ for\ Powerline\ 14,Monospace\ 13
+    set guifont=Monospace\ 13
+    "set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
   elseif has("gui_win32")
     " Win32/64 GVim
-    set guifont=Consolas:h13,Andale_Mono:h13
+    set guifont=Consolas:h13
+    "set guifont=Andale_Mono:h13
   elseif has("gui_macvim")
     " MacVim
     set guifont=SourceCodeProForPowerline-Light:h18,Monaco:h18

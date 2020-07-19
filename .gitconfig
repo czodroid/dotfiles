@@ -1,3 +1,6 @@
 [user]
 	email = czodroid@gmail.com
+    ; email = spambazar@gmail.com
 	name = czo
+[core]
+	pager = cat

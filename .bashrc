@@ -7,13 +7,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2006
-# Last Modified: mercredi 22 avril 2020, 14:54
-# Edit Time: 61:48:21
+# Last Modified: Dimanche 19 juillet 2020, 15:37
+# Edit Time: 61:49:27
 # Description: ~/.bashrc: executed by bash for non-login shells.
 #              tries to mimic my .zshrc and to be 2.05 compatible
 #              for old wkstations
 #
-# $Id: .bashrc,v 1.204 2020/04/22 12:55:22 czo Exp $
+# $Id: .bashrc,v 1.205 2020/07/19 13:41:59 czo Exp $
 
 #set -v
 #set -x
@@ -33,8 +33,8 @@ if [ -n "$BASH_VERSION" ]; then
 #busybox ash bug when defining HISTFILE...
 export HISTFILE=$HOME/.sh_history
 # olivier, repasse a zsh ...
-export HISTSIZE=11000
-export HISTFILESIZE=15000
+export HISTSIZE=31000
+export HISTFILESIZE=35000
 export HISTCONTROL=ignoreboth:erasedups
 #avoid overwriting history
 #shopt -s histappend
@@ -494,7 +494,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.204 2020/04/22 12:55:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.205 2020/07/19 13:41:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash

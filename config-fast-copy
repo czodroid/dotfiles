@@ -4,14 +4,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: Vendredi 10 juillet 2020, 01:02
-# Edit Time: 4:26:17
+# Last Modified: Vendredi 10 juillet 2020, 01:10
+# Edit Time: 4:26:59
 # Description:
 #   copy my config files
 #   
 #   wget https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy -O /tmp/config-fast-copy && sh /tmp/config-fast-copy
 #
-# $Id: config-fast-copy,v 1.1 2020/07/09 22:22:08 czo Exp $
+# $Id: config-fast-copy,v 1.2 2020/07/19 13:35:35 czo Exp $
 
 cd
 echo "## -> copy root config files"

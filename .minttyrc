@@ -1,3 +1,14 @@
+# Filename: .minttyrc
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0
+# File Created: juil. 2019
+# Last Modified: dimanche 19 juillet 2020, 15:20
+# Edit Time: 0:21:29
+# Description:
+#       gruvbox colorsheme for mintty
+#
+# $Id: .minttyrc,v 1.2 2020/07/19 13:50:55 czo Exp $
+#
 BoldAsFont=no
 CursorType=block
 ThemeFile=
