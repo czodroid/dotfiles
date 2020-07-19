@@ -1,0 +1,42 @@
+# Filename: config
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0
+# File Created: April 2000
+# Last Modified: samedi 18 juillet 2020, 11:34
+# Edit Time: 1:37:11
+# Description:
+#
+# $Id: config,v 1.16 2020/07/18 09:37:03 czo Exp $
+#
+
+# aberlour : ssh -p40022 lartha -l root 
+# gp-vm110 : ssh -p40023 lartha -l root 
+# voyelle  : ssh -p40024 lartha -l root
+
+# à l'exterieur de chez moi
+#Host ananas
+#ProxyCommand ssh -p42022 root@czo.wf nc ananas 22
+
+Host *+l
+ProxyCommand ssh -p30022 lartha ncat $(echo %h | sed 's/+.*//') %p
+
+#Host *+a
+#ProxyCommand ssh -p22080 root@idefix.ipgp.fr nc $(echo %h | sed 's/+.*//') %p
+
+Host *+a
+ProxyCommand ssh -p40022 root@lartha ncat $(echo %h | sed 's/+.*//') %p
+
+Host *+fw
+ProxyCommand ssh -p11240 localhost ncat $(echo %h | sed 's/+.*//') %p
+
+Host magdhcp-*
+ UserKnownHostsFile /dev/null
+ StrictHostKeyChecking no
+
+Host *
+ ForwardX11 yes
+ NoHostAuthenticationForLocalhost yes
+ StrictHostKeyChecking ask
+ HashKnownHosts no
+ ServerAliveInterval 15
+
