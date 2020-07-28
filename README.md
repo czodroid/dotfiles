@@ -1,3 +1,3 @@
 # My Dot Files
 
-    wget https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy -O /tmp/runit-$$ && sh /tmp/runit-$$
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy)"
