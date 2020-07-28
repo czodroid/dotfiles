@@ -13,7 +13,7 @@
 #
 # $Id: config-fast-copy,v 1.2 2020/07/19 13:35:35 czo Exp $
 
-cd
+# cd
 echo "## -> copy root config files"
 for f in .Xresources .bashrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc .minttyrc
 do
