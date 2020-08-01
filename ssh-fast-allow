@@ -12,7 +12,7 @@
 #
 #   wget https://raw.githubusercontent.com/czodroid/dotfiles/master/ssh-fast-allow -O /tmp/runit-$$ && sh /tmp/runit-$$
 #
-# $Id: ssh-fast-allow,v 1.7 2020/07/09 22:22:08 czo Exp $
+# $Id: ssh-fast-allow,v 1.8 2020/07/20 15:55:32 czo Exp $
 
 cp -rp $HOME/.ssh $HOME/.ssh.fast.bk.$$
 rm -fr $HOME/.ssh

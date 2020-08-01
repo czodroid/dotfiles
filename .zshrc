@@ -15,7 +15,7 @@
 #         exellent shell en 1996... Je lui en suis eternellement
 #         reconnaissant.
 #
-# $Id: .zshrc,v 1.142 2020/07/19 13:41:59 czo Exp $
+# $Id: .zshrc,v 1.146 2020/08/01 18:21:29 czo Exp $
 
 ##======= Zsh Settings ==============================================##
 
@@ -83,6 +83,7 @@ export HISTFILE=$HOME/.sh_history
 #export LISTMAX=0
 export LISTMAX=1000
 
+export TMPDIR=${TMPDIR-/tmp}
 
 export REPORTTIME=5
 export TIMEFMT='
@@ -149,7 +150,6 @@ export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes
 export PAGER=less
 
 export PGPPATH=~/.pgp
-export TMPDIR=${TMPDIR-/tmp}
 
 export EDITOR=vim
 export CVSEDITOR=vim
@@ -432,20 +432,19 @@ alias key='perl -MCrypt::SKey -e key'
 acrypt() { echo $1 ; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1 ; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1 ; }
-sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ;
-         print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" }
-sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ;
-         print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" }
+sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" ; }
+sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" ; }
 
 alias cvu='cd ~/etc ; cvs up ; cd -'
 
 alias vieux_ccvs='export CVSROOT=lagavulin:/home/czo/cvsroot ; export CVS_RSH=~/sshc'
 alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
-cvsdiff() { $F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed "s/^revision/-r/2q") $F }
+
+cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F ; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec cvs add '{}' \; \) ; }
 
 alias wgetr='wget -m -np -k -r'
-alias wgetp='wget -m -l 1 --no-parent -k '
+alias wgetp='wget -m -l 1 --no-parent -k'
 
 alias chmodr='chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
 alias chmodg='chmod -R 775 . ; find . -type f -print0 | xargs -0 chmod 664'
@@ -497,6 +496,8 @@ case $PLATFORM in
 
   SunOS|Solaris) alias ps='\ps -ef'         ;;
 
+# a faire plus tard
+# /usr/local/opt/findutils/libexec/gnubin:
          Darwin) alias ls='\gls --time-style=long-iso --color=auto -a'  ;
                  export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
                  export DISPLAY=:0 ;
@@ -522,7 +523,7 @@ alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llexe='find . -type f -perm +1 -print'
 alias md='\mkdir'
-mdcd()    { \mkdir $1  ; cd $1 ;}
+mdcd()    { \mkdir -p "$1"  ; cd "$1" ;}
 
 alias copy='cp'
 alias ren='mv'
@@ -570,7 +571,7 @@ alias ccd=ncd
 mccd()
    {
 MC_USER=`id | sed 's/[^(]*(//;s/).*//'`
-MC_PWD_FILE="${TMPDIR-/tmp}/mc-$MC_USER/mc.pwd.$$"
+MC_PWD_FILE="${TMPDIR}/mc-$MC_USER/mc.pwd.$$"
 /usr/bin/mc -P "$MC_PWD_FILE" "$@"
 
 if test -r "$MC_PWD_FILE"; then
@@ -612,9 +613,9 @@ alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
 alias pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
 ssht() { ssh -t $@ 'tmux attach -d || tmux new' ;}
-alias sshtm='tmate -S ${TMPDIR-/tmp}/tmate.sock new-session -d ; tmate -S ${TMPDIR-/tmp}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR-/tmp}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
-alias color16='for i in {0..15} ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
-alias color256='for i in {0..255} ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias sshtm='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+alias color16='for i in $(seq 0 15) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias color256='for i in $(seq 0 255) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
 alias iip='echo $(wget -q -O- http://ananas/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
@@ -690,7 +691,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.142 2020/07/19 13:41:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.146 2020/08/01 18:21:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 #RPROMPT=' %~'     # prompt for right side of screen
@@ -713,7 +714,7 @@ title () {
 
 # precmd Executed before each prompt.
 precmd () {
-    title "zsh ${PWD} (${USER}@${HOSTNAME})"
+    title "${SHELLNAME} ${PWD} (${USER}@${HOSTNAME})"
 }
 
 # preexec Executed just after a command has been read and is about to be executed
@@ -767,6 +768,8 @@ export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 #unset LANGUAGE
 #unset LC_ALL
 #unset LANG
+
+#sudo update-locale LANG=en_US.UTF-8 $(printf 'LC_%s=de_DE.UTF-8 'NUMERIC TIME MONETARY PAPER NAME ADDRESS TELEPHONE MEASUREMENT IDENTIFICATION)
 
 # man fuser
 # man zshall

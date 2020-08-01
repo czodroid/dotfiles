@@ -7,13 +7,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2006
-# Last Modified: Dimanche 19 juillet 2020, 15:37
-# Edit Time: 61:49:27
+# Last Modified: samedi 01 août 2020, 20:19
+# Edit Time: 62:11:02
 # Description: ~/.bashrc: executed by bash for non-login shells.
 #              tries to mimic my .zshrc and to be 2.05 compatible
 #              for old wkstations
 #
-# $Id: .bashrc,v 1.205 2020/07/19 13:41:59 czo Exp $
+# $Id: .bashrc,v 1.209 2020/08/01 18:21:29 czo Exp $
 
 #set -v
 #set -x
@@ -148,7 +148,7 @@ bind 'set output-meta on'
 bind 'set convert-meta off'
 
 # do not bell on tab-completion
- set 'bell-style none'
+set  'bell-style none'
 #set 'bell-style visible'
 
 bind 'set show-all-if-ambiguous on'
@@ -260,12 +260,15 @@ alias key='perl -MCrypt::SKey -e key'
 acrypt() { echo $1 ; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1 ; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1 ; }
+sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" ; }
+sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" ; }
 
 alias cvu='cd ~/etc ; cvs up ; cd -'
 
 alias vieux_ccvs='export CVSROOT=lagavulin:/home/czo/cvsroot ; export CVS_RSH=~/sshc'
 alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
 
+cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F ; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec cvs add '{}' \; \) ; }
 
 alias wgetr='wget -m -np -k -r'
@@ -285,10 +288,11 @@ alias tarx='\tar -xvf'
 #|| alias vim="vi -u NONE"
 alias ne='emacs -nw'
 v()       { set | grep -ai $1 ;}
-alias asu='su --preserve-environment -c "LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib exec /data/data/com.termux/files/usr/bin/bash" --login'
 #alias \?\?      'set | grep \!*'
 #--scrollstyle xterm
 alias term='\xterm -geometry 90x26 -tn xterm-256color -bg "#2E3436" -fg grey -fa "fixed:size=13" -xrm "XTerm.vt100.allowBoldFonts:false" -xrm "XTerm*SimpleMenu*font:fixed" -xrm "XTerm*SimpleMenu*foreground:black" -xrm "XTerm*SimpleMenu*background:grey" -xrm "XTerm*scrollBar:false" -xrm "XTerm*saveLines:99000" -xrm "XTerm*visualBell:false" -xrm "XTerm*eightBitInput:true" -xrm "XTerm*cursorBlink:on" -xrm "XTerm*cursorOnTime:600" -xrm "XTerm*cursorOffTime:600" -xrm "XTerm*cursorColor:#B20000" -xrm "XTerm*allowSendEvents:false" -xrm "XTerm*sessionMgt:false" -xrm "XTerm*vt100.Translations: #override\n Shift Ctrl <KeyPress>V : insert-selection(PRIMARY, CUT_BUFFER0) \n Shift <KeyPress>Insert : insert-selection(PRIMARY, CUT_BUFFER0) \n Alt <KeyPress>v : insert-selection(PRIMARY, CUT_BUFFER0) \n" -xrm "XTerm*vt100*colorMode:on" -xrm "XTerm*vt100*dynamicColors:on" -xrm "XTerm*vt100*colorULMode:on" -xrm "XTerm*vt100*colorBDMode:on" -xrm "XTerm*vt100*color0:#242425" -xrm "XTerm*vt100*color1:#CC0000" -xrm "XTerm*vt100*color2:#4E9A06" -xrm "XTerm*vt100*color3:#CF6800" -xrm "XTerm*vt100*color4:#3465A4" -xrm "XTerm*vt100*color5:#75507B" -xrm "XTerm*vt100*color6:#06989A" -xrm "XTerm*vt100*color7:#D3D7CF" -xrm "XTerm*vt100*color8:#555753" -xrm "XTerm*vt100*color9:#EF2929" -xrm "XTerm*vt100*color10:#8AE234" -xrm "XTerm*vt100*color11:#FCE94F" -xrm "XTerm*vt100*color12:#729FCF" -xrm "XTerm*vt100*color13:#AD7FA8" -xrm "XTerm*vt100*color14:#34E2E2" -xrm "XTerm*vt100*color15:#EEEEEC" -xrm "XTerm*vt100*colorBD:#5F7DB1" -xrm "XTerm*vt100*colorUL:#C88579"'
+
+alias asu='su --preserve-environment -c "LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib exec /data/data/com.termux/files/usr/bin/bash" --login'
 
 # Shell functions
 # env set
@@ -347,7 +351,7 @@ alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llexe='find . -type f -perm +1 -print'
 alias md='\mkdir'
-mdcd()    { \mkdir $1  ; cd $1 ;}
+mdcd()    { \mkdir -p "$1"  ; cd "$1" ;}
 
 alias copy='cp'
 alias ren='mv'
@@ -438,8 +442,8 @@ alias batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
 alias pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
 ssht() { ssh -t $@ 'tmux attach -d || tmux new' ;}
 alias sshtm='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
-alias color16='for i in {0..15} ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
-alias color256='for i in {0..255} ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias color16='for i in $(seq 0 15) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias color256='for i in $(seq 0 255) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
 alias iip='echo $(wget -q -O- http://ananas/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
@@ -494,7 +498,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.205 2020/07/19 13:41:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.209 2020/08/01 18:21:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash
@@ -556,6 +560,8 @@ export PATH=/opt/android-studio/bin:${PATH}
 export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:${PATH}
 export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
 
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
 # config lang
 #export LC_ALL=C
 
@@ -568,7 +574,7 @@ export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 #unset LC_ALL
 #unset LANG
 
-#s udo update-locale LANG=en_US.UTF-8 $(printf 'LC_%s=de_DE.UTF-8 'NUMERIC TIME MONETARY PAPER NAME ADDRESS TELEPHONE MEASUREMENT IDENTIFICATION)
+#sudo update-locale LANG=en_US.UTF-8 $(printf 'LC_%s=de_DE.UTF-8 'NUMERIC TIME MONETARY PAPER NAME ADDRESS TELEPHONE MEASUREMENT IDENTIFICATION)
 
 # man fuser
 # man zshall

@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Dimanche 19 juillet 2020, 15:39
-" Edit Time: 170:19:18
+" Last Modified: samedi 01 août 2020, 21:10
+" Edit Time: 170:36:25
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.156 2020/07/19 13:41:59 czo Exp $
+" $Id: .vimrc,v 1.157 2020/08/01 19:17:05 czo Exp $
 
 if version >= 580
 
@@ -142,35 +142,52 @@ endif
 
 " == Statusline ==========================================================####
 
+"       \ 'n'      : 'NORMAL ',
+"       \ 'i'      : 'INSERT ',
+"       \ 'R'      : 'REPLAC ',
+"       \ 'Rv'     : 'REPLAC ',
+"       \ 'v'      : 'VISUAL ',
+"       \ 'V'      : 'VISUAL ',
+"       \ "\<C-v>" : 'VISUAL ',
+"       \ 'c'      : 'COMMAN ',
+"       \ 's'      : 'SELECT ',
+"       \ 'S'      : 'SELECT ',
+"       \ "\<C-s>" : 'SELECT ',
+"       \ 't'      : 'TERMIN ',
+
 " :h mode() to see all modes
 let g:currentmode={
-       \ 'n'      : 'NORMAL ',
-       \ 'i'      : 'INSERT ',
-       \ 'R'      : 'REPLAC ',
-       \ 'Rv'     : 'REPLAC ',
-       \ 'v'      : 'VISUAL ',
-       \ 'V'      : 'VISUAL ',
-       \ "\<C-v>" : 'VISUAL ',
-       \ 'c'      : 'COMMAN ',
-       \ 's'      : 'SELECT ',
-       \ 'S'      : 'SELECT ',
-       \ "\<C-s>" : 'SELECT ',
-       \ 't'      : 'TERMIN ',
+       \ 'n'      : 'N',
+       \ 'i'      : 'I',
+       \ 'R'      : 'R',
+       \ 'Rv'     : 'R',
+       \ 'v'      : 'V',
+       \ 'V'      : 'V',
+       \ "\<C-v>" : 'V',
+       \ 'c'      : 'C',
+       \ 's'      : 'S',
+       \ 'S'      : 'S',
+       \ "\<C-s>" : 'S',
+       \ 't'      : 'T',
        \   }
 
 function! LineMode() abort
-  return get(g:currentmode, mode(), 'NORMAL  ')
+  return get(g:currentmode, mode(), 'N')
 endfunction
 
 function! ChangeStatusLineMode()
-  if (LineMode() =~ 'INSERT')
+  if (LineMode() =~ 'I')
     exec 'hi User1 guifg=#282828 gui=none guibg=#b8bb26 ctermfg=Gray cterm=none ctermbg=DarkGreen'
-  elseif (LineMode() =~ 'REPLAC')
+  elseif (LineMode() =~ 'R')
     exec 'hi User1 guifg=#282828 gui=none guibg=#fb4934 ctermfg=Gray cterm=none ctermbg=DarkRed'
-  elseif (LineMode() =~ 'VISUAL')
+  elseif (LineMode() =~ 'V')
     exec 'hi User1 guifg=#282828 gui=none guibg=#d3869b ctermfg=Gray cterm=none ctermbg=DarkMagenta'
-  elseif (LineMode() =~ 'SELECT')
+  elseif (LineMode() =~ 'S')
     exec 'hi User1 guifg=#282828 gui=none guibg=#d3869b ctermfg=Gray cterm=none ctermbg=DarkMagenta'
+  elseif (LineMode() =~ 'T')
+    exec 'hi User1 guifg=#282828 gui=none guibg=#fe8019 ctermfg=Gray cterm=none ctermbg=DarkYellow'
+  elseif (LineMode() =~ 'C')
+    exec 'hi User1 guifg=#282828 gui=none guibg=#fe8019 ctermfg=Gray cterm=none ctermbg=DarkYellow'
   else " 'NORMAL'
     exec 'hi User1 guifg=#282828 gui=none guibg=#83a598 ctermfg=Gray cterm=none ctermbg=DarkBlue'
   endif
@@ -184,7 +201,7 @@ augroup ChangeStatusLineMode
 augroup END
 
 set statusline=
-set statusline+=%1*\ %{ChangeStatusLineMode()}       " current mode
+set statusline+=%1*\ %{ChangeStatusLineMode()}\      " current mode
 set statusline+=%0*\ %<%f\ %m%r                      " Filename, Modified?, RO?
 set statusline+=%=                                   " right
 set statusline+=%2*\ Ln\ %l\ Col\ %c\                " ln col
