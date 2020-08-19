@@ -7,15 +7,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: Dimanche 19 juillet 2020, 15:37
-# Edit Time: 100:36:14
+# Last Modified: mercredi 19 août 2020, 12:21
+# Edit Time: 100:37:29
 # Description:
 #         .zshrc is sourced in interactive shells.
 #         C'est Alex Fenyo, mon guru, qui m'a fait decouvir cet
 #         exellent shell en 1996... Je lui en suis eternellement
 #         reconnaissant.
 #
-# $Id: .zshrc,v 1.146 2020/08/01 18:21:29 czo Exp $
+# $Id: .zshrc,v 1.148 2020/08/19 10:21:49 czo Exp $
 
 ##======= Zsh Settings ==============================================##
 
@@ -614,8 +614,9 @@ alias batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
 alias pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
 ssht() { ssh -t $@ 'tmux attach -d || tmux new' ;}
 alias sshtm='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
-alias color16='for i in $(seq 0 15) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
-alias color256='for i in $(seq 0 255) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias color16='for i in $(seq 0 15) ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n"; for i in $(seq 8 15); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n";'
+alias color256='for i in $(seq 0 255) ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done'
 alias iip='echo $(wget -q -O- http://ananas/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
@@ -691,7 +692,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.146 2020/08/01 18:21:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.148 2020/08/19 10:21:49 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 #RPROMPT=' %~'     # prompt for right side of screen

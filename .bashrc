@@ -7,13 +7,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2006
-# Last Modified: samedi 01 août 2020, 20:19
-# Edit Time: 62:11:02
+# Last Modified: mercredi 19 août 2020, 12:21
+# Edit Time: 62:27:48
 # Description: ~/.bashrc: executed by bash for non-login shells.
 #              tries to mimic my .zshrc and to be 2.05 compatible
 #              for old wkstations
 #
-# $Id: .bashrc,v 1.209 2020/08/01 18:21:29 czo Exp $
+# $Id: .bashrc,v 1.212 2020/08/19 10:21:49 czo Exp $
 
 #set -v
 #set -x
@@ -442,8 +442,9 @@ alias batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
 alias pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
 ssht() { ssh -t $@ 'tmux attach -d || tmux new' ;}
 alias sshtm='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
-alias color16='for i in $(seq 0 15) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
-alias color256='for i in $(seq 0 255) ; do     printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias color16='for i in $(seq 0 15) ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n"; for i in $(seq 8 15); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n";'
+alias color256='for i in $(seq 0 255) ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done'
 alias iip='echo $(wget -q -O- http://ananas/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
@@ -498,7 +499,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.209 2020/08/01 18:21:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.212 2020/08/19 10:21:49 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash

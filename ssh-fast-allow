@@ -4,15 +4,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: dimanche 19 juillet 2020, 16:42
-# Edit Time: 3:05:18
+# Last Modified: mercredi 19 août 2020, 12:51
+# Edit Time: 3:25:45
 # Description:
 #   configure ssh with my authorized_keys
 #   FIXME: deconne sous OSX : pb de cotes....
 #
-#   wget https://raw.githubusercontent.com/czodroid/dotfiles/master/ssh-fast-allow -O /tmp/runit-$$ && sh /tmp/runit-$$
+#   bash -c $(curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/ssh-fast-allow) 
 #
-# $Id: ssh-fast-allow,v 1.8 2020/07/20 15:55:32 czo Exp $
+# $Id: ssh-fast-allow,v 1.9 2020/08/19 10:53:01 czo Exp $
 
 cp -rp $HOME/.ssh $HOME/.ssh.fast.bk.$$
 rm -fr $HOME/.ssh
@@ -21,6 +21,25 @@ chmod 700 $HOME/.ssh
    
 ssh-keygen -t rsa -N "" -f "$HOME/.ssh/id_rsa"
 
+cat << 'EOF' >> "$HOME/.ssh/config"
+# Filename: config
+# Author: Olivier Sirol <czo@free.fr>
+# Last Modified: mercredi 19 août 2020, 12:48
+#
+
+Host magdhcp-*
+ UserKnownHostsFile /dev/null
+ StrictHostKeyChecking no
+
+Host *
+ ForwardX11 yes
+ NoHostAuthenticationForLocalhost yes
+ StrictHostKeyChecking ask
+ HashKnownHosts no
+ ServerAliveInterval 15
+
+EOF
+
 cat "$HOME/.ssh/id_rsa.pub"  > "$HOME/.ssh/authorized_keys"
 
 cat << 'EOF' >> "$HOME/.ssh/authorized_keys"
@@ -28,5 +47,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCuKur9qJiN52uKzftv0sbd59JEX/PfwS9Hpvdm1J5Z
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA1UrRI2S19jMe6b0OKKMePnhhR5R5ES08cNUqM/lrch7Q8kKrfjFZSWqOFi2f+dW8YC9VpZUCx4GKyCDFV6kZEcMRrMgcWuBDdpIIsxsTd9wZu5hAeKOrpVlZrCSDfhnSyF7USRD30T6ap99qFc9njFyBVBpOPZna+/iJexfxbMEdSFhWW2xQ+iLei35GjY/TuFChkdSS0lUIb96xpJWdKIW/UuHlPlxRTpaqZuF4QHuD1Z6P13k7OurjwUWvW95uffKOQLlfxOlaiESTms6H/+ZaO+B/xDRwcLYcB50Nh6jWQ4tfLZMoO5rX00fA0cJd8DYW7eDxbxkDYClfSCjiyw== czo@ananas
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcrCJHihjAdQ6tccw6pYZv227XdVZD6Xc4rjUJyzgz/4d5P3JjXkM+Ae4Lts3EFBnNWGNAocYo+JaQ0yam2JotwnxJZmHb+tkPkFqiOG5IqGclFQfQJ3w7egDqBEI++zw2gZhew/24kcodqN5jJafYODOoErZ4FISNxX+mKk0s2JjDMTL+Aj1XLTVDHYsVURN3065cWL907U0fSYjBe9SPy1tiq5//nE2EJTURR8vhRwa3zxHsPk4scvPscyHzhSgCOEbtVUvikK1nVRV44kjbi3RIQUWe00oL+Ehp2Ih/QcERz/Aj+OUwrILx5usRikW86s2fTW1kIKzDaML3U20V root@bruichladdich
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAokzUdopXVaiBtjI9fjHRLzgi0DM9NJMfdTZoCi6L1PcXfdP9AqnIhpCvDN3E81AeB3xL28rwJLLMLx3oWq5iFzcdVWLIiVaqe0ggSTmA6JFLCYPGUqjnJkoidZdteW6ds8QgtUCh/s0FoUNeKTE0zzZ0yET6mq995LVKl9k4Ft8EuGaAPFP4Og8dLZypYsYjMQmk7FuJp1yFziZ/ZV8Nszpof7ZcT192JXR65a5KCiuqwWdxLjwlgtHFtYMcVxxgCGPYK170Fkgde8P9QBSizyF1Lhl1ZuNXEVr/QjVO+nYaGNjLK/L4C6Jw5PmLTW3mc0jO8HnXCYEaCf5KunRNnQ== root@ananas
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1IFx2ngIzNDO9srGw8QTz/mE5Wnp3hbjrWgbLH/l2L74BeHa9pbWDHB3LSXyYaemFn7GBscuWhXHPdLGmn2RcluGlNOJ5m3hoDSZ7zO0eaLlU4d3fFwFXPT3FDHaAOONqalxUKjUDjrH3sTOfB/0/SgN4wQNSz0npxUcZ9FqOW6c1nNoQJDKJ14SUZhCTgg9sTep2N6foOuEUGWzTqB4GkgbEa8yW0wZxK49DDfmocoAQksAPer8wI0/SsK7kGNH9hIJ5R3dHCzuijxtc6viCPnB5nQA3bbDUNzX+xFR81RLvWgBj153UId+ErWWrTV5XUSE+SwHjgVE2cRxRMfutiCxuuWVCv6ld55vipRbPzihGGyQ0x0rhOydOwASEHQRbEXtUp77j6fNDbQ5paPj/8gIWoo+BUvAg7rAp38gY4tKzDEhtZlCgKP+T4lIip6f0SUADuceb73L2rCZZ7SySZvG2k6otURhIZ9BPX5i06y0gVtPlT0/PZLjQ0FpqCBs= czo@grabadu
+
 EOF
+
 

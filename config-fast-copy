@@ -4,18 +4,18 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mardi 28 juillet 2020, 20:58
-# Edit Time: 4:32:51
+# Last Modified: mercredi 19 août 2020, 12:29
+# Edit Time: 4:39:02
 # Description:
 #   copy my config files
 #   
-#   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy)"
+#   bash -c $(curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy)
 #
-# $Id: config-fast-copy,v 1.5 2020/08/01 13:54:36 czo Exp $
+# $Id: config-fast-copy,v 1.6 2020/08/19 10:53:01 czo Exp $
 
 # cd
 echo "## -> copy root config files"
-for f in .Xresources .bashrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc .minttyrc
+for f in .Xresources .bashrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc
 do
   echo "   <- $f"
   curl -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f
