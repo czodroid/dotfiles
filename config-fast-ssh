@@ -1,18 +1,22 @@
 #!/bin/sh
 #
-# Filename: ssh-fast-allow
+# Filename: config-fast-ssh
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mercredi 19 août 2020, 12:51
-# Edit Time: 3:25:45
+# Last Modified: mercredi 19 août 2020, 14:47
+# Edit Time: 3:42:08
 # Description:
-#   configure ssh with my authorized_keys
-#   FIXME: deconne sous OSX : pb de cotes....
+#   configure ssh with my authorized_keys and config
+#   FIXME: deconne sous OSX en copiant/colant: pb de cotes....
 #
-#   bash -c $(curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/ssh-fast-allow) 
+#   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
 #
-# $Id: ssh-fast-allow,v 1.9 2020/08/19 10:53:01 czo Exp $
+#   ou par ex en debian ou si jamais curl n'est pas installé (apt-get update ; apt-get install curl)
+#
+#   wget -qO-  https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
+#
+# $Id: config-fast-ssh,v 1.1 2020/08/19 12:48:10 czo Exp $
 
 cp -rp $HOME/.ssh $HOME/.ssh.fast.bk.$$
 rm -fr $HOME/.ssh
