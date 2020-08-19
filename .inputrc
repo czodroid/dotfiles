@@ -1,0 +1,84 @@
+#
+#             ,,,
+#            (o o)
+####=====oOO--(_)--OOO=============================================####
+#
+# Filename: .inputrc
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0
+# File Created: April 1996
+# Last Modified: lundi 22 juillet 2019, 17:53
+# Edit Time: 4:25:41
+# Description: ~/.inputrc
+#              See readline(3readline) and `info rluserman' 
+#              for more information.
+#
+# $Id: .inputrc,v 1.4 2019/07/22 15:58:46 czo Exp $
+
+
+# Be 8 bit clean.
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# do not bell on tab-completion
+ set bell-style none
+#set 'bell-style visible
+
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set completion-query-items 1000
+set page-completions off
+set colored-stats on
+set visible-stats on
+#set history-preserve-point on
+#set menu-complete-display-prefix on
+
+"\e[C":     forward-char
+"\e[OC":    forward-char
+"\e[1;2C":  forward-char
+"\e[D":     backward-char
+"\e[OD":    backward-char
+"\e[1;2D":  backward-char
+
+"\e[H":     beginning-of-line
+"\e[OH":    beginning-of-line
+"\e[1~":    beginning-of-line
+"\e[7~":    beginning-of-line
+"\e[5;2~":  beginning-of-line
+
+"\e[F":     end-of-line
+"\e[OF":    end-of-line
+"\e[4~":    end-of-line
+"\e[8~":    end-of-line
+"\e[6;2~":  end-of-line
+
+"\e[1;5C":  shell-forward-word
+"\e[91~":   shell-forward-word
+"\eOc":     shell-forward-word
+
+"\e[1;5D":  shell-backward-word
+"\e[90~":   shell-backward-word
+"\eOd":     shell-backward-word
+
+"\e[A":     history-search-backward
+"\e[OA":    history-search-backward
+"\e[1;5A":  history-search-backward
+
+"\e[B":     history-search-forward
+"\e[OB":    history-search-forward
+"\e[1;5B":  history-search-forward
+
+"\C-p":     previous-history
+"\C-n":     next-history
+
+"\e[3~":    delete-char
+"\C-h":     backward-delete-char
+
+"\e[3;3~":  shell-kill-word
+"\M-h":     shell-backward-kill-word
+
+"\e\e":     kill-whole-line
+
+"\em":      "\C-w\C-y\C-y"
+
