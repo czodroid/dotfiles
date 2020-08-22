@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mercredi 19 août 2020, 14:47
-# Edit Time: 3:42:08
+# Last Modified: samedi 22 août 2020, 19:59
+# Edit Time: 3:43:13
 # Description:
 #   configure ssh with my authorized_keys and config
 #   FIXME: deconne sous OSX en copiant/colant: pb de cotes....
@@ -13,8 +13,7 @@
 #   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
 #
 #   ou par ex en debian ou si jamais curl n'est pas installé (apt-get update ; apt-get install curl)
-#
-#   wget -qO-  https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
+#   wget -qO- https://pwet | bash
 #
 # $Id: config-fast-ssh,v 1.1 2020/08/19 12:48:10 czo Exp $
 
