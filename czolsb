@@ -1,91 +1,77 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Filename: czolsb
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: samedi 14 mars 2020, 11:35
-# Edit Time: 3:51:40
+# Last Modified: samedi 22 août 2020, 17:51
+# Edit Time: 9:09:08
 # Description: 
-#   Update LSB tag motd
-#   faire rm /etc/lsb-date avant de le lancer
-#   par ex : AU && rm /etc/lsb-date && reboot
+#   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
-#   Faudra aussi mettre /var/www/index.html
+#   faudra aussi mettre /var/www/index.html
 #
-# $Id: czolsb,v 1.9 2020/03/16 17:27:13 czo Exp $
-
-
-# do nothing
-#exit 0
-
-# ne marche pas dans un cron
-rm /etc/lsb-date
+# $Id: czolsb,v 1.17 2020/08/22 15:53:56 czo Exp $
+#
+# sans lsb_release
+# le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
+# centos_6.5-x86_64-czo_servup-20140410
+# mais avec /etc/os-release
+# 
+# PRETTY_NAME="Debian GNU/Linux 10 (buster)"
+# NAME="Debian GNU/Linux"
+# VERSION_ID="10"
+# VERSION="10 (buster)"
+# VERSION_CODENAME=buster
+# ID=debian
+# HOME_URL="https://www.debian.org/"
+# SUPPORT_URL="https://www.debian.org/support"
+# BUG_REPORT_URL="https://bugs.debian.org/"
+# 
+# Linux Fedora 9, kernel 2.6.27.25-78.2.56.fc9.i686
+# Last update: czo-f9servup-20090827
+# 4 x Intel(R) Xeon(R) CPU E5335 @ 2.00GHz - 3.2 Go RAM - 8.0 Go SWAP
+#
+# 4 x Intel(R) Core(TM) i7-4650U CPU @ 1.70GHz - 7.7GB RAM - 2.0GB SWAP
+# Linux Ubuntu 20.04 (ubuntu_20.04-x86_64-czo-20200820)
+# kernel x86_64 5.4.0-42-generic
+#
+# Install date : 07-2020
+#
 
 export LANG=C
 
-echo "##--------------------------------------------------------------------##"
-echo "## -> update lsb-tag motd"
-
-if [ ! -x /usr/bin/lsb_release ]
-then
- echo "ERROR: can't find lsb_release"
- exit 1
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
 fi
 
-if [ -f /etc/lsb-date ]
-then
- DATE=$(cat /etc/lsb-date)
-else
- DATE=$(date +%Y%m%d)
-# 20180624
- echo $DATE > /etc/lsb-date
-fi
+[ -n "$HOSTNAME" ] || { [ -x /bin/getprop ] && HOSTNAME=`getprop net.hostname` ;} || { [ -x /bin/hostname ] && HOSTNAME=`hostname -s` ;} || HOSTNAME=`uname -n`
+HOSTNAME=$( echo "$HOSTNAME" | perl -pe 's/\..*//' )
 
-TAG=`echo "$(lsb_release -s -i)_$(lsb_release -s -r)-$(uname -m)-czo-$DATE" | sed 's/\(.*\)/\L\1/'`
-# debian_9.4-x86_64-czo-20180624
-echo $TAG > /etc/lsb-tag
-
-RELEASE="$(lsb_release -s -i) $(lsb_release -s -r)"
-NBCORE=`perl -e '@procn=grep(/^processor\t:/, \`cat /proc/cpuinfo\`); $procn=@procn; print "$procn\n";'`
-COREMODEL=`perl -e '($model)= (\`cat /proc/cpuinfo\` =~ /^model name\t: (.*)/m); $model=~ s/  */ /g; print "$model\n";'`
+CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
+CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); print $A4;')
 # hack to get total
-MEM=$( perl -e  '($mem)= ( qx"cat /proc/meminfo" =~  /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM\n",$mem;' );
-SWAP=$( perl -e  '($mem)= (`cat /proc/meminfo` =~  /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP\n",$mem;' );
-NAME=$(hostname | cut -d . -f 1)
-CNAME=$(uname -m)
-KNAME=$(uname -r)
+CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM",$mem;')
+CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
 
-#  4 x Intel(R) Core(TM) i7-4650U CPU @ 1.70GHz - 8GB RAM - 9GB SWAP
-#  Linux Debian 9.4 (debian_9.4-x86_64-czo-20180624)
-#  kernel x86_64 4.9.0-6-amd64
-cat << EOF > /etc/lsb-info
-  $NBCORE x $COREMODEL - $MEM - $SWAP
-  Linux $RELEASE ($TAG)
-  kernel $CNAME $KNAME
-EOF
+CRELEASE=$PRETTY_NAME
+CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/(.*)/\L\1/')
 
-# /etc/lsb-release est fabriqué par ubuntu et resemble a lsb_release -a
-# if grep -i 'name.*=.*ubuntu' /etc/os-release > /dev/null; 
-# \$(uptime) 
+CCNAME=$(uname -m)
+CKNAME=$(uname -r)
 
-cat << EOF > /etc/motd
+cat << EOF
               ,,,
              (o o)
 ####=====oOO==(_)==OOO==============================================####
 
-                         Welcome to $NAME
+                        Welcome to $HOSTNAME
 
-$(cat /etc/lsb-info)
+ Linux $CRELEASE, $CCNAME, $CKNAME
+ $CNBCORE x $CCOREMODEL, $CMEM, $CSWAP
+ Last update: $CTAG
 
 ####================================================================####
 
 EOF
-
-echo "##   <- end"
-
-# ne marche pas dans un cron
-cat /etc/motd
-
-exit 0
 
