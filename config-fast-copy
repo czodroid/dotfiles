@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: samedi 22 août 2020, 19:59
-# Edit Time: 4:45:29
+# Last Modified: vendredi 28 août 2020, 13:26
+# Edit Time: 4:45:42
 # Description:
 #   copy my config files
 #   
@@ -13,11 +13,11 @@
 #
 #   marche aussi en wget -qO- https://pwet | bash
 #
-# $Id: config-fast-copy,v 1.8 2020/08/19 12:53:10 czo Exp $
+# $Id: config-fast-copy,v 1.10 2020/08/28 11:54:51 czo Exp $
 
 # cd
 echo "## -> copy my config files"
-for f in .Xresources .bashrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc
+for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc
 do
   echo "   <- $f"
   curl -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f

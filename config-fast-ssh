@@ -15,7 +15,7 @@
 #   ou par ex en debian ou si jamais curl n'est pas installé (apt-get update ; apt-get install curl)
 #   wget -qO- https://pwet | bash
 #
-# $Id: config-fast-ssh,v 1.1 2020/08/19 12:48:10 czo Exp $
+# $Id: config-fast-ssh,v 1.2 2020/08/28 09:42:04 czo Exp $
 
 cp -rp $HOME/.ssh $HOME/.ssh.fast.bk.$$
 rm -fr $HOME/.ssh

@@ -4,14 +4,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: samedi 22 août 2020, 17:51
-# Edit Time: 9:09:08
+# Last Modified: vendredi 28 août 2020, 14:58
+# Edit Time: 9:17:57
 # Description: 
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
 #   faudra aussi mettre /var/www/index.html
 #
-# $Id: czolsb,v 1.17 2020/08/22 15:53:56 czo Exp $
+# $Id: czolsb,v 1.18 2020/08/31 20:15:11 czo Exp $
 #
 # sans lsb_release
 # le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
@@ -49,12 +49,12 @@ fi
 HOSTNAME=$( echo "$HOSTNAME" | perl -pe 's/\..*//' )
 
 CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
-CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); print $A4;')
+CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); $A4=~s/  */ /g; print $A4;')
 # hack to get total
 CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM",$mem;')
 CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
 
-CRELEASE=$PRETTY_NAME
+CRELEASE=$(echo "$PRETTY_NAME" | perl -pe 's/  */ /g')
 CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/(.*)/\L\1/')
 
 CCNAME=$(uname -m)
