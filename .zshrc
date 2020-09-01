@@ -6,15 +6,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: lundi 31 août 2020, 22:14
-# Edit Time: 104:11:58
+# Last Modified: mardi 01 septembre 2020, 10:25
+# Edit Time: 104:12:18
 # Description:
 #         .zshrc is sourced in interactive shells.
 #         C'est Alex Fenyo, mon guru, qui m'a fait decouvir cet
 #         exellent shell en 1996... Je lui en suis eternellement
 #         reconnaissant.
 #
-# $Id: .zshrc,v 1.151 2020/08/31 20:25:12 czo Exp $
+# $Id: .zshrc,v 1.152 2020/09/01 08:25:41 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -673,7 +673,7 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' accept-exact-dirs true 
 zstyle :compinstall filename "$HOME/.zshrc"
 
-#autoload -Uz compinit
+autoload -Uz compinit
 #compinit
 # End of lines added by compinstall
 compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
@@ -692,7 +692,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.151 2020/08/31 20:25:12 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.152 2020/09/01 08:25:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 #RPROMPT=' %~'     # prompt for right side of screen
