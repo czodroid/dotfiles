@@ -2,11 +2,11 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2000
-# Last Modified: vendredi 19 juillet 2019, 15:48
-# Edit Time: 16:52:56
+# Last Modified: mercredi 02 septembre 2020, 23:18
+# Edit Time: 16:59:19
 # Description: screen conf file
 #
-# $Id: .screenrc,v 1.29 2019/07/19 13:50:22 czo Exp $
+# $Id: .screenrc,v 1.30 2020/09/02 21:29:06 czo Exp $
 
 #term screen-256color
 term xterm-256color
@@ -33,8 +33,7 @@ caption always "%{YK}[%n] %{W.}%t $HOST_PROMPT_SIZE %{C.}%D %d, %c%{-} %{k}%{.$H
 
 # key bindings
 bind ^k eval kill
-bind 'l' windowlist -b
-bind ' ' windowlist -b
+bind w windowlist -b
 bind v paste .
 bind ^v paste .
 

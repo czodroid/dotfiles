@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: samedi 01 août 2020, 22:24
-" Edit Time: 170:43:50
+" Last Modified: jeudi 03 septembre 2020, 15:01
+" Edit Time: 171:04:38
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.158 2020/08/01 20:27:13 czo Exp $
+" $Id: .vimrc,v 1.160 2020/09/03 13:02:11 czo Exp $
 
 if version >= 580
 
@@ -142,33 +142,33 @@ endif
 
 " == Statusline ==========================================================####
 
-"       \ 'n'      : 'NORMAL ',
-"       \ 'i'      : 'INSERT ',
-"       \ 'R'      : 'REPLAC ',
-"       \ 'Rv'     : 'REPLAC ',
-"       \ 'v'      : 'VISUAL ',
-"       \ 'V'      : 'VISUAL ',
-"       \ "\<C-v>" : 'VISUAL ',
-"       \ 'c'      : 'COMMAN ',
-"       \ 's'      : 'SELECT ',
-"       \ 'S'      : 'SELECT ',
-"       \ "\<C-s>" : 'SELECT ',
-"       \ 't'      : 'TERMIN ',
+"       \ 'n'      : 'NORMAL',
+"       \ 'i'      : 'INSERT',
+"       \ 'R'      : 'REPLAC',
+"       \ 'Rv'     : 'REPLAC',
+"       \ 'v'      : 'VISUAL',
+"       \ 'V'      : 'VISUAL',
+"       \ "\<C-v>" : 'VISUAL',
+"       \ 'c'      : 'COMMAN',
+"       \ 's'      : 'SELECT',
+"       \ 'S'      : 'SELECT',
+"       \ "\<C-s>" : 'SELECT',
+"       \ 't'      : 'TERMIN',
 
 " :h mode() to see all modes
 let g:currentmode={
-       \ 'n'      : 'N',
-       \ 'i'      : 'I',
-       \ 'R'      : 'R',
-       \ 'Rv'     : 'R',
-       \ 'v'      : 'V',
-       \ 'V'      : 'V',
-       \ "\<C-v>" : 'V',
-       \ 'c'      : 'C',
-       \ 's'      : 'S',
-       \ 'S'      : 'S',
-       \ "\<C-s>" : 'S',
-       \ 't'      : 'T',
+       \ 'n'      : 'NORMAL',
+       \ 'i'      : 'INSERT',
+       \ 'R'      : 'REPLAC',
+       \ 'Rv'     : 'REPLAC',
+       \ 'v'      : 'VISUAL',
+       \ 'V'      : 'VISUAL',
+       \ "\<C-v>" : 'VISUAL',
+       \ 'c'      : 'COMMAN',
+       \ 's'      : 'SELECT',
+       \ 'S'      : 'SELECT',
+       \ "\<C-s>" : 'SELECT',
+       \ 't'      : 'TERMIN',
        \   }
 
 function! LineMode() abort
@@ -176,17 +176,17 @@ function! LineMode() abort
 endfunction
 
 function! ChangeStatusLineMode()
-  if (LineMode() =~ 'I')
+  if (LineMode() =~ '^I')
     exec 'hi User1 guifg=#282828 gui=none guibg=#b8bb26 ctermfg=Gray cterm=none ctermbg=DarkGreen'
-  elseif (LineMode() =~ 'R')
+  elseif (LineMode() =~ '^R')
     exec 'hi User1 guifg=#282828 gui=none guibg=#fb4934 ctermfg=Gray cterm=none ctermbg=DarkRed'
-  elseif (LineMode() =~ 'V')
+  elseif (LineMode() =~ '^V')
     exec 'hi User1 guifg=#282828 gui=none guibg=#d3869b ctermfg=Gray cterm=none ctermbg=DarkMagenta'
-  elseif (LineMode() =~ 'S')
+  elseif (LineMode() =~ '^S')
     exec 'hi User1 guifg=#282828 gui=none guibg=#d3869b ctermfg=Gray cterm=none ctermbg=DarkMagenta'
-  elseif (LineMode() =~ 'T')
+  elseif (LineMode() =~ '^T')
     exec 'hi User1 guifg=#282828 gui=none guibg=#fe8019 ctermfg=Gray cterm=none ctermbg=DarkYellow'
-  elseif (LineMode() =~ 'C')
+  elseif (LineMode() =~ '^C')
     exec 'hi User1 guifg=#282828 gui=none guibg=#fe8019 ctermfg=Gray cterm=none ctermbg=DarkYellow'
   else " 'NORMAL'
     exec 'hi User1 guifg=#282828 gui=none guibg=#83a598 ctermfg=Gray cterm=none ctermbg=DarkBlue'
@@ -307,6 +307,8 @@ endif
 " he paste nopaste
 
 if has('clipboard')
+    set clipboard=unnamed
+    set ttyfast
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
         " but dont use Ctrl-A
@@ -486,6 +488,8 @@ hi  User8         guifg=#35302b  guibg=#8ec07c  ctermfg=Black     ctermbg=Cyan  
 hi  User9         guifg=#35302b  guibg=#fe8019  ctermfg=Black     ctermbg=Yellow    gui=inverse         cterm=inverse         term=inverse
 hi  StatusLine    guifg=#35302b  guibg=#ebdbb2  ctermfg=Black     ctermbg=White     gui=inverse         cterm=inverse         term=inverse
 hi  StatusLineNC  guifg=#35302b  guibg=#ebdbb2  ctermfg=Black     ctermbg=White     gui=inverse,italic  cterm=inverse,italic  term=inverse,italic
+hi  StatusLineTerm   guifg=#35302b  guibg=#ebdbb2  ctermfg=Black     ctermbg=White     gui=inverse         cterm=inverse         term=inverse
+hi  StatusLineTermNC guifg=#35302b  guibg=#ebdbb2  ctermfg=Black     ctermbg=White     gui=inverse,italic  cterm=inverse,italic  term=inverse,italic
 hi  VertSplit     guifg=#35302b  guibg=#35302b  ctermfg=Black     ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
 hi  WildMenu      guifg=#fabd2f  guibg=#282828  ctermfg=Yellow    ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
 hi  Directory     guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
