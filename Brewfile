@@ -27,6 +27,7 @@ brew "iftop"
 brew "imagemagick"
 brew "lftp"
 brew "macvim"
+brew "mas"
 brew "midnight-commander"
 brew "ncdu"
 brew "neovim"
@@ -42,6 +43,7 @@ brew "portaudio"
 brew "reattach-to-user-namespace"
 brew "rsync"
 brew "squashfs"
+brew "subversion"
 brew "tcpdump"
 brew "tesseract-lang"
 brew "tmate"
@@ -65,9 +67,13 @@ cask "inkscape"
 cask "iterm2"
 cask "itsycal"
 cask "keka"
+cask "libreoffice"
+cask "libreoffice-language-pack"
 cask "meld"
 cask "menumeters"
+cask "microsoft-auto-update"
 cask "microsoft-edge"
+cask "microsoft-office"
 cask "noti"
 cask "openzfs"
 cask "pdfsam-basic"
@@ -80,3 +86,15 @@ cask "visual-studio-code"
 cask "vlc"
 cask "xquartz"
 cask "zoomus"
+mas "AJA System Test Lite", id: 1092006274
+mas "Amphetamine", id: 937984704
+mas "GarageBand", id: 682658836
+mas "Image2icon", id: 992115977
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Microsoft Remote Desktop", id: 715768417
+mas "NordVPN IKE", id: 1116599239
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Photos Duplicate Cleaner", id: 592704001
+mas "Surfshark", id: 1437809329
