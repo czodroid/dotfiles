@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: vendredi 28 août 2020, 13:26
-# Edit Time: 4:45:42
+# Last Modified: samedi 05 septembre 2020, 16:17
+# Edit Time: 4:45:51
 # Description:
 #   copy my config files
 #   
@@ -17,7 +17,7 @@
 
 # cd
 echo "## -> copy my config files"
-for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc
+for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb
 do
   echo "   <- $f"
   curl -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f
