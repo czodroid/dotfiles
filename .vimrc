@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: samedi 05 septembre 2020, 15:44
-" Edit Time: 173:07:01
+" Last Modified: samedi 05 septembre 2020, 18:59
+" Edit Time: 173:10:04
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.163 2020/09/05 13:46:37 czo Exp $
+" $Id: .vimrc,v 1.165 2020/09/05 17:02:22 czo Exp $
 
 if version >= 580
 
@@ -110,6 +110,7 @@ set incsearch
 set wildmenu
 set wildmode=longest,full
 
+set ttymouse=xterm2
 set mouse=a
 
 " tags search path
@@ -302,6 +303,7 @@ if has('clipboard')
         so $VIMRUNTIME/mswin.vim
         " but dont use Ctrl-A
         noremap <C-A> <C-A>
+        inoremap <C-A> <C-A>
     endif
 else
     echoe "Vim compiled whith no clipboard !!!!"

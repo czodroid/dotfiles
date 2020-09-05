@@ -13,7 +13,7 @@
 #
 #   marche aussi en wget -qO- https://pwet | bash
 #
-# $Id: config-fast-copy,v 1.10 2020/08/28 11:54:51 czo Exp $
+# $Id: config-fast-copy,v 1.11 2020/09/05 15:40:54 czo Exp $
 
 # cd
 echo "## -> copy my config files"

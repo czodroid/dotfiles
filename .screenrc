@@ -2,18 +2,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2000
-# Last Modified: samedi 05 septembre 2020, 12:16
-# Edit Time: 18:53:49
+# Last Modified: samedi 05 septembre 2020, 18:41
+# Edit Time: 19:08:52
 # Description: screen conf file
 #
-# $Id: .screenrc,v 1.31 2020/09/05 10:59:09 czo Exp $
+# $Id: .screenrc,v 1.32 2020/09/05 17:02:22 czo Exp $
 
 #term screen-256color
 term xterm-256color
-# ??terminal-overrides ",*256col*:Tc" 
-
-# This is how one can set a reattach password:
-#password ODSJQf.4IJN7E    # "1234"
 
 startup_message off
 msgwait 5
@@ -30,7 +26,7 @@ sorendition "=s Wr"
 
 # 17 car
 # dim. 05, 22:24
-caption always "%{YK}[%n] %{W.}%t $HOST_PROMPT_SIZE %{C.}%D %d, %c%{-} %{k}%{.$HOST_PROMPT_COLOR} %H %{-}"
+caption always "%{YK}[%n] %{W.}%h $HOST_PROMPT_SIZE %{C.}%D %d, %c%{-} %{k}%{.$HOST_PROMPT_COLOR} %H %{-}"
 
 # key bindings
 bind ^k eval kill

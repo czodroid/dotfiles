@@ -12,7 +12,7 @@
 #              tries to mimic my .zshrc and to be 2.05 compatible
 #              for old wkstations
 #
-# $Id: .bashrc,v 1.216 2020/09/04 14:22:47 czo Exp $
+# $Id: .bashrc,v 1.217 2020/09/05 17:02:22 czo Exp $
 
 #set -v
 #set -x
@@ -268,6 +268,7 @@ sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A
 sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" ; }
 
 alias cvu='cd ~/etc ; cvs up ; cd -'
+alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
 
 alias vieux_ccvs='export CVSROOT=lagavulin:/home/czo/cvsroot ; export CVS_RSH=~/sshc'
 alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
@@ -501,7 +502,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.216 2020/09/04 14:22:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.217 2020/09/05 17:02:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash

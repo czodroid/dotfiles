@@ -6,15 +6,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: jeudi 03 septembre 2020, 14:21
-# Edit Time: 104:17:10
+# Last Modified: samedi 05 septembre 2020, 18:18
+# Edit Time: 104:17:41
 # Description:
 #         .zshrc is sourced in interactive shells.
 #         C'est Alex Fenyo, mon guru, qui m'a fait decouvir cet
 #         exellent shell en 1996... Je lui en suis eternellement
 #         reconnaissant.
 #
-# $Id: .zshrc,v 1.154 2020/09/04 14:22:48 czo Exp $
+# $Id: .zshrc,v 1.155 2020/09/05 16:18:17 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -436,6 +436,7 @@ sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A
 sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" ; }
 
 alias cvu='cd ~/etc ; cvs up ; cd -'
+alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
 
 alias vieux_ccvs='export CVSROOT=lagavulin:/home/czo/cvsroot ; export CVS_RSH=~/sshc'
 alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
@@ -691,7 +692,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.154 2020/09/04 14:22:48 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.155 2020/09/05 16:18:17 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 #RPROMPT=' %~'     # prompt for right side of screen
