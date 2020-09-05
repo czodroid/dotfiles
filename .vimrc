@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: jeudi 03 septembre 2020, 15:01
-" Edit Time: 171:04:38
+" Last Modified: samedi 05 septembre 2020, 15:44
+" Edit Time: 173:07:01
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.160 2020/09/03 13:02:11 czo Exp $
+" $Id: .vimrc,v 1.163 2020/09/05 13:46:37 czo Exp $
 
 if version >= 580
 
@@ -27,6 +27,7 @@ if version >= 580
 set nocompatible
 let g:colors_name = ""
 if has("termguicolors")
+  " work in tmux, but not in screen
   set termguicolors
 endif
 let mapleader=","
@@ -35,7 +36,7 @@ set number
 set cursorline
 set nocursorcolumn
 set showcmd
-set showmode
+set noshowmode
 set showmatch
 set ruler
 set shortmess=aOt
@@ -142,19 +143,6 @@ endif
 
 " == Statusline ==========================================================####
 
-"       \ 'n'      : 'NORMAL',
-"       \ 'i'      : 'INSERT',
-"       \ 'R'      : 'REPLAC',
-"       \ 'Rv'     : 'REPLAC',
-"       \ 'v'      : 'VISUAL',
-"       \ 'V'      : 'VISUAL',
-"       \ "\<C-v>" : 'VISUAL',
-"       \ 'c'      : 'COMMAN',
-"       \ 's'      : 'SELECT',
-"       \ 'S'      : 'SELECT',
-"       \ "\<C-s>" : 'SELECT',
-"       \ 't'      : 'TERMIN',
-
 " :h mode() to see all modes
 let g:currentmode={
        \ 'n'      : 'NORMAL',
@@ -177,19 +165,19 @@ endfunction
 
 function! ChangeStatusLineMode()
   if (LineMode() =~ '^I')
-    exec 'hi User1 guifg=#282828 gui=none guibg=#b8bb26 ctermfg=Gray cterm=none ctermbg=DarkGreen'
+    exec 'hi User1 guifg=#35302b guibg=#b8bb26 ctermfg=Black ctermbg=Green   gui=inverse cterm=inverse term=inverse'
   elseif (LineMode() =~ '^R')
-    exec 'hi User1 guifg=#282828 gui=none guibg=#fb4934 ctermfg=Gray cterm=none ctermbg=DarkRed'
+    exec 'hi User1 guifg=#35302b guibg=#fb4934 ctermfg=Black ctermbg=Red     gui=inverse cterm=inverse term=inverse'
   elseif (LineMode() =~ '^V')
-    exec 'hi User1 guifg=#282828 gui=none guibg=#d3869b ctermfg=Gray cterm=none ctermbg=DarkMagenta'
+    exec 'hi User1 guifg=#35302b guibg=#d3869b ctermfg=Black ctermbg=Magenta gui=inverse cterm=inverse term=inverse'
   elseif (LineMode() =~ '^S')
-    exec 'hi User1 guifg=#282828 gui=none guibg=#d3869b ctermfg=Gray cterm=none ctermbg=DarkMagenta'
+    exec 'hi User1 guifg=#35302b guibg=#d3869b ctermfg=Black ctermbg=Magenta gui=inverse cterm=inverse term=inverse'
   elseif (LineMode() =~ '^T')
-    exec 'hi User1 guifg=#282828 gui=none guibg=#fe8019 ctermfg=Gray cterm=none ctermbg=DarkYellow'
+    exec 'hi User1 guifg=#35302b guibg=#fe8019 ctermfg=Black ctermbg=Yellow  gui=inverse cterm=inverse term=inverse'
   elseif (LineMode() =~ '^C')
-    exec 'hi User1 guifg=#282828 gui=none guibg=#fe8019 ctermfg=Gray cterm=none ctermbg=DarkYellow'
-  else " 'NORMAL'
-    exec 'hi User1 guifg=#282828 gui=none guibg=#83a598 ctermfg=Gray cterm=none ctermbg=DarkBlue'
+    exec 'hi User1 guifg=#35302b guibg=#fe8019 ctermfg=Black ctermbg=Yellow  gui=inverse cterm=inverse term=inverse'
+  else " NORMAL
+    exec 'hi User1 guifg=#35302b guibg=#83a598 ctermfg=Black ctermbg=Blue    gui=inverse cterm=inverse term=inverse'
   endif
   return LineMode()
 endfunction
@@ -202,10 +190,11 @@ augroup END
 
 set statusline=
 set statusline+=%1*\ %{ChangeStatusLineMode()}\      " current mode
-set statusline+=%0*\ %<%f\ %m%r                      " Filename, Modified?, RO?
+set statusline+=%0*%<%f\                             " Filename
+set statusline+=%3*%m%r                              " Modified?, RO?
 set statusline+=%=                                   " right
 set statusline+=%2*%l/%c\                            " ln col
-set statusline+=%3*%b\ 0x%2B\                        " char hex
+set statusline+=%3*%b:0x%2B\                         " char hex
 set statusline+=%4*%{''.(&fenc!=''?&fenc:&enc).''}   " Encoding
 set statusline+=%{(&bomb?\',BOM\':\'\')}             " Encoding2
 set statusline+=%4*\/%{&ff}                          " FileFormat unix/dos
@@ -477,7 +466,7 @@ hi  Visual        guifg=#665c54  guibg=#ebdbb2  ctermfg=DarkGray  ctermbg=White 
 hi  Search        guifg=#fabd2f  guibg=#3c3836  ctermfg=Yellow    ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
 hi  IncSearch     guifg=#fe8019  guibg=#3c3836  ctermfg=Yellow    ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
 hi  Underlined    guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=underline       cterm=underline       term=underline
-hi  User1         guifg=#83a598  guibg=#282828  ctermfg=Blue      ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
+hi  User1         guifg=#35302b  guibg=#83a598  ctermfg=Black     ctermbg=Blue      gui=inverse         cterm=inverse         term=inverse
 hi  User2         guifg=#35302b  guibg=#fabd2f  ctermfg=Black     ctermbg=Yellow    gui=inverse         cterm=inverse         term=inverse
 hi  User3         guifg=#35302b  guibg=#83a598  ctermfg=Black     ctermbg=Blue      gui=inverse         cterm=inverse         term=inverse
 hi  User4         guifg=#35302b  guibg=#b8bb26  ctermfg=Black     ctermbg=Green     gui=inverse         cterm=inverse         term=inverse

@@ -2,14 +2,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2000
-# Last Modified: mercredi 02 septembre 2020, 23:18
-# Edit Time: 16:59:19
+# Last Modified: samedi 05 septembre 2020, 12:16
+# Edit Time: 18:53:49
 # Description: screen conf file
 #
-# $Id: .screenrc,v 1.30 2020/09/02 21:29:06 czo Exp $
+# $Id: .screenrc,v 1.31 2020/09/05 10:59:09 czo Exp $
 
 #term screen-256color
 term xterm-256color
+# ??terminal-overrides ",*256col*:Tc" 
 
 # This is how one can set a reattach password:
 #password ODSJQf.4IJN7E    # "1234"

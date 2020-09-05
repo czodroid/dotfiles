@@ -4,20 +4,20 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: vendredi 28 août 2020, 14:58
-# Edit Time: 9:17:57
-# Description: 
+# Last Modified: Friday 4 September 2020, 16:27
+# Edit Time: 9:20:18
+# Description:
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
 #   faudra aussi mettre /var/www/index.html
 #
-# $Id: czolsb,v 1.18 2020/08/31 20:15:11 czo Exp $
+# $Id: czolsb,v 1.21 2020/09/04 14:28:13 czo Exp $
 #
 # sans lsb_release
 # le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
 # centos_6.5-x86_64-czo_servup-20140410
 # mais avec /etc/os-release
-# 
+#
 # PRETTY_NAME="Debian GNU/Linux 10 (buster)"
 # NAME="Debian GNU/Linux"
 # VERSION_ID="10"
@@ -27,7 +27,7 @@
 # HOME_URL="https://www.debian.org/"
 # SUPPORT_URL="https://www.debian.org/support"
 # BUG_REPORT_URL="https://bugs.debian.org/"
-# 
+#
 # Linux Fedora 9, kernel 2.6.27.25-78.2.56.fc9.i686
 # Last update: czo-f9servup-20090827
 # 4 x Intel(R) Xeon(R) CPU E5335 @ 2.00GHz - 3.2 Go RAM - 8.0 Go SWAP
@@ -43,10 +43,14 @@ export LANG=C
 
 if [ -f /etc/os-release ]; then
   . /etc/os-release
+else
+  PRETTY_NAME="Unknown"
+  ID="Unknown"
+  VERSION_ID="Unknown"
 fi
 
-[ -n "$HOSTNAME" ] || { [ -x /bin/getprop ] && HOSTNAME=`getprop net.hostname` ;} || { [ -x /bin/hostname ] && HOSTNAME=`hostname -s` ;} || HOSTNAME=`uname -n`
-HOSTNAME=$( echo "$HOSTNAME" | perl -pe 's/\..*//' )
+{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname); } || { [ -x /bin/hostname ] && HOSTNAME=$(hostname -s); } || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
+HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
 
 CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
 CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); $A4=~s/  */ /g; print $A4;')
@@ -60,7 +64,7 @@ CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/
 CCNAME=$(uname -m)
 CKNAME=$(uname -r)
 
-cat << EOF
+cat <<EOF
               ,,,
              (o o)
 ####=====oOO==(_)==OOO==============================================####
@@ -74,4 +78,3 @@ cat << EOF
 ####================================================================####
 
 EOF
-
