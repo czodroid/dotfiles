@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: jeudi 10 septembre 2020, 17:27
-# Edit Time: 107:04:52
+# Last Modified: jeudi 10 septembre 2020, 18:48
+# Edit Time: 107:12:35
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.161 2020/09/10 15:29:14 czo Exp $
+# $Id: .zshrc,v 1.163 2020/09/10 16:51:55 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -694,19 +694,15 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.161 2020/09/10 15:29:14 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.163 2020/09/10 16:51:55 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 #RPROMPT=' %~'     # prompt for right side of screen
 #export PROMPT='> '
-#export PROMPT='
-#%F{15}[${PLATFORM}/${SHELLNAME}-${BVERS}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%F{15}:%F{9})[%?]%f
-#%F{$(($USER_PROMPT_COLOR+8))}${USER}%F{15}@%F{$(($HOST_PROMPT_COLOR+8))}${HOSTNAME}%F{15}:%F{13}$PWD%f
-#%F{15}>>%f '
 export PROMPT=$'
-\e[0;97m[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:\e[0;97m:\e[0;91m)[%?]\e[0m
-\e[0;9${USER_PROMPT_COLOR}m${USER}\e[0;97m@\e[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}\e[0;97m:\e[0;95m$PWD\e[0m
-\e[0;97m>>\e[0m '
+%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}
+%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}
+%{\e[0;97m%}>>%{\e[m%} '
 
 title () {
     case "$TERM" in
