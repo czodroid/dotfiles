@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: samedi 05 septembre 2020, 18:59
-" Edit Time: 173:10:04
+" Last Modified: jeudi 10 septembre 2020, 12:40
+" Edit Time: 173:14:13
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.165 2020/09/05 17:02:22 czo Exp $
+" $Id: .vimrc,v 1.166 2020/09/10 11:20:04 czo Exp $
 
 if version >= 580
 
@@ -192,7 +192,8 @@ augroup END
 set statusline=
 set statusline+=%1*\ %{ChangeStatusLineMode()}\      " current mode
 set statusline+=%0*%<%f\                             " Filename
-set statusline+=%3*%m%r                              " Modified?, RO?
+set statusline+=%6*%m                                " Modified?
+set statusline+=%3*%r                                " RO?
 set statusline+=%=                                   " right
 set statusline+=%2*%l/%c\                            " ln col
 set statusline+=%3*%b:0x%2B\                         " char hex

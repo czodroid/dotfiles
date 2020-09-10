@@ -5,14 +5,17 @@
 # Filename: .bashrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
-# File Created: April 2006
-# Last Modified: mardi 08 septembre 2020, 10:24
-# Edit Time: 64:14:51
-# Description: ~/.bashrc: executed by bash for non-login shells.
-#              tries to mimic my .zshrc and to be 2.05 compatible
-#              for old wkstations
+# File Created: November 2005
+# Last Modified: jeudi 10 septembre 2020, 13:00
+# Edit Time: 65:13:43
+# Description: 
+#         ~/.bashrc is executed by bash for non-login shells.
+#         tries to mimic my .zshrc and to be 2.05 compatible
+#         for old wkstations
+#         rm ~/.bash_profile ~/.bash_login ~/.bash_history
+#         and put instead .profile 
 #
-# $Id: .bashrc,v 1.219 2020/09/09 23:20:19 czo Exp $
+# $Id: .bashrc,v 1.220 2020/09/10 11:20:04 czo Exp $
 
 #set -v
 #set -x
@@ -90,31 +93,12 @@ esac
 
 export PLATFORM
 
-
 ##======= Paths =====================================================##
 
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
-# WARNING : tcsh 6.07.02 : Words can be no longer than 1024 characters.
-# X11R6.4 sur SunOS
 
-#FIXME: typeset -U
+#FIXME: typeset -U for bash
 export PATH=/system/bin:/system/xbin:/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$HOME/bin:$HOME/.local/bin:$HOME/local/${PLATFORM}/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
-export PATH
-
-# il y a du y avoir un moment ou j'en ai eu besoin, mais je ne me souviens plus...
-#FIXME: typeset -U
-#export MANPATH=$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH
-#export MANPATH
-
-# export LD_LIBRARY_PATH=/usr/openwin/lib
-# export LD_RUN_PATH=/users/soft5/gnu/bazar/archi/Linux/lib/wxgtk/lib
-
-## config android
-export PATH=$HOME/Android/Sdk/tools:${PATH}
-export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
-#export PATH=$HOME/CzoDoc/Documents/Apps/android/android-ndk-r10e:${PATH}
-export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
-export PATH=/opt/android-studio/bin:${PATH}
 
 ## config cpan perl libs not in distro
 #export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
@@ -123,14 +107,25 @@ export PATH=/opt/android-studio/bin:${PATH}
 #export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-gnu-thread-multi-64int:$HOME/perl5/lib/perl5";
 #export PATH="$HOME/perl5/bin:$PATH";
 
-## config for android [mis dans le PATH...]
-#export PATH=/system/bin:/system/xbin:${PATH}
+## config android
+export PATH=$HOME/Android/Sdk/tools:${PATH}
+export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
+export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
+export PATH=/opt/android-studio/bin:${PATH}
 
 ## config termux for android
-export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:${PATH}
+export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:${PATH}
 export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
-
+## config macos brew
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
+
+# il y a du y avoir un moment ou j'en ai eu besoin, mais je ne me souviens plus...
+#typeset -U MANPATH=$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH
+#export MANPATH
+
+# export LD_RUN_PATH=/users/soft5/gnu/bazar/archi/Linux/lib/wxgtk/lib
+
+export PATH
 
 ##======= Environment Variables =====================================##
 
@@ -246,6 +241,16 @@ fi
 ##======= Aliases & Functions =======================================##
 
 unalias -a
+alias where='type -a'
+alias st='source ~/.bashrc'
+alias hi='fc -l -10000'
+alias hgrep='fc -l -10000 | grep'
+#alias hl='fc -R'
+#alias hs='fc -AI'
+#to run sometimes, BUG no dup history
+# | perl -ne  'print if not $x{$_}++;' 
+# | awk '!x[\$0]++' 
+alias hb='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
 
 alias bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
 alias sshlaga='ssh -p30022 lartha'
@@ -262,24 +267,13 @@ alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull sans -x..."'
 alias rsyncfull='rsync --delete -av --numeric-ids -S -H'
 alias run-help=man
-alias where='type -a'
 
 #alias mv='nocorrect mv'       # no spelling correction on mv
 #alias err     '(\!* > `tty`) >& /dev/console'
 
-alias hi='fc -l -10000'
-alias hgrep='fc -l -10000 | grep'
-#alias hl='fc -R'
-#alias hs='fc -AI'
-#to run sometimes, BUG no dup history
-# | perl -ne  'print if not $x{$_}++;' 
-# | awk '!x[\$0]++' 
-alias hb='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
-
 alias hcc="echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c ; "
 alias hc="history -c"
 
-alias st='source ~/.bashrc'
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
 alias xe='gnuclient -q'
 alias xroot='xv -root +noresetroot -quit'
@@ -319,8 +313,6 @@ alias tarx='\tar -xvf'
 alias ne='emacs -nw'
 v()       { set | grep -ai $1 ;}
 #alias \?\?      'set | grep \!*'
-#--scrollstyle xterm
-alias term='\xterm -geometry 90x26 -tn xterm-256color -bg "#2E3436" -fg grey -fa "fixed:size=13" -xrm "XTerm.vt100.allowBoldFonts:false" -xrm "XTerm*SimpleMenu*font:fixed" -xrm "XTerm*SimpleMenu*foreground:black" -xrm "XTerm*SimpleMenu*background:grey" -xrm "XTerm*scrollBar:false" -xrm "XTerm*saveLines:99000" -xrm "XTerm*visualBell:false" -xrm "XTerm*eightBitInput:true" -xrm "XTerm*cursorBlink:on" -xrm "XTerm*cursorOnTime:600" -xrm "XTerm*cursorOffTime:600" -xrm "XTerm*cursorColor:#B20000" -xrm "XTerm*allowSendEvents:false" -xrm "XTerm*sessionMgt:false" -xrm "XTerm*vt100.Translations: #override\n Shift Ctrl <KeyPress>V : insert-selection(PRIMARY, CUT_BUFFER0) \n Shift <KeyPress>Insert : insert-selection(PRIMARY, CUT_BUFFER0) \n Alt <KeyPress>v : insert-selection(PRIMARY, CUT_BUFFER0) \n" -xrm "XTerm*vt100*colorMode:on" -xrm "XTerm*vt100*dynamicColors:on" -xrm "XTerm*vt100*colorULMode:on" -xrm "XTerm*vt100*colorBDMode:on" -xrm "XTerm*vt100*color0:#242425" -xrm "XTerm*vt100*color1:#CC0000" -xrm "XTerm*vt100*color2:#4E9A06" -xrm "XTerm*vt100*color3:#CF6800" -xrm "XTerm*vt100*color4:#3465A4" -xrm "XTerm*vt100*color5:#75507B" -xrm "XTerm*vt100*color6:#06989A" -xrm "XTerm*vt100*color7:#D3D7CF" -xrm "XTerm*vt100*color8:#555753" -xrm "XTerm*vt100*color9:#EF2929" -xrm "XTerm*vt100*color10:#8AE234" -xrm "XTerm*vt100*color11:#FCE94F" -xrm "XTerm*vt100*color12:#729FCF" -xrm "XTerm*vt100*color13:#AD7FA8" -xrm "XTerm*vt100*color14:#34E2E2" -xrm "XTerm*vt100*color15:#EEEEEC" -xrm "XTerm*vt100*colorBD:#5F7DB1" -xrm "XTerm*vt100*colorUL:#C88579"'
 
 alias asu='su --preserve-environment -c "LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib exec /data/data/com.termux/files/usr/bin/bash" --login'
 
@@ -479,7 +471,7 @@ alias color256='for i in $(seq 0 255) ; do printf "\x1b[38;5;${i}mcolour${i}\n";
 alias iip='echo $(wget -q -O- http://ananas/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
-alias czomac='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr [A-F] [a-f]'
+alias czomac='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
 alias tmuxa='tmux attach -d || tmux new'
 alias screena='screen -d -R'
 alias edl='export DISPLAY=localhost:0'
@@ -527,14 +519,15 @@ USER_HASH=$( echo -n "AA$USER"     | cksum | cut -d" " -f1 )
 HOST_HASH=$( echo -n "JC$HOSTNAME" | cksum | cut -d" " -f1 )
 
 USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
+# export for screen
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.219 2020/09/09 23:20:19 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.220 2020/09/10 11:20:04 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash
-PS1='\[\033[0m\]\n\[\033[0;97m\][${PLATFORM}/${SHELLNAME}-${BVERS}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \[\033[0;9`E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E`m\][$?]\[\033[0m\]\n\[\033[0;9${USER_PROMPT_COLOR}m\]${USER}\[\033[0m\]@\[\033[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\033[0m\]:\[\033[0;96m\]$PWD\[\033[0m\]\n\[\033[0;97m\]>>\[\033[0m\] '
+PS1='\[\033[0m\]\n\[\033[0;97m\][${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \[\033[0;9`E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E`m\][$?]\[\033[0m\]\n\[\033[0;9${USER_PROMPT_COLOR}m\]${USER}\[\033[0m\]@\[\033[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\033[0m\]:\[\033[0;96m\]$PWD\[\033[0m\]\n\[\033[0;97m\]>>\[\033[0m\] '
 
 title () {
     case "$TERM" in
@@ -570,29 +563,12 @@ umask 022
 # config lang
 #export LC_ALL=C
 
-#francais man locale
-#export LANG=fr_FR.ISO_8859-1
-#export LC_ALL=fr_FR.ISO_8859-1
-#export LC_CTYPE=fr_FR.ISO_8859-1
-
-#unset LANGUAGE
-#unset LC_ALL
-#unset LANG
-
-#sudo update-locale LANG=en_US.UTF-8 $(printf 'LC_%s=de_DE.UTF-8 'NUMERIC TIME MONETARY PAPER NAME ADDRESS TELEPHONE MEASUREMENT IDENTIFICATION)
-
 # man fuser
-# man zshall
 # man pstree
 # man locale
 # man script
 # enscript --color -j --fancy-header=edd -E -r -2 i2cbus.c -o edd.ps
 
-#if [ -x "/usr/bin/dbus-launch" ]; then
-# export $(dbus-launch)
-#fi
-
-#mksquashfs $TMP "$1" -comp xz -b 1024K -always-use-fragments -noappend
 #mksquashfs . ../00-czo.sb -comp xz -Xbcj x86
 
 #echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness
@@ -603,12 +579,9 @@ umask 022
 #defaults.ctl.card 1
 # echo -n "DEBUG T4:"; date
 
-# rm ~/.bash_profile,  ~/.bash_login ~/.bash_logout,~/.bash_history et mettre .profile a la place
-
 #FIXME: typeset -U
+# must put /bin at the end because otherwise ./ in the PATH
 export PATH=`echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}'`"/bin"
-#obligé de mettre /bin a la fin car sinon ./ dans le PATH
-export PATH
 
 # EOF
 
