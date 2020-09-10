@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: jeudi 10 septembre 2020, 18:48
-# Edit Time: 107:12:35
+# Last Modified: jeudi 10 septembre 2020, 19:14
+# Edit Time: 107:12:48
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.163 2020/09/10 16:51:55 czo Exp $
+# $Id: .zshrc,v 1.164 2020/09/10 17:14:49 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -694,8 +694,8 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.163 2020/09/10 16:51:55 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
-SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
+BVERS=`echo '$Id: .zshrc,v 1.164 2020/09/10 17:14:49 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+SHELLNAME='zsh'
 
 #RPROMPT=' %~'     # prompt for right side of screen
 #export PROMPT='> '
