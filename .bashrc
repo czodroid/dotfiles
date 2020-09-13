@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.220 2020/09/10 11:20:04 czo Exp $
+# $Id: .bashrc,v 1.221 2020/09/12 11:12:31 czo Exp $
 
 #set -v
 #set -x
@@ -359,15 +359,23 @@ esac
 alias ll='ls -l'
 alias l='ls -alrt'
 
+# debian
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
 alias AI='aptitude install'
 alias AP='aptitude purge'
 alias AS='aptitude search'
 
+# centos
 alias YU='yum update'
 alias YI='yum install'
 alias YP='yum remove'
 alias YS='yum search'
+
+# archlinux
+alias PU='pacman -Syu'
+alias PI='pacman -S'
+alias PP='pacman -Rs'
+alias PS='pacman -Ss'
 
 alias dir='ls'
 alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
@@ -480,6 +488,8 @@ alias kfm='setxkbmap fr mac'
 
 alias dit="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
+alias lcc='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7ebdbb2\e]P839322c\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
+
 conf() {
         echo "This machine is a `uname -a`"
         echo ""
@@ -523,7 +533,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.220 2020/09/10 11:20:04 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.221 2020/09/12 11:12:31 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash
@@ -558,7 +568,12 @@ fi
 # limit -s
 # ulimit unlimited
 stty -ixon
-umask 022
+
+if [ $(id -u) -eq 0 ]; then
+    umask 002
+else
+    umask 022
+fi
 
 # config lang
 #export LC_ALL=C

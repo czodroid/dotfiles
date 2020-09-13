@@ -6,14 +6,14 @@
 ! Author: Olivier Sirol <czo@free.fr>
 ! License: GPL-2.0
 ! File Created: mars 1996
-! Last Modified: vendredi 19 juillet 2019, 02:32
-! Edit Time: 4:10:45
+! Last Modified: vendredi 11 septembre 2020, 09:37
+! Edit Time: 4:11:02
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources
 ! 
-! $Id: .Xresources,v 1.29 2019/07/19 00:36:09 czo Exp $
+! $Id: .Xresources,v 1.30 2020/09/12 11:12:31 czo Exp $
 
 Xft.dpi:        96
 Xft.antialias:  1
@@ -184,3 +184,40 @@ XTerm*vt100*color7:  #ebdbb2
 XTerm*vt100*color15: #fbf1c7
 
 !eof
+! special
+*.foreground:   #ebdbb2
+*.background:   #282828
+*.cursorColor:  #b8bb26
+
+! black
+*.color0:       #282828
+*.color8:       #39322c
+
+! red
+*.color1:       #cc241d
+*.color9:       #fb4934
+
+! green
+*.color2:       #98971a
+*.color10:      #b8bb26
+
+! yellow
+*.color3:       #d79921
+*.color11:      #fabd2f
+
+! blue
+*.color4:       #458588
+*.color12:      #83a598
+
+! magenta
+*.color5:       #b16286
+*.color13:      #d3869b
+
+! cyan
+*.color6:       #689d6a
+*.color14:      #8ec07c
+
+! white
+*.color7:       #ebdbb2
+*.color15:      #fbf1c7
+
