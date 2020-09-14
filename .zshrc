@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: samedi 12 septembre 2020, 13:11
-# Edit Time: 107:40:12
+# Last Modified: Monday 14 September 2020, 02:09
+# Edit Time: 107:43:17
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.165 2020/09/12 11:12:32 czo Exp $
+# $Id: .zshrc,v 1.166 2020/09/14 00:14:26 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -541,8 +541,9 @@ alias ren='mv'
 alias del='rm'
 alias rmf='rm -fr'
 
-imprime()    { a2ps -2 -s2 $1 ;}
-imprimeman()   { a2ps -2 -s2 -man $1 ;}
+imprime='a2ps -2 -s2'
+imprimeman='a2ps -2 -s2 -man'
+imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
 
 alias xmbk='eval `\xmbk -c`'
 alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
@@ -640,7 +641,7 @@ alias kfm='setxkbmap fr mac'
 
 alias dit="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
-alias lcc='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7ebdbb2\e]P839322c\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
+alias lcc='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
 
 conf() {
         echo "This machine is a `uname -a`"
@@ -704,7 +705,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.165 2020/09/12 11:12:32 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.166 2020/09/14 00:14:26 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME='zsh'
 
 #RPROMPT=' %~'     # prompt for right side of screen
@@ -752,12 +753,7 @@ fi
 # config lang
 #export LC_ALL=C
 
-# man fuser
-# man pstree
-# man locale
-# man script
-# enscript --color -j --fancy-header=edd -E -r -2 i2cbus.c -o edd.ps
-
+#fuser pstree locale script
 #mksquashfs . ../00-czo.sb -comp xz -Xbcj x86
 
 #echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness

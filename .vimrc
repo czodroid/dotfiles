@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: jeudi 10 septembre 2020, 12:40
-" Edit Time: 173:14:13
+" Last Modified: Monday 14 September 2020, 02:14
+" Edit Time: 173:15:54
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.166 2020/09/10 11:20:04 czo Exp $
+" $Id: .vimrc,v 1.167 2020/09/14 00:14:26 czo Exp $
 
 if version >= 580
 
@@ -297,9 +297,9 @@ endif
 " set clipboard=unnamedplus
 " he paste nopaste
 
+set ttyfast
 if has('clipboard')
     set clipboard=unnamed
-    set ttyfast
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
         " but dont use Ctrl-A

@@ -1,19 +1,19 @@
 !               ,,,
 !              (o o)
 ! ####=====oOO--(_)--OOO===========================================####
-! 
+!
 ! Filename: .Xresources
 ! Author: Olivier Sirol <czo@free.fr>
 ! License: GPL-2.0
 ! File Created: mars 1996
-! Last Modified: vendredi 11 septembre 2020, 09:37
-! Edit Time: 4:11:02
+! Last Modified: Sunday 13 September 2020, 21:18
+! Edit Time: 4:34:24
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources
-! 
-! $Id: .Xresources,v 1.30 2020/09/12 11:12:31 czo Exp $
+!
+! $Id: .Xresources,v 1.31 2020/09/14 00:14:25 czo Exp $
 
 Xft.dpi:        96
 Xft.antialias:  1
@@ -24,9 +24,9 @@ Xft.rgba:       none
 !Xft.rgba:       rgb
 !Xft.lcdfilter:  lcdlegacy
 
-! 2004/05/26 : 
+! 2004/05/26 :
 ! removed wheel scroll and other mozilla config, removed
-! athena and motif widget overides, XOsview, rxvt, vim 
+! athena and motif widget overides, XOsview, rxvt, vim
 
 ! Xterm !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! my xterm terminfo is xterm-256color
@@ -70,8 +70,6 @@ XTerm*eightBitInput:   true
 XTerm*cursorBlink:      on
 XTerm*cursorOnTime:     600
 XTerm*cursorOffTime:    600
-XTerm*cursorColor:      #B20000
-!XTerm*cursorColor:      White
 
 !XTerm*allowSendEvents: true
 XTerm*allowSendEvents: false
@@ -101,123 +99,42 @@ XTerm*vt100*colorULMode: on
 ! Uncomment this to use color for the bold attribute
 XTerm*vt100*colorBDMode: on
 
-
-
-
-! These are the TANGO colors
+! These are the GRUVBOX64 colors
 ! fg and bg colors
-XTerm*background:    #2E3436
-XTerm*foreground:    #D3D7CF
-! Bold and Underline colors
-XTerm*vt100*colorBD: #5F7DB1
-XTerm*vt100*colorUL: #C88579
-! 0 : black
-XTerm*vt100*color0:  #242425
-! 1 : red
-XTerm*vt100*color1:  #CC0000
-! 2 : green
-XTerm*vt100*color2:  #4E9A06
-! 3 : brown
-XTerm*vt100*color3:  #CF6800
-! 4 : blue
-XTerm*vt100*color4:  #3465A4
-! 5 : magenta
-XTerm*vt100*color5:  #75507B
-! 6 : cyan
-XTerm*vt100*color6:  #06989A
-! 7 : grey
-XTerm*vt100*color7:  #D3D7CF
-!dark grey
-XTerm*vt100*color8:  #555753
-!light red
-XTerm*vt100*color9:  #EF2929
-!light green
-XTerm*vt100*color10: #8AE234
-!yellow
-XTerm*vt100*color11: #FCE94F
-!light blue
-XTerm*vt100*color12: #729FCF
-!light magenta
-XTerm*vt100*color13: #AD7FA8
-!light cyan
-XTerm*vt100*color14: #34E2E2
-!white
-XTerm*vt100*color15: #EEEEEC
-
-
-
-! These are the GRUVBOX colors
-! fg and bg colors
-XTerm*background:    #282828
-XTerm*foreground:    #ebdbb2
-! Bold and Underline colors
-XTerm*vt100*colorBD: #689d6a
-XTerm*vt100*colorUL: #B16286
-! selection
-! XTerm*vt100*highlightColorMode: true
-! XTerm*vt100*highlightReverse: false
-! XTerm*vt100*highlightColor:#ecdbb2
-! XTerm*vt100*highlightTextColor:#39322c
+XTerm*background:       #282828
+XTerm*foreground:       #c9b788
+XTerm*cursorColor:      #689d6a
 ! Black + DarkGrey
-XTerm*vt100*color0:  #282828
-XTerm*vt100*color8:  #39322c
+XTerm*vt100*color0:     #282828
+XTerm*vt100*color8:     #4a4239
 ! DarkRed + Red
-XTerm*vt100*color1:  #cc241d
-XTerm*vt100*color9:  #fb4934
+XTerm*vt100*color1:     #cc241d
+XTerm*vt100*color9:     #fb4934
 ! DarkGreen + Green
-XTerm*vt100*color2:  #98971a
-XTerm*vt100*color10: #b8bb26
+XTerm*vt100*color2:     #98971a
+XTerm*vt100*color10:    #b8bb26
 ! DarkYellow + Yellow
-XTerm*vt100*color3:  #d79921
-XTerm*vt100*color11: #fabd2f
+XTerm*vt100*color3:     #d79921
+XTerm*vt100*color11:    #fabd2f
 ! DarkBlue + Blue
-XTerm*vt100*color4:  #458588
-XTerm*vt100*color12: #83a598
+XTerm*vt100*color4:     #458588
+XTerm*vt100*color12:    #83a598
 ! DarkMagenta + Magenta
-XTerm*vt100*color5:  #b16286
-XTerm*vt100*color13: #d3869b
+XTerm*vt100*color5:     #b16286
+XTerm*vt100*color13:    #d3869b
 ! DarkCyan + Cyan
-XTerm*vt100*color6:  #689d6a
-XTerm*vt100*color14: #8ec07c
+XTerm*vt100*color6:     #689d6a
+XTerm*vt100*color14:    #8ec07c
 ! LightGrey + White
-XTerm*vt100*color7:  #ebdbb2
-XTerm*vt100*color15: #fbf1c7
+XTerm*vt100*color7:     #c9b788
+XTerm*vt100*color15:    #fbf1c7
+! Bold and Underline colors
+XTerm*vt100*colorBD:    #b16286
+XTerm*vt100*colorUL:    #d79921
+! selection
+XTerm*vt100*highlightColorMode: true
+XTerm*vt100*highlightReverse:   false
+XTerm*vt100*highlightColor:     #458588
+XTerm*vt100*highlightTextColor: #fbf1c7
 
-!eof
-! special
-*.foreground:   #ebdbb2
-*.background:   #282828
-*.cursorColor:  #b8bb26
-
-! black
-*.color0:       #282828
-*.color8:       #39322c
-
-! red
-*.color1:       #cc241d
-*.color9:       #fb4934
-
-! green
-*.color2:       #98971a
-*.color10:      #b8bb26
-
-! yellow
-*.color3:       #d79921
-*.color11:      #fabd2f
-
-! blue
-*.color4:       #458588
-*.color12:      #83a598
-
-! magenta
-*.color5:       #b16286
-*.color13:      #d3869b
-
-! cyan
-*.color6:       #689d6a
-*.color14:      #8ec07c
-
-! white
-*.color7:       #ebdbb2
-*.color15:      #fbf1c7
-
+! eof
