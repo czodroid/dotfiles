@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Monday 14 September 2020, 02:14
-" Edit Time: 173:15:54
+" Last Modified: Tuesday 15 September 2020, 18:27
+" Edit Time: 173:55:14
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.167 2020/09/14 00:14:26 czo Exp $
+" $Id: .vimrc,v 1.171 2020/09/15 16:17:52 czo Exp $
 
 if version >= 580
 
@@ -110,7 +110,9 @@ set incsearch
 set wildmenu
 set wildmode=longest,full
 
-set ttymouse=xterm2
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 set mouse=a
 
 " tags search path
@@ -231,7 +233,7 @@ set mousehide
     " MacVim
     set guifont=SourceCodeProForPowerline-Light:h18,Monaco:h18
   else
-    echoe "Unknown GUI system !!!!"
+    echoe "Unknown GUI system!!!"
   endif
 
 endif
@@ -296,10 +298,25 @@ endif
 " +clipboard +xterm_clipboard +virtualedit
 " set clipboard=unnamedplus
 " he paste nopaste
+"
+" nvim clipboard
+"  - pbcopy, pbpaste (macOS)
+"  - wl-copy, wl-paste (if $WAYLAND_DISPLAY is set)
+"  - xclip (if $DISPLAY is set)
+"  - xsel (if $DISPLAY is set)
+"  - win32yank (Windows)
+"  - tmux (if $TMUX is set)
+"
+" # Linux Wayland
+" :'<,'>w !wl-copy
+" # Linux Xorg
+" :'<,'>w !xclip -selection clipboard
+"
+" https://github.com/kana/vim-fakeclip
 
 set ttyfast
+
 if has('clipboard')
-    set clipboard=unnamed
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
         " but dont use Ctrl-A
@@ -307,7 +324,7 @@ if has('clipboard')
         inoremap <C-A> <C-A>
     endif
 else
-    echoe "Vim compiled whith no clipboard !!!!"
+    echoe "Vim compiled with no clipboard!!! Please install vim-gtk or nvim..."
     noremap   <C-Q>  <C-V>
     " behave    mswin
     " vnoremap  <BS>   d
