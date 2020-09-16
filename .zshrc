@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: Monday 14 September 2020, 17:45
-# Edit Time: 108:01:18
+# Last Modified: Wednesday 16 September 2020, 16:59
+# Edit Time: 108:03:50
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.168 2020/09/14 17:28:59 czo Exp $
+# $Id: .zshrc,v 1.169 2020/09/16 15:00:30 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -460,8 +460,10 @@ alias tarx='\tar -xvf'
 [ -x /usr/bin/ldd ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 
 [ -x /bin/less ] || alias more=less
+[ -x /usr/bin/vimx ] && alias vim=vimx
+[ -x /usr/bin/nvim ] && alias vim='nvim -u ~/.vimrc'
 { [ -x /usr/bin/vim ] && alias vi=vim  ;} || alias vi="vi -u NONE" 
-alias nvim='nvim -u ~/.vimrc'
+
 alias ne='emacs -nw'
 
 v()       { set | grep -ai $1 ;}
@@ -706,7 +708,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.168 2020/09/14 17:28:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.169 2020/09/16 15:00:30 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME='zsh'
 
 #RPROMPT=' %~'     # prompt for right side of screen

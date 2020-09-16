@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.223 2020/09/14 17:28:59 czo Exp $
+# $Id: .bashrc,v 1.224 2020/09/16 15:00:30 czo Exp $
 
 #set -v
 #set -x
@@ -308,8 +308,10 @@ alias tarx='\tar -xvf'
 [ -x /usr/bin/ldd ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 
 [ -x /bin/less ] || alias more=less
+[ -x /usr/bin/vimx ] && alias vim=vimx
+[ -x /usr/bin/nvim ] && alias vim='nvim -u ~/.vimrc'
 { [ -x /usr/bin/vim ] && alias vi=vim  ;} || alias vi="vi -u NONE" 
-alias nvim='nvim -u ~/.vimrc'
+
 alias ne='emacs -nw'
 
 v()       { set | grep -ai $1 ;}
@@ -535,7 +537,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.223 2020/09/14 17:28:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.224 2020/09/16 15:00:30 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash

@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Tuesday 15 September 2020, 18:27
-" Edit Time: 173:55:14
+" Last Modified: Wednesday 16 September 2020, 16:55
+" Edit Time: 174:05:19
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.171 2020/09/15 16:17:52 czo Exp $
+" $Id: .vimrc,v 1.174 2020/09/16 14:55:26 czo Exp $
 
 if version >= 580
 
@@ -225,6 +225,9 @@ set mousehide
     " Linux GUI
     set guifont=Monospace\ 13
     "set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
+  elseif has("x11")
+    " Linux X11
+    set guifont=10x20
   elseif has("gui_win32")
     " Win32/64 GVim
     set guifont=Consolas:h13
@@ -324,22 +327,11 @@ if has('clipboard')
         inoremap <C-A> <C-A>
     endif
 else
-    echoe "Vim compiled with no clipboard!!! Please install vim-gtk or nvim..."
-    noremap   <C-Q>  <C-V>
-    " behave    mswin
-    " vnoremap  <BS>   d
-    " vnoremap  <C-X>  "xx
-    " vnoremap  <C-C>  "xy
-    " map       <C-V>  "xgP
-    " imap      <C-V>  <C-O>"xgP
-    " cmap      <C-V>  <C-R>x
-    " noremap   <C-S>  :update<CR>
-    " vnoremap  <C-S>  <C-C>:update<CR>
-    " inoremap  <C-S>  <C-O>:update<CR>
-    " noremap   <C-Z>  u
-    " inoremap  <C-Z>  <C-O>u
-    " noremap   <C-Y>  <C-R>
-    " inoremap  <C-Y>  <C-O><C-R>
+    echom "Please install vim-athena/vim-gtk (debian)"
+    echom "vim-X11 (and run vimx) (centos) or nvim to"
+    echom "be able to access the system clipboard..."
+    echoe "Vim compiled with no clipboard!!!"
+    noremap <C-Q> <C-V>
 endif
 
 
