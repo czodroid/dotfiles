@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: jeudi 10 septembre 2020, 13:00
-# Edit Time: 65:13:43
+# Last Modified: Thursday 17 September 2020, 19:55
+# Edit Time: 65:22:56
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.227 2020/09/17 17:23:41 czo Exp $
+# $Id: .bashrc,v 1.228 2020/09/17 17:57:39 czo Exp $
 
 #set -v
 #set -x
@@ -537,11 +537,11 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.227 2020/09/17 17:23:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.228 2020/09/17 17:57:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash
-PS1='\[\033[0m\]\n\[\033[0;97m\][${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \[\033[0;9`E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E`m\][$?]\[\033[0m\]\n\[\033[0;9${USER_PROMPT_COLOR}m\]${USER}\[\033[0m\]@\[\033[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\033[0m\]:\[\033[0;96m\]$PWD\[\033[0m\]\n\[\033[0;97m\]>>\[\033[0m\] '
+PS1='\[\033[0m\]\n\[\033[0;97m\][${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \[\033[0;9`E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E`m\][$?]\[\033[0m\]\n\[\033[0;9${USER_PROMPT_COLOR}m\]${USER}\[\033[0;97m\]@\[\033[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\033[0;97m\]:\[\033[0;96m\]$PWD\[\033[0m\]\n\[\033[0;97m\]>>\[\033[0m\] '
 
 title () {
     case "$TERM" in
