@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Wednesday 16 September 2020, 16:55
-" Edit Time: 174:05:19
+" Last Modified: Thursday 17 September 2020, 15:44
+" Edit Time: 174:07:56
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.174 2020/09/16 14:55:26 czo Exp $
+" $Id: .vimrc,v 1.175 2020/09/17 17:20:03 czo Exp $
 
 if version >= 580
 
@@ -114,6 +114,9 @@ if !has('nvim')
     set ttymouse=xterm2
 endif
 set mouse=a
+if has('nvim')
+    set guicursor+=a:blinkon1
+endif
 
 " tags search path
 set tags=./tags,tags,/users/soft5/newlabo/cvstree/alliance/sources/tags

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: Wednesday 16 September 2020, 17:11
-# Edit Time: 108:05:14
+# Last Modified: Thursday 17 September 2020, 19:09
+# Edit Time: 109:03:34
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.171 2020/09/16 15:12:20 czo Exp $
+# $Id: .zshrc,v 1.173 2020/09/17 17:23:41 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -216,7 +216,7 @@ export HTML_TIDY=$HOME/.tidyrc
 
 # copy autoload -U history-search-end
 
-function czo-history-search-end {
+czo-history-search-end() {
 #
 # This implements functions like history-beginning-search-{back,for}ward,
 # but takes the cursor to the end of the line after moving in the
@@ -300,13 +300,13 @@ bindkey "\e[1;5D"  backward-word
 bindkey "\e[90~"   backward-word
 bindkey "\eOd"     backward-word
 
-bindkey "\e[A"     history-beginning-search-backward-end
-bindkey "\eOA"     history-beginning-search-backward-end
-bindkey "\e[1;5A"  history-beginning-search-backward-end
+bindkey "\e[A"     history-beginning-search-backward
+bindkey "\eOA"     history-beginning-search-backward
+bindkey "\e[1;5A"  history-beginning-search-backward
 
-bindkey "\e[B"     history-beginning-search-forward-end
-bindkey "\eOB"     history-beginning-search-forward-end
-bindkey "\e[1;5B"  history-beginning-search-forward-end
+bindkey "\e[B"     history-beginning-search-forward
+bindkey "\eOB"     history-beginning-search-forward
+bindkey "\e[1;5B"  history-beginning-search-forward
 
 bindkey "\C-p"     up-line-or-history
 bindkey "\C-n"     down-line-or-history
@@ -400,9 +400,14 @@ alias hgrep='fc -l -10000 | grep'
 alias hl='fc -R'
 alias hs='fc -AI'
 #to run sometimes, BUG no dup history
-# | perl -ne  'print if not $x{$_}++;' 
-# | awk '!x[\$0]++' 
 #alias hb='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
+
+if [[ -x /usr/lib/command-not-found ]] ; then
+    command_not_found_handler() {
+        [[ -x /usr/lib/command-not-found ]] || return 1
+        /usr/lib/command-not-found -- ${1+"$1"} && :
+    }
+fi
 
 alias bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
 alias sshlaga='ssh -p30022 lartha'
@@ -644,7 +649,7 @@ alias edl='export DISPLAY=localhost:0'
 
 alias kfm='setxkbmap fr mac'
 
-alias dit="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_debian="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 alias lcc='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
 
@@ -710,7 +715,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.171 2020/09/16 15:12:20 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.173 2020/09/17 17:23:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME='zsh'
 
 #RPROMPT=' %~'     # prompt for right side of screen
@@ -743,7 +748,6 @@ preexec () {
     local -a cmd; cmd=(${(z)1})
     title "$cmd[1]:t $cmd[2,-1] (${USER}@${HOSTNAME})"
 }
-
 
 # limit -s
 # ulimit unlimited

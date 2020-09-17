@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.226 2020/09/16 15:12:20 czo Exp $
+# $Id: .bashrc,v 1.227 2020/09/17 17:23:41 czo Exp $
 
 #set -v
 #set -x
@@ -248,8 +248,6 @@ alias hgrep='fc -l -10000 | grep'
 #alias hl='fc -R'
 #alias hs='fc -AI'
 #to run sometimes, BUG no dup history
-# | perl -ne  'print if not $x{$_}++;' 
-# | awk '!x[\$0]++' 
 alias hb='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
 
 alias bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
@@ -492,7 +490,7 @@ alias edl='export DISPLAY=localhost:0'
 
 alias kfm='setxkbmap fr mac'
 
-alias dit="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_debian="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 alias lcc='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
 
@@ -539,7 +537,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.226 2020/09/16 15:12:20 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.227 2020/09/17 17:23:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash
