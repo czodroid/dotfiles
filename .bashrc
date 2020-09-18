@@ -247,6 +247,9 @@ alias hi='fc -l -10000'
 alias hgrep='fc -l -10000 | grep'
 #alias hl='fc -R'
 #alias hs='fc -AI'
+alias hcc="echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c ; "
+alias hc="history -c"
+
 #to run sometimes, BUG no dup history
 alias hb='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
 
@@ -265,12 +268,6 @@ alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull sans -x..."'
 alias rsyncfull='rsync --delete -av --numeric-ids -S -H'
 alias run-help=man
-
-#alias mv='nocorrect mv'       # no spelling correction on mv
-#alias err     '(\!* > `tty`) >& /dev/console'
-
-alias hcc="echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c ; "
-alias hc="history -c"
 
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
 alias xe='gnuclient -q'

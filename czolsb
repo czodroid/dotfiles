@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: Friday 4 September 2020, 16:27
-# Edit Time: 9:20:18
+# Last Modified: Friday 18 September 2020, 10:29
+# Edit Time: 23:09:10
 # Description:
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
@@ -41,13 +41,24 @@
 
 export LANG=C
 
-if [ -f /etc/os-release ]; then
-  . /etc/os-release
+if [ ! -x /usr/bin/lsb_release ]
+then
+    if [ -f /etc/os-release ]; then
+      # echo "-> found os-release"
+      . /etc/os-release
+    else
+      # echo "-> nothing found"
+      PRETTY_NAME="Unknown"
+      ID="Unknown"
+      VERSION_ID="Unknown"
+    fi
 else
-  PRETTY_NAME="Unknown"
-  ID="Unknown"
-  VERSION_ID="Unknown"
+  # echo "-> found lsb_release"
+  PRETTY_NAME=$(lsb_release -sd)
+  ID=$(lsb_release -si)
+  VERSION_ID=$(lsb_release -sr)
 fi
+
 
 { [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname); } || { [ -x /bin/hostname ] && HOSTNAME=$(hostname -s); } || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
 HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
@@ -58,7 +69,7 @@ CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model nam
 CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM",$mem;')
 CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
 
-CRELEASE=$(echo "$PRETTY_NAME" | perl -pe 's/  */ /g')
+CRELEASE=$(echo "$PRETTY_NAME" | perl -pe 's/  */ /g' | perl -pe 's/"//g')
 CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/(.*)/\L\1/')
 
 CCNAME=$(uname -m)
@@ -71,7 +82,7 @@ cat <<EOF
 
                         Welcome to $HOSTNAME
 
- Linux $CRELEASE, $CCNAME, $CKNAME
+ $CRELEASE, $CCNAME, $CKNAME
  $CNBCORE x $CCOREMODEL, $CMEM, $CSWAP
  Last update: $CTAG
 
