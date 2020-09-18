@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: Friday 18 September 2020, 14:13
-# Edit Time: 109:11:23
+# Last Modified: Friday 18 September 2020, 14:53
+# Edit Time: 109:40:13
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.174 2020/09/17 17:57:39 czo Exp $
+# $Id: .zshrc,v 1.175 2020/09/18 13:00:40 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -395,12 +395,12 @@ for key     kcap   seq        mode   widget (
 unalias -m '*'
 alias where='whence -ca'
 alias st='source ~/.zshrc'
-alias hi='fc -l -10000'
-alias hgrep='fc -l -10000 | grep'
-alias hl='fc -R'
-alias hs='fc -AI'
-alias hcc="echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c ; "
-alias hc="history -c"
+alias hi='fc -l -90000'
+alias hgrep='fc -l -90000 | grep'
+alias hload='fc -R'
+alias hsave='fc -AI'
+alias hclear='local HISTSIZE=0'
+alias hclearlog="echo > /var/log/wtmp ; echo > /var/log/lastlog ; local HISTSIZE=0 ; "
 
 #alias mv='nocorrect mv'       # no spelling correction on mv
 
@@ -711,7 +711,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.174 2020/09/17 17:57:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.175 2020/09/18 13:00:40 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME='zsh'
 
 #export PS1='> '

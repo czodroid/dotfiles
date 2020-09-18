@@ -11,7 +11,7 @@
 #   et mettre ce truc dans crond...
 #   faudra aussi mettre /var/www/index.html
 #
-# $Id: czolsb,v 1.21 2020/09/04 14:28:13 czo Exp $
+# $Id: czolsb,v 1.22 2020/09/18 13:00:40 czo Exp $
 #
 # sans lsb_release
 # le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie

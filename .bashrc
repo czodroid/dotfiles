@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: Thursday 17 September 2020, 19:55
-# Edit Time: 65:22:56
+# Last Modified: Friday 18 September 2020, 14:59
+# Edit Time: 65:36:38
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.228 2020/09/17 17:57:39 czo Exp $
+# $Id: .bashrc,v 1.229 2020/09/18 13:00:39 czo Exp $
 
 #set -v
 #set -x
@@ -243,12 +243,12 @@ fi
 unalias -a
 alias where='type -a'
 alias st='source ~/.bashrc'
-alias hi='fc -l -10000'
-alias hgrep='fc -l -10000 | grep'
-#alias hl='fc -R'
-#alias hs='fc -AI'
-alias hcc="echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c ; "
-alias hc="history -c"
+alias hi='fc -l -90000'
+alias hgrep='fc -l -90000 | grep'
+alias hload='history -r'
+alias hsave='history -w'
+alias hclear="history -c"
+alias hclearlog="echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c ; "
 
 #to run sometimes, BUG no dup history
 alias hb='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
@@ -534,7 +534,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.228 2020/09/17 17:57:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.229 2020/09/18 13:00:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 # prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash
