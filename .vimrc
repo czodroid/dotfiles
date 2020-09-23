@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Thursday 17 September 2020, 15:44
-" Edit Time: 174:07:56
+" Last Modified: Sunday 20 September 2020, 18:05
+" Edit Time: 174:09:46
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.175 2020/09/17 17:20:03 czo Exp $
+" $Id: .vimrc,v 1.176 2020/09/20 18:04:39 czo Exp $
 
 if version >= 580
 

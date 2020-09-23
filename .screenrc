@@ -2,11 +2,11 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2000
-# Last Modified: dimanche 06 septembre 2020, 22:44
-# Edit Time: 20:29:06
+# Last Modified: Wednesday 23 September 2020, 13:07
+# Edit Time: 21:59:54
 # Description: screen conf file
 #
-# $Id: .screenrc,v 1.33 2020/09/06 20:49:55 czo Exp $
+# $Id: .screenrc,v 1.34 2020/09/23 11:19:47 czo Exp $
 
 #term xterm-256color
 
@@ -15,7 +15,6 @@ msgwait 5
 msgminwait 5
 
 vbell off
-vbell_msg "   Wuff  ----  Wuff!!  "
 autodetach on
 defscrollback 99000
 
@@ -25,15 +24,22 @@ sorendition "=s Wr"
 
 # 17 car
 # dim. 05, 22:24
+# caption always splitonly
 caption always "%{YK}[%n] %{W.}%h $HOST_PROMPT_SIZE %{C.}%D %d, %c%{-} %{k}%{.$HOST_PROMPT_COLOR} %H %{-}"
-#caption always "%3n %t%? (%u)%?%?: %h%?"
 
 # key bindings
-bind w windowlist -b
+bind r   source ~/.screenrc
+bind ^r  source ~/.screenrc
+
 bind ' ' windowlist -b
-bind ^k eval kill
-bind v paste .
-bind ^v paste .
+bind w   windowlist -b
+
+bind %   split -v
+bind \"  split
+
+bind ^k  eval kill
+bind v   paste .
+bind ^v  paste .
 
 bind 'm' eval "screen 1 ssh magnet -l root" split focus "screen 2 ssh bksyn2 -l root" "split -v" focus "screen 3 ssh wavelet2 -l root" focus
 
