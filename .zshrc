@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: Sunday 20 September 2020, 13:15
-# Edit Time: 109:41:38
+# Last Modified: samedi 03 octobre 2020, 15:00
+# Edit Time: 110:40:12
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,76 +16,54 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.176 2020/09/20 18:04:39 czo Exp $
+# $Id: .zshrc,v 1.185 2020/10/03 13:55:49 czo Exp $
 
 #zmodload zsh/zprof
 
 ##======= Zsh Settings ==============================================##
 
-setopt ALWAYS_LAST_PROMPT
-setopt ALWAYS_TO_END
-setopt APPEND_HISTORY
-setopt AUTO_CD
-setopt AUTO_LIST
-setopt AUTO_MENU
-setopt AUTO_NAME_DIRS
-setopt AUTO_PARAM_KEYS
-setopt AUTO_PARAM_SLASH
-setopt AUTO_REMOVE_SLASH
-setopt BRACE_CCL
-#setopt IGNORE_BRACES
-setopt BAD_PATTERN
-setopt NO_BG_NICE
-setopt CDABLE_VARS
-#setopt CHASE_LINKS
-setopt CLOBBER
-setopt COMPLETE_IN_WORD
-setopt EQUALS
-setopt EXTENDED_GLOB
-setopt FUNCTION_ARGZERO
-setopt GLOB_COMPLETE
-setopt GLOB_DOTS
-setopt GLOB_SUBST
-setopt HASH_CMDS
-setopt HASH_DIRS
-setopt HASH_LIST_ALL
-setopt HIST_BEEP
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_REDUCE_BLANKS
-setopt HIST_SAVE_NO_DUPS
-setopt INC_APPEND_HISTORY
-setopt NO_HUP
-setopt NO_CHECK_JOBS
-setopt LIST_BEEP
-setopt LIST_TYPES
-setopt LONG_LIST_JOBS
-setopt MAGIC_EQUAL_SUBST
-setopt MAIL_WARNING
-setopt NOTIFY
-setopt NOMATCH
-setopt NUMERIC_GLOB_SORT
-setopt PRINT_EIGHT_BIT
-setopt PRINT_EXIT_VALUE
-setopt PROMPT_SUBST
-setopt RC_EXPAND_PARAM
-setopt RM_STAR_SILENT
-setopt SUN_KEYBOARD_HACK
-#setopt SHARE_HISTORY
-setopt SH_WORD_SPLIT
+setopt ALWAYS_TO_END # On completion go to end of word
+setopt AUTO_CD # Directory as command does cd
+setopt AUTO_NAME_DIRS # Variables always can be %~ abbrevs
+setopt BRACE_CCL # X{ab} expands to Xa Xb
+setopt CDABLE_VARS # cd var  works if $var is directory
+setopt COMBINING_CHARS # Displays combining characters correctly
+setopt COMPLETE_IN_WORD # Completion works inside words
+setopt EXTENDED_GLOB # See globbing section above
+setopt GLOB_COMPLETE # Patterns are active in completion
+setopt GLOB_DOTS # Patterns may match leading dots
+setopt HIST_EXPIRE_DUPS_FIRST # Duplicate history entries lost first
+setopt HIST_IGNORE_ALL_DUPS # Remove all earlier duplicate lines
+setopt HIST_REDUCE_BLANKS # Trim multiple insgnificant blanks
+setopt HIST_SAVE_NO_DUPS # Remove duplicates when saving
+setopt INTERACTIVE # Shell is interactive
+setopt LONG_LIST_JOBS # More verbose listing of jobs
+setopt MAGIC_EQUAL_SUBST # Special expansion after all =
+setopt MAIL_WARNING # Warn if mail file timestamp changed
+setopt MONITOR # Shell has job control enabled
+setopt NO_BG_NICE # (!*)Background jobs at lower priority
+setopt NO_CHECK_JOBS # (!*)Check jobs before exiting shell
+setopt NO_HUP # (!*)Send SIGHUP to proceses on exit
+setopt NUMERIC_GLOB_SORT # Numbers in globs sorted numerically
+setopt PRINT_EIGHT_BIT # Print all 8­bit characters directly
+setopt PRINT_EXIT_VALUE # Return status printed unless zero
+setopt PROMPT_SUBST # $ expansion etc. in prompts
+setopt RC_EXPAND_PARAM # X$array gives Xelt1 Xelt2 etc.
+setopt RM_STAR_SILENT # Don’t warn on rm *
+setopt SH_WORD_SPLIT # Split non­array variables yuckily
+setopt ZLE # Line editor used to input lines
+
 
 export SAVEHIST=35000
 export HISTSIZE=30000
-#not bash compatible
-#setopt EXTENDED_HISTORY
-
-#export HISTFILE=$HOME/.zsh_history
 export HISTFILE=$HOME/.sh_history
 # screen size
 #export LISTMAX=0
-export LISTMAX=1000
+#export LISTMAX=1000
 
 export TMPDIR=${TMPDIR-/tmp}
+#android
+#export TMPDIR=${TMPDIR-/data/local/tmp}
 
 export REPORTTIME=5
 export TIMEFMT='
@@ -186,7 +164,7 @@ export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 { [ -x /bin/whoami ] && USER=$(whoami) ;} || USER=$(id -nu) || [ -n "$USER" ]
 export USER
 
-export LS_COLORS='no=00:fi=00:rs=0:di=94:ln=97:mh=00:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:mi=00:su=37;41:sg=30;43:ca=30;41:tw=37;44:ow=30;44:st=30;46:ex=97:*.tar=91:*.tgz=91:*.arc=91:*.arj=91:*.taz=91:*.lha=91:*.lz4=91:*.lzh=91:*.lzma=91:*.tlz=91:*.txz=91:*.tzo=91:*.t7z=91:*.zip=91:*.z=91:*.Z=91:*.dz=91:*.gz=91:*.lrz=91:*.lz=91:*.lzo=91:*.xz=91:*.zst=91:*.tzst=91:*.bz2=91:*.bz=91:*.tbz=91:*.tbz2=91:*.tz=91:*.deb=91:*.rpm=91:*.jar=91:*.war=91:*.ear=91:*.sar=91:*.rar=91:*.alz=91:*.ace=91:*.zoo=91:*.cpio=91:*.7z=91:*.rz=91:*.cab=91:*.wim=91:*.swm=91:*.dwm=91:*.esd=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=96:*.au=96:*.flac=96:*.m4a=96:*.mid=96:*.midi=96:*.mka=96:*.mp3=96:*.mpc=96:*.ogg=96:*.ra=96:*.wav=96:*.oga=96:*.opus=96:*.spx=96:*.xspf=96:*.latex=92:*.log=92:*.doc=92:*.ppt=92:*.xls=92:*.docx=92:*.pptx=92:*.xlsx=92:*.odt=92:*.ods=92:*.odp=92:*.pdf=92:*.tex=92:*.md=92:*.h=93:*.hpp=93:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.cxx=93:*.f=93:*.F=93:*.f90=93:*.objc=93:*.cl=93:*.sh=93:*.csh=93:*.zsh=93:*.bat=93:*.cmd=93:*.el=93:*.vim=93:*.java=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.hs=93:*.php=93:*.htm=93:*.html=93:*.shtml=93:*.erb=93:*.haml=93:*.xml=93:*.rdf=93:*.css=93:*.sass=93:*.scss=93:*.less=93:*.js=93:*.coffee=93:*.man=93:*.l=93:*.n=93:*.p=93:*.pod=93:*.go=93:*.sql=93:*.csv=93:*.sv=93:*.svh=93:*.v=93:*.vh=93:*.vhd=93:'
+export LS_COLORS='no=00:fi=00:rs=0:di=94:ln=97:mh=00:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:mi=00:su=37;41:sg=30;43:ca=30;41:tw=37;44:ow=30;44:st=30;46:ex=97:*.tar=91:*.tgz=91:*.arc=91:*.arj=91:*.taz=91:*.lha=91:*.lz4=91:*.lzh=91:*.lzma=91:*.tlz=91:*.txz=91:*.tzo=91:*.t7z=91:*.zip=91:*.z=91:*.Z=91:*.dz=91:*.gz=91:*.lrz=91:*.lz=91:*.lzo=91:*.xz=91:*.zst=91:*.tzst=91:*.bz2=91:*.bz=91:*.tbz=91:*.tbz2=91:*.tz=91:*.deb=91:*.rpm=91:*.jar=91:*.war=91:*.ear=91:*.sar=91:*.rar=91:*.alz=91:*.ace=91:*.zoo=91:*.cpio=91:*.7z=91:*.rz=91:*.cab=91:*.wim=91:*.swm=91:*.dwm=91:*.esd=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=96:*.au=96:*.flac=96:*.m4a=96:*.mid=96:*.midi=96:*.mka=96:*.mp3=96:*.mpc=96:*.ogg=96:*.ra=96:*.wav=96:*.oga=96:*.opus=96:*.spx=96:*.xspf=96:*.latex=92:*.log=92:*.doc=92:*.ppt=92:*.xls=92:*.docx=92:*.pptx=92:*.xlsx=92:*.odt=92:*.ods=92:*.odp=92:*.pdf=92:*.tex=92:*.md=92:*.h=93:*.hpp=93:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.cxx=93:*.f=93:*.F=93:*.f90=93:*.objc=93:*.cl=93:*.sh=93:*.csh=93:*.zsh=93:*.bat=93:*.cmd=93:*.el=93:*.vim=93:*.java=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.hs=93:*.php=93:*.htm=93:*.html=93:*.shtml=93:*.erb=93:*.haml=93:*.xml=93:*.rdf=93:*.css=93:*.sass=93:*.scss=93:*.less=93:*.js=93:*.coffee=93:*.man=93:*.l=93:*.n=93:*.p=93:*.pod=93:*.go=93:*.sql=93:*.csv=93:*.sv=93:*.svh=93:*.v=93:*.vh=93:*.vhd=93'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
 export PAGER=less
@@ -393,10 +371,11 @@ for key     kcap   seq        mode   widget (
 
 
 unalias -m '*'
+
 alias where='whence -ca'
 alias st='source ~/.zshrc'
-alias hi='fc -l -90000'
-alias hgrep='fc -l -90000 | grep'
+alias hi='fc -l 1'
+alias hgrep='fc -l 1 | grep'
 alias hload='fc -R'
 alias hsave='fc -AI'
 alias hclear='local HISTSIZE=0'
@@ -647,8 +626,8 @@ alias kfm='setxkbmap fr mac'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
-alias linux_console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
-alias linux_console_color_cursor='/bin/echo -ne "\e]12;orange\a"'
+alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
+alias console_color_cursor='/bin/echo -ne "\e]12;#458588\a"'
 
 conf() {
         echo "This machine is a `uname -a`"
@@ -712,11 +691,10 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.176 2020/09/20 18:04:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.185 2020/10/03 13:55:49 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME='zsh'
 
-#export PS1='> '
-export PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
 
 title () {
     case "$TERM" in

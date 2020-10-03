@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: Friday 18 September 2020, 14:59
-# Edit Time: 65:36:38
+# Last Modified: samedi 03 octobre 2020, 15:55
+# Edit Time: 67:29:11
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.229 2020/09/18 13:00:39 czo Exp $
+# $Id: .bashrc,v 1.232 2020/10/03 13:55:49 czo Exp $
 
 #set -v
 #set -x
@@ -28,6 +28,8 @@
 # echo -n "DEBUG T1:"; date
 
 export TMPDIR=${TMPDIR-/tmp}
+#android
+#export TMPDIR=${TMPDIR-/data/local/tmp}
 
 export HISTFILE=${TMPDIR}/.sh_history
 
@@ -241,10 +243,11 @@ fi
 ##======= Aliases & Functions =======================================##
 
 unalias -a
+
 alias where='type -a'
 alias st='source ~/.bashrc'
-alias hi='fc -l -90000'
-alias hgrep='fc -l -90000 | grep'
+alias hi='fc -l 1'
+alias hgrep='fc -l 1 | grep'
 alias hload='history -r'
 alias hsave='history -w'
 alias hclear="history -c"
@@ -489,7 +492,8 @@ alias kfm='setxkbmap fr mac'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
-alias lcc='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
+alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
+alias console_color_cursor='/bin/echo -ne "\e]12;#458588\a"'
 
 conf() {
         echo "This machine is a `uname -a`"
@@ -534,11 +538,16 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.229 2020/09/18 13:00:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.232 2020/10/03 13:55:49 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
-# prompt 'date' plutot que \D{%Y%m%d_%Hh%M} in bash
-PS1='\[\033[0m\]\n\[\033[0;97m\][${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \[\033[0;9`E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E`m\][$?]\[\033[0m\]\n\[\033[0;9${USER_PROMPT_COLOR}m\]${USER}\[\033[0;97m\]@\[\033[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\033[0;97m\]:\[\033[0;96m\]$PWD\[\033[0m\]\n\[\033[0;97m\]>>\[\033[0m\] '
+if [ -n "$BASH_VERSION" ]
+then
+    PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:pts/\l:sh${SHLVL} - \[\e[0;9`E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E`m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;97m\]>>\[\e[m\] '
+else
+    PS1=$'\e[m\n\e[0;97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \e[0;9`E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E`m[$?]\e[m\n\e[0;9${USER_PROMPT_COLOR}m${USER}\e[0;97m@\e[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}\e[0;97m:\e[0;96m$PWD\e[m\n\e[0;97m>>\e[m '
+fi
+
 
 title () {
     case "$TERM" in

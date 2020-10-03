@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Sunday 20 September 2020, 18:05
-" Edit Time: 174:09:46
+" Last Modified: Friday 25 September 2020, 01:14
+" Edit Time: 174:10:52
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.176 2020/09/20 18:04:39 czo Exp $
+" $Id: .vimrc,v 1.177 2020/09/25 00:09:58 czo Exp $
 
 if version >= 580
 
@@ -28,6 +28,7 @@ set nocompatible
 let g:colors_name = ""
 if has("termguicolors")
   " work in tmux, but not in screen
+  "set notermguicolors
   set termguicolors
 endif
 let mapleader=","
