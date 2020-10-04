@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: Friday 25 September 2020, 01:14
-" Edit Time: 174:10:52
+" Last Modified: dimanche 04 octobre 2020, 20:16
+" Edit Time: 174:59:35
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.177 2020/09/25 00:09:58 czo Exp $
+" $Id: .vimrc,v 1.178 2020/10/04 18:18:09 czo Exp $
 
 if version >= 580
 
@@ -110,6 +110,7 @@ set incsearch
 
 set wildmenu
 set wildmode=longest,full
+set wildoptions=tagfile
 
 if !has('nvim')
     set ttymouse=xterm2
