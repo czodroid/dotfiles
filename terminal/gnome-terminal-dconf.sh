@@ -4,20 +4,17 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: sept. 2020
-# Last Modified: mercredi 02 septembre 2020, 01:02
-# Edit Time: 0:00:22
+# Last Modified: lundi 05 octobre 2020, 22:15
+# Edit Time: 0:02:41
 # Description:
 #
-# $Id: gnome-terminal-dconf.sh,v 1.1 2020/10/03 14:12:54 czo Exp $
+# $Id: gnome-terminal-dconf.sh,v 1.2 2020/10/05 20:15:56 czo Exp $
 #
 
 dconf load / << 'EOF'
 
 #czo /* 2018/02/06 : Modified by Olivier Sirol <czo@free.fr> */ 
 #dconf dump / > /root/dconf.1
-
-[org/gnome/desktop/wm/preferences]
-button-layout='appmenu:minimize,maximize,close'
 
 [org/gnome/shell/extensions/system-monitor]
 disk-display=true
@@ -67,7 +64,7 @@ background-transparency-percent=6
 bold-color='rgb(177,98,134)'
 bold-color-same-as-fg=false
 bold-is-bright=true
-cursor-background-color='rgb(104,157,106)'
+cursor-background-color='rgb(152,151,26)'
 cursor-colors-set=true
 cursor-foreground-color='rgb(40,40,40)'
 cursor-shape='block'

@@ -14,7 +14,6 @@
     cursor_color_fg = False
     font = Monospace 13
     foreground_color = "#c9b788"
-    show_titlebar = False
     scrollbar_position = hidden
     scrollback_lines = 99000
     scrollback_infinite = True
