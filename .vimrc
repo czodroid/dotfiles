@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: dimanche 04 octobre 2020, 20:16
-" Edit Time: 174:59:35
+" Last Modified: dimanche 04 octobre 2020, 21:41
+" Edit Time: 175:03:27
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.178 2020/10/04 18:18:09 czo Exp $
+" $Id: .vimrc,v 1.179 2020/10/04 19:42:21 czo Exp $
 
 if version >= 580
 
@@ -539,7 +539,7 @@ hi  StorageClass  guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE  
 hi  Structure     guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Typedef       guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Pmenu         guifg=#ebdbb2  guibg=#504945  ctermfg=White     ctermbg=DarkGray  gui=NONE            cterm=NONE            term=NONE
-hi  PmenuSel      guifg=#ebdbb2  guibg=#83a598  ctermfg=White     ctermbg=Blue      gui=NONE            cterm=NONE            term=NONE
+hi  PmenuSel      guifg=#282828  guibg=#83a598  ctermfg=Black     ctermbg=Blue      gui=NONE            cterm=NONE            term=NONE
 hi  PmenuSbar     guifg=NONE     guibg=#504945  ctermfg=NONE      ctermbg=DarkGray  gui=NONE            cterm=NONE            term=NONE
 hi  PmenuThumb    guifg=NONE     guibg=#7c6f64  ctermfg=NONE      ctermbg=DarkGray  gui=NONE            cterm=NONE            term=NONE
 hi  DiffDelete    guifg=#83a598  guibg=#282828  ctermfg=Blue      ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
