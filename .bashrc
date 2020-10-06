@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: mardi 06 octobre 2020, 18:43
-# Edit Time: 65:40:59
+# Last Modified: mardi 06 octobre 2020, 19:02
+# Edit Time: 65:41:17
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.235 2020/10/06 16:47:20 czo Exp $
+# $Id: .bashrc,v 1.236 2020/10/06 17:03:48 czo Exp $
 
 #set -v
 #set -x
@@ -137,8 +137,7 @@ export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 { [ -x /bin/whoami ] && USER=$(whoami) ;} || USER=$(id -nu) || [ -n "$USER" ]
 export USER
 
-# Unknown for old LS_COLORS : rs=0 mh=00
-export LS_COLORS='no=00:fi=00:di=94:ln=36:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:ca=30;41:tw=37;44:ow=30;44:st=30;46:ex=97:*.tar=91:*.tgz=91:*.arc=91:*.arj=91:*.taz=91:*.lha=91:*.lz4=91:*.lzh=91:*.lzma=91:*.tlz=91:*.txz=91:*.tzo=91:*.t7z=91:*.zip=91:*.z=91:*.Z=91:*.dz=91:*.gz=91:*.lrz=91:*.lz=91:*.lzo=91:*.xz=91:*.zst=91:*.tzst=91:*.bz2=91:*.bz=91:*.tbz=91:*.tbz2=91:*.tz=91:*.deb=91:*.rpm=91:*.jar=91:*.war=91:*.ear=91:*.sar=91:*.rar=91:*.alz=91:*.ace=91:*.zoo=91:*.cpio=91:*.7z=91:*.rz=91:*.cab=91:*.wim=91:*.swm=91:*.dwm=91:*.esd=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=96:*.au=96:*.flac=96:*.m4a=96:*.mid=96:*.midi=96:*.mka=96:*.mp3=96:*.mpc=96:*.ogg=96:*.ra=96:*.wav=96:*.oga=96:*.opus=96:*.spx=96:*.xspf=96:*.latex=92:*.log=92:*.doc=92:*.ppt=92:*.xls=92:*.docx=92:*.pptx=92:*.xlsx=92:*.odt=92:*.ods=92:*.odp=92:*.pdf=92:*.tex=92:*.md=92:*.h=93:*.hpp=93:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.cxx=93:*.f=93:*.F=93:*.f90=93:*.objc=93:*.cl=93:*.sh=93:*.csh=93:*.zsh=93:*.bat=93:*.cmd=93:*.el=93:*.vim=93:*.java=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.hs=93:*.php=93:*.htm=93:*.html=93:*.shtml=93:*.erb=93:*.haml=93:*.xml=93:*.rdf=93:*.css=93:*.sass=93:*.scss=93:*.less=93:*.js=93:*.coffee=93:*.man=93:*.l=93:*.n=93:*.p=93:*.pod=93:*.go=93:*.sql=93:*.csv=93:*.sv=93:*.svh=93:*.v=93:*.vh=93:*.vhd=93:';
+export LS_COLORS='no=00:fi=00:di=94:ln=36:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.tar=91:*.tgz=91:*.arc=91:*.arj=91:*.taz=91:*.lha=91:*.lz4=91:*.lzh=91:*.lzma=91:*.tlz=91:*.txz=91:*.tzo=91:*.t7z=91:*.zip=91:*.z=91:*.Z=91:*.dz=91:*.gz=91:*.lrz=91:*.lz=91:*.lzo=91:*.xz=91:*.zst=91:*.tzst=91:*.bz2=91:*.bz=91:*.tbz=91:*.tbz2=91:*.tz=91:*.deb=91:*.rpm=91:*.jar=91:*.war=91:*.ear=91:*.sar=91:*.rar=91:*.alz=91:*.ace=91:*.zoo=91:*.cpio=91:*.7z=91:*.rz=91:*.cab=91:*.wim=91:*.swm=91:*.dwm=91:*.esd=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=96:*.au=96:*.flac=96:*.m4a=96:*.mid=96:*.midi=96:*.mka=96:*.mp3=96:*.mpc=96:*.ogg=96:*.ra=96:*.wav=96:*.oga=96:*.opus=96:*.spx=96:*.xspf=96:*.latex=92:*.log=92:*.doc=92:*.ppt=92:*.xls=92:*.docx=92:*.pptx=92:*.xlsx=92:*.odt=92:*.ods=92:*.odp=92:*.pdf=92:*.tex=92:*.md=92:*.h=93:*.hpp=93:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.cxx=93:*.f=93:*.F=93:*.f90=93:*.objc=93:*.cl=93:*.sh=93:*.csh=93:*.zsh=93:*.bat=93:*.cmd=93:*.el=93:*.vim=93:*.java=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.hs=93:*.php=93:*.htm=93:*.html=93:*.shtml=93:*.erb=93:*.haml=93:*.xml=93:*.rdf=93:*.css=93:*.sass=93:*.scss=93:*.less=93:*.js=93:*.coffee=93:*.man=93:*.l=93:*.n=93:*.p=93:*.pod=93:*.go=93:*.sql=93:*.csv=93:*.sv=93:*.svh=93:*.v=93:*.vh=93:*.vhd=93:'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
 export PAGER=less
@@ -539,7 +538,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.235 2020/10/06 16:47:20 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.236 2020/10/06 17:03:48 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 if [ -n "$BASH_VERSION" ]
