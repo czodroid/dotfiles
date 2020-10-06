@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.187 2020/10/05 10:26:46 czo Exp $
+# $Id: .zshrc,v 1.188 2020/10/06 08:12:12 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -158,7 +158,7 @@ export -U PATH
 
 ##======= Environment Variables =====================================##
 
-{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname -s) ;} || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
+{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname) ;} || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { [ -x /bin/whoami ] && USER=$(whoami) ;} || USER=$(id -nu) || [ -n "$USER" ]
@@ -691,7 +691,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.187 2020/10/05 10:26:46 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .zshrc,v 1.188 2020/10/06 08:12:12 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

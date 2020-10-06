@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: lundi 05 octobre 2020, 12:21
-# Edit Time: 65:39:42
+# Last Modified: mardi 06 octobre 2020, 10:11
+# Edit Time: 65:40:10
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.233 2020/10/05 10:21:05 czo Exp $
+# $Id: .bashrc,v 1.234 2020/10/06 08:12:11 czo Exp $
 
 #set -v
 #set -x
@@ -131,7 +131,7 @@ export PATH
 
 ##======= Environment Variables =====================================##
 
-{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname -s) ;} || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
+{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname) ;} || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { [ -x /bin/whoami ] && USER=$(whoami) ;} || USER=$(id -nu) || [ -n "$USER" ]
@@ -539,7 +539,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .bashrc,v 1.233 2020/10/05 10:21:05 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=`echo '$Id: .bashrc,v 1.234 2020/10/06 08:12:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
 SHELLNAME=`echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
 
 if [ -n "$BASH_VERSION" ]
