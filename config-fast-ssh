@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: samedi 22 août 2020, 19:59
-# Edit Time: 3:43:13
+# Last Modified: mardi 06 octobre 2020, 10:37
+# Edit Time: 3:45:58
 # Description:
 #   configure ssh with my authorized_keys and config
 #   FIXME: deconne sous OSX en copiant/colant: pb de cotes....
@@ -54,4 +54,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1IFx2ngIzNDO9srGw8QTz/mE5Wnp3hbjrWgbLH/l2
 
 EOF
 
+chmod 600 "$HOME/.ssh/config"
+chmod 600 "$HOME/.ssh/authorized_keys"
 
