@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mardi 06 octobre 2020, 12:34
-# Edit Time: 110:47:34
+# Last Modified: vendredi 09 octobre 2020, 18:55
+# Edit Time: 111:05:10
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.191 2020/10/06 19:47:17 czo Exp $
+# $Id: .zshrc,v 1.194 2020/10/09 16:56:24 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -89,9 +89,9 @@ WATCHFMT='%n %a %l from %m at %t.'
 
 PLATFORM=Unknown
 
-case `uname` in
+case $(uname 2>/dev/null) in
 
-  Linux*) case `uname -m` in
+  Linux*) case $(uname -m 2>/dev/null) in
            i*86)   PLATFORM=Linux ;;
            x86_64) PLATFORM=Linux ;;
            mips)   PLATFORM=Linux_bb ;;
@@ -99,7 +99,7 @@ case `uname` in
            aarch*) PLATFORM=Linux_bb ;; # near full distro
           esac ;;
 
-  SunOS*) case `uname -r` in
+  SunOS*) case $(uname -r 2>/dev/null) in
             5*) PLATFORM=Solaris ;;
              *) PLATFORM=SunOS ;;
           esac ;;
@@ -158,10 +158,10 @@ export -U PATH
 
 ##======= Environment Variables =====================================##
 
-{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname) ;} || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
+{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
-{ [ -x /bin/whoami ] && USER=$(whoami) ;} || USER=$(id -nu) || [ -n "$USER" ]
+{ [ -x /bin/whoami ] && USER=$(whoami 2>/dev/null) ;} || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
 export USER
 
 export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.tar=91:*.tgz=91:*.arc=91:*.arj=91:*.taz=91:*.lha=91:*.lz4=91:*.lzh=91:*.lzma=91:*.tlz=91:*.txz=91:*.tzo=91:*.t7z=91:*.zip=91:*.z=91:*.Z=91:*.dz=91:*.gz=91:*.lrz=91:*.lz=91:*.lzo=91:*.xz=91:*.zst=91:*.tzst=91:*.bz2=91:*.bz=91:*.tbz=91:*.tbz2=91:*.tz=91:*.deb=91:*.rpm=91:*.jar=91:*.war=91:*.ear=91:*.sar=91:*.rar=91:*.alz=91:*.ace=91:*.zoo=91:*.cpio=91:*.7z=91:*.rz=91:*.cab=91:*.wim=91:*.swm=91:*.dwm=91:*.esd=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.ogg=36:*.ra=36:*.wav=36:*.oga=36:*.opus=36:*.spx=36:*.xspf=36:*.latex=92:*.log=92:*.doc=92:*.ppt=92:*.xls=92:*.docx=92:*.pptx=92:*.xlsx=92:*.odt=92:*.ods=92:*.odp=92:*.pdf=92:*.tex=92:*.md=92:*.h=93:*.hpp=93:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.cxx=93:*.f=93:*.F=93:*.f90=93:*.objc=93:*.cl=93:*.sh=93:*.csh=93:*.zsh=93:*.bat=93:*.cmd=93:*.el=93:*.vim=93:*.java=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.hs=93:*.php=93:*.htm=93:*.html=93:*.shtml=93:*.erb=93:*.haml=93:*.xml=93:*.rdf=93:*.css=93:*.sass=93:*.scss=93:*.less=93:*.js=93:*.coffee=93:*.man=93:*.l=93:*.n=93:*.p=93:*.pod=93:*.go=93:*.sql=93:*.csv=93:*.sv=93:*.svh=93:*.v=93:*.vh=93:*.vhd=93:'
@@ -178,7 +178,7 @@ export RSYNC_RSH=ssh
 export CVSROOT=ananas:/tank/data/czo/CzoDoc/cvsroot
 #export CVSROOT=$HOME/tmp/cvsroot
 
-case `domainname 2> /dev/null` in
+case $(domainname 2>/dev/null) in
         NIS-CZO*) export PRINTER=U172-magos;;
                *) export PRINTER=HP_Deskjet_5900_series_ananas ;;
 esac
@@ -418,7 +418,15 @@ sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A
 sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\"" ; }
 
 alias cvu='cd ~/etc ; cvs up ; cd -'
+alias cvd='cd ~/etc ; cvs diff ; cd -'
 alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
+
+alias gitl='git pull'
+alias gits='git status'
+alias gitd='git diff'
+alias gita='git add .'
+alias gitc='git commit -mok -a'
+alias gitp='git push'
 
 alias vieux_ccvs='export CVSROOT=lagavulin:/home/czo/cvsroot ; export CVS_RSH=~/sshc'
 alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
@@ -529,7 +537,7 @@ imprime='a2ps -2 -s2'
 imprimeman='a2ps -2 -s2 -man'
 imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
 
-alias xmbk='eval `\xmbk -c`'
+alias xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
 
 alias ff='find . -name'
@@ -557,21 +565,21 @@ ncd()
     $HOME/local/$PLATFORM/bin/ncd $* ;
     E=$?
     if [ $E -eq 0 ]
-     then cd "`cat $HOME/.ncd_sdir`"
+     then cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"
     fi
-    exit $E
+    return $E
    }
 
 alias ccd=ncd
 
 mccd()
    {
-MC_USER=`id | sed 's/[^(]*(//;s/).*//'`
+MC_USER=$(id | sed 's/[^(]*(//;s/).*//' 2>/dev/null)
 MC_PWD_FILE="${TMPDIR}/mc-$MC_USER/mc.pwd.$$"
 /usr/bin/mc -P "$MC_PWD_FILE" "$@"
 
 if test -r "$MC_PWD_FILE"; then
-        MC_PWD="`cat "$MC_PWD_FILE"`"
+        MC_PWD="$(cat "$MC_PWD_FILE" 2>/dev/null)"
         if test -n "$MC_PWD" && test -d "$MC_PWD"; then
                 cd "$MC_PWD"
         fi
@@ -629,7 +637,7 @@ alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\
 alias console_color_cursor='/bin/echo -ne "\e]12;#458588\a"'
 
 conf() {
-        echo "This machine is a `uname -a`"
+        echo "This machine is a $(uname -a 2>/dev/null)"
         echo ""
         echo "Settings :"
         echo "    PLATFORM     = $PLATFORM"
@@ -637,7 +645,7 @@ conf() {
         echo "    CVSROOT      = $CVSROOT"
         echo "    DISPLAY      = $DISPLAY"
         echo "    KDEDIR       = $KDEDIR"
-        echo "    LIMIT        = `ulimit`"
+        echo "    LIMIT        = $(ulimit 2>/dev/null)"
         echo ""
 }
 
@@ -690,7 +698,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=`echo '$Id: .zshrc,v 1.191 2020/10/06 19:47:17 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//'`
+BVERS=$(echo '$Id: .zshrc,v 1.194 2020/10/09 16:56:24 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
