@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: vendredi 09 octobre 2020, 18:55
-# Edit Time: 111:05:10
+# Last Modified: samedi 10 octobre 2020, 12:43
+# Edit Time: 120:48:46
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,42 +16,42 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.194 2020/10/09 16:56:24 czo Exp $
+# $Id: .zshrc,v 1.195 2020/10/10 10:44:24 czo Exp $
 
 #zmodload zsh/zprof
 
 ##======= Zsh Settings ==============================================##
 
-setopt ALWAYS_TO_END # On completion go to end of word
-setopt AUTO_CD # Directory as command does cd
-setopt AUTO_NAME_DIRS # Variables always can be %~ abbrevs
-setopt BRACE_CCL # X{ab} expands to Xa Xb
-setopt CDABLE_VARS # cd var  works if $var is directory
-setopt COMBINING_CHARS # Displays combining characters correctly
-setopt COMPLETE_IN_WORD # Completion works inside words
-setopt EXTENDED_GLOB # See globbing section above
-setopt GLOB_COMPLETE # Patterns are active in completion
-setopt GLOB_DOTS # Patterns may match leading dots
+setopt NO_ALWAYS_TO_END       # On completion go to end of word
+setopt AUTO_CD                # Directory as command does cd
+setopt AUTO_NAME_DIRS         # Variables always can be %~ abbrevs
+setopt BRACE_CCL              # X{ab} expands to Xa Xb
+setopt CDABLE_VARS            # cd var  works if $var is directory
+setopt COMBINING_CHARS        # Displays combining characters correctly
+setopt COMPLETE_IN_WORD       # Completion works inside words
+setopt EXTENDED_GLOB          # See globbing section above
+setopt GLOB_COMPLETE          # Patterns are active in completion
+setopt GLOB_DOTS              # Patterns may match leading dots
 setopt HIST_EXPIRE_DUPS_FIRST # Duplicate history entries lost first
-setopt HIST_IGNORE_ALL_DUPS # Remove all earlier duplicate lines
-setopt HIST_REDUCE_BLANKS # Trim multiple insgnificant blanks
-setopt HIST_SAVE_NO_DUPS # Remove duplicates when saving
-setopt INTERACTIVE # Shell is interactive
-setopt LONG_LIST_JOBS # More verbose listing of jobs
-setopt MAGIC_EQUAL_SUBST # Special expansion after all =
-setopt MAIL_WARNING # Warn if mail file timestamp changed
-setopt MONITOR # Shell has job control enabled
-setopt NO_BG_NICE # (!*)Background jobs at lower priority
-setopt NO_CHECK_JOBS # (!*)Check jobs before exiting shell
-setopt NO_HUP # (!*)Send SIGHUP to proceses on exit
-setopt NUMERIC_GLOB_SORT # Numbers in globs sorted numerically
-setopt PRINT_EIGHT_BIT # Print all 8­bit characters directly
-setopt PRINT_EXIT_VALUE # Return status printed unless zero
-setopt PROMPT_SUBST # $ expansion etc. in prompts
-setopt RC_EXPAND_PARAM # X$array gives Xelt1 Xelt2 etc.
-setopt RM_STAR_SILENT # Don’t warn on rm *
-setopt SH_WORD_SPLIT # Split non­array variables yuckily
-setopt ZLE # Line editor used to input lines
+setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
+setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
+setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
+setopt INTERACTIVE            # Shell is interactive
+setopt LONG_LIST_JOBS         # More verbose listing of jobs
+setopt MAGIC_EQUAL_SUBST      # Special expansion after all =
+setopt MAIL_WARNING           # Warn if mail file timestamp changed
+setopt MONITOR                # Shell has job control enabled
+setopt NO_BG_NICE             # (!*)Background jobs at lower priority
+setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
+setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
+setopt NUMERIC_GLOB_SORT      # Numbers in globs sorted numerically
+setopt PRINT_EIGHT_BIT        # Print all 8­bit characters directly
+setopt PRINT_EXIT_VALUE       # Return status printed unless zero
+setopt PROMPT_SUBST           # $ expansion etc. in prompts
+setopt RC_EXPAND_PARAM        # X$array gives Xelt1 Xelt2 etc.
+setopt RM_STAR_SILENT         # Don’t warn on rm *
+setopt SH_WORD_SPLIT          # Split non­array variables yuckily
+setopt ZLE                    # Line editor used to input lines
 
 
 export SAVEHIST=35000
@@ -652,7 +652,43 @@ conf() {
 
 ##======= Completions ===============================================##
 
+autoload -Uz compinit 
+compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
+
 zstyle ':completion:*' rehash true
+zstyle ':completion:*' accept-exact-dirs true 
+# cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh_cache
+# for use with expand-or-complete
+zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
+# _list anywhere to the completers always only lists completions on first tab
+zstyle ':completion:*:prefix-complete:*' completer _complete
+zstyle ':completion:*:prefix-approximate:*' completer _approximate
+# configure the match completer, with original set to only it doesn't act like a `*' was inserted at the cursor position
+zstyle ':completion:*:match:*' original only
+# first case insensitive completion, then case-sensitive partial-word c., then case-insensitive (with -_. as possible anchors)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[-_.]=* r:|=*' 'm:{a-z}={A-Z} r:|[-_.]=* r:|=*'
+# allow 2 erros in correct completer
+zstyle ':completion:*:correct:*' max-errors 2 not-numeric
+# allow one error for every three characters typed in approximate completer
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) numeric )'
+# meu selection with 2 candidates or more
+zstyle ':completion:*' menu select=2
+# Add colors in completions
+#zmodload -i zsh/complist
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+#autoload colors && colors
+# messages/warnings format
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:corrections'  format $' %{\e[0;93m%}-- %d (errors: %e) --%{\e[m%}'
+zstyle ':completion:*:descriptions' format $' %{\e[0;92m%}-- %d --%{\e[m%}'
+zstyle ':completion:*:messages'     format $' %{\e[0;91m%}-- %d --%{\e[m%}'
+zstyle ':completion:*:warnings'     format $' %{\e[0;93m%}-- no matches for: %d --%{\e[m%}'
+# make completions appear below the description of which listing they come from
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:default' select-prompt %SScrolling active: current selection at %p%s
+
 zstyle ':completion:*:*:kill:*' command 'ps -u$USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*:*:killall:*' command 'ps -u$USER -o cmd'
 zstyle ':completion:*:(ssh|scp):*' tag-order    hosts-ports-users hosts users-hosts users hosts
@@ -670,20 +706,6 @@ then
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 fi
 
-# The following lines were added by compinstall
-zstyle ':completion:*' completer _expand _complete
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu select=0
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' accept-exact-dirs true 
-zstyle :compinstall filename "$HOME/.zshrc"
-
-autoload -Uz compinit 
-#compinit
-# End of lines added by compinstall
-compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
 
 ##======= Main ======================================================##
 
@@ -698,7 +720,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.194 2020/10/09 16:56:24 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.195 2020/10/10 10:44:24 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
