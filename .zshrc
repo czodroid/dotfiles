@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: samedi 10 octobre 2020, 12:43
-# Edit Time: 120:48:46
+# Last Modified: lundi 12 octobre 2020, 12:01
+# Edit Time: 120:50:50
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.195 2020/10/10 10:44:24 czo Exp $
+# $Id: .zshrc,v 1.197 2020/10/12 10:02:26 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -27,7 +27,7 @@ setopt AUTO_CD                # Directory as command does cd
 setopt AUTO_NAME_DIRS         # Variables always can be %~ abbrevs
 setopt BRACE_CCL              # X{ab} expands to Xa Xb
 setopt CDABLE_VARS            # cd var  works if $var is directory
-setopt COMBINING_CHARS        # Displays combining characters correctly
+#setopt COMBINING_CHARS        # Displays combining characters correctly
 setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
@@ -661,7 +661,8 @@ zstyle ':completion:*' accept-exact-dirs true
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh_cache
 # for use with expand-or-complete
-zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
+#zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
+zstyle ':completion:*' completer _complete _match _prefix:-complete _list _ignored
 # _list anywhere to the completers always only lists completions on first tab
 zstyle ':completion:*:prefix-complete:*' completer _complete
 zstyle ':completion:*:prefix-approximate:*' completer _approximate
@@ -720,7 +721,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.195 2020/10/10 10:44:24 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.197 2020/10/12 10:02:26 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

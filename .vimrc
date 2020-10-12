@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: dimanche 04 octobre 2020, 21:41
-" Edit Time: 175:03:27
+" Last Modified: lundi 12 octobre 2020, 11:50
+" Edit Time: 175:12:20
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.179 2020/10/04 19:42:21 czo Exp $
+" $Id: .vimrc,v 1.180 2020/10/12 09:50:46 czo Exp $
 
 if version >= 580
 
@@ -25,7 +25,10 @@ if version >= 580
 
 " vim mode
 set nocompatible
-let g:colors_name = ""
+
+" you can do a source ~/.vimrc, whitout "gruvbox64"
+let g:colors_name = "default"
+
 if has("termguicolors")
   " work in tmux, but not in screen
   "set notermguicolors
