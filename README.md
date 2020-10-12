@@ -10,6 +10,6 @@
 
     curl -fsSL https://gitlab.com/czo/dotfiles/raw/master/config-fast-copy | bash
 
-    curl -fsSL https://gitlab.com/czo/dotfiles/raw/master/config-fast-copy | bash 
+    curl -fsSL https://gitlab.com/czo/dotfiles/raw/master/config-fast-ssh | bash 
 
 
