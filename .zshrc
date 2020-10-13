@@ -1,13 +1,13 @@
 #             ,,,
 #            (o o)
-####=====oOO--(_)--OOO=============================================####
+####=====oOO--(_)--OOO==============================================####
 #
 # Filename: .zshrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: lundi 12 octobre 2020, 12:01
-# Edit Time: 120:50:50
+# Last Modified: mardi 13 octobre 2020, 19:50
+# Edit Time: 120:51:28
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,11 +16,11 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.197 2020/10/12 10:02:26 czo Exp $
+# $Id: .zshrc,v 1.198 2020/10/13 17:55:13 czo Exp $
 
 #zmodload zsh/zprof
 
-##======= Zsh Settings ==============================================##
+##======= Zsh Settings ===============================================##
 
 setopt NO_ALWAYS_TO_END       # On completion go to end of word
 setopt AUTO_CD                # Directory as command does cd
@@ -85,7 +85,7 @@ WATCHFMT='%n %a %l from %m at %t.'
 #cdpath=(.. ~ ~/src ~/zsh)
 
 
-##======= Platform ==================================================##
+##======= Platform ===================================================##
 
 PLATFORM=Unknown
 
@@ -122,7 +122,7 @@ esac
 
 export PLATFORM
 
-##======= Paths =====================================================##
+##======= Paths ======================================================##
 
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
@@ -156,7 +156,7 @@ export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/lib
 
 export -U PATH
 
-##======= Environment Variables =====================================##
+##======= Environment Variables ======================================##
 
 { [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
@@ -186,7 +186,7 @@ esac
 
 export HTML_TIDY=$HOME/.tidyrc
 
-##======= Autoload functions ========================================##
+##======= Autoload functions =========================================##
 
 # Where to look for autoloaded function definitions
 #typeset -U FPATH=$FPATH:$HOME/etc/zsh/functions
@@ -237,7 +237,7 @@ zle -N history-beginning-search-forward-end czo-history-search-end
 #  autoload $dirname/*(.x:t)
 #done
 
-##======= Key bindings ==============================================##
+##======= Key bindings ===============================================##
 
 # Some nice key bindings
 #bindkey '^X^Z' universal-argument ' ' magic-space
@@ -367,7 +367,7 @@ for key     kcap   seq        mode   widget (
   bindkey "${terminfo[$kcap]-$seq}" key-$key
 }
 
-##======= Aliases & Functions =======================================##
+##======= Aliases & Functions ========================================##
 
 unalias -m '*'
 
@@ -650,7 +650,7 @@ conf() {
 }
 
 
-##======= Completions ===============================================##
+##======= Completions ================================================##
 
 autoload -Uz compinit 
 compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
@@ -708,7 +708,7 @@ then
 fi
 
 
-##======= Main ======================================================##
+##======= Main =======================================================##
 
 #HOSTNAME=czophone
 #USER=root
@@ -721,7 +721,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.197 2020/10/12 10:02:26 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.198 2020/10/13 17:55:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

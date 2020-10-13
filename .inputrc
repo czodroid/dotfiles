@@ -1,18 +1,18 @@
 #             ,,,
 #            (o o)
-####=====oOO--(_)--OOO=============================================####
+####=====oOO--(_)--OOO==============================================####
 #
 # Filename: .inputrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: samedi 10 octobre 2020, 02:57
-# Edit Time: 4:25:50
+# Last Modified: mardi 13 octobre 2020, 19:47
+# Edit Time: 4:26:02
 # Description: ~/.inputrc
 #              See readline(3readline) and `info rluserman' 
 #              for more information.
 #
-# $Id: .inputrc,v 1.5 2020/10/10 10:44:24 czo Exp $
+# $Id: .inputrc,v 1.6 2020/10/13 17:55:12 czo Exp $
 
 
 # Be 8 bit clean.

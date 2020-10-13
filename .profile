@@ -1,20 +1,20 @@
 #!/bin/sh
 #             ,,,
 #            (o o)
-####=====oOO--(_)--OOO=============================================####
+####=====oOO--(_)--OOO==============================================####
 #
 # Filename: .profile
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: juil. 1995
-# Last Modified: vendredi 19 juillet 2019, 02:38
-# Edit Time: 0:59:46
+# Last Modified: mardi 13 octobre 2020, 19:47
+# Edit Time: 1:00:13
 # Description:
 #    ~/.profile: executed by the command interpreter for
 #    login shells. This file is not read by bash(1), 
 #    if ~/.bash_profile or ~/.bash_login exists.
 #
-# $Id: .profile,v 1.20 2019/07/19 00:40:56 czo Exp $
+# $Id: .profile,v 1.21 2020/10/13 17:55:12 czo Exp $
 
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.

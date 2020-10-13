@@ -1,22 +1,22 @@
-"              ,,,
-"             (o o)
-"####=====oOO--(_)--OOO===================================================####
+"             ,,,
+"            (o o)
+"###=====oOO--(_)--OOO===============================================##"
 "
 " Filename: .vimrc
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: lundi 12 octobre 2020, 11:50
-" Edit Time: 175:12:20
+" Last Modified: mardi 13 octobre 2020, 19:45
+" Edit Time: 175:19:30
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.180 2020/10/12 09:50:46 czo Exp $
+" $Id: .vimrc,v 1.181 2020/10/13 17:55:12 czo Exp $
 
 if version >= 580
 
-" == Options =============================================================####
+" == Options ===========================================================
 
 " for non working term colors
 "set t_Co=8
@@ -152,7 +152,7 @@ if &term =~ '^vt100'
     execute "set <S-Left>=\e[1;2D"
 endif
 
-" == Statusline ==========================================================####
+" == Statusline ========================================================
 
 " :h mode() to see all modes
 let g:currentmode={
@@ -220,7 +220,7 @@ set statusline+=\                                    " Blank last char
 "let &statusline="[%n] %<%f %y %{''.(&fenc!=''?&fenc:&enc).''}%{(&bomb?\',BOM\':\'\')} %{&ff} %{&spelllang} %= %c: %3b 0x%2B    %l/%L %m%r%w %P "
 
 
-" GUI Mode ================================================================####
+" == GUI Mode ==========================================================
 
 if has("gui_running")
 "set noguipty
@@ -248,7 +248,7 @@ set mousehide
   endif
 
 endif
-" Autocommands ============================================================####
+" == Autocommands ======================================================
 
 if has("autocmd")
 
@@ -290,7 +290,7 @@ autocmd BufNewFile,BufRead *.ino set filetype=cpp
 endif
 
 
-" MAPpings ================================================================####
+" == MAPpings ==========================================================
 
 " COMMANDS                    MODES ~
 " :map   :noremap  :unmap     Normal, Visual, Select, Operator-pending
@@ -404,7 +404,7 @@ vmap <leader>13 :!tr A-Za-z N-ZA-Mn-za-m
 " remove "control-m"s - for those mails sent from DOS:
 cmap <leader>rcm %s/<C-M>//g
 
-" ABbreviations ===========================================================####
+" == ABbreviations =====================================================
 
 " all debuterminating with "_"
 
@@ -431,7 +431,7 @@ cmap <leader>rcm %s/<C-M>//g
   iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire d'Informatique de Paris 6<CR>Achitecture des Systemes Integres et Micro-Electronique<CR><CR>Coul. 55-65, 3e etg, Bur. 309<CR>4, Place Jussieu<CR>75252 Paris Cedex 05<CR>France<CR><CR>Tel: +33 1 44 27 53 24<CR>Fax: +33 1 44 27 72 80<CR><CR>http://www-asim.lip6.fr/alliance/<CR>mailto:alliance-support@asim.lip6.fr<CR>
 
 
-" Color theme ==========================================================####
+" == Color theme =======================================================
 
 "let mysyntaxfile="$HOME/etc/vim/syntax.vim"
 
@@ -565,15 +565,15 @@ hi! link Operator Normal
 
 endif
 
-" ####=====================================================================####
-" Source external files ===================================================####
+" ======================================================================
+" == Source external files =============================================
 
 ""source all func in ~/etc/vim/run/
 ""source $HOME/etc/vim/func/template.vim
 "execute substitute(glob("~/etc/vim/run/*.vim"), "^\\|\n", "&source ", "g")
 
-" ####=====================================================================####
-" template.vim ============================================================####
+" ======================================================================
+" == template.vim ======================================================
 
 " VIm Template
 " Based on Header.vim by Johannes Zellner
@@ -1012,10 +1012,10 @@ endif
     set modified
 endfunction
 
-" end template.vim ========================================================####
+" end template.vim =====================================================
 
-" ####=====================================================================####
-" commentary.vim ==========================================================####
+" ======================================================================
+" == commentary.vim ====================================================
 
 " commentary.vim - Comment stuff out
 " Maintainer:   Tim Pope <http://tpo.pe/>
@@ -1141,7 +1141,7 @@ nnoremap <silent> <C-J>   :Commentary<CR>
 
 endif
 
-" end commentary.vim ======================================================####
+" end commentary.vim ===================================================
 
 "   set fileencoding=utf-8
 "   set encoding=truc
@@ -1152,5 +1152,5 @@ endif
 
 endif
 
-" The end! ================================================================####
+" The end! =============================================================
 

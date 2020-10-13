@@ -1,13 +1,13 @@
 #             ,,,
 #            (o o)
-####=====oOO--(_)--OOO=============================================####
+####=====oOO--(_)--OOO==============================================####
 #
 # Filename: .bashrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: vendredi 09 octobre 2020, 18:56
-# Edit Time: 66:12:45
+# Last Modified: mardi 13 octobre 2020, 19:38
+# Edit Time: 66:13:32
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.241 2020/10/09 16:56:24 czo Exp $
+# $Id: .bashrc,v 1.242 2020/10/13 17:55:12 czo Exp $
 
 #set -v
 #set -x
@@ -546,7 +546,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.241 2020/10/09 16:56:24 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.242 2020/10/13 17:55:12 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]
