@@ -4,14 +4,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: Friday 18 September 2020, 10:29
-# Edit Time: 23:09:10
+# Last Modified: lundi 19 octobre 2020, 14:07
+# Edit Time: 23:57:41
 # Description:
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
 #   faudra aussi mettre /var/www/index.html
 #
-# $Id: czolsb,v 1.22 2020/09/18 13:00:40 czo Exp $
+# $Id: czolsb,v 1.24 2020/10/19 12:07:59 czo Exp $
 #
 # sans lsb_release
 # le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
@@ -62,6 +62,11 @@ fi
 
 { [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname); } || { [ -x /bin/hostname ] && HOSTNAME=$(hostname -s); } || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
 HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
+WELCOME=$(perl -e '$H="Welcome on " . $ENV{HOSTNAME}; print map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } $H;')
+
+CRELEASE=$(echo "${PRETTY_NAME}" | perl -pe 's/  */ /g' | perl -pe 's/"//g')
+CCNAME=$(uname -m)
+CKNAME=$(uname -r)
 
 CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
 CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); $A4=~s/  */ /g; print $A4;')
@@ -69,18 +74,14 @@ CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model nam
 CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM",$mem;')
 CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
 
-CRELEASE=$(echo "$PRETTY_NAME" | perl -pe 's/  */ /g' | perl -pe 's/"//g')
 CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/(.*)/\L\1/')
-
-CCNAME=$(uname -m)
-CKNAME=$(uname -r)
 
 cat <<EOF
               ,,,
              (o o)
 ####=====oOO==(_)==OOO==============================================####
 
-                        Welcome to $HOSTNAME
+$WELCOME
 
  $CRELEASE, $CCNAME, $CKNAME
  $CNBCORE x $CCOREMODEL, $CMEM, $CSWAP

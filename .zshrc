@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mardi 13 octobre 2020, 19:50
-# Edit Time: 120:51:28
+# Last Modified: dimanche 18 octobre 2020, 11:12
+# Edit Time: 123:46:17
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,18 +16,17 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.198 2020/10/13 17:55:13 czo Exp $
+# $Id: .zshrc,v 1.200 2020/10/18 10:11:37 czo Exp $
 
 #zmodload zsh/zprof
 
 ##======= Zsh Settings ===============================================##
 
-setopt NO_ALWAYS_TO_END       # On completion go to end of word
+#setopt ALWAYS_TO_END          # On completion go to end of word
 setopt AUTO_CD                # Directory as command does cd
-setopt AUTO_NAME_DIRS         # Variables always can be %~ abbrevs
-setopt BRACE_CCL              # X{ab} expands to Xa Xb
-setopt CDABLE_VARS            # cd var  works if $var is directory
-#setopt COMBINING_CHARS        # Displays combining characters correctly
+setopt AUTO_PUSHD             # cd uses directory stack too
+setopt CD_SILENT              # Never print the working directory
+setopt COMBINING_CHARS        # Displays combining characters correctly
 setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
@@ -36,23 +35,19 @@ setopt HIST_EXPIRE_DUPS_FIRST # Duplicate history entries lost first
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
+setopt INTERACTIVE_COMMENTS   # Dash on interactive line for comment
 setopt INTERACTIVE            # Shell is interactive
 setopt LONG_LIST_JOBS         # More verbose listing of jobs
-setopt MAGIC_EQUAL_SUBST      # Special expansion after all =
-setopt MAIL_WARNING           # Warn if mail file timestamp changed
 setopt MONITOR                # Shell has job control enabled
 setopt NO_BG_NICE             # (!*)Background jobs at lower priority
 setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
 setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
-setopt NUMERIC_GLOB_SORT      # Numbers in globs sorted numerically
-setopt PRINT_EIGHT_BIT        # Print all 8­bit characters directly
-setopt PRINT_EXIT_VALUE       # Return status printed unless zero
 setopt PROMPT_SUBST           # $ expansion etc. in prompts
-setopt RC_EXPAND_PARAM        # X$array gives Xelt1 Xelt2 etc.
+setopt PUSHD_IGNORE_DUPS      # Don’t push dir multiply on stack
+setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
 setopt RM_STAR_SILENT         # Don’t warn on rm *
 setopt SH_WORD_SPLIT          # Split non­array variables yuckily
 setopt ZLE                    # Line editor used to input lines
-
 
 export SAVEHIST=35000
 export HISTSIZE=30000
@@ -411,6 +406,9 @@ alias xroot='xv -root +noresetroot -quit'
 alias xv='\xv -perfect -8'
 alias xload='\xload -hl red'
 alias key='perl -MCrypt::SKey -e key'
+
+listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }' ; }
+
 acrypt() { echo $1 ; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1 ; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1 ; }
@@ -721,7 +719,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.198 2020/10/13 17:55:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.200 2020/10/18 10:11:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.242 2020/10/13 17:55:12 czo Exp $
+# $Id: .bashrc,v 1.243 2020/10/15 08:58:37 czo Exp $
 
 #set -v
 #set -x
@@ -58,7 +58,7 @@ shopt -s checkwinsize
 fi
 
 
-##======= Platform ==================================================##
+##======= Platform ===================================================##
 
 PLATFORM=Unknown
 
@@ -95,7 +95,7 @@ esac
 
 export PLATFORM
 
-##======= Paths =====================================================##
+##======= Paths ======================================================##
 
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
@@ -129,7 +129,7 @@ export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/lib
 
 export PATH
 
-##======= Environment Variables =====================================##
+##======= Environment Variables ======================================##
 
 { [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
@@ -159,7 +159,7 @@ esac
 
 export HTML_TIDY=$HOME/.tidyrc
 
-##======= Key bindings ==============================================##
+##======= Key bindings ===============================================##
 
 if [ -n "$BASH_VERSION" ]; then
 
@@ -240,7 +240,7 @@ bind '"\em":      "\C-w\C-y\C-y"'
 
 fi
 
-##======= Aliases & Functions =======================================##
+##======= Aliases & Functions ========================================##
 
 unalias -a
 
@@ -278,6 +278,9 @@ alias xroot='xv -root +noresetroot -quit'
 alias xv='\xv -perfect -8'
 alias xload='\xload -hl red'
 alias key='perl -MCrypt::SKey -e key'
+
+listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }' ; }
+
 acrypt() { echo $1 ; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1 ; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1 ; }
@@ -517,7 +520,7 @@ conf() {
 }
 
 
-##======= Completions ===============================================##
+##======= Completions ================================================##
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -546,7 +549,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.242 2020/10/13 17:55:12 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.243 2020/10/15 08:58:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]
@@ -578,7 +581,7 @@ export PROMPT_COMMAND="precmd"
 #run once for non bash shells
 precmd 
 
-# zsh preexec : it works !!!
+# like zsh preexec : it works in bash 5 !!!
 if [ -n "$BASH_VERSION" ]; then
     PS0='$(title "$(history 1  2>/dev/null | sed "s/^ *[0-9]\+ \+//" 2>/dev/null) (${USER}@${HOSTNAME})")'
 fi

@@ -6,11 +6,11 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2000
-# Last Modified: mardi 13 octobre 2020, 19:46
-# Edit Time: 22:59:53
+# Last Modified: lundi 19 octobre 2020, 02:41
+# Edit Time: 23:11:58
 # Description: screen conf file
 #
-# $Id: .screenrc,v 1.38 2020/10/13 17:55:12 czo Exp $
+# $Id: .screenrc,v 1.39 2020/10/19 00:41:59 czo Exp $
 
 #term xterm-256color
 
@@ -50,6 +50,6 @@ bind ^k  eval kill
 bind v   paste .
 bind ^v  paste .
 
-bind 'm' eval "screen 1 ssh magnet -l root" split focus "screen 2 ssh bksyn2 -l root" "split -v" focus "screen 3 ssh wavelet2 -l root" focus
+bind 'm' eval "screen 1 ssh magnet -l root" split focus "screen 2 ssh bksyn -l root" "split -v" focus "screen 3 ssh wavelet -l root" focus
 
 

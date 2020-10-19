@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mardi 13 octobre 2020, 19:45
-" Edit Time: 175:19:30
+" Last Modified: jeudi 15 octobre 2020, 11:28
+" Edit Time: 175:32:14
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.181 2020/10/13 17:55:12 czo Exp $
+" $Id: .vimrc,v 1.182 2020/10/18 10:11:37 czo Exp $
 
 if version >= 580
 
@@ -34,7 +34,9 @@ if has("termguicolors")
   "set notermguicolors
   set termguicolors
 endif
+
 let mapleader=","
+
 "set nonumber
 set number
 set cursorline
@@ -46,7 +48,6 @@ set ruler
 set shortmess=aOt
 set laststatus=2
 set cmdheight=1
-"set scrolloff=0
 set scrolloff=0
 
 "set helpheight=999000
@@ -99,9 +100,9 @@ filetype indent on
 set cindent
 "set textwidth=72
 set textwidth=0
-" set nowrap
-" set wrapmargin=1
-" set formatoptions=qr
+"set nowrap
+"set wrapmargin=1
+"set formatoptions=qr
 "set equalprg=indent
 
 " search/replace
@@ -118,7 +119,11 @@ set wildoptions=tagfile
 if !has('nvim')
     set ttymouse=xterm2
 endif
-set mouse=a
+
+if version >= 710
+    set mouse=a
+endif
+
 if has('nvim')
     set guicursor+=a:blinkon1
 endif
