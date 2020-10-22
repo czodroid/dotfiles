@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: mardi 13 octobre 2020, 19:38
-# Edit Time: 66:13:32
+# Last Modified: jeudi 22 octobre 2020, 17:13
+# Edit Time: 67:08:54
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.243 2020/10/15 08:58:37 czo Exp $
+# $Id: .bashrc,v 1.244 2020/10/22 15:25:58 czo Exp $
 
 #set -v
 #set -x
@@ -268,6 +268,7 @@ alias matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -node
 alias ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
 alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
 
+alias mountlist='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull sans -x..."'
 alias rsyncfull='rsync --delete -av --numeric-ids -S -H'
 alias run-help=man
@@ -549,7 +550,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.243 2020/10/15 08:58:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.244 2020/10/22 15:25:58 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]

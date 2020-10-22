@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: dimanche 18 octobre 2020, 11:12
-# Edit Time: 123:46:17
+# Last Modified: jeudi 22 octobre 2020, 17:13
+# Edit Time: 123:46:40
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.200 2020/10/18 10:11:37 czo Exp $
+# $Id: .zshrc,v 1.201 2020/10/22 15:25:58 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -25,8 +25,8 @@
 #setopt ALWAYS_TO_END          # On completion go to end of word
 setopt AUTO_CD                # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
-setopt CD_SILENT              # Never print the working directory
-setopt COMBINING_CHARS        # Displays combining characters correctly
+#setopt CD_SILENT              # Never print the working directory
+#setopt COMBINING_CHARS        # Displays combining characters correctly
 setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
@@ -396,6 +396,7 @@ alias matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -node
 alias ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
 alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
 
+alias mountlist='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull sans -x..."'
 alias rsyncfull='rsync --delete -av --numeric-ids -S -H'
 alias run-help=man
@@ -719,7 +720,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.200 2020/10/18 10:11:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.201 2020/10/22 15:25:58 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
