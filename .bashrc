@@ -271,8 +271,9 @@ alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
 alias mountlist='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull sans -x..."'
 alias rsyncfull='rsync --delete -av --numeric-ids -S -H'
-alias run-help=man
+alias rsyncfat='rsync --delete -av --no-p --no-g --modify-window=1'
 
+alias run-help=man
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
 alias xe='gnuclient -q'
 alias xroot='xv -root +noresetroot -quit'

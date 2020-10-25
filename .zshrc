@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: jeudi 22 octobre 2020, 17:13
-# Edit Time: 123:46:40
+# Last Modified: dimanche 25 octobre 2020, 09:17
+# Edit Time: 123:47:38
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -399,8 +399,9 @@ alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
 alias mountlist='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull sans -x..."'
 alias rsyncfull='rsync --delete -av --numeric-ids -S -H'
-alias run-help=man
+alias rsyncfat='rsync --delete -av --no-p --no-g --modify-window=1'
 
+alias run-help=man
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
 alias xe='gnuclient -q'
 alias xroot='xv -root +noresetroot -quit'
