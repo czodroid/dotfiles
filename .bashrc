@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: lundi 26 octobre 2020, 21:37
-# Edit Time: 68:44:04
+# Last Modified: lundi 26 octobre 2020, 21:43
+# Edit Time: 68:44:18
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.246 2020/10/26 20:38:11 czo Exp $
+# $Id: .bashrc,v 1.247 2020/10/26 20:44:34 czo Exp $
 
 #set -v
 #set -x
@@ -392,7 +392,7 @@ alias YI='yum install'
 alias YR='yum remove'
 alias YS='yum search'
 
-# suze
+# suse
 alias ZU='zypper update'
 alias ZI='zypper install'
 alias ZR='zypper remove'
@@ -568,7 +568,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.246 2020/10/26 20:38:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.247 2020/10/26 20:44:34 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]
