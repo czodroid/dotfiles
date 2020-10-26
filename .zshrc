@@ -401,6 +401,11 @@ alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/san
 alias rsyncfull='rsync --numeric-ids -S -H  --delete -av'
 alias rsyncfat='rsync --no-p --no-g --modify-window=1 --delete -av'
 
+#https://gitlab.com/czo/dotfiles/raw/master/config-fast-copy
+#https://gitlab.com/czo/dotfiles/raw/master/config-fast-ssh
+alias curl-config-fast-copy='curl -fsSL https://git.io/JU6cm | sh'
+alias curl-config-fast-ssh='curl -fsSL https://git.io/JU6c2 | sh'
+
 alias run-help=man
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
 alias xe='gnuclient -q'

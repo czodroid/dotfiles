@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: lundi 26 octobre 2020, 19:56
-# Edit Time: 67:17:28
+# Last Modified: lundi 26 octobre 2020, 20:06
+# Edit Time: 67:23:40
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -272,6 +272,11 @@ alias mountlist='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsyncfull='rsync --numeric-ids -S -H  --delete -av'
 alias rsyncfat='rsync --no-p --no-g --modify-window=1 --delete -av'
+
+#https://gitlab.com/czo/dotfiles/raw/master/config-fast-copy
+#https://gitlab.com/czo/dotfiles/raw/master/config-fast-ssh
+alias curl-config-fast-copy='curl -fsSL https://git.io/JU6cm | sh'
+alias curl-config-fast-ssh='curl -fsSL https://git.io/JU6c2 | sh'
 
 alias run-help=man
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
