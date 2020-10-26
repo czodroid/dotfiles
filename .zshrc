@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.202 2020/10/26 18:57:54 czo Exp $
+# $Id: .zshrc,v 1.203 2020/10/26 20:38:11 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -511,20 +511,32 @@ alias l='ls -alrt'
 # debian
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
 alias AI='aptitude install'
-alias AP='aptitude purge'
+alias AR='aptitude purge'
 alias AS='aptitude search'
 
-# centos
+# redhat
 alias YU='yum update'
 alias YI='yum install'
-alias YP='yum remove'
+alias YR='yum remove'
 alias YS='yum search'
 
+# suze
+alias ZU='zypper update'
+alias ZI='zypper install'
+alias ZR='zypper remove'
+alias ZS='zypper search'
+
 # archlinux
-alias PU='pacman -Syu'
-alias PI='pacman -S'
-alias PP='pacman -Rs'
-alias PS='pacman -Ss'
+alias MU='pacman -Syu'
+alias MI='pacman -S'
+alias MR='pacman -Rs'
+alias MS='pacman -Ss'
+
+# freebsd
+alias PU='pkg upgrade'
+alias PI='pkg install'
+alias PR='pkg remove'
+alias PS='pkg search'
 
 alias dir='ls'
 alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
@@ -726,7 +738,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.202 2020/10/26 18:57:54 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.203 2020/10/26 20:38:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

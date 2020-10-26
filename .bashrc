@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: lundi 26 octobre 2020, 20:06
-# Edit Time: 67:23:40
+# Last Modified: lundi 26 octobre 2020, 21:37
+# Edit Time: 68:44:04
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.245 2020/10/26 18:57:54 czo Exp $
+# $Id: .bashrc,v 1.246 2020/10/26 20:38:11 czo Exp $
 
 #set -v
 #set -x
@@ -383,20 +383,32 @@ alias l='ls -alrt'
 # debian
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
 alias AI='aptitude install'
-alias AP='aptitude purge'
+alias AR='aptitude purge'
 alias AS='aptitude search'
 
-# centos
+# redhat
 alias YU='yum update'
 alias YI='yum install'
-alias YP='yum remove'
+alias YR='yum remove'
 alias YS='yum search'
 
+# suze
+alias ZU='zypper update'
+alias ZI='zypper install'
+alias ZR='zypper remove'
+alias ZS='zypper search'
+
 # archlinux
-alias PU='pacman -Syu'
-alias PI='pacman -S'
-alias PP='pacman -Rs'
-alias PS='pacman -Ss'
+alias MU='pacman -Syu'
+alias MI='pacman -S'
+alias MR='pacman -Rs'
+alias MS='pacman -Ss'
+
+# freebsd
+alias PU='pkg upgrade'
+alias PI='pkg install'
+alias PR='pkg remove'
+alias PS='pkg search'
 
 alias dir='ls'
 alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
@@ -556,7 +568,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.245 2020/10/26 18:57:54 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.246 2020/10/26 20:38:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]
