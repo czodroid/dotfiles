@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: lundi 26 octobre 2020, 21:44
-# Edit Time: 123:49:18
+# Last Modified: mardi 27 octobre 2020, 20:43
+# Edit Time: 123:51:28
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.204 2020/10/26 20:44:34 czo Exp $
+# $Id: .zshrc,v 1.209 2020/10/28 09:48:33 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -153,10 +153,10 @@ export -U PATH
 
 ##======= Environment Variables ======================================##
 
-{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x /bin/hostname ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
+{ [ -x "$(command -v getprop)" ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x "$(command -v hostname)" ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
-{ [ -x /bin/whoami ] && USER=$(whoami 2>/dev/null) ;} || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
+{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null) ;} || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
 export USER
 
 export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.tar=91:*.tgz=91:*.arc=91:*.arj=91:*.taz=91:*.lha=91:*.lz4=91:*.lzh=91:*.lzma=91:*.tlz=91:*.txz=91:*.tzo=91:*.t7z=91:*.zip=91:*.z=91:*.Z=91:*.dz=91:*.gz=91:*.lrz=91:*.lz=91:*.lzo=91:*.xz=91:*.zst=91:*.tzst=91:*.bz2=91:*.bz=91:*.tbz=91:*.tbz2=91:*.tz=91:*.deb=91:*.rpm=91:*.jar=91:*.war=91:*.ear=91:*.sar=91:*.rar=91:*.alz=91:*.ace=91:*.zoo=91:*.cpio=91:*.7z=91:*.rz=91:*.cab=91:*.wim=91:*.swm=91:*.dwm=91:*.esd=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.ogg=36:*.ra=36:*.wav=36:*.oga=36:*.opus=36:*.spx=36:*.xspf=36:*.latex=92:*.log=92:*.doc=92:*.ppt=92:*.xls=92:*.docx=92:*.pptx=92:*.xlsx=92:*.odt=92:*.ods=92:*.odp=92:*.pdf=92:*.tex=92:*.md=92:*.h=93:*.hpp=93:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.cxx=93:*.f=93:*.F=93:*.f90=93:*.objc=93:*.cl=93:*.sh=93:*.csh=93:*.zsh=93:*.bat=93:*.cmd=93:*.el=93:*.vim=93:*.java=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.hs=93:*.php=93:*.htm=93:*.html=93:*.shtml=93:*.erb=93:*.haml=93:*.xml=93:*.rdf=93:*.css=93:*.sass=93:*.scss=93:*.less=93:*.js=93:*.coffee=93:*.man=93:*.l=93:*.n=93:*.p=93:*.pod=93:*.go=93:*.sql=93:*.csv=93:*.sv=93:*.svh=93:*.v=93:*.vh=93:*.vhd=93:'
@@ -368,21 +368,80 @@ unalias -m '*'
 
 alias where='whence -ca'
 alias st='source ~/.zshrc'
-alias hi='fc -l 1'
-alias hgrep='fc -l 1 | grep'
 alias hload='fc -R'
 alias hsave='fc -AI'
 alias hclear='local HISTSIZE=0'
 alias hclearlog="echo > /var/log/wtmp ; echo > /var/log/lastlog ; local HISTSIZE=0 ; "
 
-#alias mv='nocorrect mv'       # no spelling correction on mv
+alias hi='fc -l 1'
+alias hgrep='fc -l 1 | grep'
 
-if [[ -x /usr/lib/command-not-found ]] ; then
-    command_not_found_handler() {
-        [[ -x /usr/lib/command-not-found ]] || return 1
-        /usr/lib/command-not-found -- ${1+"$1"} && :
-    }
-fi
+# Shell functions
+# env set
+setenv() { export $1=$2 ;}  # csh compatibility
+
+case $PLATFORM in
+       Linux_bb) alias ls='\ls --color=auto -a' ;
+                 alias cp='\cp -i'              ;
+                 alias mv='\mv -i'              ;
+                 alias ps='\ps -w'              ;;
+
+         Linux*) alias ls='\ls --time-style=long-iso --color=auto -a' ;
+                 alias grep='\grep --color' ;
+                 alias cp='\cp -i'          ;
+                 alias mv='\mv -bi'         ;
+                 alias pgrep='\pgrep -af'   ;
+                 alias ps='\ps -eaf'        ;;
+
+        FreeBSD) { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;
+                 alias grep='\grep --color' ;
+                 alias ps='\ps -Awww'       ;;
+
+         Cygwin) alias ls='\ls --time-style=long-iso --color=auto -a' ;
+                 export DISPLAY=localhost:0 ;
+                 alias cp='\cp -i'          ;
+                 alias mv='\mv -bi'         ;
+                 alias ps='\ps -aflW'       ;;
+
+  SunOS|Solaris) alias ls='\ls -a'          ;
+                 alias ps='\ps -ef'         ;;
+
+# a faire plus tard
+# /usr/local/opt/coreutils/libexec/gnubin
+# /usr/local/opt/findutils/libexec/gnubin:
+         Darwin) { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;
+                 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
+                 export DISPLAY=:0          ;
+                 alias grep='\grep --color' ;
+                 alias ps='\ps -Awww'       ;;
+esac
+
+alias ll='ls -l'
+alias l='ls -alrt'
+
+alias dir='ls'
+alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
+alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
+alias llexe='find . -type f -perm +1 -print'
+alias md='\mkdir'
+mdcd()    { \mkdir -p "$1"  ; cd "$1" ;}
+
+alias copy='cp'
+alias ren='mv'
+alias del='rm'
+alias rmf='rm -fr'
+
+#command -v foo >/dev/null 2>&1
+#[ -x "$(command -v foo)" ]
+[ -x "$(command -v arp)" ] || arp() { cat /proc/net/arp; }
+[ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
+[ -x "$(command -v less)" ] || alias more=less
+
+[ -x "$(command -v nvim)" ] && alias vim='\nvim -u ~/.vimrc'
+[ -x "$(command -v vimx)" ] && alias vim=vimx
+{ [ -x "$(command -v vim)" ] && alias vi=vim  ;} || alias vi="vi -u NONE" 
+alias nvim='nvim -u ~/.vimrc'
+alias ne='emacs -nw'
 
 alias bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
 alias sshlaga='ssh -p30022 lartha'
@@ -447,66 +506,11 @@ alias chmodg='chmod -R 775 . ; find . -type f -print0 | xargs -0 chmod 664'
 alias tara='\tar -cvzf'
 alias tarx='\tar -xvf'
 
-
-[ -x /usr/bin/arp ] || arp() { cat /proc/net/arp; }
-[ -x /usr/bin/ldd ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
-
-[ -x /bin/less ] || alias more=less
-
-[ -x /usr/bin/nvim ] && alias vim='\nvim -u ~/.vimrc'
-[ -x /usr/bin/vimx ] && alias vim=vimx
-{ [ -x /usr/bin/vim ] && alias vi=vim  ;} || alias vi="vi -u NONE" 
-alias nvim='nvim -u ~/.vimrc'
-
-alias ne='emacs -nw'
-
 v()       { set | grep -ai $1 ;}
-#alias \?\?      'set | grep \!*'
 
 alias asu='su --preserve-environment -c "LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib exec /data/data/com.termux/files/usr/bin/bash" --login'
 
-# Shell functions
-# env set
-setenv() { export $1=$2 ;}  # csh compatibility
-
 ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }' ; }
-
-alias ls='\ls -a'
-alias ps='\ps -a'
-alias pgrep='\pgrep -af'
-
-case $PLATFORM in
-       Linux_bb) alias ls='\ls --color=auto -a'  ;
-                 alias cp='\cp -i'          ;
-                 alias mv='\mv -i'          ;
-                 alias ps='\ps -w'          ;;
-
-         Linux*) alias ls='\ls --time-style=long-iso --color=auto -a'  ;
-                 alias grep='\grep --color' ;
-                 alias cp='\cp -i'          ;
-                 alias mv='\mv -bi'         ;
-                 alias ps='\ps -eaf'        ;;
-
-         Cygwin) alias ls='\ls --time-style=long-iso --color=auto -a'  ;
-                 export DISPLAY=localhost:0 ;
-                 alias cp='\cp -i'          ;
-                 alias mv='\mv -bi'         ;
-                 alias ps='\ps -aflW'       ;;
-
-  SunOS|Solaris) alias ps='\ps -ef'         ;;
-
-# a faire plus tard
-# /usr/local/opt/coreutils/libexec/gnubin
-# /usr/local/opt/findutils/libexec/gnubin:
-         Darwin) alias ls='\gls --time-style=long-iso --color=auto -a'  ;
-                 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
-                 export DISPLAY=:0 ;
-                 alias grep='\grep --color' ;
-                 alias ps='\ps -Awww'       ;;
-esac
-
-alias ll='ls -l'
-alias l='ls -alrt'
 
 # debian
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
@@ -537,18 +541,6 @@ alias PU='pkg upgrade'
 alias PI='pkg install'
 alias PR='pkg remove'
 alias PS='pkg search'
-
-alias dir='ls'
-alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
-alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
-alias llexe='find . -type f -perm +1 -print'
-alias md='\mkdir'
-mdcd()    { \mkdir -p "$1"  ; cd "$1" ;}
-
-alias copy='cp'
-alias ren='mv'
-alias del='rm'
-alias rmf='rm -fr'
 
 imprime='a2ps -2 -s2'
 imprimeman='a2ps -2 -s2 -man'
@@ -724,7 +716,6 @@ then
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 fi
 
-
 ##======= Main =======================================================##
 
 #HOSTNAME=czophone
@@ -738,7 +729,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.204 2020/10/26 20:44:34 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.209 2020/10/28 09:48:33 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
@@ -766,6 +757,13 @@ preexec () {
     local -a cmd; cmd=(${(z)1})
     title "$cmd[1]:t $cmd[2,-1] (${USER}@${HOSTNAME})"
 }
+
+if [[ -x /usr/lib/command-not-found ]] ; then
+    command_not_found_handler() {
+        [[ -x /usr/lib/command-not-found ]] || return 1
+        /usr/lib/command-not-found -- ${1+"$1"} && :
+    }
+fi
 
 # limit -s
 # ulimit unlimited
