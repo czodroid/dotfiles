@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mardi 27 octobre 2020, 20:43
-# Edit Time: 123:51:28
+# Last Modified: mercredi 11 novembre 2020, 16:33
+# Edit Time: 123:52:54
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -273,13 +273,13 @@ bindkey "\e[1;5D"  backward-word
 bindkey "\e[90~"   backward-word
 bindkey "\eOd"     backward-word
 
-bindkey "\e[A"     history-beginning-search-backward
-bindkey "\eOA"     history-beginning-search-backward
-bindkey "\e[1;5A"  history-beginning-search-backward
+bindkey "\e[A"     history-beginning-search-backward-end
+bindkey "\eOA"     history-beginning-search-backward-end
+bindkey "\e[1;5A"  history-beginning-search-backward-end
 
-bindkey "\e[B"     history-beginning-search-forward
-bindkey "\eOB"     history-beginning-search-forward
-bindkey "\e[1;5B"  history-beginning-search-forward
+bindkey "\e[B"     history-beginning-search-forward-end
+bindkey "\eOB"     history-beginning-search-forward-end
+bindkey "\e[1;5B"  history-beginning-search-forward-end
 
 bindkey "\C-p"     up-line-or-history
 bindkey "\C-n"     down-line-or-history
@@ -325,8 +325,8 @@ r-select() {
 for key     kcap   seq        mode   widget (
     sleft   kLFT   $'\e[1;2D' select   backward-char
     sright  kRIT   $'\e[1;2C' select   forward-char
-    sup     kri    $'\e[1;2A' select   history-beginning-search-backward
-    sdown   kind   $'\e[1;2B' select   history-beginning-search-forward
+    sup     kri    $'\e[1;2A' select   history-beginning-search-backward-end
+    sdown   kind   $'\e[1;2B' select   history-beginning-search-forward-end
 
     send    kEND   $'\E[1;2F' select   end-of-line
     send2   x      $'\E[4;2~' select   end-of-line
