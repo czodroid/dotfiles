@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: mercredi 28 octobre 2020, 11:44
-# Edit Time: 72:07:07
+# Last Modified: lundi 16 novembre 2020, 15:08
+# Edit Time: 72:09:04
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.253 2020/10/28 10:45:08 czo Exp $
+# $Id: .bashrc,v 1.254 2020/11/16 16:42:05 czo Exp $
 
 #set -v
 #set -x
@@ -546,9 +546,13 @@ conf() {
 
 # echo -n "DEBUG T2:"; date
 if [ -n "$BASH_VERSION" ]; then
+    #linux
     if [ -f /etc/bash_completion ]; then
-        #time . /etc/bash_completion
         . /etc/bash_completion
+    fi
+    #freebsd
+    if [ -f /usr/local/share/bash-completion/bash_completion.sh ]; then
+        . /usr/local/share/bash-completion/bash_completion.sh
     fi
 fi #if bash
 
@@ -567,7 +571,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.253 2020/10/28 10:45:08 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.254 2020/11/16 16:42:05 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]

@@ -6,8 +6,8 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: jeudi 15 octobre 2020, 11:28
-" Edit Time: 175:32:14
+" Last Modified: lundi 16 novembre 2020, 20:04
+" Edit Time: 175:45:22
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1148,12 +1148,26 @@ endif
 
 " end commentary.vim ===================================================
 
-"   set fileencoding=utf-8
-"   set encoding=truc
-"   Higlighting TABs:
-"   syn clear MYTABS
-"   syn match MYTABS  "\t\|  *$"
-"   hi link   MYTABS  Error
+" ======================================================================
+" == Plugins ===========================================================
+
+if (0)
+
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+call plug#begin('~/.vim/pack/vendor/start')
+Plug 'preservim/nerdtree'
+Plug 'godlygeek/tabular'
+Plug 'vim-scripts/colorizer'
+call plug#end()
+
+endif
+
+" end Plugins ==========================================================
 
 endif
 

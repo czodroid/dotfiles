@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mercredi 11 novembre 2020, 16:33
-# Edit Time: 123:52:54
+# Last Modified: dimanche 15 novembre 2020, 18:37
+# Edit Time: 125:33:56
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.210 2020/11/11 15:35:26 czo Exp $
+# $Id: .zshrc,v 1.211 2020/11/15 17:37:54 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -49,6 +49,7 @@ setopt RM_STAR_SILENT         # Don’t warn on rm *
 setopt SH_WORD_SPLIT          # Split non­array variables yuckily
 setopt ZLE                    # Line editor used to input lines
 
+
 export SAVEHIST=35000
 export HISTSIZE=30000
 export HISTFILE=$HOME/.sh_history
@@ -61,17 +62,15 @@ export TMPDIR=${TMPDIR-/tmp}
 #export TMPDIR=${TMPDIR-/data/local/tmp}
 
 export REPORTTIME=5
-export TIMEFMT='
-%*E real    %*U user    %*S system     %P%'
-
-#MAILCHECK=300
+export TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
 
 DIRSTACKSIZE=20
 # Watch for my friends
 #watch=($(cat ~/.friends))      # watch for people in .friends file
 watch=(notme)                   # watch for everybody but me
-#LOGCHECK=300                    # check every 5 min for login/logout activity
 WATCHFMT='%n %a %l from %m at %t.'
+#LOGCHECK=300                    # check every 5 min for login/logout activity
+#MAILCHECK=300
 
 # Filename suffixes to ignore during completion
 #fignore=(.o .c~ .old .pro)
@@ -729,7 +728,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.210 2020/11/11 15:35:26 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.211 2020/11/15 17:37:54 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
