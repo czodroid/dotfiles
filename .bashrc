@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.254 2020/11/16 16:42:05 czo Exp $
+# $Id: .bashrc,v 1.255 2020/11/22 16:45:50 czo Exp $
 
 #set -v
 #set -x
@@ -394,31 +394,31 @@ ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGI
 # debian
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
 alias AI='aptitude install'
-alias AR='aptitude purge'
+alias AP='aptitude purge'
 alias AS='aptitude search'
 
 # redhat
 alias YU='yum update'
 alias YI='yum install'
-alias YR='yum remove'
+alias YP='yum remove'
 alias YS='yum search'
 
 # suse
 alias ZU='zypper update'
 alias ZI='zypper install'
-alias ZR='zypper remove'
+alias ZP='zypper remove'
 alias ZS='zypper search'
 
 # archlinux
 alias MU='pacman -Syu'
 alias MI='pacman -S'
-alias MR='pacman -Rs'
+alias MP='pacman -Rs'
 alias MS='pacman -Ss'
 
 # freebsd
 alias PU='pkg upgrade'
 alias PI='pkg install'
-alias PR='pkg remove'
+alias PP='pkg remove'
 alias PS='pkg search'
 
 imprime='a2ps -2 -s2'
@@ -522,7 +522,7 @@ alias kfm='setxkbmap fr mac'
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
-alias console_color_cursor='/bin/echo -ne "\e]12;#458588\a"'
+alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
 conf() {
         echo "This machine is a $(uname -a 2>/dev/null)"
@@ -571,7 +571,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.254 2020/11/16 16:42:05 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.255 2020/11/22 16:45:50 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: dimanche 22 novembre 2020, 11:34
-# Edit Time: 125:36:16
+# Last Modified: dimanche 22 novembre 2020, 17:49
+# Edit Time: 125:40:56
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.212 2020/11/22 10:36:14 czo Exp $
+# $Id: .zshrc,v 1.214 2020/11/22 16:50:37 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -514,31 +514,31 @@ ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGI
 # debian
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
 alias AI='aptitude install'
-alias AR='aptitude purge'
+alias AP='aptitude purge'
 alias AS='aptitude search'
 
 # redhat
 alias YU='yum update'
 alias YI='yum install'
-alias YR='yum remove'
+alias YP='yum remove'
 alias YS='yum search'
 
 # suse
 alias ZU='zypper update'
 alias ZI='zypper install'
-alias ZR='zypper remove'
+alias ZP='zypper remove'
 alias ZS='zypper search'
 
 # archlinux
 alias MU='pacman -Syu'
 alias MI='pacman -S'
-alias MR='pacman -Rs'
+alias MP='pacman -Rs'
 alias MS='pacman -Ss'
 
 # freebsd
 alias PU='pkg upgrade'
 alias PI='pkg install'
-alias PR='pkg remove'
+alias PP='pkg remove'
 alias PS='pkg search'
 
 imprime='a2ps -2 -s2'
@@ -642,7 +642,7 @@ alias kfm='setxkbmap fr mac'
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
-alias console_color_cursor='/bin/echo -ne "\e]12;#458588\a"'
+alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
 conf() {
         echo "This machine is a $(uname -a 2>/dev/null)"
@@ -728,7 +728,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.212 2020/11/22 10:36:14 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.214 2020/11/22 16:50:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
