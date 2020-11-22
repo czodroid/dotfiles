@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: dimanche 15 novembre 2020, 18:37
-# Edit Time: 125:33:56
+# Last Modified: dimanche 22 novembre 2020, 11:34
+# Edit Time: 125:36:16
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.211 2020/11/15 17:37:54 czo Exp $
+# $Id: .zshrc,v 1.212 2020/11/22 10:36:14 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -272,13 +272,13 @@ bindkey "\e[1;5D"  backward-word
 bindkey "\e[90~"   backward-word
 bindkey "\eOd"     backward-word
 
-bindkey "\e[A"     history-beginning-search-backward-end
-bindkey "\eOA"     history-beginning-search-backward-end
-bindkey "\e[1;5A"  history-beginning-search-backward-end
+bindkey "\e[A"     history-beginning-search-backward
+bindkey "\eOA"     history-beginning-search-backward
+bindkey "\e[1;5A"  history-beginning-search-backward
 
-bindkey "\e[B"     history-beginning-search-forward-end
-bindkey "\eOB"     history-beginning-search-forward-end
-bindkey "\e[1;5B"  history-beginning-search-forward-end
+bindkey "\e[B"     history-beginning-search-forward
+bindkey "\eOB"     history-beginning-search-forward
+bindkey "\e[1;5B"  history-beginning-search-forward
 
 bindkey "\C-p"     up-line-or-history
 bindkey "\C-n"     down-line-or-history
@@ -324,8 +324,8 @@ r-select() {
 for key     kcap   seq        mode   widget (
     sleft   kLFT   $'\e[1;2D' select   backward-char
     sright  kRIT   $'\e[1;2C' select   forward-char
-    sup     kri    $'\e[1;2A' select   history-beginning-search-backward-end
-    sdown   kind   $'\e[1;2B' select   history-beginning-search-forward-end
+    sup     kri    $'\e[1;2A' select   history-beginning-search-backward
+    sdown   kind   $'\e[1;2B' select   history-beginning-search-forward
 
     send    kEND   $'\E[1;2F' select   end-of-line
     send2   x      $'\E[4;2~' select   end-of-line
@@ -728,7 +728,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.211 2020/11/15 17:37:54 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.212 2020/11/22 10:36:14 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

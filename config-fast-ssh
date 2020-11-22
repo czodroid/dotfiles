@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mardi 06 octobre 2020, 10:37
-# Edit Time: 3:45:58
+# Last Modified: dimanche 22 novembre 2020, 11:35
+# Edit Time: 3:46:51
 # Description:
 #   configure ssh with my authorized_keys and config
 #   FIXME: deconne sous OSX en copiant/colant: pb de cotes....
@@ -15,14 +15,15 @@
 #   ou par ex en debian ou si jamais curl n'est pas installé (apt-get update ; apt-get install curl)
 #   wget -qO- https://pwet | bash
 #
-# $Id: config-fast-ssh,v 1.3 2020/10/06 16:47:20 czo Exp $
+# $Id: config-fast-ssh,v 1.4 2020/11/22 10:36:14 czo Exp $
 
 cp -rp $HOME/.ssh $HOME/.ssh.fast.bk.$$
 rm -fr $HOME/.ssh
 mkdir $HOME/.ssh
 chmod 700 $HOME/.ssh
    
-ssh-keygen -t rsa -N "" -f "$HOME/.ssh/id_rsa"
+#ssh-keygen -t rsa -N "" -f "$HOME/.ssh/id_rsa"
+ssh-keygen -t rsa -b 4096 -N "" -f "$HOME/.ssh/id_rsa"
 
 cat << 'EOF' >> "$HOME/.ssh/config"
 # Filename: config
