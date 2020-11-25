@@ -4,14 +4,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: lundi 19 octobre 2020, 14:07
-# Edit Time: 23:57:41
+# Last Modified: mercredi 25 novembre 2020, 17:12
+# Edit Time: 24:00:01
 # Description:
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
 #   faudra aussi mettre /var/www/index.html
 #
-# $Id: czolsb,v 1.24 2020/10/19 12:07:59 czo Exp $
+# $Id: czolsb,v 1.25 2020/11/25 16:12:58 czo Exp $
 #
 # sans lsb_release
 # le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
@@ -60,7 +60,8 @@ else
 fi
 
 
-{ [ -x /bin/getprop ] && HOSTNAME=$(getprop net.hostname); } || { [ -x /bin/hostname ] && HOSTNAME=$(hostname -s); } || HOSTNAME=$(uname -n) || [ -n "$HOSTNAME" ]
+{ [ -x "$(command -v getprop)" ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x "$(command -v hostname)" ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
+
 HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
 WELCOME=$(perl -e '$H="Welcome on " . $ENV{HOSTNAME}; print map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } $H;')
 
