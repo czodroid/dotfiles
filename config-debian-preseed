@@ -4,11 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: August 2020
-# Last Modified: jeudi 26 novembre 2020, 19:54
-# Edit Time: 0:09:57
+# Last Modified: jeudi 26 novembre 2020, 20:16
+# Edit Time: 0:12:12
 # Description:
 #
-#   debian preseed/late_command
+#   debian preseed/late_command, single or double quote forbiden in pxe/append
+#
+#   preseed/late_command="sed -i s/prohibit-password/yes/ /target/etc/ssh/sshd_config; sed -i s/#PermitRootLogin/PermitRootLogin/ /target/etc/ssh/sshd_config; wget -qO- https://git.io/JkHdk | sh;"
 #
 # $Id: config-debian-preseed,v 1.1 2020/11/26 18:54:40 czo Exp $
 
@@ -20,14 +22,13 @@ perl -i -pe 's,^#?PermitRootLogin.*,PermitRootLogin yes,' /target/etc/ssh/sshd_c
 echo $(date +%Y-%m-%d) > /target/etc/lsb-czo-installdate;
 echo $(date +%Y%m%d) > /target/etc/lsb-czo-updatedate;
 
-echo "## -> copy my config files"
 for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb
 do
-  echo "   <- $f"
   wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 done
+
 chmod +x czolsb
-/root/czolsb > /target/etc/motd
+/target/root/czolsb > /target/etc/motd
 
 wget -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh  | sh;
 
