@@ -12,7 +12,7 @@
 #
 #   preseed/late_command="sed -i s/prohibit-password/yes/ /target/etc/ssh/sshd_config; sed -i s/#PermitRootLogin/PermitRootLogin/ /target/etc/ssh/sshd_config; wget -qO- https://git.io/JkHdk | sh;"
 #
-# $Id: config-debian-preseed,v 1.1 2020/11/26 18:54:40 czo Exp $
+# $Id: config-debian-preseed,v 1.2 2020/11/26 19:29:28 czo Exp $
 
 
 export HOME=/target/root;
