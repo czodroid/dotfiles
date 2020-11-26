@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Filename: config-debian-preseed
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0
+# File Created: August 2020
+# Last Modified: jeudi 26 novembre 2020, 19:54
+# Edit Time: 0:09:57
+# Description:
+#
+#   debian preseed/late_command
+#
+# $Id: config-debian-preseed,v 1.1 2020/11/26 18:54:40 czo Exp $
+
+
+export HOME=/target/root;
+cd /target/root;
+
+perl -i -pe 's,^#?PermitRootLogin.*,PermitRootLogin yes,' /target/etc/ssh/sshd_config;
+echo $(date +%Y-%m-%d) > /target/etc/lsb-czo-installdate;
+echo $(date +%Y%m%d) > /target/etc/lsb-czo-updatedate;
+
+echo "## -> copy my config files"
+for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb
+do
+  echo "   <- $f"
+  wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
+done
+chmod +x czolsb
+/root/czolsb > /target/etc/motd
+
+wget -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh  | sh;
+
