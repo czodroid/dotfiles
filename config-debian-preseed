@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: August 2020
-# Last Modified: samedi 28 novembre 2020, 00:21
-# Edit Time: 0:42:34
+# Last Modified: samedi 28 novembre 2020, 00:32
+# Edit Time: 0:51:09
 # Description:
 #
 #   debian preseed/late_command, single or double quote forbiden in pxe/append
@@ -34,7 +34,4 @@ export HOME=/target/root;
 wget -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh  | sh
 
 in-target sh -c "/root/czolsb > /etc/motd"
-
-in-target sh -c "perl -i -pe 's,# en_US.UTF-8 UTF-8,en_US.UTF-8 UTF-8,' /etc/locale.gen; perl -i -pe 's,# fr_FR.UTF-8 UTF-8,fr_FR.UTF-8 UTF-8,' /etc/locale.gen; update-locale LANG=en_US.UTF-8"
-
 
