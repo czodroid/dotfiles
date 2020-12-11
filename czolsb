@@ -4,14 +4,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: mercredi 25 novembre 2020, 17:12
-# Edit Time: 24:00:01
+# Last Modified: vendredi 11 décembre 2020, 16:47
+# Edit Time: 24:00:59
 # Description:
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
 #   faudra aussi mettre /var/www/index.html
 #
-# $Id: czolsb,v 1.25 2020/11/25 16:12:58 czo Exp $
+# $Id: czolsb,v 1.26 2020/12/11 15:54:45 czo Exp $
 #
 # sans lsb_release
 # le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
@@ -60,9 +60,9 @@ else
 fi
 
 
-{ [ -x "$(command -v getprop)" ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x "$(command -v hostname)" ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
+{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null) ;} || export HOSTNAME=$(uname -n 2>/dev/null)
+export HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
 
-HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
 WELCOME=$(perl -e '$H="Welcome on " . $ENV{HOSTNAME}; print map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } $H;')
 
 CRELEASE=$(echo "${PRETTY_NAME}" | perl -pe 's/  */ /g' | perl -pe 's/"//g')

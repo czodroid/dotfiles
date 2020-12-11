@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: jeudi 03 décembre 2020, 17:35
-# Edit Time: 72:14:13
+# Last Modified: vendredi 11 décembre 2020, 17:23
+# Edit Time: 72:22:59
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.256 2020/12/03 16:35:39 czo Exp $
+# $Id: .bashrc,v 1.259 2020/12/11 16:23:56 czo Exp $
 
 #set -v
 #set -x
@@ -131,7 +131,7 @@ export PATH
 
 ##======= Environment Variables ======================================##
 
-{ [ -x "$(command -v getprop)" ] && HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x "$(command -v hostname)" ] && HOSTNAME=$(hostname 2>/dev/null) ;} || HOSTNAME=$(uname -n 2>/dev/null) || [ -n "$HOSTNAME" ]
+{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null) ;} || export HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null) ;} || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
@@ -504,6 +504,7 @@ alias mytree='tree -adn | grep -v CVS'
 alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
 alias pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
 ssht() { ssh -t $@ 'tmux attach -d || tmux new' ;}
 alias sshtm='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 alias color16='for i in $(seq 0 15) ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done'
@@ -560,29 +561,6 @@ fi #if bash
 
 ##======= Main ======================================================##
 
-#HOSTNAME=czophone
-#USER=root
-
-USER_HASH=$( echo -n "AA$USER"     | cksum | cut -d" " -f1 )
-HOST_HASH=$( echo -n "JC$HOSTNAME" | cksum | cut -d" " -f1 )
-
-USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
-# export for screen
-export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
-export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
-
-BVERS=$(echo '$Id: .bashrc,v 1.256 2020/12/03 16:35:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
-SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
-
-if [ -n "$BASH_VERSION" ]
-then
-    PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}-${BVERS}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:pts/\l:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;97m\]>>\[\e[m\] '
-else
-    PS1=$'\e[m\n\e[0;97m[${PLATFORM}/${SHELLNAME}-${BVERS}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?]\e[m\n\e[0;9${USER_PROMPT_COLOR}m${USER}\e[0;97m@\e[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}\e[0;97m:\e[0;96m$PWD\e[m\n\e[0;97m>>\e[m '
-fi
-# old sh/ash/dash .shrc .shinit ($' works in sh android but not in sh freebsd)
-#PS1="${USER}@${HOSTNAME} >> "
-
 title () {
     case "$TERM" in
         xterm*|rxvt*)
@@ -609,6 +587,29 @@ if [ -n "$BASH_VERSION" ]; then
     PS0='$(title "$(history 1  2>/dev/null | sed "s/^ *[0-9]\+ \+//" 2>/dev/null) (${USER}@${HOSTNAME})")'
 fi
 
+#HOSTNAME=czophone
+#USER=root
+
+USER_HASH=$( echo -n "AA$USER"     | cksum | cut -d" " -f1 )
+HOST_HASH=$( echo -n "JC$HOSTNAME" | cksum | cut -d" " -f1 )
+
+USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
+# export for screen
+export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
+export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
+
+BVERS=$(echo '$Id: .bashrc,v 1.259 2020/12/11 16:23:56 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
+
+if [ -n "$BASH_VERSION" ]
+then
+    PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}-${BVERS}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:pts/\l:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;97m\]>>\[\e[m\] '
+else
+    PS1=$'\e[m\n\e[0;97m[${PLATFORM}/${SHELLNAME}-${BVERS}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:pts/\l:sh${SHLVL} - \e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?]\e[m\n\e[0;9${USER_PROMPT_COLOR}m${USER}\e[0;97m@\e[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}\e[0;97m:\e[0;96m$PWD\e[m\n\e[0;97m>>\e[m '
+fi
+# old sh/ash/dash .shrc .shinit ($' works in sh android but not in sh freebsd)
+#PS1="${USER}@${HOSTNAME} >> "
+
 # limit -s
 # ulimit unlimited
 stty -ixon
@@ -619,7 +620,11 @@ else
     umask 022
 fi
 
-# config lang
+#FIXME: typeset -U
+# we must put /bin at the end because if not it's ./
+export PATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}' 2>/dev/null)"/bin"
+
+#config lang
 #export LC_ALL=C
 
 #fuser pstree locale script
@@ -627,15 +632,8 @@ fi
 
 #echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness
 #echo 30 > /sys/class/backlight/acpi_video0/brightness
-#cat /proc/asound/cards
-#/etc/asound.conf 
-#defaults.pcm.card 1
-#defaults.ctl.card 1
-# echo -n "DEBUG T4:"; date
 
-#FIXME: typeset -U
-# must put /bin at the end because otherwise ./ in the PATH
-export PATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}' 2>/dev/null)"/bin"
+#echo -n "DEBUG T4:"; date
 
 # EOF
 

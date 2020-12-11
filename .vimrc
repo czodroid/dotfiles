@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: lundi 16 novembre 2020, 20:04
-" Edit Time: 175:45:22
+" Last Modified: mardi 08 décembre 2020, 11:58
+" Edit Time: 175:45:58
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.183 2020/11/17 18:09:28 czo Exp $
+" $Id: .vimrc,v 1.184 2020/12/08 10:58:52 czo Exp $
 
 if version >= 580
 
@@ -420,7 +420,7 @@ cmap <leader>rcm %s/<C-M>//g
   iab _home <C-R>=$HOME<cr>
   iab _vim  <C-R>=$VIMRUNTIME<cr>
   iab _date <C-R>=strftime("%d %b %Y")<cr>
-  iab _mc // <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
+  iab _mc # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
 
   iab _abc abcdefghijklmnopqrstuvwxyz
   iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
