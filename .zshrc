@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: vendredi 11 décembre 2020, 17:23
-# Edit Time: 125:50:06
+# Last Modified: vendredi 11 décembre 2020, 18:39
+# Edit Time: 125:51:55
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.218 2020/12/11 16:23:56 czo Exp $
+# $Id: .zshrc,v 1.219 2020/12/11 17:40:17 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -280,8 +280,10 @@ bindkey "\e[B"     history-beginning-search-forward
 bindkey "\eOB"     history-beginning-search-forward
 bindkey "\e[1;5B"  history-beginning-search-forward
 
-bindkey "\C-p"     up-line-or-history
-bindkey "\C-n"     down-line-or-history
+#bindkey "\C-p"     up-line-or-history
+#bindkey "\C-n"     down-line-or-history
+bindkey "\C-p"     history-beginning-search-backward
+bindkey "\C-n"     history-beginning-search-forward
 
 bindkey "\e[3~"    delete-char
 bindkey "\C-h"     backward-delete-char
@@ -760,7 +762,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.218 2020/12/11 16:23:56 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.219 2020/12/11 17:40:17 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}-${BVERS}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

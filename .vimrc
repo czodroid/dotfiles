@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mardi 08 décembre 2020, 11:58
-" Edit Time: 175:45:58
+" Last Modified: vendredi 11 décembre 2020, 19:07
+" Edit Time: 176:02:17
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.184 2020/12/08 10:58:52 czo Exp $
+" $Id: .vimrc,v 1.186 2020/12/11 18:08:43 czo Exp $
 
 if version >= 580
 
@@ -411,29 +411,29 @@ cmap <leader>rcm %s/<C-M>//g
 
 " == ABbreviations =====================================================
 
-" all debuterminating with "_"
+" all starting with "_"
 
 " insert the current filename:
-  iab _n <C-R>=expand("%:t:r")<cr>
-  iab _fn <C-R>=expand("%:t")<cr>
-  iab _ffn <C-R>=expand("%:p")<cr>
-  iab _home <C-R>=$HOME<cr>
-  iab _vim  <C-R>=$VIMRUNTIME<cr>
-  iab _date <C-R>=strftime("%d %b %Y")<cr>
-  iab _mc # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
+iab _n <C-R>=expand("%:t:r")<cr>
+iab _fn <C-R>=expand("%:t")<cr>
+iab _ffn <C-R>=expand("%:p")<cr>
+iab _home <C-R>=$HOME<cr>
+iab _vim  <C-R>=$VIMRUNTIME<cr>
+iab _date <C-R>=strftime("%d %b %Y")<cr>
+iab _mc # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
 
-  iab _abc abcdefghijklmnopqrstuvwxyz
-  iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
-  iab _123 1234567890
-  iab _rul ....\|....1....\|....2....\|....3....\|....4....\|....5....\|....6....\|....7....\|....8....\|....9
+iab _abc abcdefghijklmnopqrstuvwxyz
+iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
+iab _123 1234567890
+iab _rul ....\|....1....\|....2....\|....3....\|....4....\|....5....\|....6....\|....7....\|....8....\|....9
 
-  iab _www   http://www-asim.lip6.fr/~czo/
-  iab _ftp   ftp://ftp-asim.lip6.fr/
+iab _www   http://www-asim.lip6.fr/~czo/
+iab _ftp   ftp://ftp-asim.lip6.fr/
 
-  iab _czo   Olivier Sirol <czo@free.fr>
-  iab _czoa  Olivier Sirol <czo@asim.lip6.fr>
-  iab _czoi  Olivier Sirol <czo@ipgp.fr>
-  iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire d'Informatique de Paris 6<CR>Achitecture des Systemes Integres et Micro-Electronique<CR><CR>Coul. 55-65, 3e etg, Bur. 309<CR>4, Place Jussieu<CR>75252 Paris Cedex 05<CR>France<CR><CR>Tel: +33 1 44 27 53 24<CR>Fax: +33 1 44 27 72 80<CR><CR>http://www-asim.lip6.fr/alliance/<CR>mailto:alliance-support@asim.lip6.fr<CR>
+iab _czo   Olivier Sirol <czo@free.fr>
+iab _czoa  Olivier Sirol <czo@asim.lip6.fr>
+iab _czoi  Olivier Sirol <czo@ipgp.fr>
+iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire d'Informatique de Paris 6<CR>Achitecture des Systemes Integres et Micro-Electronique<CR><CR>Coul. 55-65, 3e etg, Bur. 309<CR>4, Place Jussieu<CR>75252 Paris Cedex 05<CR>France<CR><CR>Tel: +33 1 44 27 53 24<CR>Fax: +33 1 44 27 72 80<CR><CR>http://www-asim.lip6.fr/alliance/<CR>mailto:alliance-support@asim.lip6.fr<CR>
 
 
 " == Color theme =======================================================
