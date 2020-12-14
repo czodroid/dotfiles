@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: vendredi 27 novembre 2020, 18:51
-# Edit Time: 5:29:05
+# Last Modified: lundi 14 décembre 2020, 11:35
+# Edit Time: 5:30:14
 # Description:
 #   configure ssh with my authorized_keys and config
 #   FIXME: deconne sous OSX en copiant/colant: pb de cotes....
@@ -15,7 +15,7 @@
 #   ou par ex en debian ou si jamais curl n'est pas installé (apt-get update ; apt-get install curl)
 #   wget -qO- https://pwet | bash
 #
-# $Id: config-fast-ssh,v 1.7 2020/11/27 17:51:52 czo Exp $
+# $Id: config-fast-ssh,v 1.8 2020/12/14 10:40:42 czo Exp $
 
 cp -rp $HOME/.ssh $HOME/.ssh.fast.bk.$$
 rm -fr $HOME/.ssh
@@ -33,19 +33,12 @@ cat << 'EOF' >> "$HOME/.ssh/config"
 
 Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
 
-Host centos5
- KexAlgorithms diffie-hellman-group1-sha1
-
-Host debian4
- KexAlgorithms diffie-hellman-group1-sha1
-
-Host magdhcp-*
+Host chezwam-* magdhcp-* test* debian* ubuntu* centos* fedora*
  UserKnownHostsFile /dev/null
  StrictHostKeyChecking no
 
-Host test*
- UserKnownHostsFile /dev/null
- StrictHostKeyChecking no
+Host centos5 debian4
+ KexAlgorithms diffie-hellman-group1-sha1
 
 Host *
  ForwardX11 yes
