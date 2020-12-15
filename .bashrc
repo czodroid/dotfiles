@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: vendredi 11 décembre 2020, 17:23
-# Edit Time: 72:22:59
+# Last Modified: mardi 15 décembre 2020, 14:51
+# Edit Time: 72:33:42
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -480,6 +480,19 @@ unset MC_PWD_FILE
 
 #alias mc=mccd
 
+conf() {
+        echo "This machine is a $(uname -a 2>/dev/null)"
+        echo ""
+        echo "Settings :"
+        echo "    PLATFORM     = $PLATFORM"
+        echo "    PRINTER      = $PRINTER"
+        echo "    CVSROOT      = $CVSROOT"
+        echo "    DISPLAY      = $DISPLAY"
+        echo "    KDEDIR       = $KDEDIR"
+        echo "    LIMIT        = $(ulimit 2>/dev/null)"
+        echo ""
+}
+
 alias sun='export TERM=sun-cmd ; echo TERM=$TERM'
 alias vt100='export TERM=vt100 ; echo TERM=$TERM'
 alias tek='export TERM=tek4112 ; echo TERM=$TERM'
@@ -520,24 +533,13 @@ alias edl='export DISPLAY=localhost:0'
 
 alias kfm='setxkbmap fr mac'
 
-alias pkg_inst_debian="aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-
 alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
 alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
-conf() {
-        echo "This machine is a $(uname -a 2>/dev/null)"
-        echo ""
-        echo "Settings :"
-        echo "    PLATFORM     = $PLATFORM"
-        echo "    PRINTER      = $PRINTER"
-        echo "    CVSROOT      = $CVSROOT"
-        echo "    DISPLAY      = $DISPLAY"
-        echo "    KDEDIR       = $KDEDIR"
-        echo "    LIMIT        = $(ulimit 2>/dev/null)"
-        echo ""
-}
+alias pkg_inst_debian="aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_centos="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
+alias ssha='eval $(ssh-agent); ssh-add'
 
 ##======= Completions ================================================##
 
@@ -620,7 +622,7 @@ else
     umask 022
 fi
 
-#FIXME: typeset -U
+#FIXME: typeset -U like in zsh
 # we must put /bin at the end because if not it's ./
 export PATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}' 2>/dev/null)"/bin"
 
