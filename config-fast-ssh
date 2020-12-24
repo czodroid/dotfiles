@@ -4,28 +4,32 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: lundi 14 décembre 2020, 11:35
-# Edit Time: 5:30:14
+# Last Modified: jeudi 24 décembre 2020, 02:30
+# Edit Time: 6:26:09
 # Description:
+#
 #   configure ssh with my authorized_keys and config
-#   FIXME: deconne sous OSX en copiant/colant: pb de cotes....
 #
 #   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
 #
-#   ou par ex en debian ou si jamais curl n'est pas installé (apt-get update ; apt-get install curl)
-#   wget -qO- https://pwet | bash
+#   also works in wget: wget -qO- https://pwet | bash
 #
 # $Id: config-fast-ssh,v 1.8 2020/12/14 10:40:42 czo Exp $
 
-cp -rp $HOME/.ssh $HOME/.ssh.fast.bk.$$
-rm -fr $HOME/.ssh
-mkdir $HOME/.ssh
-chmod 700 $HOME/.ssh
-   
-#ssh-keygen -t rsa -N "" -f "$HOME/.ssh/id_rsa"
-ssh-keygen -t rsa -b 4096 -N "" -f "$HOME/.ssh/id_rsa"
+# you must do a "cd" before running this script
 
-cat << 'EOF' >> "$HOME/.ssh/config"
+cp -rp .ssh .ssh_fast_$(date +%Y-%m-%d)_$$
+rm -fr .ssh
+mkdir .ssh
+chmod 700 .ssh
+   
+#ssh-keygen -t rsa -N "" -f .ssh/id_rsa
+ssh-keygen -t rsa -b 4096 -N "" -f .ssh/id_rsa
+
+# new passphrase:
+#ssh-keygen -p -f id_rsa
+
+cat << 'EOF' >> .ssh/config
 # Filename: config
 # Author: Olivier Sirol <czo@free.fr>
 # Last Modified: mercredi 19 août 2020, 12:48
@@ -49,9 +53,9 @@ Host *
 
 EOF
 
-cat "$HOME/.ssh/id_rsa.pub"  > "$HOME/.ssh/authorized_keys"
+cat .ssh/id_rsa.pub  > .ssh/authorized_keys
 
-cat << 'EOF' >> "$HOME/.ssh/authorized_keys"
+cat << 'EOF' >> .ssh/authorized_keys
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA1UrRI2S19jMe6b0OKKMePnhhR5R5ES08cNUqM/lrch7Q8kKrfjFZSWqOFi2f+dW8YC9VpZUCx4GKyCDFV6kZEcMRrMgcWuBDdpIIsxsTd9wZu5hAeKOrpVlZrCSDfhnSyF7USRD30T6ap99qFc9njFyBVBpOPZna+/iJexfxbMEdSFhWW2xQ+iLei35GjY/TuFChkdSS0lUIb96xpJWdKIW/UuHlPlxRTpaqZuF4QHuD1Z6P13k7OurjwUWvW95uffKOQLlfxOlaiESTms6H/+ZaO+B/xDRwcLYcB50Nh6jWQ4tfLZMoO5rX00fA0cJd8DYW7eDxbxkDYClfSCjiyw== czo@ananas
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAokzUdopXVaiBtjI9fjHRLzgi0DM9NJMfdTZoCi6L1PcXfdP9AqnIhpCvDN3E81AeB3xL28rwJLLMLx3oWq5iFzcdVWLIiVaqe0ggSTmA6JFLCYPGUqjnJkoidZdteW6ds8QgtUCh/s0FoUNeKTE0zzZ0yET6mq995LVKl9k4Ft8EuGaAPFP4Og8dLZypYsYjMQmk7FuJp1yFziZ/ZV8Nszpof7ZcT192JXR65a5KCiuqwWdxLjwlgtHFtYMcVxxgCGPYK170Fkgde8P9QBSizyF1Lhl1ZuNXEVr/QjVO+nYaGNjLK/L4C6Jw5PmLTW3mc0jO8HnXCYEaCf5KunRNnQ== root@ananas
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDoQFYXob/+i4tZdSomRWZhbPXbkQvdjKmabQxEUe+dkiYcxt4r9CDorBqSf2ZYQ2o2unSnQVUFOSv2jUyDGro/veOyik6eMW/Q/Ju+1xYq78rNu0PFQmQr2e+7gxwMVTdFt77yINwC11G+u1LZsEz2AZLEf9xqC1Tu60vKoLKJTG0eW4S7aoQVToA6sbevMeLvqZD/xf5jX+/j18AxS06lxXvUWZQCaB2e1PQWR2lOvLY+lknxVdy1Aevxq+f9cKTkxcgA6aaMX/E5/Tx4qhvHYXomjvgJy7OCe9WbijIH9ac2HJe4CbIYLqzdHPrKo3IdW4cNHN259LzOyFnJM79fo2p/yMn+YcfpMRSSm73Hmd2/YturVvXJP1vdJ0KfvSi0/F0pCoytDgB5JnJdDyLzlQ69dNmusBgzY8g7O/KLgIZKI8QWXsJ6ll17micWIhg2S4jUAnIFpvr/2WKxdfeTyUzRmpFEz0Y8AIXmSbfBRI8Q16wJ5RYQw+h1XCDVef2xkyJvn1gHehpenuxAUiD/RFAMhCWwM7niVAa2Itk7Ugg7ycR6LNesQRSbQ0i+I67LHJ9F9qW3Ka3RNPJlZ7B+3oCJitBfh71Q/Mh4Zc3NymMaE6TAg/LkNvWQTBdEc8TVi6uRF+nGw3xtiQu1cnAqP7SnO8UelOCbk8qtbAFdtQ== czo@bruichladdich
@@ -66,6 +70,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxcaXJWMUucnrYd3oRWLZ1e/ur4knE1KeKXXYiwr3u
 
 EOF
 
-chmod 600 "$HOME/.ssh/config"
-chmod 600 "$HOME/.ssh/authorized_keys"
+chmod 600 .ssh/config
+chmod 600 .ssh/authorized_keys
 
