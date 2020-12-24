@@ -14,7 +14,7 @@
 #
 #   also works in wget: wget -qO- https://pwet | bash
 #
-# $Id: config-fast-copy,v 1.16 2020/12/03 15:56:32 czo Exp $
+# $Id: config-fast-copy,v 1.17 2020/12/24 01:33:03 czo Exp $
 
 # you must do a "cd" before running this script
 

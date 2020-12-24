@@ -14,7 +14,7 @@
 #
 #   also works in wget: wget -qO- https://pwet | bash
 #
-# $Id: config-fast-ssh,v 1.8 2020/12/14 10:40:42 czo Exp $
+# $Id: config-fast-ssh,v 1.9 2020/12/24 01:33:03 czo Exp $
 
 # you must do a "cd" before running this script
 
