@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: vendredi 11 décembre 2020, 18:39
-# Edit Time: 125:51:55
+# Last Modified: mardi 29 décembre 2020, 16:51
+# Edit Time: 125:53:18
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.220 2020/12/16 18:06:11 czo Exp $
+# $Id: .zshrc,v 1.221 2020/12/29 15:53:11 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -502,8 +502,10 @@ cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -l 1 --no-parent -k'
 
-alias chmodr='chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
-alias chmodg='chmod -R 775 . ; find . -type f -print0 | xargs -0 chmod 664'
+# vieux truc 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
+alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
+alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
+
 alias tara='\tar -cvzf'
 alias tarx='\tar -xvf'
 
@@ -764,7 +766,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.220 2020/12/16 18:06:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.221 2020/12/29 15:53:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}-${BVERS}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
