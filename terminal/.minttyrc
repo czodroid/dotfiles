@@ -2,12 +2,12 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: juil. 2019
-# Last Modified: jeudi 24 décembre 2020, 02:33
-# Edit Time: 0:21:51
+# Last Modified: lundi 11 janvier 2021, 18:05
+# Edit Time: 0:35:32
 # Description:
 #       gruvbox colorsheme for mintty
 #
-# $Id: .minttyrc,v 1.3 2020/12/24 01:33:59 czo Exp $
+# $Id: .minttyrc,v 1.4 2021/01/12 09:16:23 czo Exp $
 #
 BoldAsFont=no
 CursorType=block
@@ -24,24 +24,32 @@ FontSmoothing=default
 AllowBlinking=no
 ComposeKey=alt
 CtrlShiftShortcuts=yes
-# Based on dark mode of gruvbox color scheme https://github.com/morhetz/gruvbox/
-ForegroundColour=235,219,178
-BackgroundColour=40,40,40
-CursorColour=152,151,26
-Black=40,40,40
-BoldBlack=46,31,16
-Red=204,36,29
-BoldRed=251,73,56
-Green=152,151,26
-BoldGreen=184,187,38
-Yellow=215,153,33
-BoldYellow=250,189,47
-Blue=69,133,136
-BoldBlue=131,165,152
-Magenta=177,98,134
-BoldMagenta=211,134,155
-Cyan=104,157,106
-BoldCyan=142,192,124
-White=168,153,132
-BoldWhite=235,219,178
 ScrollbackLines=99000
+
+# Based on dark mode of gruvbox color scheme https://github.com/morhetz/gruvbox/
+BackgroundColour=#282828
+ForegroundColour=#c9b788
+CursorColour=#98971a
+
+Black=#282828
+BoldBlack=#4a4239
+Red=#cc241d
+BoldRed=#fb4934
+Green=#98971a
+BoldGreen=#b8bb26
+Yellow=#d79921
+BoldYellow=#fabd2f
+Blue=#458588
+BoldBlue=#83a598
+Magenta=#b16286
+BoldMagenta=#d3869b
+Cyan=#689d6a
+BoldCyan=#8ec07c
+White=#c9b788
+BoldWhite=#fbf1c7
+
+BoldColour=#b16286
+UnderlineColour=#d79921
+
+HighlightBackgroundColour=#458588
+HighlightForegroundColour=#fbf1c7
