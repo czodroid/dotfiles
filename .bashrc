@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.266 2021/01/23 15:22:44 czo Exp $
+# $Id: .bashrc,v 1.268 2021/01/23 17:59:48 czo Exp $
 
 #set -v
 #set -x
@@ -380,6 +380,8 @@ cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -l 1 --no-parent -k'
 
+alias whatsappjpg='convert -resize 1918800@ -quality 75 *.jpg img.jpg'
+
 # vieux truc 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
@@ -605,7 +607,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.266 2021/01/23 15:22:44 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.268 2021/01/23 17:59:48 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]
