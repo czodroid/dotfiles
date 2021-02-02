@@ -12,7 +12,7 @@
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.187 2021/01/26 17:59:03 czo Exp $
+" $Id: .vimrc,v 1.188 2021/02/02 18:49:28 czo Exp $
 
 if version >= 580
 
