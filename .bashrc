@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: jeudi 21 janvier 2021, 18:47
-# Edit Time: 72:39:24
+# Last Modified: mardi 02 février 2021, 18:24
+# Edit Time: 72:44:20
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.268 2021/01/23 17:59:48 czo Exp $
+# $Id: .bashrc,v 1.270 2021/02/02 18:10:12 czo Exp $
 
 #set -v
 #set -x
@@ -296,6 +296,7 @@ case $PLATFORM in
 esac
 
 alias ll='ls -l'
+alias lh='ls -lh'
 alias l='ls -alrt'
 
 alias dir='ls'
@@ -386,7 +387,7 @@ alias whatsappjpg='convert -resize 1918800@ -quality 75 *.jpg img.jpg'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara='\tar -cvzf'
+alias tara='\tar -czf'
 alias tarx='\tar -xf'
 #alias tarxiso='cmake -E tar xf'
 alias tarxiso='bsdtar -xf'
@@ -544,7 +545,7 @@ alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_inst_centos="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_arch="LC_ALL=C pacman -Qe | awk '{print $1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_arch='LC_ALL=C pacman -Qe | awk "{print $1}" | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt'
 
 alias ssha='eval $(ssh-agent); ssh-add'
 
@@ -607,7 +608,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.268 2021/01/23 17:59:48 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.270 2021/02/02 18:10:12 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]

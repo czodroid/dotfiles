@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: samedi 23 janvier 2021, 18:59
-# Edit Time: 127:37:00
+# Last Modified: mardi 02 février 2021, 19:05
+# Edit Time: 128:15:03
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.227 2021/01/23 17:59:48 czo Exp $
+# $Id: .zshrc,v 1.229 2021/02/02 18:10:13 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -418,6 +418,7 @@ case $PLATFORM in
 esac
 
 alias ll='ls -l'
+alias lh='ls -lh'
 alias l='ls -alrt'
 
 alias dir='ls'
@@ -508,7 +509,7 @@ alias whatsappjpg='convert -resize 1918800@ -quality 75 *.jpg img.jpg'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara='\tar -cvzf'
+alias tara='\tar -czf'
 alias tarx='\tar -xf'
 #alias tarxiso='cmake -E tar xf'
 alias tarxiso='bsdtar -xf'
@@ -672,6 +673,10 @@ alias ssha='eval $(ssh-agent); ssh-add'
 
 ##======= Completions ================================================##
 
+# WARNING: it doesn't work...It's been too long that I'm used to bash
+# and the completions that were excellent in zsh before don't suit me.
+# error in completer _complete _ignored with no correct or approximate
+
 autoload -Uz compinit 
 compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
 
@@ -695,12 +700,12 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[-_.]=* r:|=*' 'm:{a-z}=
 zstyle ':completion:*:correct:*' max-errors 2 not-numeric
 # allow one error for every three characters typed in approximate completer
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) numeric )'
+
 # meu selection with 2 candidates or more
 zstyle ':completion:*' menu select=2
 # Add colors in completions
 #zmodload -i zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-#autoload colors && colors
 # messages/warnings format
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:corrections'  format $' %{\e[0;93m%}-- %d (errors: %e) --%{\e[m%}'
@@ -711,10 +716,11 @@ zstyle ':completion:*:warnings'     format $' %{\e[0;93m%}-- no matches for: %d 
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:default' select-prompt %SScrolling active: current selection at %p%s
 
+# completion of commands
 zstyle ':completion:*:*:kill:*' command 'ps -u$USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*:*:killall:*' command 'ps -u$USER -o cmd'
-zstyle ':completion:*:(ssh|scp):*' tag-order    hosts-ports-users hosts users-hosts users hosts
-zstyle ':completion:*:(ssh|scp):*' group-order  hosts-ports-users hosts users-hosts users hosts
+#zstyle ':completion:*:(ssh|scp):*' tag-order    hosts-ports-users hosts users-hosts users hosts
+#zstyle ':completion:*:(ssh|scp):*' group-order  hosts-ports-users hosts users-hosts users hosts
 
 if [ "$PLATFORM" = "Cygwin" ]
 then
@@ -772,7 +778,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.227 2021/01/23 17:59:48 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.229 2021/02/02 18:10:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}-${BVERS}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

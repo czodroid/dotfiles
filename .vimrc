@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: vendredi 11 décembre 2020, 19:07
-" Edit Time: 176:02:17
+" Last Modified: mardi 02 février 2021, 19:11
+" Edit Time: 176:11:01
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.186 2020/12/11 18:08:43 czo Exp $
+" $Id: .vimrc,v 1.187 2021/01/26 17:59:03 czo Exp $
 
 if version >= 580
 
@@ -216,8 +216,8 @@ set statusline+=%4*%{''.(&fenc!=''?&fenc:&enc).''}   " Encoding
 set statusline+=%{(&bomb?\',BOM\':\'\')}             " Encoding2
 set statusline+=%4*\/%{&ff}                          " FileFormat unix/dos
 set statusline+=%6*\ %y                              " FileType
-set statusline+=%7*\ %L                              " Number of line
-set statusline+=%8*\ %P                              " Top/bot. %
+"set statusline+=%7*\ %L                              " Number of line
+set statusline+=%8*\ %P(%L)                           " Top/bot.% / NumOfLine
 set statusline+=\                                    " Blank last char
 
 " vielle statusline
