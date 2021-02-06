@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mardi 02 février 2021, 19:05
-# Edit Time: 128:15:03
+# Last Modified: samedi 06 février 2021, 01:40
+# Edit Time: 128:26:39
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.229 2021/02/02 18:10:13 czo Exp $
+# $Id: .zshrc,v 1.234 2021/02/06 00:42:30 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -86,11 +86,11 @@ PLATFORM=Unknown
 case $(uname 2>/dev/null) in
 
   Linux*) case $(uname -m 2>/dev/null) in
-           i*86)   PLATFORM=Linux ;;
+           i*86)   PLATFORM=Linux_x86 ;;
            x86_64) PLATFORM=Linux ;;
-           mips)   PLATFORM=Linux_bb ;;
-           arm*)   PLATFORM=Linux_bb ;; # near full distro
-           aarch*) PLATFORM=Linux_bb ;; # near full distro
+           mips)   PLATFORM=Linux_mips ;;
+           arm*)   PLATFORM=Linux_arm ;;
+           aarch*) PLATFORM=Linux_aarch ;;
           esac ;;
 
   SunOS*) case $(uname -r 2>/dev/null) in
@@ -139,10 +139,11 @@ export PATH=/opt/android-studio/bin:${PATH}
 ## config termux for android
 export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:${PATH}
 export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib 
+
 ## config macos brew
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
 
-# il y a du y avoir un moment ou j'en ai eu besoin, mais je ne me souviens plus...
+# there was a time when I needed it, but I can't remember anymore...
 #typeset -U MANPATH=$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH
 #export MANPATH
 
@@ -382,44 +383,44 @@ alias hgrep='fc -l 1 | grep'
 setenv() { export $1=$2 ;}  # csh compatibility
 
 case $PLATFORM in
-       Linux_bb) alias ls='\ls --color=auto -a' ;
-                 alias cp='\cp -i'              ;
-                 alias mv='\mv -i'              ;
-                 alias ps='\ps -w'              ;;
 
-         Linux*) alias ls='\ls --time-style=long-iso --color=auto -a' ;
-                 alias grep='\grep --color' ;
+         Linux*) 
                  alias cp='\cp -i'          ;
-                 alias mv='\mv -bi'         ;
-                 alias pgrep='\pgrep -af'   ;
-                 alias ps='\ps -eaf'        ;;
-
-        FreeBSD) { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;
+                 alias mv='\mv -i'          ;
                  alias grep='\grep --color' ;
-                 alias ps='\ps -Awww'       ;;
+                 alias pgrep='\pgrep -af'   ;
+                 { \ps -eaf > /dev/null 2>&1 && alias ps='\ps -eaf' ;} || alias ps='\ps -w' ;
+                 { \ls -l --time-style=long-iso > /dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color=auto -a' ;;
 
-         Cygwin) alias ls='\ls --time-style=long-iso --color=auto -a' ;
+        FreeBSD) 
+                 alias grep='\grep --color' ;
+                 alias ps='\ps -Awww'       ;
+                 { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
+
+  SunOS|Solaris) 
+                 alias ps='\ps -ef'         ;
+                 alias ls='\ls -a'          ;;
+
+         Cygwin) 
                  export DISPLAY=localhost:0 ;
                  alias cp='\cp -i'          ;
-                 alias mv='\mv -bi'         ;
-                 alias ps='\ps -aflW'       ;;
-
-  SunOS|Solaris) alias ls='\ls -a'          ;
-                 alias ps='\ps -ef'         ;;
-
-# a faire plus tard
-# /usr/local/opt/coreutils/libexec/gnubin
-# /usr/local/opt/findutils/libexec/gnubin:
-         Darwin) { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;
-                 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
-                 export DISPLAY=:0          ;
+                 alias mv='\mv -i'          ;
                  alias grep='\grep --color' ;
-                 alias ps='\ps -Awww'       ;;
+                 alias ps='\ps -aflW'       ;
+                 alias ls='\ls --time-style=long-iso --color=auto -a' ;;
+
+         Darwin) 
+                 export DISPLAY=:0          ;
+                 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
+                 alias grep='\grep --color' ;
+                 alias ps='\ps -Awww'       ;
+                 { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
 esac
 
+#alias ls='\ls --time-style=long-iso --color=auto -a'
 alias ll='ls -l'
 alias lh='ls -lh'
-alias l='ls -alrt'
+alias  l='ls -alrt'
 
 alias dir='ls'
 alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
@@ -462,10 +463,9 @@ alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/san
 alias rsyncfull='rsync --numeric-ids -S -H  --delete -av'
 alias rsyncfat='rsync --no-p --no-g --modify-window=1 --delete -av'
 
-#https://gitlab.com/czo/dotfiles/raw/master/config-fast-copy
-#https://gitlab.com/czo/dotfiles/raw/master/config-fast-ssh
 alias curl-config-fast-copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl-config-fast-ssh='curl -fsSL https://git.io/JU6c2 | sh'
+alias wget-config-fast-all='wget -qO- http://git.io/JkHdk | sh'
 
 alias run-help=man
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
@@ -503,7 +503,7 @@ cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -l 1 --no-parent -k'
 
-alias whatsappjpg='convert -resize 1918800@ -quality 75 *.jpg img.jpg'
+alias whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
 
 # vieux truc 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
@@ -512,7 +512,8 @@ alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 alias tara='\tar -czf'
 alias tarx='\tar -xf'
 #alias tarxiso='cmake -E tar xf'
-alias tarxiso='bsdtar -xf'
+#alias tarxiso='bsdtar -xf'
+tarxiso() { [ -f $1 ] && { \mkdir -p "${1%%.iso}" ; cd "${1%%.iso}" ; bsdtar -xf ../$1 ;} || echo "$1 doesn't exist..." ;}
 
 v()       { set | grep -ai $1 ;}
 
@@ -667,7 +668,7 @@ alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_inst_centos="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_arch="LC_ALL=C pacman -Qe | awk '{print $1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_arch="LC_ALL=C pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 alias ssha='eval $(ssh-agent); ssh-add'
 
@@ -684,7 +685,7 @@ zstyle ':completion:*' rehash true
 zstyle ':completion:*' accept-exact-dirs true 
 # cache
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh_cache
+zstyle ':completion:*' cache-path ~/.zcompcache
 # for use with expand-or-complete
 #zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
 #zstyle ':completion:*' completer _complete _match _prefix:-complete _list _ignored
@@ -778,10 +779,10 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.229 2021/02/02 18:10:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.234 2021/02/06 00:42:30 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
-PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}-${BVERS}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited
@@ -795,12 +796,8 @@ fi
 
 export -U PATH
 
-#config lang
 #export LC_ALL=C
-
-#fuser pstree locale script
 #mksquashfs . ../00-czo.sb -comp xz -Xbcj x86
-
 #echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness
 #echo 30 > /sys/class/backlight/acpi_video0/brightness
 
