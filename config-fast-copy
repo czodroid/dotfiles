@@ -4,28 +4,40 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: jeudi 24 décembre 2020, 02:22
-# Edit Time: 4:51:00
+# Last Modified: samedi 06 février 2021, 16:26
+# Edit Time: 4:55:54
 # Description:
 #
 #   copy my config files
 #   
 #   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | bash
 #
-#   also works in wget: wget -qO- https://pwet | bash
+#   test ssl:
+#       curl -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f
+#       curl -k -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f
+#       wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
+#       wget --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #
-# $Id: config-fast-copy,v 1.17 2020/12/24 01:33:03 czo Exp $
+# $Id: config-fast-copy,v 1.18 2021/02/06 15:28:29 czo Exp $
 
 # you must do a "cd" before running this script
 
 echo "## -> copy my config files"
+
 for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb
 do
   echo "   <- $f"
   curl -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f
-#  curl -k -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f
-#  wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
-#  wget --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 done
 chmod +x czolsb
+
+mkdir -p .config/mc
+cd .config/mc
+for f in ini panels.ini
+do
+  echo "   <- $f"
+  curl -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/.config/mc/$f
+done
+
+
 
