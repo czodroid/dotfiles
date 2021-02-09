@@ -18,7 +18,7 @@
 #       wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #       wget --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #
-# $Id: config-fast-copy,v 1.20 2021/02/06 19:13:06 czo Exp $
+# $Id: config-fast-copy,v 1.21 2021/02/09 14:37:52 czo Exp $
 
 # you must do a "cd" before running this script
 

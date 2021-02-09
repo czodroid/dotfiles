@@ -1,7 +1,20 @@
+#!/bin/sh
+#
+# Filename: terminalrc
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0
+# File Created: nov. 2011
+# Last Modified: dimanche 07 février 2021, 10:58
+# Edit Time: 0:13:01
+# Description:
+#               xfce terminal config
+# $Id: terminalrc,v 1.4 2021/02/07 09:59:45 czo Exp $
+#
+
 [Configuration]
 MiscAlwaysShowTabs=FALSE
 MiscBell=TRUE
-MiscBellUrgent=TRUE
+MiscBellUrgent=FALSE
 MiscBordersDefault=TRUE
 MiscCursorBlinks=TRUE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
@@ -37,7 +50,6 @@ MiscShowRelaunchDialog=TRUE
 MiscNewTabAdjacent=FALSE
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=FALSE
-FontName=Monospace 13
 ColorCursorUseDefault=FALSE
 ColorCursorForeground=#282828282828
 ColorBoldUseDefault=FALSE
@@ -48,4 +60,5 @@ FontAllowBold=FALSE
 TitleMode=TERMINAL_TITLE_PREPEND
 ColorSelectionUseDefault=FALSE
 ColorBoldIsBright=FALSE
+FontName=Monospace 13
 

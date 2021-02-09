@@ -8,7 +8,7 @@
 # Edit Time: 0:02:41
 # Description:
 #
-# $Id: gnome-terminal-dconf.sh,v 1.2 2020/10/05 20:15:56 czo Exp $
+# $Id: gnome-terminal-dconf.sh,v 1.1 2021/02/09 18:23:39 czo Exp $
 #
 
 dconf load / << 'EOF'
