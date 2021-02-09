@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: samedi 06 février 2021, 20:12
-# Edit Time: 4:57:12
+# Last Modified: mardi 09 février 2021, 10:06
+# Edit Time: 4:58:15
 # Description:
 #
 #   copy my config files
@@ -30,7 +30,7 @@ chmod 700 .config/mc
 for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb .config/mc/ini .config/mc/panels.ini
 do
   echo "   <- $f"
-  curl -fsSLO https://raw.githubusercontent.com/czodroid/dotfiles/master/$f
+  curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -o $f
 done
 chmod +x czolsb
 
