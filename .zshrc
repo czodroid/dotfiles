@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: samedi 06 février 2021, 01:40
-# Edit Time: 128:26:39
+# Last Modified: mercredi 10 février 2021, 19:50
+# Edit Time: 128:28:02
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.234 2021/02/06 00:42:30 czo Exp $
+# $Id: .zshrc,v 1.235 2021/02/10 18:50:56 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -667,15 +667,14 @@ alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\
 alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_centos="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_arch="LC_ALL=C pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 alias ssha='eval $(ssh-agent); ssh-add'
 
 ##======= Completions ================================================##
 
-# WARNING: it doesn't work...It's been too long that I'm used to bash
-# and the completions that were excellent in zsh before don't suit me.
+# WARNING: it doesn't work...
 # error in completer _complete _ignored with no correct or approximate
 
 autoload -Uz compinit 
@@ -779,7 +778,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.234 2021/02/06 00:42:30 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.235 2021/02/10 18:50:56 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

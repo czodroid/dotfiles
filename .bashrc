@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: samedi 06 février 2021, 01:05
-# Edit Time: 75:05:08
+# Last Modified: mercredi 10 février 2021, 19:39
+# Edit Time: 75:06:54
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.274 2021/02/06 00:20:52 czo Exp $
+# $Id: .bashrc,v 1.275 2021/02/10 18:50:55 czo Exp $
 
 #set -v
 #set -x
@@ -545,8 +545,8 @@ alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\
 alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_centos="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_arch="LC_ALL=C pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 alias ssha='eval $(ssh-agent); ssh-add'
 
@@ -609,7 +609,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.274 2021/02/06 00:20:52 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.275 2021/02/10 18:50:55 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]
