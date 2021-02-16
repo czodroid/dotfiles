@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mardi 09 février 2021, 20:17
-# Edit Time: 4:59:02
+# Last Modified: mardi 16 février 2021, 21:24
+# Edit Time: 5:00:40
 # Description:
 #
 #   copy my config files
@@ -18,14 +18,14 @@
 #       wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #       wget --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #
-# $Id: config-fast-copy,v 1.22 2021/02/09 19:19:17 czo Exp $
+# $Id: config-fast-copy,v 1.23 2021/02/16 20:25:54 czo Exp $
 
 # you must do a "cd" before running this script
 
 echo "## -> copy my config files"
 
-mkdir -p .config/htop
-mkdir -p .config/mc
+mkdir -p  .config/htop
+mkdir -p  .config/mc
 chmod 700 .config/mc
 
 for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
