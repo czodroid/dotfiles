@@ -86,17 +86,17 @@ skin=default
 safe_overwrite=false
 
 [Layout]
-message_visible=false
-keybar_visible=true
-xterm_title=true
+message_visible=0
+keybar_visible=1
+xterm_title=1
 output_lines=0
-command_prompt=false
-menubar_visible=true
-free_space=true
-horizontal_split=false
-vertical_equal=true
+command_prompt=0
+menubar_visible=1
+free_space=1
+horizontal_split=0
+vertical_equal=1
 left_panel_size=71
-horizontal_equal=true
+horizontal_equal=1
 top_panel_size=1
 
 [Misc]

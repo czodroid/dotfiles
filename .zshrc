@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: jeudi 11 février 2021, 20:04
-# Edit Time: 128:31:53
+# Last Modified: mardi 02 mars 2021, 12:27
+# Edit Time: 128:40:27
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.236 2021/02/11 19:11:18 czo Exp $
+# $Id: .zshrc,v 1.238 2021/03/02 11:47:14 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -492,6 +492,7 @@ alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
 alias gitl='git pull'
 alias gits='git status'
 alias gitd='git diff'
+alias gitf='git fetch; git diff master origin/master'
 alias gita='git add .'
 alias gitc='git commit -mok -a'
 alias gitp='git push'
@@ -662,6 +663,7 @@ alias czomac='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr
 alias tmuxa='tmux attach -d || tmux new'
 alias screena='screen -d -R'
 alias edl='export DISPLAY=localhost:0'
+alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
 alias kfm='setxkbmap fr mac'
 
@@ -780,7 +782,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.236 2021/02/11 19:11:18 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.238 2021/03/02 11:47:14 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

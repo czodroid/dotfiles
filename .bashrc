@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.275 2021/02/10 18:50:55 czo Exp $
+# $Id: .bashrc,v 1.277 2021/03/02 11:47:14 czo Exp $
 
 #set -v
 #set -x
@@ -368,6 +368,7 @@ alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
 alias gitl='git pull'
 alias gits='git status'
 alias gitd='git diff'
+alias gitf='git fetch; git diff master origin/master'
 alias gita='git add .'
 alias gitc='git commit -mok -a'
 alias gitp='git push'
@@ -538,6 +539,7 @@ alias czomac='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr
 alias tmuxa='tmux attach -d || tmux new'
 alias screena='screen -d -R'
 alias edl='export DISPLAY=localhost:0'
+alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
 alias kfm='setxkbmap fr mac'
 
@@ -609,7 +611,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.275 2021/02/10 18:50:55 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.277 2021/03/02 11:47:14 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]
