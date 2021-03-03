@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mardi 02 février 2021, 19:11
-" Edit Time: 176:11:01
+" Last Modified: mercredi 03 mars 2021, 16:56
+" Edit Time: 177:14:13
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.188 2021/02/02 18:49:28 czo Exp $
+" $Id: .vimrc,v 1.189 2021/03/03 15:59:42 czo Exp $
 
 if version >= 580
 
@@ -39,7 +39,7 @@ let mapleader=","
 
 "set nonumber
 set number
-set cursorline
+"set cursorline
 set nocursorcolumn
 set showcmd
 set noshowmode
@@ -124,21 +124,28 @@ if version >= 710
     set mouse=a
 endif
 
-if has('nvim')
-    set guicursor+=a:blinkon1
+set ttimeout
+set ttimeoutlen=100
+set ttyfast
+
+if &term =~ '^xterm'
+    " 0  -> blinking block.
+    " 1  -> blinking block (default).
+    " 2  -> steady block.
+    " 3  -> blinking underline.
+    " 4  -> steady underline.
+    " 5  -> blinking bar (xterm).
+    " 6  -> steady bar (xterm).
+    let &t_SI .= "\e[5 q;\e]12;#fe8019\x7"
+    let &t_SR .= "\e[3 q;\e]12;#fe8019\x7"
+    let &t_EI .= "\e[ q;\e]12;#fe8019\x7"
+    " let &t_SI .= "\e]12;#fe8019\x7"
+    " let &t_SR .= "\e]12;#fe8019\x7"
+    " let &t_EI .= "\e]12;#fe8019\x7"
 endif
 
-" tags search path
-set tags=./tags,tags,/users/soft5/newlabo/cvstree/alliance/sources/tags
-"set errorformat=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
-
-" dictionary completion: (Ctrl-X Ctrl-k)
-set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tags
-
-
-if version >= 800
-    set listchars=tab:>-,trail:~,space:.
-    "set list
+if has('nvim')
+    set guicursor+=a:blinkon1
 endif
 
 " tmux will send xterm-style keys when xterm-keys is on
@@ -156,6 +163,19 @@ if &term =~ '^vt100'
     execute "set <S-Right>=\e[1;2C"
     execute "set <S-Left>=\e[1;2D"
 endif
+
+if version >= 800
+    set listchars=tab:>-,trail:~,space:.
+    "set list
+endif
+
+" tags search path
+set tags=./tags,tags,/users/soft5/newlabo/cvstree/alliance/sources/tags
+"set errorformat=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
+
+" dictionary completion: (Ctrl-X Ctrl-k)
+set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tags
+
 
 " == Statusline ========================================================
 
@@ -257,11 +277,18 @@ endif
 
 if has("autocmd")
 
-"remove all autocommands
+" remove all autocommands
 autocmd!
 
-" mettre sur la ligne d'avant
+" on the last edit line
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
+" cursorline when in insert mode
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+
+" reset cursor when vim exits
+autocmd VimLeave * silent !echo -ne "\033]112\007"
 
 "set verbose=9 "for testing
 "pour mon laptop 1024x768
@@ -329,8 +356,6 @@ endif
 " :'<,'>w !xclip -selection clipboard
 "
 " https://github.com/kana/vim-fakeclip
-
-set ttyfast
 
 if has('clipboard')
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
