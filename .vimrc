@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mercredi 03 mars 2021, 16:56
-" Edit Time: 177:14:13
+" Last Modified: jeudi 04 mars 2021, 01:02
+" Edit Time: 177:48:13
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.189 2021/03/03 15:59:42 czo Exp $
+" $Id: .vimrc,v 1.190 2021/03/04 00:03:30 czo Exp $
 
 if version >= 580
 
@@ -39,7 +39,7 @@ let mapleader=","
 
 "set nonumber
 set number
-"set cursorline
+set cursorline
 set nocursorcolumn
 set showcmd
 set noshowmode
@@ -136,16 +136,16 @@ if &term =~ '^xterm'
     " 4  -> steady underline.
     " 5  -> blinking bar (xterm).
     " 6  -> steady bar (xterm).
-    let &t_SI .= "\e[5 q;\e]12;#fe8019\x7"
-    let &t_SR .= "\e[3 q;\e]12;#fe8019\x7"
-    let &t_EI .= "\e[ q;\e]12;#fe8019\x7"
-    " let &t_SI .= "\e]12;#fe8019\x7"
-    " let &t_SR .= "\e]12;#fe8019\x7"
-    " let &t_EI .= "\e]12;#fe8019\x7"
+    " color \e]12;#fe8019\x7
+    let &t_EI .= "\e[ q"
+    let &t_SI .= "\e[5 q"
+    if version > 704
+        let &t_SR .= "\e[3 q"
+    endif
 endif
 
 if has('nvim')
-    set guicursor+=a:blinkon1
+    set guicursor+=a:blinkon1-Cursor
 endif
 
 " tmux will send xterm-style keys when xterm-keys is on
@@ -284,11 +284,11 @@ autocmd!
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
 " cursorline when in insert mode
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul
+"autocmd InsertEnter * set cul
+"autocmd InsertLeave * set nocul
 
 " reset cursor when vim exits
-autocmd VimLeave * silent !echo -ne "\033]112\007"
+autocmd VimLeave * silent !echo -n "\033]112\007"
 
 "set verbose=9 "for testing
 "pour mon laptop 1024x768
