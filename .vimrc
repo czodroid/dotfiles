@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: jeudi 04 mars 2021, 01:02
-" Edit Time: 177:48:13
+" Last Modified: jeudi 04 mars 2021, 01:24
+" Edit Time: 177:52:10
 " Description: 
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.190 2021/03/04 00:03:30 czo Exp $
+" $Id: .vimrc,v 1.191 2021/03/04 00:25:03 czo Exp $
 
 if version >= 580
 
@@ -543,7 +543,7 @@ hi  CursorLineNr  guifg=#7c6f64  guibg=#3c3836  ctermfg=DarkGray  ctermbg=Black 
 hi  SignColumn    guifg=NONE     guibg=#3c3836  ctermfg=NONE      ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
 hi  Folded        guifg=#928374  guibg=#3c3836  ctermfg=Gray      ctermbg=Black     gui=italic          cterm=italic          term=italic
 hi  FoldColumn    guifg=#928374  guibg=#3c3836  ctermfg=Gray      ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  Cursor        guifg=#282828  guibg=#fe8019  ctermfg=Black     ctermbg=Yellow    gui=NONE            cterm=NONE            term=NONE
+hi  Cursor        guifg=#282828  guibg=#b8bb26  ctermfg=Black     ctermbg=Yellow    gui=NONE            cterm=NONE            term=NONE
 hi  Special       guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Comment       guifg=#928374  guibg=NONE     ctermfg=Gray      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Todo          guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
