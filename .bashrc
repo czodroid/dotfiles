@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: mercredi 10 février 2021, 19:39
-# Edit Time: 75:06:54
+# Last Modified: dimanche 07 mars 2021, 15:30
+# Edit Time: 75:18:28
 # Description: 
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile 
 #
-# $Id: .bashrc,v 1.278 2021/03/03 00:31:41 czo Exp $
+# $Id: .bashrc,v 1.281 2021/03/07 14:30:32 czo Exp $
 
 #set -v
 #set -x
@@ -245,6 +245,7 @@ fi
 unalias -a
 
 alias where='type -a'
+alias t=where
 alias st='source ~/.bashrc'
 alias hload='history -r'
 alias hsave='history -w'
@@ -263,36 +264,36 @@ setenv() { export $1=$2 ;}  # csh compatibility
 case $PLATFORM in
 
          Linux*) 
-                 alias cp='\cp -i'          ;
-                 alias mv='\mv -i'          ;
-                 alias grep='\grep --color' ;
-                 alias pgrep='\pgrep -af'   ;
-                 { \ps -eaf > /dev/null 2>&1 && alias ps='\ps -eaf' ;} || alias ps='\ps -w' ;
-                 { \ls -l --time-style=long-iso > /dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color=auto -a' ;;
+                alias cp='\cp -i'          ;
+                alias mv='\mv -i'          ;
+                alias grep='\grep --color' ;
+                alias pgrep='\pgrep -af'   ;
+                { \ps -eaf > /dev/null 2>&1 && alias ps='\ps -eaf' ;} || alias ps='\ps -w' ;
+                { \ls -l --time-style=long-iso > /dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color=auto -a' ;;
 
         FreeBSD) 
-                 alias grep='\grep --color' ;
-                 alias ps='\ps -Awww'       ;
-                 { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
+                alias grep='\grep --color' ;
+                alias ps='\ps -Awww'       ;
+                { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
 
   SunOS|Solaris) 
-                 alias ps='\ps -ef'         ;
-                 alias ls='\ls -a'          ;;
+                alias ps='\ps -ef'         ;
+                alias ls='\ls -a'          ;;
 
          Cygwin) 
-                 export DISPLAY=localhost:0 ;
-                 alias cp='\cp -i'          ;
-                 alias mv='\mv -i'          ;
-                 alias grep='\grep --color' ;
-                 alias ps='\ps -aflW'       ;
-                 alias ls='\ls --time-style=long-iso --color=auto -a' ;;
+                export DISPLAY=localhost:0 ;
+                alias cp='\cp -i'          ;
+                alias mv='\mv -i'          ;
+                alias grep='\grep --color' ;
+                alias ps='\ps -aflW'       ;
+                alias ls='\ls --time-style=long-iso --color=auto -a' ;;
 
          Darwin) 
-                 export DISPLAY=:0          ;
-                 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
-                 alias grep='\grep --color' ;
-                 alias ps='\ps -Awww'       ;
-                 { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
+                export DISPLAY=:0          ;
+                export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
+                alias grep='\grep --color' ;
+                alias ps='\ps -Awww'       ;
+                { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
 esac
 
 #alias ls='\ls --time-style=long-iso --color=auto -a'
@@ -612,7 +613,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.278 2021/03/03 00:31:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.281 2021/03/07 14:30:32 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 if [ -n "$BASH_VERSION" ]

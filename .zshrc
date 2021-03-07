@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mercredi 03 mars 2021, 01:30
-# Edit Time: 128:46:10
+# Last Modified: samedi 06 mars 2021, 11:27
+# Edit Time: 128:52:41
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,17 +16,17 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile 
 #
-# $Id: .zshrc,v 1.239 2021/03/03 00:31:41 czo Exp $
+# $Id: .zshrc,v 1.243 2021/03/06 12:46:22 czo Exp $
 
 #zmodload zsh/zprof
 
 ##======= Zsh Settings ===============================================##
 
-#setopt ALWAYS_TO_END          # On completion go to end of word
+setopt ALWAYS_TO_END          # On completion go to end of word
 setopt AUTO_CD                # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
-#setopt CD_SILENT              # Never print the working directory
-#setopt COMBINING_CHARS        # Displays combining characters correctly
+setopt CD_SILENT              # Never print the working directory
+setopt COMBINING_CHARS        # Displays combining characters correctly
 setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
@@ -371,6 +371,7 @@ for key     kcap   seq        mode   widget (
 unalias -m '*'
 
 alias where='whence -ca'
+alias t=where
 alias st='source ~/.zshrc'
 alias hload='fc -R'
 alias hsave='fc -AI'
@@ -387,36 +388,36 @@ setenv() { export $1=$2 ;}  # csh compatibility
 case $PLATFORM in
 
          Linux*) 
-                 alias cp='\cp -i'          ;
-                 alias mv='\mv -i'          ;
-                 alias grep='\grep --color' ;
-                 alias pgrep='\pgrep -af'   ;
-                 { \ps -eaf > /dev/null 2>&1 && alias ps='\ps -eaf' ;} || alias ps='\ps -w' ;
-                 { \ls -l --time-style=long-iso > /dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color=auto -a' ;;
+                alias cp='\cp -i'          ;
+                alias mv='\mv -i'          ;
+                alias grep='\grep --color' ;
+                alias pgrep='\pgrep -af'   ;
+                { \ps -eaf > /dev/null 2>&1 && alias ps='\ps -eaf' ;} || alias ps='\ps -w' ;
+                { \ls -l --time-style=long-iso > /dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color=auto -a' ;;
 
         FreeBSD) 
-                 alias grep='\grep --color' ;
-                 alias ps='\ps -Awww'       ;
-                 { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
+                alias grep='\grep --color' ;
+                alias ps='\ps -Awww'       ;
+                { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
 
   SunOS|Solaris) 
-                 alias ps='\ps -ef'         ;
-                 alias ls='\ls -a'          ;;
+                alias ps='\ps -ef'         ;
+                alias ls='\ls -a'          ;;
 
          Cygwin) 
-                 export DISPLAY=localhost:0 ;
-                 alias cp='\cp -i'          ;
-                 alias mv='\mv -i'          ;
-                 alias grep='\grep --color' ;
-                 alias ps='\ps -aflW'       ;
-                 alias ls='\ls --time-style=long-iso --color=auto -a' ;;
+                export DISPLAY=localhost:0 ;
+                alias cp='\cp -i'          ;
+                alias mv='\mv -i'          ;
+                alias grep='\grep --color' ;
+                alias ps='\ps -aflW'       ;
+                alias ls='\ls --time-style=long-iso --color=auto -a' ;;
 
          Darwin) 
-                 export DISPLAY=:0          ;
-                 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
-                 alias grep='\grep --color' ;
-                 alias ps='\ps -Awww'       ;
-                 { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
+                export DISPLAY=:0          ;
+                export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home ;
+                alias grep='\grep --color' ;
+                alias ps='\ps -Awww'       ;
+                { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a' ;} || alias ls='\ls --color -a' ;;
 esac
 
 #alias ls='\ls --time-style=long-iso --color=auto -a'
@@ -783,7 +784,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.239 2021/03/03 00:31:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.243 2021/03/06 12:46:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
