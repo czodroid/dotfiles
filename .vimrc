@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mercredi 10 mars 2021, 17:15
-" Edit Time: 183:33:24
+" Last Modified: mercredi 10 mars 2021, 18:50
+" Edit Time: 184:03:39
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.204 2021/03/10 16:15:35 czo Exp $
+" $Id: .vimrc,v 1.206 2021/03/10 17:50:50 czo Exp $
 
 if version >= 580
 "if 0
@@ -569,12 +569,12 @@ hi  Boolean          guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NON
 hi  Float            guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Identifier       guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Function         guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Statement        guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Statement        guifg=#fe8019  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Conditional      guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Repeat           guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Label            guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Operator         guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Keyword          guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Operator         guifg=#fbf1c7  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Keyword          guifg=#fe8019  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Exception        guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  PreProc          guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Include          guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
@@ -583,8 +583,8 @@ hi  Macro            guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NON
 hi  PreCondit        guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Type             guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  StorageClass     guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Structure        guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Typedef          guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Structure        guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Typedef          guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Special          guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Error            guifg=#fb4934  guibg=bg       ctermfg=Red       ctermbg=bg        gui=inverse         cterm=inverse         term=inverse
 hi  Todo             guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
@@ -650,6 +650,147 @@ hi! link VisualNOS Visual
 hi! link vCursor Cursor
 hi! link iCursor Cursor
 hi! link lCursor Cursor
+
+
+hi! link cssBraces Delimiter
+hi! link cssClassName Special
+hi! link cssClassNameDot Normal
+hi! link cssPseudoClassId Special
+hi! link cssTagName Statement
+hi! link helpHyperTextJump Constant
+hi! link htmlArg Constant
+hi! link htmlEndTag Statement
+hi! link htmlTag Statement
+hi! link jsonQuote Normal
+hi! link phpVarSelector Identifier
+hi! link pythonFunction Title
+hi! link rubyDefine Statement
+hi! link rubyFunction Title
+hi! link rubyInterpolationDelimiter String
+hi! link rubySharpBang Comment
+hi! link rubyStringDelimiter String
+hi! link sassClass Special
+hi! link shFunction Normal
+hi! link vimContinue Comment
+hi! link vimFuncSID vimFunction
+hi! link vimFuncVar Normal
+hi! link vimFunction Title
+hi! link vimGroup Statement
+hi! link vimHiGroup Statement
+hi! link vimHiTerm Identifier
+hi! link vimMapModKey Special
+hi! link vimOption Identifier
+hi! link vimVar Normal
+hi! link xmlAttrib Constant
+hi! link xmlAttribPunct Statement
+hi! link xmlEndTag Statement
+hi! link xmlNamespace Statement
+hi! link xmlTag Statement
+hi! link xmlTagName Statement
+hi! link yamlKeyValueDelimiter Delimiter
+hi! link CtrlPPrtCursor Cursor
+hi! link CtrlPMatch Title
+hi! link CtrlPMode2 StatusLine
+hi! link deniteMatched Normal
+hi! link deniteMatchedChar Title
+hi! link jsFlowMaybe Normal
+hi! link jsFlowObject Normal
+hi! link jsFlowType PreProc
+hi! link graphqlName Normal
+hi! link graphqlOperator Normal
+hi! link gitmessengerHash Comment
+hi! link gitmessengerHeader Statement
+hi! link gitmessengerHistory Constant
+hi! link jsArrowFunction Operator
+hi! link jsClassDefinition Normal
+hi! link jsClassFuncName Title
+hi! link jsExport Statement
+hi! link jsFuncName Title
+hi! link jsFutureKeys Statement
+hi! link jsFuncCall Normal
+hi! link jsGlobalObjects Statement
+hi! link jsModuleKeywords Statement
+hi! link jsModuleOperators Statement
+hi! link jsNull Constant
+hi! link jsObjectFuncName Title
+hi! link jsObjectKey Identifier
+hi! link jsSuper Statement
+hi! link jsTemplateBraces Special
+hi! link jsUndefined Constant
+hi! link markdownBold Special
+hi! link markdownCode String
+hi! link markdownCodeDelimiter String
+hi! link markdownHeadingDelimiter Comment
+hi! link markdownRule Comment
+hi! link ngxDirective Statement
+hi! link plug1 Normal
+hi! link plug2 Identifier
+hi! link plugDash Comment
+hi! link plugMessage Special
+hi! link SignifySignAdd GitGutterAdd
+hi! link SignifySignChange GitGutterChange
+hi! link SignifySignChangeDelete GitGutterChangeDelete
+hi! link SignifySignDelete GitGutterDelete
+hi! link SignifySignDeleteFirstLine SignifySignDelete
+hi! link StartifyBracket Comment
+hi! link StartifyFile Identifier
+hi! link StartifyFooter Constant
+hi! link StartifyHeader Constant
+hi! link StartifyNumber Special
+hi! link StartifyPath Comment
+hi! link StartifySection Statement
+hi! link StartifySlash Comment
+hi! link StartifySpecial Normal
+hi! link svssBraces Delimiter
+hi! link swiftIdentifier Normal
+hi! link typescriptAjaxMethods Normal
+hi! link typescriptBraces Normal
+hi! link typescriptEndColons Normal
+hi! link typescriptFuncKeyword Statement
+hi! link typescriptGlobalObjects Statement
+hi! link typescriptHtmlElemProperties Normal
+hi! link typescriptIdentifier Statement
+hi! link typescriptMessage Normal
+hi! link typescriptNull Constant
+hi! link typescriptParens Normal
+
+if has('nvim')
+  let g:terminal_color_0  = '#282828'
+  let g:terminal_color_1  = '#cc241d'
+  let g:terminal_color_2  = '#98971a'
+  let g:terminal_color_3  = '#d79921'
+  let g:terminal_color_4  = '#458588'
+  let g:terminal_color_5  = '#b16286'
+  let g:terminal_color_6  = '#689d6a'
+  let g:terminal_color_7  = '#c9b788'
+  let g:terminal_color_8  = '#4a4239'
+  let g:terminal_color_9  = '#fb4934'
+  let g:terminal_color_10 = '#b8bb26'
+  let g:terminal_color_11 = '#fabd2f'
+  let g:terminal_color_12 = '#83a598'
+  let g:terminal_color_13 = '#d3869b'
+  let g:terminal_color_14 = '#8ec07c'
+  let g:terminal_color_15 = '#fbf1c7'
+else
+  let g:terminal_ansi_colors = [
+\                           '#282828',
+\                           '#cc241d',
+\                           '#98971a',
+\                           '#d79921',
+\                           '#458588',
+\                           '#b16286',
+\                           '#689d6a',
+\                           '#c9b788',
+\                           '#4a4239',
+\                           '#fb4934',
+\                           '#b8bb26',
+\                           '#fabd2f',
+\                           '#83a598',
+\                           '#d3869b',
+\                           '#8ec07c',
+\                           '#fbf1c7'
+\                                     ]
+endif
 
 endif
 
@@ -1235,7 +1376,7 @@ endif
 " ======================================================================
 " == Plugins ===========================================================
 
-if (0)
+if 1
 
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
