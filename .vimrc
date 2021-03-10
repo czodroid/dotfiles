@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mercredi 10 mars 2021, 17:12
-" Edit Time: 183:31:55
+" Last Modified: mercredi 10 mars 2021, 17:15
+" Edit Time: 183:33:24
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.203 2021/03/10 16:12:18 czo Exp $
+" $Id: .vimrc,v 1.204 2021/03/10 16:15:35 czo Exp $
 
 if version >= 580
 "if 0
@@ -561,31 +561,31 @@ if (has("syntax"))
 hi  Normal           guifg=#c9b788  guibg=#282828  ctermfg=White     ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
 
 hi  Comment          guifg=#928374  guibg=NONE     ctermfg=Gray      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Constant         guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  String           guifg=#a9b665  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Character        guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Constant         guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  String           guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Character        guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Number           guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Boolean          guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Float            guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Identifier       guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Function         guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Statement        guifg=#ea6962  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Conditional      guifg=#ea6962  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Repeat           guifg=#ea6962  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Label            guifg=#e78a1e  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Operator         guifg=#e78a1e  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Keyword          guifg=#ea6962  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Exception        guifg=#ea6962  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Statement        guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Conditional      guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Repeat           guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Label            guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Operator         guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Keyword          guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Exception        guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  PreProc          guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Include          guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Define           guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Macro            guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Macro            guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  PreCondit        guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Type             guifg=#d8a627  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  StorageClass     guifg=#e78a1e  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Structure        guifg=#e78a1e  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Typedef          guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Special          guifg=#e78a1e  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Type             guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  StorageClass     guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Structure        guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Typedef          guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
+hi  Special          guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 hi  Error            guifg=#fb4934  guibg=bg       ctermfg=Red       ctermbg=bg        gui=inverse         cterm=inverse         term=inverse
 hi  Todo             guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
 
