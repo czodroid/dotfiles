@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: mercredi 10 mars 2021, 18:50
-" Edit Time: 184:03:39
+" Last Modified: jeudi 11 mars 2021, 15:30
+" Edit Time: 185:54:58
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.206 2021/03/10 17:50:50 czo Exp $
+" $Id: .vimrc,v 1.210 2021/03/11 14:30:23 czo Exp $
 
 if version >= 580
 "if 0
@@ -125,25 +125,18 @@ set ttimeout
 set ttimeoutlen=100
 set ttyfast
 
-if &term =~ '^xterm'
-    " 0  -> blinking block.
-    " 1  -> blinking block (default).
-    " 2  -> steady block.
-    " 3  -> blinking underline.
-    " 4  -> steady underline.
-    " 5  -> blinking bar (xterm).
-    " 6  -> steady bar (xterm).
-    " color \e]12;#fe8019\x7
-
-    let &t_EI .= "\e[ q\e]12;#fe8019\x7"
-    let &t_SI .= "\e[5 q\e]12;#fe8019\x7"
-    if version > 704
-        let &t_SR .= "\e[3 q\e]12;#fe8019\x7"
-    endif
-endif
-
+" cursor block/underline/bar
 if has('nvim')
-    set guicursor+=a:blinkon1-Cursor
+    set guicursor+=a:blinkon1
+else
+    if &term =~ '^xterm'
+        " color: \e]12;#fe8019\x7
+        let &t_EI .= "\e[ q"
+        let &t_SI .= "\e[5 q"
+        if version > 704
+            let &t_SR .= "\e[3 q"
+        endif
+    endif
 endif
 
 " tmux will send xterm-style keys when xterm-keys is on
@@ -286,7 +279,7 @@ autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
 
 " reset cursor when vim exits
-autocmd VimLeave * silent !echo -n "\033]112\007"
+"autocmd VimLeave * silent !echo -n "\033]112\007"
 
 "set verbose=9 "for testing
 "pour mon laptop 1024x768
@@ -522,23 +515,6 @@ if (has("syntax"))
 " orange2   #fe8019
 " 
 
-" gruvbox-material
-" red:          "#ea6962",
-" orange:       "#e78a4e",
-" yellow:       "#d8a657",
-" green:        "#a9b665",
-" aqua:         "#89b482",
-" blue:         "#7daea3",
-" purple:       "#d3869b",
-" darkRed:      "#b85651",
-" darkOrange:   "#bd6f3e",
-" darkYellow:   "#c18f41",
-" darkGreen:    "#8f9a52",
-" darkAqua:     "#72966c",
-" darkBlue:     "#68948a",
-" darkPurple:   "#ab6c7d",
-
-
 " NR-8 NAME             NR-16 NAME           Gruvbox64
 "  0   Black            0     Black          #282828
 "  4   DarkBlue         1     DarkRed        #cc241d
@@ -558,90 +534,88 @@ if (has("syntax"))
 "  7*  White            15    White          #fbf1c7
 
 " normal : #ebdbb2 vs #c9b788
-hi  Normal           guifg=#c9b788  guibg=#282828  ctermfg=White     ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
+hi Normal           guifg=#ebdbb2 guibg=#282828 ctermfg=White    ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi Comment          guifg=#928374 guibg=NONE    ctermfg=Gray     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Constant         guifg=#d3869b guibg=NONE    ctermfg=Magenta  ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi String           guifg=#b8bb26 guibg=NONE    ctermfg=Green    ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Character        guifg=#d3869b guibg=NONE    ctermfg=Magenta  ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Number           guifg=#d3869b guibg=NONE    ctermfg=Magenta  ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Boolean          guifg=#d3869b guibg=NONE    ctermfg=Magenta  ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Float            guifg=#d3869b guibg=NONE    ctermfg=Magenta  ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Identifier       guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Function         guifg=#b8bb26 guibg=NONE    ctermfg=Green    ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Statement        guifg=#fe8019 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Conditional      guifg=#fb4934 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Repeat           guifg=#fb4934 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Label            guifg=#fb4934 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Operator         guifg=#fbf1c7 guibg=NONE    ctermfg=White    ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Keyword          guifg=#fe8019 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Exception        guifg=#fb4934 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi PreProc          guifg=#8ec07c guibg=NONE    ctermfg=Cyan     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Include          guifg=#8ec07c guibg=NONE    ctermfg=Cyan     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Define           guifg=#8ec07c guibg=NONE    ctermfg=Cyan     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Macro            guifg=#8ec07c guibg=NONE    ctermfg=Cyan     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi PreCondit        guifg=#8ec07c guibg=NONE    ctermfg=Cyan     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Type             guifg=#fabd2f guibg=NONE    ctermfg=Yellow   ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi StorageClass     guifg=#fe8019 guibg=NONE    ctermfg=Yellow   ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Structure        guifg=#8ec07c guibg=NONE    ctermfg=Cyan     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Typedef          guifg=#fb4934 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Special          guifg=#fabd2f guibg=NONE    ctermfg=Yellow   ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Error            guifg=#fb4934 guibg=bg      ctermfg=Red      ctermbg=bg       gui=inverse        cterm=inverse        term=inverse
+hi Todo             guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
 
-hi  Comment          guifg=#928374  guibg=NONE     ctermfg=Gray      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Constant         guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  String           guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Character        guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Number           guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Boolean          guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Float            guifg=#d3869b  guibg=NONE     ctermfg=Magenta   ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Identifier       guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Function         guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Statement        guifg=#fe8019  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Conditional      guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Repeat           guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Label            guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Operator         guifg=#fbf1c7  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Keyword          guifg=#fe8019  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Exception        guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  PreProc          guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Include          guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Define           guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Macro            guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  PreCondit        guifg=#8ec07c  guibg=NONE     ctermfg=Cyan      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Type             guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  StorageClass     guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Structure        guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Typedef          guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Special          guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Error            guifg=#fb4934  guibg=bg       ctermfg=Red       ctermbg=bg        gui=inverse         cterm=inverse         term=inverse
-hi  Todo             guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-
-hi  CursorLine       guifg=NONE     guibg=#3c3836  ctermfg=NONE      ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  NonText          guifg=#504945  guibg=NONE     ctermfg=DarkGray  ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  SpecialKey       guifg=#504945  guibg=NONE     ctermfg=DarkGray  ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  TabLineFill      guifg=#7c6f64  guibg=#35302b  ctermfg=DarkGray  ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  TabLineSel       guifg=#c9b788  guibg=#35302b  ctermfg=White     ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  MatchParen       guifg=NONE     guibg=#665c54  ctermfg=NONE      ctermbg=DarkGray  gui=NONE            cterm=NONE            term=NONE
-hi  ColorColumn      guifg=NONE     guibg=#3c3836  ctermfg=NONE      ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  Conceal          guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Visual           guifg=#665c54  guibg=#c9b788  ctermfg=DarkGray  ctermbg=White     gui=inverse         cterm=inverse         term=inverse
-hi  Search           guifg=#fabd2f  guibg=#3c3836  ctermfg=Yellow    ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
-hi  IncSearch        guifg=#fe8019  guibg=#3c3836  ctermfg=Yellow    ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
-hi  Underlined       guifg=#83a598  guibg=NONE     ctermfg=Blue      ctermbg=NONE      gui=underline       cterm=underline       term=underline
-hi  User1            guifg=#35302b  guibg=#83a598  ctermfg=Black     ctermbg=Blue      gui=inverse         cterm=inverse         term=inverse
-hi  User2            guifg=#35302b  guibg=#fabd2f  ctermfg=Black     ctermbg=Yellow    gui=inverse         cterm=inverse         term=inverse
-hi  User3            guifg=#35302b  guibg=#83a598  ctermfg=Black     ctermbg=Blue      gui=inverse         cterm=inverse         term=inverse
-hi  User4            guifg=#35302b  guibg=#b8bb26  ctermfg=Black     ctermbg=Green     gui=inverse         cterm=inverse         term=inverse
-hi  User5            guifg=#35302b  guibg=#928374  ctermfg=Black     ctermbg=Gray      gui=inverse         cterm=inverse         term=inverse
-hi  User6            guifg=#35302b  guibg=#fe8019  ctermfg=Black     ctermbg=Yellow    gui=inverse         cterm=inverse         term=inverse
-hi  User7            guifg=#35302b  guibg=#928374  ctermfg=Black     ctermbg=Gray      gui=inverse         cterm=inverse         term=inverse
-hi  User8            guifg=#35302b  guibg=#8ec07c  ctermfg=Black     ctermbg=Cyan      gui=inverse         cterm=inverse         term=inverse
-hi  User9            guifg=#35302b  guibg=#fe8019  ctermfg=Black     ctermbg=Yellow    gui=inverse         cterm=inverse         term=inverse
-hi  StatusLine       guifg=#35302b  guibg=#fbf1c7  ctermfg=Black     ctermbg=White     gui=inverse         cterm=inverse         term=inverse
-hi  StatusLineNC     guifg=#35302b  guibg=#c9b788  ctermfg=Black     ctermbg=White     gui=inverse,italic  cterm=inverse,italic  term=inverse,italic
-hi  StatusLineTerm   guifg=#35302b  guibg=#fbf1c7  ctermfg=Black     ctermbg=White     gui=inverse         cterm=inverse         term=inverse
-hi  StatusLineTermNC guifg=#35302b  guibg=#c9b788  ctermfg=Black     ctermbg=White     gui=inverse,italic  cterm=inverse,italic  term=inverse,italic
-hi  VertSplit        guifg=#35302b  guibg=#35302b  ctermfg=Black     ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  WildMenu         guifg=#fabd2f  guibg=#282828  ctermfg=Yellow    ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
-hi  Directory        guifg=#b8bb26  guibg=NONE     ctermfg=Green     ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Title            guifg=#a89984  guibg=NONE     ctermfg=Gray      ctermbg=NONE      gui=italic          cterm=italic          term=italic
-hi  ErrorMsg         guifg=#282828  guibg=#fb4934  ctermfg=Black     ctermbg=Red       gui=NONE            cterm=NONE            term=NONE
-hi  MoreMsg          guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  ModeMsg          guifg=#fabd2f  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  Question         guifg=#fe8019  guibg=NONE     ctermfg=Yellow    ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  WarningMsg       guifg=#fb4934  guibg=NONE     ctermfg=Red       ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  LineNr           guifg=#504945  guibg=NONE     ctermfg=DarkGray  ctermbg=NONE      gui=NONE            cterm=NONE            term=NONE
-hi  CursorLineNr     guifg=#7c6f64  guibg=#3c3836  ctermfg=DarkGray  ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  SignColumn       guifg=NONE     guibg=#3c3836  ctermfg=NONE      ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  Folded           guifg=#928374  guibg=#3c3836  ctermfg=Gray      ctermbg=Black     gui=italic          cterm=italic          term=italic
-hi  FoldColumn       guifg=#928374  guibg=#3c3836  ctermfg=Gray      ctermbg=Black     gui=NONE            cterm=NONE            term=NONE
-hi  Cursor           guifg=#282828  guibg=#fe8019  ctermfg=Black     ctermbg=Yellow    gui=NONE            cterm=NONE            term=NONE
-
-hi  Pmenu            guifg=#c9b788  guibg=#504945  ctermfg=White     ctermbg=DarkGray  gui=NONE            cterm=NONE            term=NONE
-hi  PmenuSel         guifg=#282828  guibg=#83a598  ctermfg=Black     ctermbg=Blue      gui=NONE            cterm=NONE            term=NONE
-hi  PmenuSbar        guifg=NONE     guibg=#504945  ctermfg=NONE      ctermbg=DarkGray  gui=NONE            cterm=NONE            term=NONE
-hi  PmenuThumb       guifg=NONE     guibg=#7c6f64  ctermfg=NONE      ctermbg=DarkGray  gui=NONE            cterm=NONE            term=NONE
-hi  DiffChange       guifg=#83a598  guibg=#282828  ctermfg=Blue      ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
-hi  DiffAdd          guifg=#51805A  guibg=#c9b788  ctermfg=Cyan      ctermbg=White     gui=inverse         cterm=inverse         term=inverse
-hi  DiffDelete       guifg=#402120  guibg=#c9b788  ctermfg=Red       ctermbg=White     gui=inverse         cterm=inverse         term=inverse
-hi  DiffText         guifg=#c9b788  guibg=#282828  ctermfg=White     ctermbg=Black     gui=inverse         cterm=inverse         term=inverse
-hi  SpellCap         guifg=NONE     guibg=NONE     ctermfg=NONE      ctermbg=NONE      gui=underline       cterm=underline       term=underline
-hi  SpellBad         guifg=NONE     guibg=NONE     ctermfg=NONE      ctermbg=NONE      gui=underline       cterm=underline       term=underline
-hi  SpellLocal       guifg=NONE     guibg=NONE     ctermfg=NONE      ctermbg=NONE      gui=underline       cterm=underline       term=underline
-hi  SpellRare        guifg=NONE     guibg=NONE     ctermfg=NONE      ctermbg=NONE      gui=underline       cterm=underline       term=underline
+hi NonText          guifg=#504945 guibg=NONE    ctermfg=DarkGray ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi SpecialKey       guifg=#504945 guibg=NONE    ctermfg=DarkGray ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi TabLineFill      guifg=#7c6f64 guibg=#35302b ctermfg=DarkGray ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi TabLineSel       guifg=#ebdbb2 guibg=#35302b ctermfg=White    ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi MatchParen       guifg=NONE    guibg=#665c54 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi ColorColumn      guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi Conceal          guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Visual           guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White    gui=inverse        cterm=inverse        term=inverse
+hi Search           guifg=#fabd2f guibg=#3c3836 ctermfg=Yellow   ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
+hi IncSearch        guifg=#fe8019 guibg=#3c3836 ctermfg=Yellow   ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
+hi Underlined       guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=underline      cterm=underline      term=underline
+hi User1            guifg=#35302b guibg=#83a598 ctermfg=Black    ctermbg=Blue     gui=inverse        cterm=inverse        term=inverse
+hi User2            guifg=#35302b guibg=#fabd2f ctermfg=Black    ctermbg=Yellow   gui=inverse        cterm=inverse        term=inverse
+hi User3            guifg=#35302b guibg=#83a598 ctermfg=Black    ctermbg=Blue     gui=inverse        cterm=inverse        term=inverse
+hi User4            guifg=#35302b guibg=#b8bb26 ctermfg=Black    ctermbg=Green    gui=inverse        cterm=inverse        term=inverse
+hi User5            guifg=#35302b guibg=#928374 ctermfg=Black    ctermbg=Gray     gui=inverse        cterm=inverse        term=inverse
+hi User6            guifg=#35302b guibg=#fe8019 ctermfg=Black    ctermbg=Yellow   gui=inverse        cterm=inverse        term=inverse
+hi User7            guifg=#35302b guibg=#928374 ctermfg=Black    ctermbg=Gray     gui=inverse        cterm=inverse        term=inverse
+hi User8            guifg=#35302b guibg=#8ec07c ctermfg=Black    ctermbg=Cyan     gui=inverse        cterm=inverse        term=inverse
+hi User9            guifg=#35302b guibg=#fe8019 ctermfg=Black    ctermbg=Yellow   gui=inverse        cterm=inverse        term=inverse
+hi StatusLine       guifg=#35302b guibg=#fbf1c7 ctermfg=Black    ctermbg=White    gui=inverse        cterm=inverse        term=inverse
+hi StatusLineNC     guifg=#35302b guibg=#ebdbb2 ctermfg=Black    ctermbg=White    gui=inverse,italic cterm=inverse,italic term=inverse,italic
+hi StatusLineTerm   guifg=#35302b guibg=#fbf1c7 ctermfg=Black    ctermbg=White    gui=inverse        cterm=inverse        term=inverse
+hi StatusLineTermNC guifg=#35302b guibg=#ebdbb2 ctermfg=Black    ctermbg=White    gui=inverse,italic cterm=inverse,italic term=inverse,italic
+hi VertSplit        guifg=#35302b guibg=#35302b ctermfg=Black    ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi WildMenu         guifg=#fabd2f guibg=#282828 ctermfg=Yellow   ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
+hi Directory        guifg=#b8bb26 guibg=NONE    ctermfg=Green    ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Title            guifg=#a89984 guibg=NONE    ctermfg=Gray     ctermbg=NONE     gui=italic         cterm=italic         term=italic
+hi ErrorMsg         guifg=#282828 guibg=#fb4934 ctermfg=Black    ctermbg=Red      gui=NONE           cterm=NONE           term=NONE
+hi MoreMsg          guifg=#fabd2f guibg=NONE    ctermfg=Yellow   ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi ModeMsg          guifg=#fabd2f guibg=NONE    ctermfg=Yellow   ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi Question         guifg=#fe8019 guibg=NONE    ctermfg=Yellow   ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi WarningMsg       guifg=#fb4934 guibg=NONE    ctermfg=Red      ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi LineNr           guifg=#504945 guibg=NONE    ctermfg=DarkGray ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
+hi CursorLineNr     guifg=#7c6f64 guibg=#3c3836 ctermfg=DarkGray ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi CursorLine       guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi SignColumn       guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi Folded           guifg=#928374 guibg=#3c3836 ctermfg=Gray     ctermbg=Black    gui=italic         cterm=italic         term=italic
+hi FoldColumn       guifg=#928374 guibg=#3c3836 ctermfg=Gray     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
+hi Cursor           guifg=#282828 guibg=#b8bb26 ctermfg=Black    ctermbg=Yellow   gui=NONE           cterm=NONE           term=NONE
+hi Pmenu            guifg=#ebdbb2 guibg=#504945 ctermfg=White    ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi PmenuSel         guifg=#282828 guibg=#83a598 ctermfg=Black    ctermbg=Blue     gui=NONE           cterm=NONE           term=NONE
+hi PmenuSbar        guifg=NONE    guibg=#504945 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi PmenuThumb       guifg=NONE    guibg=#7c6f64 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi DiffChange       guifg=#959e9c guibg=#282828 ctermfg=Blue     ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
+hi DiffAdd          guifg=#45664c guibg=#ebdbb2 ctermfg=Cyan     ctermbg=White    gui=inverse        cterm=inverse        term=inverse
+hi DiffDelete       guifg=#402120 guibg=#ebdbb2 ctermfg=Red      ctermbg=White    gui=inverse        cterm=inverse        term=inverse
+hi DiffText         guifg=#ebdbb2 guibg=#282828 ctermfg=White    ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
+hi SpellCap         guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
+hi SpellBad         guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
+hi SpellLocal       guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
+hi SpellRare        guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
 
 hi! link vimCommentTitle Title
 hi! link CursorColumn CursorLine
@@ -651,108 +625,109 @@ hi! link vCursor Cursor
 hi! link iCursor Cursor
 hi! link lCursor Cursor
 
-
-hi! link cssBraces Delimiter
-hi! link cssClassName Special
-hi! link cssClassNameDot Normal
-hi! link cssPseudoClassId Special
-hi! link cssTagName Statement
-hi! link helpHyperTextJump Constant
-hi! link htmlArg Constant
-hi! link htmlEndTag Statement
-hi! link htmlTag Statement
-hi! link jsonQuote Normal
-hi! link phpVarSelector Identifier
-hi! link pythonFunction Title
-hi! link rubyDefine Statement
-hi! link rubyFunction Title
-hi! link rubyInterpolationDelimiter String
-hi! link rubySharpBang Comment
-hi! link rubyStringDelimiter String
-hi! link sassClass Special
-hi! link shFunction Normal
-hi! link vimContinue Comment
-hi! link vimFuncSID vimFunction
-hi! link vimFuncVar Normal
-hi! link vimFunction Title
-hi! link vimGroup Statement
-hi! link vimHiGroup Statement
-hi! link vimHiTerm Identifier
-hi! link vimMapModKey Special
-hi! link vimOption Identifier
-hi! link vimVar Normal
-hi! link xmlAttrib Constant
-hi! link xmlAttribPunct Statement
-hi! link xmlEndTag Statement
-hi! link xmlNamespace Statement
-hi! link xmlTag Statement
-hi! link xmlTagName Statement
-hi! link yamlKeyValueDelimiter Delimiter
-hi! link CtrlPPrtCursor Cursor
-hi! link CtrlPMatch Title
-hi! link CtrlPMode2 StatusLine
-hi! link deniteMatched Normal
-hi! link deniteMatchedChar Title
-hi! link jsFlowMaybe Normal
-hi! link jsFlowObject Normal
-hi! link jsFlowType PreProc
-hi! link graphqlName Normal
-hi! link graphqlOperator Normal
-hi! link gitmessengerHash Comment
-hi! link gitmessengerHeader Statement
-hi! link gitmessengerHistory Constant
-hi! link jsArrowFunction Operator
-hi! link jsClassDefinition Normal
-hi! link jsClassFuncName Title
-hi! link jsExport Statement
-hi! link jsFuncName Title
-hi! link jsFutureKeys Statement
-hi! link jsFuncCall Normal
-hi! link jsGlobalObjects Statement
-hi! link jsModuleKeywords Statement
-hi! link jsModuleOperators Statement
-hi! link jsNull Constant
-hi! link jsObjectFuncName Title
-hi! link jsObjectKey Identifier
-hi! link jsSuper Statement
-hi! link jsTemplateBraces Special
-hi! link jsUndefined Constant
-hi! link markdownBold Special
-hi! link markdownCode String
-hi! link markdownCodeDelimiter String
-hi! link markdownHeadingDelimiter Comment
-hi! link markdownRule Comment
-hi! link ngxDirective Statement
-hi! link plug1 Normal
-hi! link plug2 Identifier
-hi! link plugDash Comment
-hi! link plugMessage Special
-hi! link SignifySignAdd GitGutterAdd
-hi! link SignifySignChange GitGutterChange
-hi! link SignifySignChangeDelete GitGutterChangeDelete
-hi! link SignifySignDelete GitGutterDelete
-hi! link SignifySignDeleteFirstLine SignifySignDelete
-hi! link StartifyBracket Comment
-hi! link StartifyFile Identifier
-hi! link StartifyFooter Constant
-hi! link StartifyHeader Constant
-hi! link StartifyNumber Special
-hi! link StartifyPath Comment
-hi! link StartifySection Statement
-hi! link StartifySlash Comment
-hi! link StartifySpecial Normal
-hi! link svssBraces Delimiter
-hi! link swiftIdentifier Normal
-hi! link typescriptAjaxMethods Normal
-hi! link typescriptBraces Normal
-hi! link typescriptEndColons Normal
-hi! link typescriptFuncKeyword Statement
-hi! link typescriptGlobalObjects Statement
-hi! link typescriptHtmlElemProperties Normal
-hi! link typescriptIdentifier Statement
-hi! link typescriptMessage Normal
-hi! link typescriptNull Constant
-hi! link typescriptParens Normal
+if 0
+  hi! link cssBraces Delimiter
+  hi! link cssClassName Special
+  hi! link cssClassNameDot Normal
+  hi! link cssPseudoClassId Special
+  hi! link cssTagName Statement
+  hi! link helpHyperTextJump Constant
+  hi! link htmlArg Constant
+  hi! link htmlEndTag Statement
+  hi! link htmlTag Statement
+  hi! link jsonQuote Normal
+  hi! link phpVarSelector Identifier
+  hi! link pythonFunction Title
+  hi! link rubyDefine Statement
+  hi! link rubyFunction Title
+  hi! link rubyInterpolationDelimiter String
+  hi! link rubySharpBang Comment
+  hi! link rubyStringDelimiter String
+  hi! link sassClass Special
+  hi! link shFunction Normal
+  hi! link vimContinue Comment
+  hi! link vimFuncSID vimFunction
+  hi! link vimFuncVar Normal
+  hi! link vimFunction Title
+  hi! link vimGroup Statement
+  hi! link vimHiGroup Statement
+  hi! link vimHiTerm Identifier
+  hi! link vimMapModKey Special
+  hi! link vimOption Identifier
+  hi! link vimVar Normal
+  hi! link xmlAttrib Constant
+  hi! link xmlAttribPunct Statement
+  hi! link xmlEndTag Statement
+  hi! link xmlNamespace Statement
+  hi! link xmlTag Statement
+  hi! link xmlTagName Statement
+  hi! link yamlKeyValueDelimiter Delimiter
+  hi! link CtrlPPrtCursor Cursor
+  hi! link CtrlPMatch Title
+  hi! link CtrlPMode2 StatusLine
+  hi! link deniteMatched Normal
+  hi! link deniteMatchedChar Title
+  hi! link jsFlowMaybe Normal
+  hi! link jsFlowObject Normal
+  hi! link jsFlowType PreProc
+  hi! link graphqlName Normal
+  hi! link graphqlOperator Normal
+  hi! link gitmessengerHash Comment
+  hi! link gitmessengerHeader Statement
+  hi! link gitmessengerHistory Constant
+  hi! link jsArrowFunction Operator
+  hi! link jsClassDefinition Normal
+  hi! link jsClassFuncName Title
+  hi! link jsExport Statement
+  hi! link jsFuncName Title
+  hi! link jsFutureKeys Statement
+  hi! link jsFuncCall Normal
+  hi! link jsGlobalObjects Statement
+  hi! link jsModuleKeywords Statement
+  hi! link jsModuleOperators Statement
+  hi! link jsNull Constant
+  hi! link jsObjectFuncName Title
+  hi! link jsObjectKey Identifier
+  hi! link jsSuper Statement
+  hi! link jsTemplateBraces Special
+  hi! link jsUndefined Constant
+  hi! link markdownBold Special
+  hi! link markdownCode String
+  hi! link markdownCodeDelimiter String
+  hi! link markdownHeadingDelimiter Comment
+  hi! link markdownRule Comment
+  hi! link ngxDirective Statement
+  hi! link plug1 Normal
+  hi! link plug2 Identifier
+  hi! link plugDash Comment
+  hi! link plugMessage Special
+  hi! link SignifySignAdd GitGutterAdd
+  hi! link SignifySignChange GitGutterChange
+  hi! link SignifySignChangeDelete GitGutterChangeDelete
+  hi! link SignifySignDelete GitGutterDelete
+  hi! link SignifySignDeleteFirstLine SignifySignDelete
+  hi! link StartifyBracket Comment
+  hi! link StartifyFile Identifier
+  hi! link StartifyFooter Constant
+  hi! link StartifyHeader Constant
+  hi! link StartifyNumber Special
+  hi! link StartifyPath Comment
+  hi! link StartifySection Statement
+  hi! link StartifySlash Comment
+  hi! link StartifySpecial Normal
+  hi! link svssBraces Delimiter
+  hi! link swiftIdentifier Normal
+  hi! link typescriptAjaxMethods Normal
+  hi! link typescriptBraces Normal
+  hi! link typescriptEndColons Normal
+  hi! link typescriptFuncKeyword Statement
+  hi! link typescriptGlobalObjects Statement
+  hi! link typescriptHtmlElemProperties Normal
+  hi! link typescriptIdentifier Statement
+  hi! link typescriptMessage Normal
+  hi! link typescriptNull Constant
+  hi! link typescriptParens Normal
+endif
 
 if has('nvim')
   let g:terminal_color_0  = '#282828'
@@ -1376,7 +1351,7 @@ endif
 " ======================================================================
 " == Plugins ===========================================================
 
-if 1
+if 0
 
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -1396,6 +1371,11 @@ call plug#end()
 " Then reload .vimrc and :PlugInstall to install plugins.
 
 endif
+
+let g:gruvbox_material_palette = 'original'
+let g:gruvbox_material_enable_italic = 0
+let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_enable_bold = 0
 
 " end Plugins ==========================================================
 

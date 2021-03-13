@@ -4,54 +4,35 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: vendredi 11 décembre 2020, 16:47
-# Edit Time: 24:00:59
+# Last Modified: Thursday 11 March 2021, 18:50
+# Edit Time: 26:43:58
 # Description:
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
 #   faudra aussi mettre /var/www/index.html
-#
-# $Id: czolsb,v 1.26 2020/12/11 15:54:45 czo Exp $
 #
 # sans lsb_release
 # le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
 # centos_6.5-x86_64-czo_servup-20140410
 # mais avec /etc/os-release
 #
-# PRETTY_NAME="Debian GNU/Linux 10 (buster)"
-# NAME="Debian GNU/Linux"
-# VERSION_ID="10"
-# VERSION="10 (buster)"
-# VERSION_CODENAME=buster
-# ID=debian
-# HOME_URL="https://www.debian.org/"
-# SUPPORT_URL="https://www.debian.org/support"
-# BUG_REPORT_URL="https://bugs.debian.org/"
+# debain 10 : plus de dot release cf /etc/debian_version
 #
-# Linux Fedora 9, kernel 2.6.27.25-78.2.56.fc9.i686
-# Last update: czo-f9servup-20090827
-# 4 x Intel(R) Xeon(R) CPU E5335 @ 2.00GHz - 3.2 Go RAM - 8.0 Go SWAP
-#
-# 4 x Intel(R) Core(TM) i7-4650U CPU @ 1.70GHz - 7.7GB RAM - 2.0GB SWAP
-# Linux Ubuntu 20.04 (ubuntu_20.04-x86_64-czo-20200820)
-# kernel x86_64 5.4.0-42-generic
-#
-# Install date : 07-2020
+# $Id: czolsb,v 1.30 2021/03/11 17:57:05 czo Exp $
 #
 
 export LANG=C
 
-if [ ! -x /usr/bin/lsb_release ]
-then
-    if [ -f /etc/os-release ]; then
-      # echo "-> found os-release"
-      . /etc/os-release
-    else
-      # echo "-> nothing found"
-      PRETTY_NAME="Unknown"
-      ID="Unknown"
-      VERSION_ID="Unknown"
-    fi
+if [ ! -x "$(command -v lsb_release)" ]; then
+  if [ -f /etc/os-release ]; then
+    # echo "-> found os-release"
+    . /etc/os-release
+  else
+    # echo "-> nothing found"
+    PRETTY_NAME="Unknown"
+    ID="Unknown"
+    VERSION_ID="Unknown"
+  fi
 else
   # echo "-> found lsb_release"
   PRETTY_NAME=$(lsb_release -sd)
@@ -59,8 +40,18 @@ else
   VERSION_ID=$(lsb_release -sr)
 fi
 
+# in debian 10, no dot release
+if [ "$ID" = "Debian" ]; then
+  if [ "$VERSION_ID" -ge 10 ]; then
+    # echo "-> found debian >= 10"
+    if [ -f /etc/debian_version ]; then
+      PRETTY_NAME=$(echo "$PRETTY_NAME" | perl -pe "s/$VERSION_ID/$(cat /etc/debian_version)/")
+      VERSION_ID=$(cat /etc/debian_version)
+    fi
+  fi
+fi
 
-{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null) ;} || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null) ;} || export HOSTNAME=$(uname -n 2>/dev/null)
+{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
 
 WELCOME=$(perl -e '$H="Welcome on " . $ENV{HOSTNAME}; print map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } $H;')
