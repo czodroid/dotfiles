@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.249 2021/03/11 20:42:51 czo Exp $
+# $Id: .zshrc,v 1.250 2021/03/14 19:27:20 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -606,7 +606,7 @@ alias tara='\tar -czf'
 alias tarx='\tar -xf'
 #alias tarxiso='cmake -E tar xf'
 #alias tarxiso='bsdtar -xf'
-tarxiso() { [ -f $1 ] && { \mkdir -p "${1%%.iso}" ; cd "${1%%.iso}" ; bsdtar -xf ../$1; } || echo "$1 doesn't exist..."; }
+tarxiso() { [ -f $1 ] && { \mkdir -p "${1%%.iso}" ; cd "${1%%.iso}" ; cmake -E tar xf ../$1; } || echo "$1 doesn't exist..."; }
 
 v() { set | grep -ai $1; }
 
@@ -783,7 +783,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.249 2021/03/11 20:42:51 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.250 2021/03/14 19:27:20 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

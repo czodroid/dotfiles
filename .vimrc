@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0
 " File Created: mai 1995
-" Last Modified: jeudi 11 mars 2021, 15:30
-" Edit Time: 185:54:58
+" Last Modified: dimanche 14 mars 2021, 20:24
+" Edit Time: 185:55:53
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.210 2021/03/11 14:30:23 czo Exp $
+" $Id: .vimrc,v 1.211 2021/03/14 19:26:05 czo Exp $
 
 if version >= 580
 "if 0
@@ -1232,6 +1232,7 @@ endfunction
 
 autocmd FileType xdefaults setlocal commentstring=!\ %s
 autocmd FileType json setlocal commentstring=//\ %s
+autocmd FileType cfg setlocal commentstring=#\ %s
 
 if version >= 700
 
