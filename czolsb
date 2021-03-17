@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: Thursday 11 March 2021, 18:50
-# Edit Time: 26:43:58
+# Last Modified: mercredi 17 mars 2021, 10:09
+# Edit Time: 26:45:02
 # Description:
 #   czolsb > /etc/motd
 #   et mettre ce truc dans crond...
@@ -18,7 +18,7 @@
 #
 # debain 10 : plus de dot release cf /etc/debian_version
 #
-# $Id: czolsb,v 1.30 2021/03/11 17:57:05 czo Exp $
+# $Id: czolsb,v 1.31 2021/03/17 09:10:49 czo Exp $
 #
 
 export LANG=C
@@ -42,7 +42,7 @@ fi
 
 # in debian 10, no dot release
 if [ "$ID" = "Debian" ]; then
-  if [ "$VERSION_ID" -ge 10 ]; then
+  if [ $(echo "$VERSION_ID" | perl -pe 's/\..*//') -ge 10 ]; then
     # echo "-> found debian >= 10"
     if [ -f /etc/debian_version ]; then
       PRETTY_NAME=$(echo "$PRETTY_NAME" | perl -pe "s/$VERSION_ID/$(cat /etc/debian_version)/")
