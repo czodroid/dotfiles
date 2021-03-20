@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: samedi 20 mars 2021, 16:05
-# Edit Time: 80:24:02
+# Last Modified: samedi 20 mars 2021, 20:22
+# Edit Time: 80:29:38
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.290 2021/03/20 15:10:15 czo Exp $
+# $Id: .bashrc,v 1.291 2021/03/20 19:29:50 czo Exp $
 
 #set -v
 #set -x
@@ -280,7 +280,7 @@ case $PLATFORM in
     FreeBSD | NetBSD | OpenBSD)
         alias grep='\grep --color'
         alias ps='\ps -Awww'
-        { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color -a'
+        { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
     SunOS | Solaris)
@@ -302,7 +302,7 @@ case $PLATFORM in
         export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
         alias grep='\grep --color'
         alias ps='\ps -Awww'
-        { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color -a'
+        { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 esac
 
@@ -601,7 +601,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.290 2021/03/20 15:10:15 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.291 2021/03/20 19:29:50 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
