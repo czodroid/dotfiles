@@ -4,67 +4,83 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: mercredi 17 mars 2021, 10:09
-# Edit Time: 26:45:02
+# Last Modified: samedi 20 mars 2021, 12:07
+# Edit Time: 27:51:46
 # Description:
-#   czolsb > /etc/motd
-#   et mettre ce truc dans crond...
-#   faudra aussi mettre /var/www/index.html
+#  czolsb > /etc/motd
+#  et mettre ce truc dans crond...
+#  faudra aussi mettre /var/www/index.html
 #
-# sans lsb_release
-# le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
-# centos_6.5-x86_64-czo_servup-20140410
-# mais avec /etc/os-release
+#  sans lsb_release
+#  le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
+#  centos_6.5-x86_64-czo_servup-20140410
+#  mais avec /etc/os-release
 #
-# debain 10 : plus de dot release cf /etc/debian_version
-#
-# $Id: czolsb,v 1.31 2021/03/17 09:10:49 czo Exp $
+# $Id: czolsb,v 1.32 2021/03/20 11:07:44 czo Exp $
 #
 
 export LANG=C
-
-if [ ! -x "$(command -v lsb_release)" ]; then
-  if [ -f /etc/os-release ]; then
-    # echo "-> found os-release"
-    . /etc/os-release
-  else
-    # echo "-> nothing found"
-    PRETTY_NAME="Unknown"
-    ID="Unknown"
-    VERSION_ID="Unknown"
-  fi
-else
-  # echo "-> found lsb_release"
-  PRETTY_NAME=$(lsb_release -sd)
-  ID=$(lsb_release -si)
-  VERSION_ID=$(lsb_release -sr)
-fi
-
-# in debian 10, no dot release
-if [ "$ID" = "Debian" ]; then
-  if [ $(echo "$VERSION_ID" | perl -pe 's/\..*//') -ge 10 ]; then
-    # echo "-> found debian >= 10"
-    if [ -f /etc/debian_version ]; then
-      PRETTY_NAME=$(echo "$PRETTY_NAME" | perl -pe "s/$VERSION_ID/$(cat /etc/debian_version)/")
-      VERSION_ID=$(cat /etc/debian_version)
-    fi
-  fi
-fi
 
 { [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
 
 WELCOME=$(perl -e '$H="Welcome on " . $ENV{HOSTNAME}; print map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } $H;')
 
-CRELEASE=$(echo "${PRETTY_NAME}" | perl -pe 's/  */ /g' | perl -pe 's/"//g')
 CCNAME=$(uname -m)
 CKNAME=$(uname -r)
 
-CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
-CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); $A4=~s/  */ /g; print $A4;')
-# hack to get total
-CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM",$mem;')
-CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
+case $(uname 2>/dev/null) in
+
+  Linux*)
+
+    if [ ! -x "$(command -v lsb_release)" ]; then
+      if [ -f /etc/os-release ]; then
+        # echo "-> found os-release"
+        . /etc/os-release
+      else
+        # echo "-> nothing found"
+        PRETTY_NAME="Unknown"
+        ID="Unknown"
+        VERSION_ID="Unknown"
+      fi
+    else
+      # echo "-> found lsb_release"
+      PRETTY_NAME=$(lsb_release -sd)
+      ID=$(lsb_release -si)
+      VERSION_ID=$(lsb_release -sr)
+    fi
+
+    # debain 10 : plus de dot release cf /etc/debian_version
+    if [ "$ID" = "Debian" ]; then
+      if [ $(echo "$VERSION_ID" | perl -pe 's/\..*//') -ge 10 ]; then
+        # echo "-> found debian >= 10"
+        if [ -f /etc/debian_version ]; then
+          PRETTY_NAME=$(echo "$PRETTY_NAME" | perl -pe "s/$VERSION_ID/$(cat /etc/debian_version)/")
+          VERSION_ID=$(cat /etc/debian_version)
+        fi
+      fi
+    fi
+
+    CRELEASE=$(echo "${PRETTY_NAME}" | perl -pe 's/  */ /g' | perl -pe 's/"//g')
+
+    CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
+    CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); $A4=~s/  */ /g; print $A4;')
+    CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM",$mem;')
+    CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
+    ;;
+
+  FreeBSD*|NetBSD*|OpenBSD*)
+    # très peu testé
+    ID=$(uname -s)
+    VERSION_ID=$(echo "${CKNAME}" | perl -pe 's/-.*//g')
+    CRELEASE="$ID $VERSION_ID"
+    CNBCORE=$(sysctl -n hw.ncpu)
+    CCOREMODEL=$(sysctl -n hw.model)
+    CMEM=$(perl -e '($mem)=qx"sysctl -n hw.physmem"; $mem=$mem/1024/1024/1024; printf "%.1fGB RAM",$mem;')
+    CSWAP=$(perl -e '($mem)=(qx"swapctl -sk" =~ /^total:\s*(.*) .*/mi); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
+    ;;
+
+esac
 
 CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/(.*)/\L\1/')
 

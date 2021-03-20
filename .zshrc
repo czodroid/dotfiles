@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.251 2021/03/16 14:16:46 czo Exp $
+# $Id: .zshrc,v 1.252 2021/03/20 12:12:15 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -103,6 +103,8 @@ case $(uname 2>/dev/null) in
         ;;
 
     FreeBSD*) PLATFORM=FreeBSD ;;
+
+    OpenBSD*) PLATFORM=OpenBSD ;;
 
     NetBSD*)  PLATFORM=NetBSD ;;
 
@@ -399,7 +401,7 @@ case $PLATFORM in
         { \ls -l --time-style=long-iso >/dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color=auto -a'
         ;;
 
-    FreeBSD)
+    FreeBSD | NetBSD | OpenBSD)
         alias grep='\grep --color'
         alias ps='\ps -Awww'
         { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color -a'
@@ -615,35 +617,23 @@ alias asu='su --preserve-environment -c "LD_LIBRARY_PATH=/data/data/com.termux/f
 # ubuntu
 ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
 
-# debian
+# debian, ubuntu
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
 alias AI='aptitude install'
 alias AP='aptitude purge'
 alias AS='aptitude search'
 
-# redhat
-alias YU='yum update'
-alias YI='yum install'
-alias YP='yum remove'
-alias YS='yum search'
-
-# suse
-alias ZU='zypper update'
-alias ZI='zypper install'
-alias ZP='zypper remove'
-alias ZS='zypper search'
-
 # archlinux
-alias MU='pacman -Syu'
-alias MI='pacman -S'
-alias MP='pacman -Rs'
-alias MS='pacman -Ss'
+alias PU='pacman -Syu'
+alias PI='pacman -S'
+alias PP='pacman -Rs'
+alias PS='pacman -Ss'
 
-# freebsd
-alias PU='pkg upgrade'
-alias PI='pkg install'
-alias PP='pkg remove'
-alias PS='pkg search'
+# redhat: yum, dnf
+# suse: zypper
+# freebsd: pkg
+# netbsd: pkgin
+# update, install, remove, search
 
 # OOTHER
 alias mytree='tree -adn | grep -v CVS'
@@ -782,7 +772,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.251 2021/03/16 14:16:46 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.252 2021/03/20 12:12:15 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
