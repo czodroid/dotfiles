@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mardi 16 mars 2021, 15:02
-# Edit Time: 128:58:19
+# Last Modified: dimanche 21 mars 2021, 11:42
+# Edit Time: 129:00:02
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.253 2021/03/20 19:29:50 czo Exp $
+# $Id: .zshrc,v 1.254 2021/03/21 10:44:04 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -85,7 +85,7 @@ PLATFORM=Unknown
 
 case $(uname 2>/dev/null) in
 
-    Linux*)
+    Linux)
         case $(uname -m 2>/dev/null) in
             i*86)   PLATFORM=Linux_x86 ;;
             x86_64) PLATFORM=Linux ;;
@@ -95,28 +95,28 @@ case $(uname 2>/dev/null) in
         esac
         ;;
 
-    SunOS*)
+    SunOS)
         case $(uname -r 2>/dev/null) in
             5*) PLATFORM=Solaris ;;
             *)  PLATFORM=SunOS ;;
         esac
         ;;
 
-    FreeBSD*) PLATFORM=FreeBSD ;;
+    FreeBSD) PLATFORM=FreeBSD ;;
 
-    OpenBSD*) PLATFORM=OpenBSD ;;
+    OpenBSD) PLATFORM=OpenBSD ;;
 
-    NetBSD*)  PLATFORM=NetBSD ;;
+    NetBSD)  PLATFORM=NetBSD ;;
 
-    HP-UX*)   PLATFORM=HPUX ;;
+    HP-UX)   PLATFORM=HPUX ;;
 
-    OSF1*)    PLATFORM=OSF ;;
+    OSF1)    PLATFORM=OSF ;;
 
-    CYGWIN*)  PLATFORM=Cygwin ;;
+    CYGWIN)  PLATFORM=Cygwin ;;
 
-    Darwin*)  PLATFORM=Darwin ;;
+    Darwin)  PLATFORM=Darwin ;;
 
-    *)        PLATFORM=Unknown ;;
+    *)       PLATFORM=Unknown ;;
 
 esac
 
@@ -772,7 +772,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.253 2021/03/20 19:29:50 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.254 2021/03/21 10:44:04 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

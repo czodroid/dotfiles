@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.291 2021/03/20 19:29:50 czo Exp $
+# $Id: .bashrc,v 1.292 2021/03/21 10:44:04 czo Exp $
 
 #set -v
 #set -x
@@ -64,7 +64,7 @@ PLATFORM=Unknown
 
 case $(uname 2>/dev/null) in
 
-    Linux*)
+    Linux)
         case $(uname -m 2>/dev/null) in
             i*86)   PLATFORM=Linux_x86 ;;
             x86_64) PLATFORM=Linux ;;
@@ -74,28 +74,28 @@ case $(uname 2>/dev/null) in
         esac
         ;;
 
-    SunOS*)
+    SunOS)
         case $(uname -r 2>/dev/null) in
             5*) PLATFORM=Solaris ;;
             *)  PLATFORM=SunOS ;;
         esac
         ;;
 
-    FreeBSD*) PLATFORM=FreeBSD ;;
+    FreeBSD) PLATFORM=FreeBSD ;;
 
-    OpenBSD*) PLATFORM=OpenBSD ;;
+    OpenBSD) PLATFORM=OpenBSD ;;
 
-    NetBSD*)  PLATFORM=NetBSD ;;
+    NetBSD)  PLATFORM=NetBSD ;;
 
-    HP-UX*)   PLATFORM=HPUX ;;
+    HP-UX)   PLATFORM=HPUX ;;
 
-    OSF1*)    PLATFORM=OSF ;;
+    OSF1)    PLATFORM=OSF ;;
 
-    CYGWIN*)  PLATFORM=Cygwin ;;
+    CYGWIN)  PLATFORM=Cygwin ;;
 
-    Darwin*)  PLATFORM=Darwin ;;
+    Darwin)  PLATFORM=Darwin ;;
 
-    *)        PLATFORM=Unknown ;;
+    *)       PLATFORM=Unknown ;;
 
 esac
 
@@ -601,7 +601,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.291 2021/03/20 19:29:50 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.292 2021/03/21 10:44:04 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
