@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: samedi 20 mars 2021, 20:22
-# Edit Time: 80:29:38
+# Last Modified: dimanche 21 mars 2021, 12:55
+# Edit Time: 80:32:46
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.292 2021/03/21 10:44:04 czo Exp $
+# $Id: .bashrc,v 1.293 2021/03/21 11:56:13 czo Exp $
 
 #set -v
 #set -x
@@ -448,7 +448,7 @@ alias rsyncfat='rsync --no-p --no-g --modify-window=1 --delete -av'
 
 alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all='wget -qO- http://git.io/JkHdk | sh'
+alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
 
 acrypt() { echo $1; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
@@ -601,7 +601,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.292 2021/03/21 10:44:04 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.293 2021/03/21 11:56:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

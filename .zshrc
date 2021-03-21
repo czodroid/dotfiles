@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.254 2021/03/21 10:44:04 czo Exp $
+# $Id: .zshrc,v 1.255 2021/03/21 11:56:13 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -572,7 +572,7 @@ alias rsyncfat='rsync --no-p --no-g --modify-window=1 --delete -av'
 
 alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all='wget -qO- http://git.io/JkHdk | sh'
+alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
 
 acrypt() { echo $1; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
@@ -772,7 +772,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.254 2021/03/21 10:44:04 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.255 2021/03/21 11:56:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
