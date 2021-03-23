@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: November 2005
-# Last Modified: mardi 23 mars 2021, 15:02
-# Edit Time: 81:34:27
+# Last Modified: mardi 23 mars 2021, 21:09
+# Edit Time: 82:40:46
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.294 2021/03/23 14:16:51 czo Exp $
+# $Id: .bashrc,v 1.296 2021/03/23 20:15:36 czo Exp $
 
 #set -v
 #set -x
@@ -156,13 +156,11 @@ export CVSEDITOR=vim
 export RSYNC_RSH=ssh
 
 export CVSROOT=ananas:/tank/data/czo/CzoDoc/cvsroot
-#export CVSROOT=$HOME/tmp/cvsroot
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
-    *) export PRINTER=HP_Deskjet_5900_series_ananas ;;
+    *) export PRINTER=BW_Pigeonnier_ananas ;;
 esac
-#export PRINTER=U172-magos
 
 export HTML_TIDY=$HOME/.tidyrc
 
@@ -356,7 +354,6 @@ alias xroot='xv -root +noresetroot -quit'
 alias xv='\xv -perfect -8'
 alias xload='\xload -hl red'
 alias key='perl -MCrypt::SKey -e key'
-alias vieux_ccvs='export CVSROOT=lagavulin:/home/czo/cvsroot ; export CVS_RSH=~/sshc'
 alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
 
 alias imprime='a2ps -2 -s2'
@@ -444,8 +441,15 @@ alias sshvoyelle='ssh -p40024 lartha'
 # ubuntu
 ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
 
+alias slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
+alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
+alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
+
+
 ## NEW
+
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
+
 alias mountlist='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
 alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsyncfull='rsync --numeric-ids -S -H --delete -av'
@@ -458,6 +462,8 @@ alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk
 acrypt() { echo $1; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
+passwd_md5() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..8) ."\$") . "\n"' $1; }
+passwd_sha512() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..16) ."\$") . "\n"' $1; }
 sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 
@@ -601,7 +607,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.294 2021/03/23 14:16:51 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.296 2021/03/23 20:15:36 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
@@ -632,9 +638,6 @@ fi
 export PATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}' 2>/dev/null)"/bin"
 
 #export LC_ALL=C
-#mksquashfs . ../00-czo.sb -comp xz -Xbcj x86
-#echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness
-#echo 30 > /sys/class/backlight/acpi_video0/brightness
 
 #echo -n "DEBUG T4:"; date
 
