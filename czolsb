@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 2009
-# Last Modified: lundi 22 mars 2021, 16:56
-# Edit Time: 28:29:19
+# Last Modified: vendredi 26 mars 2021, 11:30
+# Edit Time: 28:30:54
 # Description:
 #  czolsb > /etc/motd
 #  et mettre ce truc dans crond...
@@ -16,7 +16,7 @@
 #  centos_6.5-x86_64-czo_servup-20140410
 #  mais avec /etc/os-release
 #
-# $Id: czolsb,v 1.38 2021/03/22 15:57:06 czo Exp $
+# $Id: czolsb,v 1.39 2021/03/26 10:30:45 czo Exp $
 #
 
 export LANG=C
@@ -96,7 +96,7 @@ case "$OSN" in
 
 esac
 
-CCOREMODEL=$(echo "${CCOREMODEL}" | perl -pe 's/\(TM\)|\(R\)//gi')
+CCOREMODEL=$(echo "${CCOREMODEL}" | perl -pe 's/\(TM\)|\(R\)//gi' | perl -pe 's/ +$//g')
 CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/(.*)/\L\1/')
 
 cat <<EOF
