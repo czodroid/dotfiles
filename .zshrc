@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: vendredi 26 mars 2021, 09:46
-# Edit Time: 129:04:09
+# Last Modified: dimanche 28 mars 2021, 22:26
+# Edit Time: 129:10:09
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.261 2021/03/26 08:46:35 czo Exp $
+# $Id: .zshrc,v 1.263 2021/03/28 20:27:09 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -449,6 +449,8 @@ alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llexe='find . -type f -perm +1 -print'
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1"  ; cd "$1"; }
+ff() { find . -name "*$1*"; }
+ffi() { find . -iname "*$1*"; }
 
 alias rmf='rm -fr'
 alias rmexe='find . -perm +1 -print -exec rm {} \;'
@@ -486,9 +488,6 @@ alias imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
 
 alias xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
-
-alias ff='find . -name'
-alias ffi='find . -iname'
 
 alias sun='export TERM=sun-cmd ; echo TERM=$TERM'
 alias vt100='export TERM=vt100 ; echo TERM=$TERM'
@@ -672,6 +671,12 @@ alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME
 
 alias ssha='eval $(ssh-agent); ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 
+# fileencoding 
+# iconv -t utf8 -f iso88591 1rjm_ctemp -o 1rjm_ctemp
+alias utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
+
+
+
 ##======= Completions ================================================##
 
 # WARNING: it doesn't work...
@@ -778,7 +783,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.261 2021/03/26 08:46:35 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.263 2021/03/28 20:27:09 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;92m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

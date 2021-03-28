@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.296 2021/03/23 20:15:36 czo Exp $
+# $Id: .bashrc,v 1.298 2021/03/28 20:27:41 czo Exp $
 
 #set -v
 #set -x
@@ -325,6 +325,8 @@ alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llexe='find . -type f -perm +1 -print'
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1"  ; cd "$1"; }
+ff() { find . -name "*$1*"; }
+ffi() { find . -iname "*$1*"; }
 
 alias rmf='rm -fr'
 alias rmexe='find . -perm +1 -print -exec rm {} \;'
@@ -362,9 +364,6 @@ alias imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
 
 alias xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
-
-alias ff='find . -name'
-alias ffi='find . -iname'
 
 alias sun='export TERM=sun-cmd ; echo TERM=$TERM'
 alias vt100='export TERM=vt100 ; echo TERM=$TERM'
@@ -548,6 +547,12 @@ alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME
 
 alias ssha='eval $(ssh-agent); ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 
+# fileencoding 
+# iconv -t utf8 -f iso88591 1rjm_ctemp -o 1rjm_ctemp
+alias utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
+
+
+
 ##======= Completions ================================================##
 
 # enable programmable completion features (you don't need to enable
@@ -607,7 +612,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.296 2021/03/23 20:15:36 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.298 2021/03/28 20:27:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
