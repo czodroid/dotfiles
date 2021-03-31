@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: dimanche 28 mars 2021, 22:26
-# Edit Time: 129:10:09
+# Last Modified: mercredi 31 mars 2021, 18:06
+# Edit Time: 129:27:50
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.263 2021/03/28 20:27:09 czo Exp $
+# $Id: .zshrc,v 1.267 2021/03/31 16:06:27 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -49,34 +49,31 @@ setopt RM_STAR_SILENT         # Don’t warn on rm *
 setopt SH_WORD_SPLIT          # Split non­array variables yuckily
 setopt ZLE                    # Line editor used to input lines
 
-
-export SAVEHIST=35000
-export HISTSIZE=30000
-export HISTFILE=$HOME/.sh_history
-# screen size
-#export LISTMAX=0
-export LISTMAX=1000
-
 export TMPDIR=${TMPDIR-/tmp}
 #android
 #export TMPDIR=${TMPDIR-/data/local/tmp}
 
+export HISTFILE=$HOME/.sh_history
+export SAVEHIST=35000
+export HISTSIZE=30000
+# screen size
+#export LISTMAX=0
+export LISTMAX=1000
+
 export REPORTTIME=5
-export TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
 
 DIRSTACKSIZE=20
-# Watch for my friends
-#watch=($(cat ~/.friends))      # watch for people in .friends file
-watch=(notme)                   # watch for everybody but me
+watch=(notme)
 WATCHFMT='%n %a %l from %m at %t.'
-#LOGCHECK=300                    # check every 5 min for login/logout activity
+# check every 5 min for login/logout activity
+#LOGCHECK=300
 #MAILCHECK=300
-
 # Filename suffixes to ignore during completion
 #fignore=(.o .c~ .old .pro)
-
 # Search path for the cd command
 #cdpath=(.. ~ ~/src ~/zsh)
+
+export TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
 
 
 ##======= Platform ===================================================##
@@ -585,8 +582,11 @@ alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk
 acrypt() { echo $1; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
-passwd_md5() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..8) ."\$") . "\n"' $1; }
-passwd_sha512() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..16) ."\$") . "\n"' $1; }
+
+# passwd_sha512() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..16) ."\$") . "\n"' $1; }
+passwd_md5='openssl passwd -1 '
+passwd_sha512='openssl passwd -6 '
+
 sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 
@@ -783,10 +783,10 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.263 2021/03/28 20:27:09 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.267 2021/03/31 16:06:27 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
-PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%l:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;92m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;92m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited

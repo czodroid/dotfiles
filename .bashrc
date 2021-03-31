@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.298 2021/03/28 20:27:41 czo Exp $
+# $Id: .bashrc,v 1.299 2021/03/30 20:13:09 czo Exp $
 
 #set -v
 #set -x
@@ -461,8 +461,11 @@ alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk
 acrypt() { echo $1; }
 xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
-passwd_md5() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..8) ."\$") . "\n"' $1; }
-passwd_sha512() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..16) ."\$") . "\n"' $1; }
+
+# passwd_sha512() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..16) ."\$") . "\n"' $1; }
+passwd_md5='openssl passwd -1 '
+passwd_sha512='openssl passwd -6 '
+
 sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 
@@ -612,7 +615,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .bashrc,v 1.298 2021/03/28 20:27:41 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.299 2021/03/30 20:13:09 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
