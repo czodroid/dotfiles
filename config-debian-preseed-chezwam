@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mardi 06 avril 2021, 18:54
-# Edit Time: 6:56:13
+# Last Modified: mardi 06 avril 2021, 18:57
+# Edit Time: 6:57:39
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -59,18 +59,18 @@ restrict 127.0.0.1
 restrict ::1
 
 # CHEZWAM
-#server 192.168.11.1
+server 192.168.11.1
 
 # IPGP
-server 10.0.21.15
-server 10.0.21.16
-server 10.0.21.17
+# server 10.0.21.15
+# server 10.0.21.16
+# server 10.0.21.17
 
 # et POOL
-#pool 0.debian.pool.ntp.org iburst
-#pool 1.debian.pool.ntp.org iburst
-#pool 2.debian.pool.ntp.org iburst
-#pool 3.debian.pool.ntp.org iburst
+# pool 0.debian.pool.ntp.org iburst
+# pool 1.debian.pool.ntp.org iburst
+# pool 2.debian.pool.ntp.org iburst
+# pool 3.debian.pool.ntp.org iburst
 
 EOF
 
