@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mardi 06 avril 2021, 21:48
-# Edit Time: 7:00:50
+# Last Modified: mardi 06 avril 2021, 21:56
+# Edit Time: 7:04:20
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -49,19 +49,22 @@ perl -i -pe 's,^#/net\s*-hosts.*,/net    -hosts,' /etc/auto.master
 systemctl restart autofs
 
 # NTP
+# ntpq -p
 cat << 'EOF' > /etc/ntp.conf
 # /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 # czo, 2010-03-04
 
 driftfile /var/lib/ntp/ntp.drift
+leapfile /usr/share/zoneinfo/leap-seconds.list
 statistics loopstats peerstats clockstats
 filegen loopstats file loopstats type day enable
 filegen peerstats file peerstats type day enable
 filegen clockstats file clockstats type day enable
-restrict -4 default kod notrap nomodify nopeer noquery
-restrict -6 default kod notrap nomodify nopeer noquery
+restrict -4 default kod notrap nomodify nopeer noquery limited
+restrict -6 default kod notrap nomodify nopeer noquery limited
 restrict 127.0.0.1
 restrict ::1
+restrict source notrap nomodify noquery
 
 # CHEZWAM
 server 192.168.11.1
@@ -78,7 +81,6 @@ server 192.168.11.1
 # pool 3.debian.pool.ntp.org iburst
 
 EOF
-
 /etc/init.d/ntp restart
 
 # munin
