@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1996
-# Last Modified: mercredi 31 mars 2021, 18:06
-# Edit Time: 129:27:50
+# Last Modified: mardi 06 avril 2021, 16:00
+# Edit Time: 129:29:40
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.267 2021/03/31 16:06:27 czo Exp $
+# $Id: .zshrc,v 1.268 2021/04/06 14:06:15 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -446,8 +446,7 @@ alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llexe='find . -type f -perm +1 -print'
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1"  ; cd "$1"; }
-ff() { find . -name "*$1*"; }
-ffi() { find . -iname "*$1*"; }
+ff() { find . -iname "*$1*"; }
 
 alias rmf='rm -fr'
 alias rmexe='find . -perm +1 -print -exec rm {} \;'
@@ -783,10 +782,10 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
 
-BVERS=$(echo '$Id: .zshrc,v 1.267 2021/03/31 16:06:27 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.268 2021/04/06 14:06:15 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
-PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;92m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;35m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited
