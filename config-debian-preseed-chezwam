@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mardi 06 avril 2021, 20:12
-# Edit Time: 6:59:22
+# Last Modified: mardi 06 avril 2021, 21:48
+# Edit Time: 7:00:50
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -14,7 +14,7 @@
 #
 # $Id: config-debian-preseed-chezwam,v 1.2 2021/04/06 16:50:00 czo Exp $
 
-{
+(
 export LANG=C
 export QUIET="-q -y"
 export DEBIAN_FRONTEND=noninteractive
@@ -103,5 +103,5 @@ cd /root
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
 
-} > /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log 2>&1
+) > /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log 2>&1
 
