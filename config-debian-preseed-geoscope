@@ -1,0 +1,191 @@
+#!/bin/sh
+#
+# Filename: config-debian-preseed-geoscope
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0
+# File Created: April 1999
+# Last Modified: mercredi 07 avril 2021, 14:29
+# Edit Time: 7:29:37
+# Description:
+#
+# debian 10 preseed geoscope update 
+#
+# config files:
+#  curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
+#
+# keyboard:
+#  apt-get install keyboard-configuration
+#  dpkg-reconfigure keyboard-configuration
+#  service keyboard-setup restart
+# locales:
+#  dpkg-reconfigure locales
+# time-zone:
+#  dpkg-reconfigure tzdata
+# upgrade:
+#  dpkg-reconfigure unattended-upgrades
+#   /etc/apt/apt.conf.d/20auto-upgrades
+#   /etc/apt/listchanges.conf 
+#
+# aptitude search '~i ~Osalt'
+#
+# $Id: config-debian-preseed-geoscope,v 1.3 2021/04/07 12:29:51 czo Exp $
+
+(
+export LANG=C
+export QUIET="-q -y"
+export DEBIAN_FRONTEND=noninteractive
+##export DEBIAN_PRIORITY=critical
+
+echo $(date +%Y-%m-%d) > /etc/lsb-czo-installdate
+echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
+
+echo "##== apt sources/update  =============================================##"
+
+echo "postfix postfix/main_mailer_type select Satellite system
+postfix postfix/root_address string geoscope-admin@ipgp.fr
+postfix postfix/mailname string ipgp.fr
+postfix postfix/relayhost string smtp.ipgp.fr" | debconf-set-selections
+
+perl -i -pe 's, main contrib non-free, main,' /etc/apt/sources.list
+perl -i -pe 's, main non-free contrib, main,' /etc/apt/sources.list
+perl -i -pe 's, main, main contrib non-free,' /etc/apt/sources.list
+
+apt-get $QUIET update
+apt-get $QUIET upgrade
+apt-get $QUIET dist-upgrade
+apt-get $QUIET clean
+
+apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp pxelinux syslinux syslinux-utils atftp
+
+echo "##== change config  ==================================================##"
+
+# sshd
+perl -i -pe 's,^#?PermitRootLogin.*,PermitRootLogin yes,' /etc/ssh/sshd_config
+systemctl restart sshd
+
+# dpkg-reconfigure tzdata
+#ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+ln -fs /usr/share/zoneinfo/Europe/Paris /etc/localtime
+dpkg-reconfigure -f noninteractive tzdata
+
+# dpkg-reconfigure locales
+perl -i -pe 's,# en_US.UTF-8 UTF-8,en_US.UTF-8 UTF-8,' /etc/locale.gen
+perl -i -pe 's,# fr_FR.UTF-8 UTF-8,fr_FR.UTF-8 UTF-8,' /etc/locale.gen
+update-locale LANG=en_US.UTF-8
+
+# autofs
+perl -i -pe 's,^#/net\s*-hosts.*,/net    -hosts,' /etc/auto.master
+systemctl restart autofs
+
+# NTP ntpq -p
+cat << 'EOF' > /etc/ntp.conf
+# /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+# czo, 2010-03-04
+
+driftfile /var/lib/ntp/ntp.drift
+leapfile /usr/share/zoneinfo/leap-seconds.list
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+restrict -4 default kod notrap nomodify nopeer noquery limited
+restrict -6 default kod notrap nomodify nopeer noquery limited
+restrict 127.0.0.1
+restrict ::1
+restrict source notrap nomodify noquery
+
+# CHEZWAM
+#server 192.168.11.1
+
+# IPGP
+server 10.0.21.15
+server 10.0.21.16
+server 10.0.21.17
+
+# et POOL
+# pool 0.debian.pool.ntp.org iburst
+# pool 1.debian.pool.ntp.org iburst
+# pool 2.debian.pool.ntp.org iburst
+# pool 3.debian.pool.ntp.org iburst
+
+EOF
+/etc/init.d/ntp restart
+
+# munin IPGP
+perl -i -pe 's,^host_name localhost.localdomain,#host_name localhost.localdomain,' /etc/munin/munin-node.conf
+perl -i -pe 's,^allow \^10\\.2\\.5\\.10\$\n,,' /etc/munin/munin-node.conf
+perl -i -pe 's,^allow \^127\\.0\\.0\\.1.*,allow \^127\\.0\\.0\\.1\$\nallow \^10\\.2\\.5\\.10\$,' /etc/munin/munin-node.conf
+service munin-node restart
+
+# cron czo-email-at-reboot
+cat << 'EOF' > /etc/cron.d/czo-email-at-reboot
+# Filename: czo-email-at-reboot
+# 2011/09/10 : Modified by Olivier Sirol <czo@ipgp.fr>
+
+@reboot      root   SUJ="[GSADM] REBOOT `hostname` at `date`" ; ( echo $SUJ ; date ; uname -a ) | mail -s "$SUJ" root > /dev/null
+EOF
+chmod 644 /etc/cron.d/czo-email-at-reboot
+
+
+echo "##== config files  ==================================================##"
+cd /root
+curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
+
+cd /root
+cp -rp .ssh .ssh_fast_$(date +%Y-%m-%d)_$$
+rm -fr .ssh
+mkdir .ssh
+chmod 700 .ssh
+   
+#ssh-keygen -t rsa -N "" -f .ssh/id_rsa
+ssh-keygen -t rsa -b 4096 -N "" -f .ssh/id_rsa
+
+# new passphrase:
+#ssh-keygen -p -f id_rsa
+
+cat << 'EOF' >> .ssh/config
+# Filename: config
+# Author: Olivier Sirol <czo@free.fr>
+# Last Modified: mercredi 19 août 2020, 12:48
+#
+
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
+
+Host chezwam-* magdhcp-*
+ UserKnownHostsFile /dev/null
+ StrictHostKeyChecking no
+
+Host *
+ ForwardX11 yes
+ NoHostAuthenticationForLocalhost yes
+ StrictHostKeyChecking ask
+ HashKnownHosts no
+ ServerAliveInterval 15
+
+EOF
+
+cat .ssh/id_rsa.pub  > .ssh/authorized_keys
+
+cat << 'EOF' >> .ssh/authorized_keys
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCr3gRGOl8yKgIh0gu97IVTPWM5QuGrZU1Pg/xYoQ1OI6K5pCzI4P3n4k8Br6VgOL72zVPEireLW4BEReKb68dMXCCQ8kZ2ZB8bCN+phG/vuc4AcbiN/zPeXehIO9gbejalH85ZC/yNVgNxyKD51Qk1bVR0Ol6Pc8vp8vBsTNytAqnv69GrrUkOJOJp1gcHGGJ05i6n0r02AuR2IQ2BB2ScDUYYzQxiiVc/qIL0RPQACdpcP8GvZck03piVSHbZNfEovJiya0GzxTNqn+qjMD/TASsoEOBjzjJpozzCH4/zeJevmJfoqjOaaxRr+HuvDPWVhw/vXaw+58QrSvwSJQkD nomad@saahre
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCm0UY3XCZzdiYC9rDfrjQSOo3g2LLGTbVcsPdJbqN2wvq8vzsBk1Yzi/GDaBuIyozl4xEyABoXDylPhzSGTwQV3RZKB5zsvWuLa3X6iXsjsWHQJ5/YqvmPA7HFLrVKe4g5/JpQAEdZKd3HYt+UYiV5CEk81m4n2qL8p8K0U4xU6kvWvpSYZnBxAXawEiwxBqdfblQlPTOy6hQH20b9jGl2DF2KiIZynzoaBcN19zafX3Fl613FFODoJvA7BBHmSTqANXCLKr8L7ONi/UUvYaEHnU/lmYIqIUpcnag8ZRkqDtUCBhinD1jXpdEYjCMIEMxPAyJI7DlmEGs2fWfWSluN nicolas@merlin
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClYmGsdfvUI4FJ6q+N918+awTmLh2rgqpIyV3DbG3FbL3f46LvJ9zEAWeH/URWvDFh8/SuJkpcWtj/dtOkeApY1Cp+lLtmIO/rKVlHcsNMNB5UF/yrQ7cQh6xVVBzdQzEhbSZfVt3ms3gyItA0pt92AmY3M164IY5oZ36Lzdj6hOYgNZOVH4WCzLaL2apW/K+k7GiLS3Euci+dBtI/rw6YnZmEoEUBn6XViSz63Sk5iAYtCuQYEIyVSbQt0A5h1wb7Zbuot6mmSXJ4t7DwVUl4m3Q5zD48qYYyNJMDnOWJJ2i2JLbsWTohhFYNy5liznmGfgFiihPiKUWTrovPjF/r felix@ordinature
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDoQFYXob/+i4tZdSomRWZhbPXbkQvdjKmabQxEUe+dkiYcxt4r9CDorBqSf2ZYQ2o2unSnQVUFOSv2jUyDGro/veOyik6eMW/Q/Ju+1xYq78rNu0PFQmQr2e+7gxwMVTdFt77yINwC11G+u1LZsEz2AZLEf9xqC1Tu60vKoLKJTG0eW4S7aoQVToA6sbevMeLvqZD/xf5jX+/j18AxS06lxXvUWZQCaB2e1PQWR2lOvLY+lknxVdy1Aevxq+f9cKTkxcgA6aaMX/E5/Tx4qhvHYXomjvgJy7OCe9WbijIH9ac2HJe4CbIYLqzdHPrKo3IdW4cNHN259LzOyFnJM79fo2p/yMn+YcfpMRSSm73Hmd2/YturVvXJP1vdJ0KfvSi0/F0pCoytDgB5JnJdDyLzlQ69dNmusBgzY8g7O/KLgIZKI8QWXsJ6ll17micWIhg2S4jUAnIFpvr/2WKxdfeTyUzRmpFEz0Y8AIXmSbfBRI8Q16wJ5RYQw+h1XCDVef2xkyJvn1gHehpenuxAUiD/RFAMhCWwM7niVAa2Itk7Ugg7ycR6LNesQRSbQ0i+I67LHJ9F9qW3Ka3RNPJlZ7B+3oCJitBfh71Q/Mh4Zc3NymMaE6TAg/LkNvWQTBdEc8TVi6uRF+nGw3xtiQu1cnAqP7SnO8UelOCbk8qtbAFdtQ== czo@bruichladdich
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1pgf7e+gh3Ywe1rxOSqnyaq1sQBnSgRFsiZaAWjovBTK1JltKgzmDY6ipNj/6zv106mugogrIlE1BrWDtqahfMdEkahquBBeSCnRJgm3FcD31UWctwBMdaRRrgJU1oFkzx5ECu9vqokCBFnIEF6UZb4spJ9PEjJEnyFJ6t8lvSoVeQ42iW6Og/5B/6f2O60XEMcqo1reRGEAV+znkYC42kS9ZsgZCIznram28RKmN+k5T0vN849kXBQCnMrCOm031IUNsiQbLkUKgEhbiRbaUB4S5sAtnEpVtqILcVCy0CyfPLhspUzN+b74u/bZfay2S3yoGBMqeIw8fN1nY20XSz8TqcuDNtLGHmICyRxnNiV08Y6fhya6ajIjl1nVxCkoo0g7/RkDdqr7YGUdc+HiVY36hqtaFDTWIHT1H1BGScdhfME8IN3e8uHD3WPlKuhBhuFJuMdZiia3k70sl1D5XcFoVQiRckNk5YObDyk75aZ7PbybhXxMD3tzBofQzpPnHbfsnBTZFLFpQHlm63wEjojqoxd24BgRE8JGZE9dTo+1CFmzmvHYyZp9bg44fL3LGnDXtdn1z9CjRx3Y+spiCbXKYCQSFmPocoBS6pHQGO6wfwBf7RmFHbBq6WYsNzyFwfQsbvC7yJNlFrJznkkB81s4ZFB+NQfrzOdfQB/S18w== czo@bunnahabhain
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxcaXJWMUucnrYd3oRWLZ1e/ur4knE1KeKXXYiwr3u9yVXepKTVLEnzSP0pvkzSqelXbVGzSmCxOMdvX8LjnBEOdGddnWBbi1AAVVfYMm6+PWag92cjwcgHB7Nx6DQbAxX8d4ke2B2Tk8P4btqNCFRcKwjZo02KoZINassOWn7f03cc8xlqfqCtUoFAKPcliF3EFppmYw/8CWBgvQL8PcPnxDKiPTO4L4cLK8e4tCg0UKzr1dr8dpTkCXg9REjuGqfIpRAbERzVqg8l266eRn/nlsaWSU9sPH5rY9B0R314QaJNGTfmRoOlj9U4CQBSLA3P5gf0klyK/LR1Xc7XTQYe4X4qrShQa3OmzZBv87MBz2mEF7hstXMigUtjfqkVSKbygiwdlfAa3GQUpNzLZWxj2gAXR1KLdVFx9IGOL7D6TQy2XymUfO3iS6hoBRGnmbbiVY/aXGdLjKOkSNahtUZvPJTc6yrLSGNAjzxr1IVzv6IJlsbwR/YeznDvTa4/OldM2dbfKtG6I5moEF/4wSqzye9UPdZdW7fZURGz9aSixntX5GKJj1L/3aHAGNCa2IOfxR8cwp0qb6YbWFbUUmz+dtdSFhDgD01V4Gwes441an9sP30CC4l9QXwm7M6B0w1Fu7J4Jk+2SOjGgii17VcJ0AQ7LvCs/c/51sGDXyl0Q== root@bunnahabhain
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCszxXrx25w8pM34DZ2mK1ugETzzeZ+RDVpDd7lwURM330z9FjAebXqxO/U8FXCMsPwY2KN5lyS9wVafwdQBO2tlWxpHLAh/ZopjFFFAFsEjZXupgqsRF8uHFMYgJs7JLgDz0OFwcmGV8+Zcm6vvGxRTmMlEwqkhllVDk9N/yOGFYrtQ2mOWCmKmmlujK11hNIMzMk/PJvgtPqI+ML+z26P3z9fWNIfiHnGuRUq90f18IUjJnYLBDsKEbHfLDrYR4Hgplpv0ReEBltCxppyp72g1ILc+iAC0zYts5bGP3m59KMz0onCHUG/buP/qGXg7lQdalAHdjk58ijtPQEx3aXk5eoL4Wn94JFVGrUiL3j+sOu+PCQdepRYHDbh1LmSKc3XV2yc2xZf+LqDS4QpI0ZgkW7O6TH/5cO61+cQLMiZfp35yOCAD52TrXdupBS9b84NfuJo674Are5qzZ07sVHP96s2tsHcNIxJFukjW+Tj3QFTJxuFgtomJdfRxqD2Y9Od9caMWPdB950Jj1hwf+FA2JuZ9y0skr+DWuGS01ty23xwS0PLDMC707xw2+qFun/iEH4MvAqfstIwAVTdUMjB2red5L07NiGstlnSADMyQOVJdNtTd1K5WgAjDXvA0N/91xCvcZDtHcO7qb64cM/RVl+dcQq5w8SpO1wzUq8KiQ== root@bigfish
+
+EOF
+
+chmod 600 .ssh/config
+chmod 600 .ssh/authorized_keys
+
+echo "##== end! ===========================================================##"
+
+) > /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log 2>&1
+
