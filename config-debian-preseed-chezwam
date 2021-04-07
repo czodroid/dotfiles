@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mercredi 07 avril 2021, 14:41
-# Edit Time: 7:17:09
+# Last Modified: mercredi 07 avril 2021, 16:11
+# Edit Time: 7:17:22
 # Description:
 #
 #   debian 10 preseed update
@@ -123,7 +123,7 @@ cat << 'EOF' > /etc/cron.d/czo-email-at-reboot
 # Filename: czo-email-at-reboot
 # 2011/09/10 : Modified by Olivier Sirol <czo@ipgp.fr>
 
-@reboot      root   SUJ="[GSADM] REBOOT `hostname` at `date`" ; ( echo $SUJ ; date ; uname -a ) | mail -s "$SUJ" root > /dev/null
+@reboot      root   SUJ="[ADMIN] REBOOT `hostname` at `date`" ; ( echo $SUJ ; date ; uname -a ) | mail -s "$SUJ" root > /dev/null
 EOF
 chmod 644 /etc/cron.d/czo-email-at-reboot
 

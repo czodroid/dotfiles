@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mercredi 07 avril 2021, 14:29
-# Edit Time: 7:29:37
+# Last Modified: mercredi 07 avril 2021, 16:13
+# Edit Time: 7:30:21
 # Description:
 #
 # debian 10 preseed geoscope update 
@@ -64,8 +64,8 @@ perl -i -pe 's,^#?PermitRootLogin.*,PermitRootLogin yes,' /etc/ssh/sshd_config
 systemctl restart sshd
 
 # dpkg-reconfigure tzdata
-#ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
-ln -fs /usr/share/zoneinfo/Europe/Paris /etc/localtime
+ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+#ln -fs /usr/share/zoneinfo/Europe/Paris /etc/localtime
 dpkg-reconfigure -f noninteractive tzdata
 
 # dpkg-reconfigure locales
