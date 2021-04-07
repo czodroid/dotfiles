@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-geoscope,v 1.3 2021/04/07 12:29:51 czo Exp $
+# $Id: config-debian-preseed-geoscope,v 1.4 2021/04/07 12:41:51 czo Exp $
 
 (
 export LANG=C
@@ -184,6 +184,9 @@ EOF
 
 chmod 600 .ssh/config
 chmod 600 .ssh/authorized_keys
+
+echo "##== motd ===========================================================##"
+/root/czolsb > /etc/motd
 
 echo "##== end! ===========================================================##"
 

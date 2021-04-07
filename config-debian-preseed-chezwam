@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mercredi 07 avril 2021, 09:28
-# Edit Time: 7:14:09
+# Last Modified: mercredi 07 avril 2021, 14:41
+# Edit Time: 7:17:09
 # Description:
 #
 #   debian 10 preseed update
@@ -13,7 +13,22 @@
 #   config files:
 #    wget --no-check-certificate -qO- https://git.io/JkHdk | sh
 #
-# $Id: config-debian-preseed-chezwam,v 1.6 2021/04/07 07:28:35 czo Exp $
+# keyboard:
+#  apt-get install keyboard-configuration
+#  dpkg-reconfigure keyboard-configuration
+#  service keyboard-setup restart
+# locales:
+#  dpkg-reconfigure locales
+# time-zone:
+#  dpkg-reconfigure tzdata
+# upgrade:
+#  dpkg-reconfigure unattended-upgrades
+#   /etc/apt/apt.conf.d/20auto-upgrades
+#   /etc/apt/listchanges.conf 
+#
+# aptitude search '~i ~Osalt'
+#
+# $Id: config-debian-preseed-chezwam,v 1.7 2021/04/07 12:41:51 czo Exp $
 
 (
 export LANG=C
@@ -24,8 +39,12 @@ export DEBIAN_FRONTEND=noninteractive
 echo $(date +%Y-%m-%d) > /etc/lsb-czo-installdate
 echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
 
-
 echo "##== apt sources/update  =============================================##"
+
+echo "postfix postfix/main_mailer_type select Satellite system
+postfix postfix/root_address string dotslash42+adm@gmail.com
+postfix postfix/mailname string czo.wf
+postfix postfix/relayhost string smtp.free.fr" | debconf-set-selections
 
 perl -i -pe 's, main contrib non-free, main,' /etc/apt/sources.list
 perl -i -pe 's, main non-free contrib, main,' /etc/apt/sources.list
@@ -92,7 +111,7 @@ server 192.168.11.1
 EOF
 /etc/init.d/ntp restart
 
-# munin
+# munin CHEZWAM
 perl -i -pe 's,^host_name localhost.localdomain,#host_name localhost.localdomain,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^192\\.168\\.11\\.28\$\n,,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^127\\.0\\.0\\.1.*,allow \^127\\.0\\.0\\.1\$\nallow \^192\\.168\\.11\\.28\$,' /etc/munin/munin-node.conf
@@ -113,6 +132,11 @@ echo "##== config files  ==================================================##"
 cd /root
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh
+
+echo "##== motd ===========================================================##"
+/root/czolsb > /etc/motd
+
+echo "##== end! ===========================================================##"
 
 ) > /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log 2>&1
 
