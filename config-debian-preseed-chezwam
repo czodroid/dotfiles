@@ -4,15 +4,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mardi 06 avril 2021, 21:56
-# Edit Time: 7:04:20
+# Last Modified: mercredi 07 avril 2021, 09:28
+# Edit Time: 7:14:09
 # Description:
 #
-#   configure ssh with my authorized_keys and config
+#   debian 10 preseed update
 #
-#   wget --no-check-certificate -qO- https://git.io/JkHdk | sh
+#   config files:
+#    wget --no-check-certificate -qO- https://git.io/JkHdk | sh
 #
-# $Id: config-debian-preseed-chezwam,v 1.2 2021/04/06 16:50:00 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.6 2021/04/07 07:28:35 czo Exp $
 
 (
 export LANG=C
@@ -23,12 +24,21 @@ export DEBIAN_FRONTEND=noninteractive
 echo $(date +%Y-%m-%d) > /etc/lsb-czo-installdate
 echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
 
-##== change config  ==================================================##
 
-# # apt sources
-# perl -i -pe 's, main contrib non-free, main,' /etc/apt/sources.list
-# perl -i -pe 's, main non-free contrib, main,' /etc/apt/sources.list
-# perl -i -pe 's, main, main contrib non-free,' /etc/apt/sources.list
+echo "##== apt sources/update  =============================================##"
+
+perl -i -pe 's, main contrib non-free, main,' /etc/apt/sources.list
+perl -i -pe 's, main non-free contrib, main,' /etc/apt/sources.list
+perl -i -pe 's, main, main contrib non-free,' /etc/apt/sources.list
+
+apt-get $QUIET update
+apt-get $QUIET upgrade
+apt-get $QUIET dist-upgrade
+apt-get $QUIET clean
+
+apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp pxelinux syslinux syslinux-utils atftp
+
+echo "##== change config  ==================================================##"
 
 # sshd
 perl -i -pe 's,^#?PermitRootLogin.*,PermitRootLogin yes,' /etc/ssh/sshd_config
@@ -48,8 +58,7 @@ update-locale LANG=en_US.UTF-8
 perl -i -pe 's,^#/net\s*-hosts.*,/net    -hosts,' /etc/auto.master
 systemctl restart autofs
 
-# NTP
-# ntpq -p
+# NTP ntpq -p
 cat << 'EOF' > /etc/ntp.conf
 # /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 # czo, 2010-03-04
@@ -100,10 +109,10 @@ EOF
 chmod 644 /etc/cron.d/czo-email-at-reboot
 
 
-##== config files  ==================================================##
+echo "##== config files  ==================================================##"
 cd /root
-curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
+curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh
 
 ) > /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log 2>&1
 
