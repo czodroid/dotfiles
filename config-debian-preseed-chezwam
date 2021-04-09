@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0
 # File Created: April 1999
-# Last Modified: mercredi 07 avril 2021, 16:11
-# Edit Time: 7:17:22
+# Last Modified: jeudi 08 avril 2021, 19:37
+# Edit Time: 7:17:43
 # Description:
 #
 #   debian 10 preseed update
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.8 2021/04/07 17:06:07 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.9 2021/04/08 17:37:28 czo Exp $
 
 (
 export LANG=C
@@ -39,23 +39,23 @@ export DEBIAN_FRONTEND=noninteractive
 echo $(date +%Y-%m-%d) > /etc/lsb-czo-installdate
 echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
 
-echo "##== apt sources/update  =============================================##"
+# echo "##== apt sources/update  =============================================##"
 
-echo "postfix postfix/main_mailer_type select Satellite system
-postfix postfix/root_address string dotslash42+adm@gmail.com
-postfix postfix/mailname string czo.wf
-postfix postfix/relayhost string smtp.free.fr" | debconf-set-selections
+# echo "postfix postfix/main_mailer_type select Satellite system
+# postfix postfix/root_address string dotslash42+adm@gmail.com
+# postfix postfix/mailname string czo.wf
+# postfix postfix/relayhost string smtp.free.fr" | debconf-set-selections
 
-perl -i -pe 's, main contrib non-free, main,' /etc/apt/sources.list
-perl -i -pe 's, main non-free contrib, main,' /etc/apt/sources.list
-perl -i -pe 's, main, main contrib non-free,' /etc/apt/sources.list
+# perl -i -pe 's, main contrib non-free, main,' /etc/apt/sources.list
+# perl -i -pe 's, main non-free contrib, main,' /etc/apt/sources.list
+# perl -i -pe 's, main, main contrib non-free,' /etc/apt/sources.list
 
-apt-get $QUIET update
-apt-get $QUIET upgrade
-apt-get $QUIET dist-upgrade
-apt-get $QUIET clean
+# apt-get $QUIET update
+# apt-get $QUIET upgrade
+# apt-get $QUIET dist-upgrade
+# apt-get $QUIET clean
 
-apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp pxelinux syslinux syslinux-utils atftp
+# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp 
 
 echo "##== change config  ==================================================##"
 
