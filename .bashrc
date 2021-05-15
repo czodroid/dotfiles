@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 15 mai 2021, 12:53
-# Edit Time: 85:29:43
+# Last Modified: samedi 15 mai 2021, 21:14
+# Edit Time: 88:27:27
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.315 2021/05/15 11:11:08 czo Exp $
+# $Id: .bashrc,v 1.318 2021/05/15 19:14:43 czo Exp $
 
 #set -v
 #set -x
@@ -42,7 +42,7 @@ fi
 
 export TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 
-#BASHMISSING
+#BASHMISSING : REPORTTIME, complete alias, equal =foo
 # removed zsh preexec implementation of REPORTTIME, see rev 1.32
 #avoid overwriting history
 #shopt -s histappend
@@ -348,12 +348,11 @@ alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llexe='find . -type f -perm +1 -print'
 alias md='\mkdir -p'
-mdcd()    { \mkdir -p "$1"  ; cd "$1"; }
+mdcd()    { \mkdir -p "$1" ; cd "$1"; }
 ff() { find . -iname "*$1*"; }
-ff_case_sensitive() { find . -name "*$1*"; }
+ff_cs() { find . -name "*$1*"; }
 
 alias rmf='rm -fr'
-alias rmexe='find . -perm +1 -print -exec rm {} \;'
 alias rmemptyf='find . -empty -type f -print -exec rm {} \;'
 alias rmemptyd='find . -empty -type d -print -exec rm -fr {} \;'
 alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
@@ -374,24 +373,12 @@ alias ne='emacs -nw'
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
 alias wgetr='wget -m -np -k -r'
-alias wgetp='wget -m -l 1 --np -k'
+alias wgetp='wget -m -np -k -l1'
 
-ncd() {
-    $HOME/local/$PLATFORM/bin/ncd $*
-    E=$?
-    if [ $E -eq 0 ]; then
-        cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"
-    fi
-    return $E
-}
-
-alias slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
-alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
-alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
+ncd() { \ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"; fi; }
 
 ## CAO VLSI IBP.FR
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
-alias xe='gnuclient -q'
 alias xroot='xv -root +noresetroot -quit'
 alias xv='\xv -perfect -8'
 alias xload='\xload -hl red'
@@ -404,23 +391,15 @@ alias imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
 
 alias xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
+alias fing='finger | sort | uniq -w 15'
 
 alias sun='export TERM=sun-cmd ; echo TERM=$TERM'
 alias vt100='export TERM=vt100 ; echo TERM=$TERM'
-alias tek='export TERM=tek4112 ; echo TERM=$TERM'
 alias xte='export TERM=xterm ; echo TERM=$TERM'
 alias xts='export TERM=screen ; echo TERM=$TERM'
-alias xts16='export TERM=screen-16color ; echo TERM=$TERM'
-alias xts256='export TERM=screen-256color ; echo TERM=$TERM'
 alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
-alias xtc16='export TERM=xterm-16color ; echo TERM=$TERM'
 alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
-alias fing='finger | sort | uniq -w 15'
-alias debug='zsh -v -x -c'
-
-tsc() { find . -name "*.c" -type f -print -exec grep -n $* {} \;; }
-tsh() { find . -name "*.h" -type f -print -exec grep -n $* {} \;; }
 
 ## GEOMAGNET
 alias matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
@@ -533,6 +512,10 @@ alias tmuxa='tmux attach -d || tmux new'
 alias screena='screen -d -R'
 alias edl='export DISPLAY=localhost:0'
 
+alias slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
+alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
+alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
+
 alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 alias debconf_after_install='F=preseed_$(date +%Y-%m-%d)_$$.txt; debconf-get-selections --installer > $F ; debconf-get-selections >> $F'
 
@@ -587,7 +570,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2 ) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.315 2021/05/15 11:11:08 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.318 2021/05/15 19:14:43 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
@@ -612,6 +595,7 @@ if [ $(id -u) -eq 0 ]; then
 else
     umask 022
 fi
+
 
 #FIXME: typeset -U like in zsh
 # we must put /bin at the end because if not it's ./

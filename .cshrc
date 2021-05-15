@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: samedi 15 mai 2021, 12:54
+# Last Modified: samedi 15 mai 2021, 21:13
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -14,7 +14,7 @@
 #       with my .bashrc 20 years later!!!
 #       but be careful, I dont use it...
 #
-# $Id: .cshrc,v 1.8 2021/05/15 11:11:08 czo Exp $
+# $Id: .cshrc,v 1.9 2021/05/15 19:14:43 czo Exp $
 #
 
 
@@ -178,7 +178,7 @@ breaksw
 
 case SunOS:
     if ( `uname -r` =~ 5.* ) then
-        setenv PLATFORM=Solaris
+        setenv PLATFORM Solaris
     else
         setenv PLATFORM SunOS
     endif
@@ -315,12 +315,11 @@ alias llt       'find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls       'find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llexe     'find . -type f -perm +1 -print'
 alias md        '\mkdir -p'
-alias mdcd      '\mkdir -p "\!*"  ; cd "\!*"'
+alias mdcd      '\mkdir -p "\!*" ; cd "\!*"'
 alias ff        'find . -iname "*\!**"'
 alias ff_cs     'find . -name "*\!**"'
 
 alias rmf       'rm -fr'
-alias rmexe     'find . -perm +1 -print -exec rm {} \;'
 alias rmemptyf  'find . -empty -type f -print -exec rm {} \;'
 alias rmemptyd  'find . -empty -type d -print -exec rm -fr {} \;'
 alias rmbak     'find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
@@ -336,16 +335,23 @@ alias ne        'emacs -nw'
 alias psg       'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k 3"'
 
 alias wgetr     'wget -m -np -k -r'
-alias wgetp     'wget -m -l 1 --np -k'
+alias wgetp     'wget -m -np -k -l1'
 
 alias ncd       '\ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
 
-alias sun       'set term=sun-cmd ; echo term=$term'
-alias vt100     'set term=vt100 ; echo term=$term'
-alias xte       'set term=xterm ; echo term=$term'
+#alias vt100     'set term=vt100 ; echo term=$term'
+
+## CAO VLSI IBP.FR
+
+alias sun    'set term=sun-cmd ; echo term=$term'
+alias vt100  'set term=vt100 ; echo term=$term'
+alias xte    'set term=xterm ; echo term=$term'
+alias xts    'set term=screen ; echo term=$term'
+alias xtc    'set term=xterm-color ; echo term=$term'
+alias xtc256 'set term=xterm-256color ; echo term=$term'
+
 
 ## NEW
-# pas forcement bon en tcsh...
 
 alias mountlist 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P";'
 alias rsyncsys  'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
@@ -472,7 +478,7 @@ if ($?tcsh) then
     set prompt = "%{^[[0;97m%}[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$status]\n%{^[[0;9${USER_PROMPT_COLOR}m%}${USER}%{^[[0;97m%}@%{^[[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{^[[0;97m%}:%{^[[0;94m%}%/\n%{^[[0;97m%}>>%{^[[m%} "
 else
     set prompt = "\
-[${PLATFORM}/csh] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$status]\
+[${PLATFORM}/csh] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY} - [$status]\
 ${USER}@${HOSTNAME}:${PWD}\
 >> "
 endif
