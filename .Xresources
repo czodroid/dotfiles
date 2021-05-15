@@ -3,17 +3,17 @@
 !###=====oOO--(_)--OOO==============================================###!
 !
 ! Filename: .Xresources
+! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
-! License: GPL-2.0
 ! File Created: mars 1996
-! Last Modified: vendredi 05 mars 2021, 13:51
-! Edit Time: 4:39:19
+! Last Modified: mercredi 12 mai 2021, 00:21
+! Edit Time: 4:41:46
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources
 !
-! $Id: .Xresources,v 1.34 2021/03/05 13:03:07 czo Exp $
+! $Id: .Xresources,v 1.36 2021/05/12 08:54:49 czo Exp $
 
 Xft.dpi:        96
 Xft.antialias:  1
@@ -136,37 +136,5 @@ XTerm*vt100*highlightColorMode: true
 XTerm*vt100*highlightReverse:   false
 XTerm*vt100*highlightColor:     #458588
 XTerm*vt100*highlightTextColor: #fbf1c7
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!! Gruvbox Material Dark
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!XTerm*vt100*background: #282828
-!XTerm*vt100*foreground: #d4be98
-
-!! Black + DarkGrey
-!XTerm*vt100*color0:  #32302f
-!XTerm*vt100*color8:  #32302f
-!! DarkRed + Red
-!XTerm*vt100*color1:  #ea6962
-!XTerm*vt100*color9:  #ea6962
-!! DarkGreen + Green
-!XTerm*vt100*color2:  #a9b665
-!XTerm*vt100*color10: #a9b665
-!! DarkYellow + Yellow
-!XTerm*vt100*color3:  #e78a4e
-!XTerm*vt100*color11: #e78a4e
-!! DarkBlue + Blue
-!XTerm*vt100*color4:  #7daea3
-!XTerm*vt100*color12: #7daea3
-!! DarkMagenta + Magenta
-!XTerm*vt100*color5:  #d3869b
-!XTerm*vt100*color13: #d3869b
-!! DarkCyan + Cyan
-!XTerm*vt100*color6:  #89b482
-!XTerm*vt100*color14: #89b482
-!! LightGrey + White
-!XTerm*vt100*color7:  #d4be98
-!XTerm*vt100*color15: #d4be98
-
 
 ! eof

@@ -4,15 +4,15 @@
 "
 " Filename: .vimrc
 " Author: Olivier Sirol <czo@free.fr>
-" License: GPL-2.0
+" License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 14 mars 2021, 20:24
-" Edit Time: 185:55:53
+" Last Modified: mercredi 12 mai 2021, 00:23
+" Edit Time: 188:10:35
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.211 2021/03/14 19:26:05 czo Exp $
+" $Id: .vimrc,v 1.218 2021/05/12 08:54:49 czo Exp $
 
 if version >= 580
 "if 0
@@ -307,6 +307,7 @@ augroup MyAbbrevs
 "autocmd BufNewFile,BufRead *.htm,*.html,*.mkd call MyHTMLAbbrevs()
 augroup END
 
+autocmd Filetype json let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 autocmd FileType perl setlocal equalprg=perltidy\ -ce\ -l=0\ -st
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
 
@@ -790,7 +791,8 @@ endif
 
 let TemplateMaxHeaderLines=30
 let TemplateAuthor="Olivier Sirol <czo@free.fr>"
-let TemplateLicense="GPL-2.0"
+let TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
+"let TemplateLicense="GPL-2.0"
 
 command! -nargs=? Template call Template (<q-args>)
 command! TemplateMacro call TemplateMacro ()
@@ -802,52 +804,52 @@ autocmd BufWritePre,FileWritePre * call TemplateTimeStamp ()
 
 function! FindStrInHeader(pat)
     if line("$") < g:TemplateMaxHeaderLines
-     let g:TemplateMaxHeaderLines = line("$")
+        let g:TemplateMaxHeaderLines = line("$")
     endif
     normal G
     let currentline = line(".")
     exec '1,'.g:TemplateMaxHeaderLines.'s/'.a:pat.'/&/ge'
     if line(".") != currentline && line(".") <= g:TemplateMaxHeaderLines
-            normal ''
-            exec 'ijump! /'.a:pat.'/'
-            return 1
+        normal ''
+        exec 'ijump! /'.a:pat.'/'
+        return 1
     endif
     return 0
 endfunction
 
 
 function! TemplateMacro ()
- if &modified == 1
-    let save_report = &report
-    let &report = 999000
-    normal mwHmv
+    if &modified == 1
+        let save_report = &report
+        let &report = 999000
+        normal mwHmv
 
-    " substitute expand
-    let pattern = '\(.*\)VIMEX{=expand("\([^)]*\)")}\(.*\)'
-    while FindStrInHeader(pattern)
-        let editline = getline (".")
-        let editline = substitute(editline, pattern, '\2', "")
-        exec 's/'.pattern.'/\1'.escape(expand(editline), '\').'\3/e'
-    endw
+        " substitute expand
+        let pattern = '\(.*\)VIMEX{=expand("\([^)]*\)")}\(.*\)'
+        while FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            exec 's/'.pattern.'/\1'.escape(expand(editline), '\').'\3/e'
+        endw
 
-    " substitute strftime
-    let pattern = '\(.*\)VIMEX{=strftime("\([^)]*\)")}\(.*\)'
-    while FindStrInHeader(pattern)
-        let editline = getline (".")
-        let editline = substitute(editline, pattern, '\2', "")
-        exec 's/'.pattern.'/\1'.escape(strftime(editline), '\').'\3/e'
-    endw
+        " substitute strftime
+        let pattern = '\(.*\)VIMEX{=strftime("\([^)]*\)")}\(.*\)'
+        while FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            exec 's/'.pattern.'/\1'.escape(strftime(editline), '\').'\3/e'
+        endw
 
-    normal 1G'vzt`w
-    let &report = save_report
- endif
+        normal 1G'vzt`w
+        let &report = save_report
+    endif
 endfunction
 
 
 function! TemplateDate()
-  " create a RFC822-conformant date
-  " return strftime("%a, %d %b %Y %H:%M:%S %z")
-  return strftime("%A %d %B %Y, %H:%M")
+    " create a RFC822-conformant date
+    " return strftime("%a, %d %b %Y %H:%M:%S %z")
+    return strftime("%A %d %B %Y, %H:%M")
 endfunction
 
 function! TemplateGetTime ()
@@ -856,85 +858,101 @@ endfunction
 
 function! TemplateTimeStamp ()
 
- if &modified == 1
-    let save_report = &report
-    let &report = 999999
-    normal mwHmv
+    if &modified == 1
+        let save_report = &report
+        let &report = 999999
+        normal mwHmv
 
-    " Changes in my header here:
-    if 1
-    " modif Started: in File Created:
-    let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
-    if FindStrInHeader(pattern)
-        exec 's/'.pattern.'/\1File Created:\2/e'
-    endif
-    " modif Last Change: in Last Modified:
-    let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
-    if FindStrInHeader(pattern)
-        exec 's/'.pattern.'/\1Modified:\2/e'
-    endif
-    " modif Copyright (C) in Author:
-    let pattern = '\(^.\=.\=.\=\s*\)Copyright (C).*Olivier.Sirol.*'
-    if FindStrInHeader(pattern)
-        exec 's/'.pattern.'/\1Author:/e'
-    endif
-    " substitute Author
-    let pattern = '\(^.\=.\=.\=\s*Author:\).*'
-    if FindStrInHeader(pattern)
-       exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
-    endif
-    " substitute License
-    let pattern = '\(^.\=.\=.\=\s*License:\).*'
-    if FindStrInHeader(pattern)
-       exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
-    endif
-    endif
-
-    " Normal changes in my header here:
-    " substitute the file name
-    let pattern = '\(^.\=.\=.\=\s*Filename:\).*'
-    if FindStrInHeader(pattern)
-        exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '\').'/e'
-    endif
-
-    " time stamp
-    let pattern = '\(^.\=.\=.\=\s*Last Modified:\).*'
-    if FindStrInHeader(pattern)
-        exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
-    endif
-
-    " edit time
-    let pattern = '\(^.\=.\=.\=\s*Edit Time:\)\s*\([0-9]*:[0-9]*:[0-9]*\).*'
-    if FindStrInHeader(pattern)
-        let editline = getline (".")
-        let editline = substitute(editline, pattern, '\2', "")
-        let hour = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\1', "")
-        let min  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\2', "")
-        let sec  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\3', "")
-
-        " strip leading zero (!=octal)
-        let min  = substitute(min, '^0', "", "")
-        let sec  = substitute(sec, '^0', "", "")
-
-        let totaltime = (localtime() - b:Template_opentime) + ( hour * 60 * 60) + (min * 60) + sec
-        let edithour = totaltime / 60 / 60
-        let editmin  = (totaltime / 60) % 60
-        let editsec  = totaltime % 60
-
-        if (strlen(editmin)<2)
-            let editmin="0".editmin
-        endif
-        if (strlen(editsec)<2)
-            let editsec="0".editsec
+        " This is the third time I did modified my headers
+        " Filename: .vimrc
+        " Copyright (C) 1995 Olivier Sirol
+        " License: GPL-2.0 (http://www.gnu.org/copyleft)
+        " Author: Olivier Sirol <czo@free.fr>
+        " File Created: mai 1995
+        " Last Modified: jeudi 06 mai 2021, 19:55
+        " Edit Time: 188:01:29
+        " Description:
+        "
+        " $Id: .vimrc,v 1.218 2021/05/12 08:54:49 czo Exp $
+        "
+        if 1
+            " modif Started: in File Created:
+            let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1File Created:\2/e'
+            endif
+            " modif Started: in File Created:
+            let pattern = '\(^.\=.\=.\=\s*\)Created:\(.*\)'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1File Created:\2/e'
+            endif
+            " modif Last Change: in Last Modified:
+            let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1Modified:\2/e'
+            endif
+            " modif Copyright (C) in Author:
+            let pattern = '\(^.\=.\=.\=\s*\)Copyright (C).*Olivier.Sirol.*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1Author:/e'
+            endif
+            " substitute Author
+            let pattern = '\(^.\=.\=.\=\s*Author:\).*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
+            endif
+            " substitute License
+            let pattern = '\(^.\=.\=.\=\s*License:\).*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
+            endif
         endif
 
-        exec 's/'.pattern.'/\1 '.edithour.':'.editmin.':'.editsec.'/e'
-        let  b:Template_opentime=localtime()
-    endif
+        " Normal changes in my header here:
+        " substitute the file name
+        let pattern = '\(^.\=.\=.\=\s*Filename:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '\').'/e'
+        endif
 
-    normal 1G'vzt`w
-    let &report = save_report
- endif
+        " time stamp
+        let pattern = '\(^.\=.\=.\=\s*Last Modified:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
+        endif
+
+        " edit time
+        let pattern = '\(^.\=.\=.\=\s*Edit Time:\)\s*\([0-9]*:[0-9]*:[0-9]*\).*'
+        if FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            let hour = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\1', "")
+            let min  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\2', "")
+            let sec  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\3', "")
+
+            " strip leading zero (!=octal)
+            let min  = substitute(min, '^0', "", "")
+            let sec  = substitute(sec, '^0', "", "")
+
+            let totaltime = (localtime() - b:Template_opentime) + ( hour * 60 * 60) + (min * 60) + sec
+            let edithour = totaltime / 60 / 60
+            let editmin  = (totaltime / 60) % 60
+            let editsec  = totaltime % 60
+
+            if (strlen(editmin)<2)
+                let editmin="0".editmin
+            endif
+            if (strlen(editsec)<2)
+                let editsec="0".editsec
+            endif
+
+            exec 's/'.pattern.'/\1 '.edithour.':'.editmin.':'.editsec.'/e'
+            let  b:Template_opentime=localtime()
+        endif
+
+        normal 1G'vzt`w
+        let &report = save_report
+    endif
 
 endfunction
 
@@ -946,271 +964,271 @@ function! Template (...)
         let xft = a:1
     endif
 
-if xft != ""
+    if xft != ""
 
-" /* 2011/01/27 : czo */
-" I have only a .vimrc, no more multiple config/template files
-"
-"    let mytemplatefile = expand("$HOME/etc/vim/templates/template\." . xft)
-"    if filereadable(mytemplatefile)
-"        normal 1G
-"        execute ":r " . mytemplatefile
-"        1d
-"    endif
+        " /* 2011/01/27 : czo */
+        " I have only a .vimrc, no more multiple config/template files
+        "
+        "    let mytemplatefile = expand("$HOME/etc/vim/templates/template\." . xft)
+        "    if filereadable(mytemplatefile)
+        "        normal 1G
+        "        execute ":r " . mytemplatefile
+        "        1d
+        "    endif
 
-try
-  throw xft
+        try
+            throw xft
 
-" cat template.html | perl -pe 's/^/\\\\<nl>/; s/"/\\\\"/g; s/\\$/\\\\/g;'
+            " cat template.html | perl -pe 's/^/\\\\<nl>/; s/"/\\\\"/g; s/\\$/\\\\/g;'
 
-" ## Template .c #####################################################
-catch /^c$/
-    0put =
-\\"/*
-\\<nl> * Filename: foo
-\\<nl> * Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-\\<nl> * License: GPL (http://www.gnu.org/copyleft/gpl.html)
-\\<nl> * Started: VIMEX{=strftime(\\"%b %Y\\")}
-\\<nl> * Last Change: now
-\\<nl> * Edit Time: 0:00:01
-\\<nl> * Description:
-\\<nl> *
-\\<nl> */
-\\<nl>
-\\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
-\\<nl>
-\\<nl>/*
-\\<nl> * ####===========================================================####
-\\<nl> * #### Include Files
-\\<nl> */
-\\<nl>
-\\<nl>#include <stdio.h>
-\\<nl>#include <stdlib.h>
-\\<nl>#include <unistd.h>
-\\<nl>
-\\<nl>/* for getopt (usualy included in unistd.h)
-\\<nl> * extern char *optarg;
-\\<nl> * extern int optind, opterr, optopt;
-\\<nl> */
-\\<nl>
-\\<nl>/*
-\\<nl> * ####===========================================================####
-\\<nl> * #### Main
-\\<nl> */
-\\<nl>
-\\<nl>int
-\\<nl>main (int argc, char *argv[], char *envp[])
-\\<nl>{
-\\<nl>  printf (\\"Hello World\\n\\");
-\\<nl>  return (0);
-\\<nl>}
-\\"
+            " ## Template .c #####################################################
+        catch /^c$/
+            0put =
+                        \\"/*
+                        \\<nl> * Filename: foo
+                        \\<nl> * Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
+                        \\<nl> * License: GPL (http://www.gnu.org/copyleft/gpl.html)
+                        \\<nl> * Started: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl> * Last Change: now
+                        \\<nl> * Edit Time: 0:00:01
+                        \\<nl> * Description:
+                        \\<nl> *
+                        \\<nl> */
+                        \\<nl>
+                        \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
+                        \\<nl>
+                        \\<nl>/*
+                        \\<nl> * ####===========================================================####
+                        \\<nl> * #### Include Files
+                        \\<nl> */
+                        \\<nl>
+                        \\<nl>#include <stdio.h>
+                        \\<nl>#include <stdlib.h>
+                        \\<nl>#include <unistd.h>
+                        \\<nl>
+                        \\<nl>/* for getopt (usualy included in unistd.h)
+                        \\<nl> * extern char *optarg;
+                        \\<nl> * extern int optind, opterr, optopt;
+                        \\<nl> */
+                        \\<nl>
+                        \\<nl>/*
+                        \\<nl> * ####===========================================================####
+                        \\<nl> * #### Main
+                        \\<nl> */
+                        \\<nl>
+                        \\<nl>int
+                        \\<nl>main (int argc, char *argv[], char *envp[])
+                        \\<nl>{
+                        \\<nl>  printf (\\"Hello World\\n\\");
+                        \\<nl>  return (0);
+                        \\<nl>}
+                        \\"
 
-" ## Template .h #####################################################
-catch /^h$/
-    0put =
-\\"/*
-\\<nl> * Filename: foo
-\\<nl> * Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-\\<nl> * License: GPL (http://www.gnu.org/copyleft/gpl.html)
-\\<nl> * Started: VIMEX{=strftime(\\"%b %Y\\")}
-\\<nl> * Last Change: now
-\\<nl> * Edit Time: 0:00:01
-\\<nl> * Description:
-\\<nl> *
-\\<nl> */
-\\<nl>
-\\<nl>#ifndef MY_HEADER_H
-\\<nl>#define MY_HEADER_H
-\\<nl>
-\\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
-\\<nl>
-\\<nl>/*
-\\<nl> * ####===========================================================####
-\\<nl> * #### Prototypes
-\\<nl> */
-\\<nl>
-\\<nl>
-\\<nl>#endif
-\\"
+            " ## Template .h #####################################################
+        catch /^h$/
+            0put =
+                        \\"/*
+                        \\<nl> * Filename: foo
+                        \\<nl> * Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
+                        \\<nl> * License: GPL (http://www.gnu.org/copyleft/gpl.html)
+                        \\<nl> * Started: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl> * Last Change: now
+                        \\<nl> * Edit Time: 0:00:01
+                        \\<nl> * Description:
+                        \\<nl> *
+                        \\<nl> */
+                        \\<nl>
+                        \\<nl>#ifndef MY_HEADER_H
+                        \\<nl>#define MY_HEADER_H
+                        \\<nl>
+                        \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
+                        \\<nl>
+                        \\<nl>/*
+                        \\<nl> * ####===========================================================####
+                        \\<nl> * #### Prototypes
+                        \\<nl> */
+                        \\<nl>
+                        \\<nl>
+                        \\<nl>#endif
+                        \\"
 
-" ## Template .html ##################################################
-catch /^html$/
-    0put =
-\\"<!DOCTYPE html>
-\\<nl>
-\\<nl><!--
-\\<nl>Filename: pass.html
-\\<nl>Author: Olivier Sirol <czo@free.fr>
-\\<nl>License: GPL-2.0
-\\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
-\\<nl>Last Modified: now
-\\<nl>Edit Time: 0:00:08
-\\<nl>$VIMEX{=strftime(\\"Id:$\\")}
-\\<nl>-->
-\\<nl>
-\\<nl><html lang=\\"en\\">
-\\<nl>
-\\<nl><head>
-\\<nl>
-\\<nl>    <title>login</title>
-\\<nl>
-\\<nl>    <meta charset=\\"utf-8\\">
-\\<nl>    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-\\<nl>    <meta name=\\"theme-color\\" content=\\"#ddd\\">
-\\<nl>
-\\<nl>    <meta name=\\"Author\\" content=\\"Olivier Sirol <czo@free.fr>\\" />
-\\<nl>    <meta name=\\"Generator\\" content=\\"Vim\\">
-\\<nl>    <meta name=\\"Description\\" content=\\"__DESCRIPTION__\\">
-\\<nl>    <meta name=\\"Keywords\\" content=\\"__KEYWORDS__\\">
-\\<nl>
-\\<nl>    <link rel=\\"shortcut icon\\" href=\\"/128.png\\">
-\\<nl>    <link rel=\\"apple-touch-icon\\" href=\\"/128.png\\">
-\\<nl>    <link rel=\\"icon\\" href=\\"/128.png\\">
-\\<nl>
-\\<nl>    <link rel=\\"stylesheet\\" href=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\\" integrity=\\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\\" crossorigin=\\"anonymous\\">
-\\<nl>    <script src=\\"https://code.jquery.com/jquery-3.4.1.slim.min.js\\" integrity=\\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\\" crossorigin=\\"anonymous\\"></script>
-\\<nl>    <script src=\\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\\" integrity=\\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\\" crossorigin=\\"anonymous\\"></script>
-\\<nl>    <script src=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\\" integrity=\\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\\" crossorigin=\\"anonymous\\"></script>
-\\<nl>
-\\<nl></head>
-\\<nl>
-\\<nl><body>
-\\<nl>    <h1>Login: </h1>
-\\<nl>    <div id=\\"maincontent\\" class=\\"container\\">
-\\<nl>        <div class=\\"row\\">
-\\<nl>            <div class=\\"col-lg-8 col-lg-offset-2\\">
-\\<nl>                <div>
-\\<nl>                    <label for=\\"username\\">Username: </label>
-\\<nl>                    <input type=\\"text\\" id=\\"username\\" name=\\"username\\">
-\\<nl>                </div>
-\\<nl>                <div>
-\\<nl>                    <label for=\\"pass\\">Password: </label>
-\\<nl>                    <input autocomplete=\\"off\\" type=\\"password\\" id=\\"pass\\" name=\\"password\\" minlength=\\"8\\" required>
-\\<nl>                </div>
-\\<nl>                <input type=\\"submit\\" value=\\"Sign in\\">
-\\<nl>            </div>
-\\<nl>        </div>
-\\<nl>    </div>
-\\<nl></body>
-\\<nl>
-\\<nl></html>
-\\"
+            " ## Template .html ##################################################
+        catch /^html$/
+            0put =
+                        \\"<!DOCTYPE html>
+                        \\<nl>
+                        \\<nl><!--
+                        \\<nl>Filename: pass.html
+                        \\<nl>Author: Olivier Sirol <czo@free.fr>
+                        \\<nl>License: GPL-2.0
+                        \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl>Last Modified: now
+                        \\<nl>Edit Time: 0:00:08
+                        \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
+                        \\<nl>-->
+                        \\<nl>
+                        \\<nl><html lang=\\"en\\">
+                        \\<nl>
+                        \\<nl><head>
+                        \\<nl>
+                        \\<nl>    <title>login</title>
+                        \\<nl>
+                        \\<nl>    <meta charset=\\"utf-8\\">
+                        \\<nl>    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+                        \\<nl>    <meta name=\\"theme-color\\" content=\\"#ddd\\">
+                        \\<nl>
+                        \\<nl>    <meta name=\\"Author\\" content=\\"Olivier Sirol <czo@free.fr>\\" />
+                        \\<nl>    <meta name=\\"Generator\\" content=\\"Vim\\">
+                        \\<nl>    <meta name=\\"Description\\" content=\\"__DESCRIPTION__\\">
+                        \\<nl>    <meta name=\\"Keywords\\" content=\\"__KEYWORDS__\\">
+                        \\<nl>
+                        \\<nl>    <link rel=\\"shortcut icon\\" href=\\"/128.png\\">
+                        \\<nl>    <link rel=\\"apple-touch-icon\\" href=\\"/128.png\\">
+                        \\<nl>    <link rel=\\"icon\\" href=\\"/128.png\\">
+                        \\<nl>
+                        \\<nl>    <link rel=\\"stylesheet\\" href=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\\" integrity=\\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\\" crossorigin=\\"anonymous\\">
+                        \\<nl>    <script src=\\"https://code.jquery.com/jquery-3.4.1.slim.min.js\\" integrity=\\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\\" crossorigin=\\"anonymous\\"></script>
+                        \\<nl>    <script src=\\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\\" integrity=\\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\\" crossorigin=\\"anonymous\\"></script>
+                        \\<nl>    <script src=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\\" integrity=\\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\\" crossorigin=\\"anonymous\\"></script>
+                        \\<nl>
+                        \\<nl></head>
+                        \\<nl>
+                        \\<nl><body>
+                        \\<nl>    <h1>Login: </h1>
+                        \\<nl>    <div id=\\"maincontent\\" class=\\"container\\">
+                        \\<nl>        <div class=\\"row\\">
+                        \\<nl>            <div class=\\"col-lg-8 col-lg-offset-2\\">
+                        \\<nl>                <div>
+                        \\<nl>                    <label for=\\"username\\">Username: </label>
+                        \\<nl>                    <input type=\\"text\\" id=\\"username\\" name=\\"username\\">
+                        \\<nl>                </div>
+                        \\<nl>                <div>
+                        \\<nl>                    <label for=\\"pass\\">Password: </label>
+                        \\<nl>                    <input autocomplete=\\"off\\" type=\\"password\\" id=\\"pass\\" name=\\"password\\" minlength=\\"8\\" required>
+                        \\<nl>                </div>
+                        \\<nl>                <input type=\\"submit\\" value=\\"Sign in\\">
+                        \\<nl>            </div>
+                        \\<nl>        </div>
+                        \\<nl>    </div>
+                        \\<nl></body>
+                        \\<nl>
+                        \\<nl></html>
+                        \\"
 
-" ## Template .make ##################################################
-catch /^make$/
-    0put =
-\\"# Filename: foo
-\\<nl># Author: Olivier Sirol <czo@free.fr>
-\\<nl># License: GNU General Public License v2.0
-\\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-\\<nl># Last Modified: foo
-\\<nl># Edit Time: 0:00:00
-\\<nl># Description:
-\\<nl>#      Makefile:
-\\<nl>#      $@ Le nom de la cible
-\\<nl>#      $< Le nom de la première dépendance
-\\<nl>#      $^ La liste des dépendances
-\\<nl>#      $? La liste des dépendances plus récentes que la cible
-\\<nl>#      $* Le nom du fichier sans suffixe
-\\<nl>#
-\\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-\\<nl>#
-\\<nl>
-\\<nl>CC = gcc
-\\<nl>CFLAGS = -Wall -Wextra -Wpedantic
-\\<nl>#CFLAGS += -I ..
-\\<nl>#LIBS += -lX11 -lXext -lhistory  -lreadline
-\\<nl>
-\\<nl>SRC= $(wildcard *.c)
-\\<nl>
-\\<nl>DEPS = $(wildcard *.c) $(wildcard *.h)
-\\<nl>
-\\<nl>OBJ  = $(SRC:.c=.o)
-\\<nl>
-\\<nl>EXEC = go
-\\<nl>
-\\<nl>all: $(EXEC)
-\\<nl>	@echo \\"<- all done!\\"
-\\<nl>
-\\<nl>viewdeps: $(DEPS)
-\\<nl>	@echo $(DEPS)
-\\<nl>
-\\<nl>$(EXEC): $(OBJ)
-\\<nl>	$(CC) -o $@ $^ $(LIBS)
-\\<nl>
-\\<nl>%.o: %.c $(DEPS)
-\\<nl>	$(CC) -c -o $@ $< $(CFLAGS)
-\\<nl>
-\\<nl>clean:
-\\<nl>	rm -f *.o
-\\<nl>	@echo \\"<- clean done!\\"
-\\<nl>
-\\<nl>realclean: clean
-\\<nl>	rm -f $(EXEC)
-\\<nl>	@echo \\"<- realclean done!\\"
-\\<nl>
-\\<nl>fclean: realclean
-\\<nl>
-\\<nl>re: realclean all
-\\<nl>
-\\<nl>.PHONY: all clean realclean fclean re
-\\<nl>
-\\"
+            " ## Template .make ##################################################
+        catch /^make$/
+            0put =
+                        \\"# Filename: foo
+                        \\<nl># Author: Olivier Sirol <czo@free.fr>
+                        \\<nl># License: GNU General Public License v2.0
+                        \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl># Last Modified: foo
+                        \\<nl># Edit Time: 0:00:00
+                        \\<nl># Description:
+                        \\<nl>#      Makefile:
+                        \\<nl>#      $@ Le nom de la cible
+                        \\<nl>#      $< Le nom de la première dépendance
+                        \\<nl>#      $^ La liste des dépendances
+                        \\<nl>#      $? La liste des dépendances plus récentes que la cible
+                        \\<nl>#      $* Le nom du fichier sans suffixe
+                        \\<nl>#
+                        \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
+                        \\<nl>#
+                        \\<nl>
+                        \\<nl>CC = gcc
+                        \\<nl>CFLAGS = -Wall -Wextra -Wpedantic
+                        \\<nl>#CFLAGS += -I ..
+                        \\<nl>#LIBS += -lX11 -lXext -lhistory  -lreadline
+                        \\<nl>
+                        \\<nl>SRC= $(wildcard *.c)
+                        \\<nl>
+                        \\<nl>DEPS = $(wildcard *.c) $(wildcard *.h)
+                        \\<nl>
+                        \\<nl>OBJ  = $(SRC:.c=.o)
+                        \\<nl>
+                        \\<nl>EXEC = go
+                        \\<nl>
+                        \\<nl>all: $(EXEC)
+                        \\<nl>	@echo \\"<- all done!\\"
+                        \\<nl>
+                        \\<nl>viewdeps: $(DEPS)
+                        \\<nl>	@echo $(DEPS)
+                        \\<nl>
+                        \\<nl>$(EXEC): $(OBJ)
+                        \\<nl>	$(CC) -o $@ $^ $(LIBS)
+                        \\<nl>
+                        \\<nl>%.o: %.c $(DEPS)
+                        \\<nl>	$(CC) -c -o $@ $< $(CFLAGS)
+                        \\<nl>
+                        \\<nl>clean:
+                        \\<nl>	rm -f *.o
+                        \\<nl>	@echo \\"<- clean done!\\"
+                        \\<nl>
+                        \\<nl>realclean: clean
+                        \\<nl>	rm -f $(EXEC)
+                        \\<nl>	@echo \\"<- realclean done!\\"
+                        \\<nl>
+                        \\<nl>fclean: realclean
+                        \\<nl>
+                        \\<nl>re: realclean all
+                        \\<nl>
+                        \\<nl>.PHONY: all clean realclean fclean re
+                        \\<nl>
+                        \\"
 
-" ## Template .perl###################################################
-catch /^perl$/
-    0put =
-\\"#! /usr/bin/perl -w
-\\<nl>#
-\\<nl># Filename: foo
-\\<nl># Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-\\<nl># License: GPL (http://www.gnu.org/copyleft/gpl.html)
-\\<nl># Created: VIMEX{=strftime(\\"%b %Y\\")}
-\\<nl># Last Change: now
-\\<nl># Edit Time: 0:00:01
-\\<nl># Description:
-\\<nl>#
-\\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-\\<nl>#
-\\<nl>
-\\<nl>undef $/;           # read in whole file, not just one line or paragraph
-\\<nl>while ( <> ) {
-\\<nl>
-\\<nl>    if (/<\s*title\s*>\s*(.*?)\s*<\s*\/\s*title\s*>/smi) {
-\\<nl>        $res = $1;
-\\<nl>        $res =~ s/\\n/ /smig;
-\\<nl>        $res =~ s/  */ /smig;
-\\<nl>        print \\"$res\\n\\";
-\\<nl>    }
-\\<nl>}
-\\"
+            " ## Template .perl###################################################
+        catch /^perl$/
+            0put =
+                        \\"#! /usr/bin/perl -w
+                        \\<nl>#
+                        \\<nl># Filename: foo
+                        \\<nl># Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
+                        \\<nl># License: GPL (http://www.gnu.org/copyleft/gpl.html)
+                        \\<nl># Created: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl># Last Change: now
+                        \\<nl># Edit Time: 0:00:01
+                        \\<nl># Description:
+                        \\<nl>#
+                        \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
+                        \\<nl>#
+                        \\<nl>
+                        \\<nl>undef $/;           # read in whole file, not just one line or paragraph
+                        \\<nl>while ( <> ) {
+                        \\<nl>
+                        \\<nl>    if (/<\s*title\s*>\s*(.*?)\s*<\s*\/\s*title\s*>/smi) {
+                        \\<nl>        $res = $1;
+                        \\<nl>        $res =~ s/\\n/ /smig;
+                        \\<nl>        $res =~ s/  */ /smig;
+                        \\<nl>        print \\"$res\\n\\";
+                        \\<nl>    }
+                        \\<nl>}
+                        \\"
 
-" ## Template .sh ####################################################
-catch /^sh$/
-    0put =
-\\"#!/bin/sh
-\\<nl>#
-\\<nl># Filename: foo
-\\<nl># Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-\\<nl># License: GPL (http://www.gnu.org/copyleft/gpl.html)
-\\<nl># Started: VIMEX{=strftime(\\"%b %Y\\")}
-\\<nl># Last Change: now
-\\<nl># Edit Time: 0:00:01
-\\<nl># Description:
-\\<nl>#
-\\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-\\<nl>#
-\\<nl>
-\\<nl>echo %%%%%%% Hello
-\\"
+            " ## Template .sh ####################################################
+        catch /^sh$/
+            0put =
+                        \\"#!/bin/sh
+                        \\<nl>#
+                        \\<nl># Filename: foo
+                        \\<nl># Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
+                        \\<nl># License: GPL (http://www.gnu.org/copyleft/gpl.html)
+                        \\<nl># Started: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl># Last Change: now
+                        \\<nl># Edit Time: 0:00:01
+                        \\<nl># Description:
+                        \\<nl>#
+                        \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
+                        \\<nl>#
+                        \\<nl>
+                        \\<nl>echo %%%%%%% Hello
+                        \\"
 
 
-catch /.*/
+        catch /.*/
 
-endtry
+        endtry
 
-endif
+    endif
     call TemplateMacro ()
     call TemplateGetTime ()
     call TemplateTimeStamp ()
@@ -1230,119 +1248,120 @@ endfunction
 " 2019/06/18: Modified by Olivier Sirol <czo@free.fr>
 " https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim
 
-autocmd FileType xdefaults setlocal commentstring=!\ %s
-autocmd FileType json setlocal commentstring=//\ %s
-autocmd FileType cfg setlocal commentstring=#\ %s
-
 if version >= 700
 
-let g:loaded_commentary = 1
+    autocmd FileType xdefaults setlocal commentstring=!\ %s
+    autocmd FileType json setlocal commentstring=//\ %s
+    autocmd FileType cpp setlocal commentstring=//\ %s
+    autocmd FileType cfg setlocal commentstring=#\ %s
 
-function! Commentary_surroundings() abort
-  return split(get(b:, 'commentary_format', substitute(substitute(substitute(
-        \ &commentstring, '^$', '%s', ''), '\S\zs%s',' %s', '') ,'%s\ze\S', '%s ', '')), '%s', 1)
-endfunction
+    let g:loaded_commentary = 1
 
-function! Commentary_strip_white_space(l,r,line) abort
-  let [l, r] = [a:l, a:r]
-  if l[-1:] ==# ' ' && stridx(a:line,l) == -1 && stridx(a:line,l[0:-2]) == 0
-    let l = l[:-2]
-  endif
-  if r[0] ==# ' ' && a:line[-strlen(r):] != r && a:line[1-strlen(r):] == r[1:]
-    let r = r[1:]
-  endif
-  return [l, r]
-endfunction
+    function! Commentary_surroundings() abort
+        return split(get(b:, 'commentary_format', substitute(substitute(substitute(
+                    \ &commentstring, '^$', '%s', ''), '\S\zs%s',' %s', '') ,'%s\ze\S', '%s ', '')), '%s', 1)
+    endfunction
 
-function! Commentary_go(...) abort
-  if !a:0
-    let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
-    return 'g@'
-  elseif a:0 > 1
-    let [lnum1, lnum2] = [a:1, a:2]
-  else
-    let [lnum1, lnum2] = [line("'["), line("']")]
-  endif
+    function! Commentary_strip_white_space(l,r,line) abort
+        let [l, r] = [a:l, a:r]
+        if l[-1:] ==# ' ' && stridx(a:line,l) == -1 && stridx(a:line,l[0:-2]) == 0
+            let l = l[:-2]
+        endif
+        if r[0] ==# ' ' && a:line[-strlen(r):] != r && a:line[1-strlen(r):] == r[1:]
+            let r = r[1:]
+        endif
+        return [l, r]
+    endfunction
 
-  let [l, r] = Commentary_surroundings()
-  let uncomment = 2
-  for lnum in range(lnum1,lnum2)
-    let line = matchstr(getline(lnum),'\S.*\s\@<!')
-    let [l, r] = Commentary_strip_white_space(l,r,line)
-    if len(line) && (stridx(line,l) || line[strlen(line)-strlen(r) : -1] != r)
-      let uncomment = 0
-    endif
-  endfor
+    function! Commentary_go(...) abort
+        if !a:0
+            let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
+            return 'g@'
+        elseif a:0 > 1
+            let [lnum1, lnum2] = [a:1, a:2]
+        else
+            let [lnum1, lnum2] = [line("'["), line("']")]
+        endif
 
-  for lnum in range(lnum1,lnum2)
-    let line = getline(lnum)
-    if strlen(r) > 2 && l.r !~# '\\'
-      let line = substitute(line,
-            \'\M'.r[0:-2].'\zs\d\*\ze'.r[-1:-1].'\|'.l[0].'\zs\d\*\ze'.l[1:-1],
-            \'\=substitute(submatch(0)+1-uncomment,"^0$\\|^-\\d*$","","")','g')
-    endif
-    if uncomment
-      let line = substitute(line,'\S.*\s\@<!','\=submatch(0)[strlen(l):-strlen(r)-1]','')
-    else
-      let line = substitute(line,'^\%('.matchstr(getline(lnum1),'^\s*').'\|\s*\)\zs.*\S\@<=','\=l.submatch(0).r','')
-    endif
-    call setline(lnum,line)
-  endfor
-  let modelines = &modelines
-  try
-    set modelines=0
-    silent doautocmd User CommentaryPost
-  finally
-    let &modelines = modelines
-  endtry
-  return ''
-endfunction
+        let [l, r] = Commentary_surroundings()
+        let uncomment = 2
+        for lnum in range(lnum1,lnum2)
+            let line = matchstr(getline(lnum),'\S.*\s\@<!')
+            let [l, r] = Commentary_strip_white_space(l,r,line)
+            if len(line) && (stridx(line,l) || line[strlen(line)-strlen(r) : -1] != r)
+                let uncomment = 0
+            endif
+        endfor
 
-function! Commentary_textobject(inner) abort
-  let [l, r] = Commentary_surroundings()
-  let lnums = [line('.')+1, line('.')-2]
-  for [index, dir, bound, line] in [[0, -1, 1, ''], [1, 1, line('$'), '']]
-    while lnums[index] != bound && line ==# '' || !(stridx(line,l) || line[strlen(line)-strlen(r) : -1] != r)
-      let lnums[index] += dir
-      let line = matchstr(getline(lnums[index]+dir),'\S.*\s\@<!')
-      let [l, r] = Commentary_strip_white_space(l,r,line)
-    endwhile
-  endfor
-  while (a:inner || lnums[1] != line('$')) && empty(getline(lnums[0]))
-    let lnums[0] += 1
-  endwhile
-  while a:inner && empty(getline(lnums[1]))
-    let lnums[1] -= 1
-  endwhile
-  if lnums[0] <= lnums[1]
-    execute 'normal! 'lnums[0].'GV'.lnums[1].'G'
-  endif
-endfunction
+        for lnum in range(lnum1,lnum2)
+            let line = getline(lnum)
+            if strlen(r) > 2 && l.r !~# '\\'
+                let line = substitute(line,
+                            \'\M'.r[0:-2].'\zs\d\*\ze'.r[-1:-1].'\|'.l[0].'\zs\d\*\ze'.l[1:-1],
+                            \'\=substitute(submatch(0)+1-uncomment,"^0$\\|^-\\d*$","","")','g')
+            endif
+            if uncomment
+                let line = substitute(line,'\S.*\s\@<!','\=submatch(0)[strlen(l):-strlen(r)-1]','')
+            else
+                let line = substitute(line,'^\%('.matchstr(getline(lnum1),'^\s*').'\|\s*\)\zs.*\S\@<=','\=l.submatch(0).r','')
+            endif
+            call setline(lnum,line)
+        endfor
+        let modelines = &modelines
+        try
+            set modelines=0
+            silent doautocmd User CommentaryPost
+        finally
+            let &modelines = modelines
+        endtry
+        return ''
+    endfunction
 
-command! -range -bar Commentary call Commentary_go(<line1>,<line2>)
-xnoremap <silent> <C-J>   :Commentary<CR>
-nnoremap <silent> <C-J>   :Commentary<CR>
+    function! Commentary_textobject(inner) abort
+        let [l, r] = Commentary_surroundings()
+        let lnums = [line('.')+1, line('.')-2]
+        for [index, dir, bound, line] in [[0, -1, 1, ''], [1, 1, line('$'), '']]
+            while lnums[index] != bound && line ==# '' || !(stridx(line,l) || line[strlen(line)-strlen(r) : -1] != r)
+                let lnums[index] += dir
+                let line = matchstr(getline(lnums[index]+dir),'\S.*\s\@<!')
+                let [l, r] = Commentary_strip_white_space(l,r,line)
+            endwhile
+        endfor
+        while (a:inner || lnums[1] != line('$')) && empty(getline(lnums[0]))
+            let lnums[0] += 1
+        endwhile
+        while a:inner && empty(getline(lnums[1]))
+            let lnums[1] -= 1
+        endwhile
+        if lnums[0] <= lnums[1]
+            execute 'normal! 'lnums[0].'GV'.lnums[1].'G'
+        endif
+    endfunction
 
-" c'est nouveau, pour l'instant, je ne comprend rien à ça....
+    command! -range -bar Commentary call Commentary_go(<line1>,<line2>)
+    xnoremap <silent> <C-J>   :Commentary<CR>
+    nnoremap <silent> <C-J>   :Commentary<CR>
 
-" command! -range -bar Commentary call s:go(<line1>,<line2>)
-" xnoremap <expr>   <Plug>Commentary     <SID>go()
-" nnoremap <expr>   <Plug>Commentary     <SID>go()
-" nnoremap <expr>   <Plug>CommentaryLine <SID>go() . '_'
-" onoremap <silent> <Plug>Commentary        :<C-U>call <SID>textobject(get(v:, 'operator', '') ==# 'c')<CR>
-" nnoremap <silent> <Plug>ChangeCommentary c:<C-U>call <SID>textobject(1)<CR>
-" nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"<CR>
+    " c'est nouveau, pour l'instant, je ne comprend rien à ça....
 
-" if !hasmapto('<Plug>Commentary') || maparg('gc','n') ==# ''
-"   xmap gc  <Plug>Commentary
-"   nmap gc  <Plug>Commentary
-"   omap gc  <Plug>Commentary
-"   nmap gcc <Plug>CommentaryLine
-"   if maparg('c','n') ==# '' && !exists('v:operator')
-"     nmap cgc <Plug>ChangeCommentary
-"   endif
-"   nmap gcu <Plug>Commentary<Plug>Commentary
-" endif
+    " command! -range -bar Commentary call s:go(<line1>,<line2>)
+    " xnoremap <expr>   <Plug>Commentary     <SID>go()
+    " nnoremap <expr>   <Plug>Commentary     <SID>go()
+    " nnoremap <expr>   <Plug>CommentaryLine <SID>go() . '_'
+    " onoremap <silent> <Plug>Commentary        :<C-U>call <SID>textobject(get(v:, 'operator', '') ==# 'c')<CR>
+    " nnoremap <silent> <Plug>ChangeCommentary c:<C-U>call <SID>textobject(1)<CR>
+    " nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"<CR>
+
+    " if !hasmapto('<Plug>Commentary') || maparg('gc','n') ==# ''
+    "   xmap gc  <Plug>Commentary
+    "   nmap gc  <Plug>Commentary
+    "   omap gc  <Plug>Commentary
+    "   nmap gcc <Plug>CommentaryLine
+    "   if maparg('c','n') ==# '' && !exists('v:operator')
+    "     nmap cgc <Plug>ChangeCommentary
+    "   endif
+    "   nmap gcu <Plug>Commentary<Plug>Commentary
+    " endif
 
 
 endif
@@ -1354,22 +1373,22 @@ endif
 
 if 0
 
-" Install vim-plug if not found
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-endif
+    " Install vim-plug if not found
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    endif
 
-call plug#begin('~/.vim/pack/vendor/start')
-Plug 'preservim/nerdtree'
-Plug 'godlygeek/tabular'
-Plug 'vim-scripts/colorizer'
-Plug 'Yggdroot/indentLine'
-Plug 'sainnhe/gruvbox-material'
-Plug 'morhetz/gruvbox'
-Plug 'sbdchd/neoformat'
-call plug#end()
-" Then reload .vimrc and :PlugInstall to install plugins.
+    call plug#begin('~/.vim/pack/vendor/start')
+    Plug 'preservim/nerdtree'
+    Plug 'godlygeek/tabular'
+    Plug 'vim-scripts/colorizer'
+    Plug 'Yggdroot/indentLine'
+    Plug 'sainnhe/gruvbox-material'
+    Plug 'morhetz/gruvbox'
+    Plug 'sbdchd/neoformat'
+    call plug#end()
+    " Then reload .vimrc and :PlugInstall to install plugins.
 
 endif
 

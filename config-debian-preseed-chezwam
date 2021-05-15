@@ -2,10 +2,10 @@
 #
 # Filename: config-debian-preseed-chezwam
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: jeudi 08 avril 2021, 19:37
-# Edit Time: 7:17:43
+# Last Modified: samedi 15 mai 2021, 15:26
+# Edit Time: 7:18:57
 # Description:
 #
 #   debian 10 preseed update
@@ -24,11 +24,11 @@
 # upgrade:
 #  dpkg-reconfigure unattended-upgrades
 #   /etc/apt/apt.conf.d/20auto-upgrades
-#   /etc/apt/listchanges.conf 
+#   /etc/apt/listchanges.conf
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.9 2021/04/08 17:37:28 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.10 2021/05/15 13:27:11 czo Exp $
 
 (
 export LANG=C
@@ -55,7 +55,7 @@ echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
 # apt-get $QUIET dist-upgrade
 # apt-get $QUIET clean
 
-# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp 
+# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp
 
 echo "##== change config  ==================================================##"
 
@@ -138,5 +138,5 @@ echo "##== motd ===========================================================##"
 
 echo "##== end! ===========================================================##"
 
-) > /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log 2>&1
+) 2>&1 | tee /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log
 

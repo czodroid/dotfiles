@@ -2,10 +2,10 @@
 #
 # Filename: config-fast-copy
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mardi 16 février 2021, 21:24
-# Edit Time: 5:00:40
+# Last Modified: samedi 15 mai 2021, 13:13
+# Edit Time: 5:01:38
 # Description:
 #
 #   copy my config files
@@ -18,7 +18,7 @@
 #       wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #       wget --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #
-# $Id: config-fast-copy,v 1.23 2021/02/16 20:25:54 czo Exp $
+# $Id: config-fast-copy,v 1.24 2021/05/15 13:27:11 czo Exp $
 
 # you must do a "cd" before running this script
 
@@ -28,7 +28,7 @@ mkdir -p  .config/htop
 mkdir -p  .config/mc
 chmod 700 .config/mc
 
-for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
+for f in .Xresources .bashrc .cshrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
 do
   echo "   <- $f"
   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -o $f

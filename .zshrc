@@ -4,10 +4,10 @@
 #
 # Filename: .zshrc
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mercredi 07 avril 2021, 14:51
-# Edit Time: 129:30:22
+# Last Modified: samedi 15 mai 2021, 13:09
+# Edit Time: 130:13:46
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover
@@ -16,7 +16,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.270 2021/04/07 12:52:14 czo Exp $
+# $Id: .zshrc,v 1.283 2021/05/15 11:11:08 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -30,7 +30,7 @@ setopt COMBINING_CHARS        # Displays combining characters correctly
 setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt GLOB_DOTS              # Patterns may match leading dots
+setopt NO_GLOB_DOTS           # Patterns may match leading dots
 setopt HIST_EXPIRE_DUPS_FIRST # Duplicate history entries lost first
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
@@ -47,7 +47,6 @@ setopt PUSHD_IGNORE_DUPS      # Don’t push dir multiply on stack
 setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
 setopt RM_STAR_SILENT         # Don’t warn on rm *
 setopt SH_WORD_SPLIT          # Split non­array variables yuckily
-setopt ZLE                    # Line editor used to input lines
 
 export TMPDIR=${TMPDIR-/tmp}
 #android
@@ -76,111 +75,6 @@ WATCHFMT='%n %a %l from %m at %t.'
 export TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
 
 
-##======= Platform ===================================================##
-
-PLATFORM=Unknown
-
-case $(uname 2>/dev/null) in
-
-    Linux)
-        case $(uname -m 2>/dev/null) in
-            i*86)   PLATFORM=Linux_x86 ;;
-            x86_64) PLATFORM=Linux ;;
-            mips)   PLATFORM=Linux_mips ;;
-            arm*)   PLATFORM=Linux_arm ;;
-            aarch*) PLATFORM=Linux_aarch ;;
-        esac
-        ;;
-
-    SunOS)
-        case $(uname -r 2>/dev/null) in
-            5*) PLATFORM=Solaris ;;
-            *)  PLATFORM=SunOS ;;
-        esac
-        ;;
-
-    FreeBSD) PLATFORM=FreeBSD ;;
-
-    OpenBSD) PLATFORM=OpenBSD ;;
-
-    NetBSD)  PLATFORM=NetBSD ;;
-
-    HP-UX)   PLATFORM=HPUX ;;
-
-    OSF1)    PLATFORM=OSF ;;
-
-    CYGWIN)  PLATFORM=Cygwin ;;
-
-    Darwin)  PLATFORM=Darwin ;;
-
-    *)       PLATFORM=Unknown ;;
-
-esac
-
-export PLATFORM
-
-##======= Paths ======================================================##
-
-# Super big path pour Linux, FreeBSD, SunOS, Solaris
-
-#FIXME: typeset -U for bash
-export PATH=/system/bin:/system/xbin:/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$HOME/bin:$HOME/.local/bin:$HOME/local/${PLATFORM}/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
-
-## config cpan perl libs not in distro
-#export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
-#export PERL_MB_OPT="--install_base $HOME/perl5";
-#export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
-#export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-gnu-thread-multi-64int:$HOME/perl5/lib/perl5";
-#export PATH="$HOME/perl5/bin:$PATH";
-
-## config android
-export PATH=$HOME/Android/Sdk/tools:${PATH}
-export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
-export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
-export PATH=/opt/android-studio/bin:${PATH}
-
-## config termux for android
-export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:${PATH}
-export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
-
-## config macos brew
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
-
-# there was a time when I needed it, but I can't remember anymore...
-#typeset -U MANPATH=$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH
-#export MANPATH
-
-# export LD_RUN_PATH=/users/soft5/gnu/bazar/archi/Linux/lib/wxgtk/lib
-
-export -U PATH
-
-##======= Environment Variables ======================================##
-
-{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
-export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
-
-{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
-export USER
-
-export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.7z=91:*.ace=91:*.alz=91:*.arc=91:*.arj=91:*.bz2=91:*.bz=91:*.cab=91:*.cpio=91:*.deb=91:*.dwm=91:*.dz=91:*.ear=91:*.esd=91:*.gz=91:*.jar=91:*.lha=91:*.lrz=91:*.lz4=91:*.lz=91:*.lzh=91:*.lzma=91:*.lzo=91:*.rar=91:*.rpm=91:*.rz=91:*.sar=91:*.swm=91:*.t7z=91:*.tar=91:*.taz=91:*.tbz2=91:*.tbz=91:*.tgz=91:*.tlz=91:*.txz=91:*.tz=91:*.tzo=91:*.tzst=91:*.war=91:*.wim=91:*.xz=91:*.z=91:*.Z=91:*.zip=91:*.zoo=91:*.zst=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.oga=36:*.ogg=36:*.opus=36:*.ra=36:*.spx=36:*.wav=36:*.xspf=36:*.doc=92:*.docx=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.ppt=92:*.pptx=92:*.xls=92:*.xlsx=92:*.bat=93:*.c=93:*.C=93:*.cc=93:*.cl=93:*.cmd=93:*.coffee=93:*.cpp=93:*.csh=93:*.css=93:*.csv=93:*.cxx=93:*.el=93:*.erb=93:*.f90=93:*.f=93:*.F=93:*.go=93:*.h=93:*.haml=93:*.hpp=93:*.hs=93:*.htm=93:*.html=93:*.java=93:*.js=93:*.l=93:*.latex=93:*.less=93:*.log=93:*.man=93:*.md=93:*.n=93:*.objc=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.pod=93:*.py=93:*.rb=93:*.rdf=93:*.sass=93:*.scss=93:*.sh=93:*.shtml=93:*.sql=93:*.sv=93:*.svh=93:*.tex=93:*.txt=93:*.v=93:*.vh=93:*.vhd=93:*.vim=93:*.xml=93:*.zsh=93'
-
-export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-export PAGER=less
-
-export PGPPATH=~/.pgp
-
-export EDITOR=vim
-export CVSEDITOR=vim
-export RSYNC_RSH=ssh
-
-export CVSROOT=ananas:/tank/data/czo/CzoDoc/cvsroot
-
-case $(domainname 2>/dev/null) in
-    NIS-CZO*) export PRINTER=U172-magos ;;
-    *) export PRINTER=BW_Pigeonnier_ananas ;;
-esac
-
-export HTML_TIDY=$HOME/.tidyrc
 
 ##======= Autoload functions =========================================##
 
@@ -246,7 +140,7 @@ bindkey -e
 # Czo defines
 bindkey -s "\C-xr"  "^Qsource ~/.zshrc^M"
 bindkey -s "\C-xx"  "^Qbindkey^M"
- 
+
 bindkey "\e[Z"     reverse-menu-complete
 
 bindkey "\e[C"     forward-char
@@ -296,7 +190,6 @@ bindkey "\e[3;3~"  delete-word
 bindkey "\M-h"     backward-delete-word
 
 bindkey "\e\e"     kill-buffer
-
 bindkey "\em"      copy-prev-shell-word
 
 
@@ -306,7 +199,7 @@ bindkey "\em"      copy-prev-shell-word
 r-delregion() {
   if ((REGION_ACTIVE)) then
      zle kill-region
-  else 
+  else
     local widget_name=$1
     shift
     zle $widget_name -- $@
@@ -367,6 +260,180 @@ for key     kcap   seq        mode   widget (
   bindkey "${terminfo[$kcap]-$seq}" key-$key
 }
 
+##======= Completions ================================================##
+
+# WARNING: it doesn't work...
+# error in completer _complete _ignored with no correct or approximate
+
+autoload -Uz compinit
+compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
+#compinit -C
+
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' accept-exact-dirs true
+# cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zcomp
+# for use with expand-or-complete
+#zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
+#zstyle ':completion:*' completer _complete _match _prefix:-complete _list _ignored
+zstyle ':completion:*' completer _complete _ignored
+# _list anywhere to the completers always only lists completions on first tab
+zstyle ':completion:*:prefix-complete:*' completer _complete
+zstyle ':completion:*:prefix-approximate:*' completer _approximate
+# configure the match completer, with original set to only it doesn't act like a `*' was inserted at the cursor position
+zstyle ':completion:*:match:*' original only
+# first case insensitive completion, then case-sensitive partial-word c., then case-insensitive (with -_. as possible anchors)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[-_.]=* r:|=*' 'm:{a-z}={A-Z} r:|[-_.]=* r:|=*'
+# allow 2 erros in correct completer
+zstyle ':completion:*:correct:*' max-errors 2 not-numeric
+# allow one error for every three characters typed in approximate completer
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) numeric )'
+
+# meu selection with 2 candidates or more
+zstyle ':completion:*' menu select=2
+# Add colors in completions
+#zmodload -i zsh/complist
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# messages/warnings format
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:corrections'  format $' %{\e[0;93m%}-- %d (errors: %e) --%{\e[m%}'
+zstyle ':completion:*:descriptions' format $' %{\e[0;92m%}-- %d --%{\e[m%}'
+zstyle ':completion:*:messages'     format $' %{\e[0;91m%}-- %d --%{\e[m%}'
+zstyle ':completion:*:warnings'     format $' %{\e[0;93m%}-- no matches for: %d --%{\e[m%}'
+# make completions appear below the description of which listing they come from
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:default' select-prompt %SScrolling active: current selection at %p%s
+
+# completion of commands
+zstyle ':completion:*:*:kill:*' command 'ps -u$USER -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:*:killall:*' command 'ps -u$USER -o cmd'
+#zstyle ':completion:*:(ssh|scp):*' tag-order    hosts-ports-users hosts users-hosts users hosts
+#zstyle ':completion:*:(ssh|scp):*' group-order  hosts-ports-users hosts users-hosts users hosts
+
+if [ "$PLATFORM" = "Cygwin" ]
+then
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+    zstyle ':completion:*:complete:-command-:*:commands' ignored-patterns '(^(*.(#i)(exe|com|bat|pl)))'
+    zstyle ':completion:*' completer _complete _ignored
+fi
+
+if [ "$PLATFORM" = "Darwin" ]
+then
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+fi
+
+
+##======= Platform ===================================================##
+
+PLATFORM=Unknown
+
+case $(uname 2>/dev/null) in
+
+    Linux)
+        case $(uname -m 2>/dev/null) in
+            i*86)   PLATFORM=Linux_x86 ;;
+            x86_64) PLATFORM=Linux ;;
+            mips)   PLATFORM=Linux_mips ;;
+            arm*)   PLATFORM=Linux_arm ;;
+            aarch*) PLATFORM=Linux_aarch ;;
+        esac
+        ;;
+
+    SunOS)
+        case $(uname -r 2>/dev/null) in
+            5*) PLATFORM=Solaris ;;
+            *)  PLATFORM=SunOS ;;
+        esac
+        ;;
+
+    FreeBSD) PLATFORM=FreeBSD ;;
+
+    OpenBSD) PLATFORM=OpenBSD ;;
+
+    NetBSD)  PLATFORM=NetBSD ;;
+
+    HP-UX)   PLATFORM=HPUX ;;
+
+    OSF1)    PLATFORM=OSF ;;
+
+    CYGWIN)  PLATFORM=Cygwin ;;
+
+    Darwin)  PLATFORM=Darwin ;;
+
+    *)       PLATFORM=Unknown ;;
+
+esac
+
+export PLATFORM
+
+
+##======= Paths ======================================================##
+
+# Super big path pour Linux, FreeBSD, SunOS, Solaris
+
+#FIXME: typeset -U for bash
+export PATH=/system/bin:/system/xbin:/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$HOME/bin:$HOME/.local/bin:$HOME/local/${PLATFORM}/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+
+## config cpan perl libs not in distro
+#export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
+#export PERL_MB_OPT="--install_base $HOME/perl5";
+#export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
+#export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-gnu-thread-multi-64int:$HOME/perl5/lib/perl5";
+#export PATH="$HOME/perl5/bin:$PATH";
+
+## config android
+export PATH=$HOME/Android/Sdk/tools:${PATH}
+export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
+export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
+export PATH=/opt/android-studio/bin:${PATH}
+
+## config termux for android
+export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:${PATH}
+export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+
+## config macos brew
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
+
+# there was a time when I needed it, but I can't remember anymore...
+#typeset -U MANPATH=$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH
+#export MANPATH
+
+# export LD_RUN_PATH=/users/soft5/gnu/bazar/archi/Linux/lib/wxgtk/lib
+
+export -U PATH
+
+
+##======= Environment Variables ======================================##
+
+{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
+export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
+
+{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
+export USER
+
+export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.7z=91:*.ace=91:*.alz=91:*.arc=91:*.arj=91:*.bz2=91:*.bz=91:*.cab=91:*.cpio=91:*.deb=91:*.dwm=91:*.dz=91:*.ear=91:*.esd=91:*.gz=91:*.jar=91:*.lha=91:*.lrz=91:*.lz4=91:*.lz=91:*.lzh=91:*.lzma=91:*.lzo=91:*.rar=91:*.rpm=91:*.rz=91:*.sar=91:*.swm=91:*.t7z=91:*.tar=91:*.taz=91:*.tbz2=91:*.tbz=91:*.tgz=91:*.tlz=91:*.txz=91:*.tz=91:*.tzo=91:*.tzst=91:*.war=91:*.wim=91:*.xz=91:*.z=91:*.Z=91:*.zip=91:*.zoo=91:*.zst=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.oga=36:*.ogg=36:*.opus=36:*.ra=36:*.spx=36:*.wav=36:*.xspf=36:*.doc=92:*.docx=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.ppt=92:*.pptx=92:*.xls=92:*.xlsx=92:*.bat=93:*.c=93:*.C=93:*.cc=93:*.cl=93:*.cmd=93:*.coffee=93:*.cpp=93:*.csh=93:*.css=93:*.csv=93:*.cxx=93:*.el=93:*.erb=93:*.f90=93:*.f=93:*.F=93:*.go=93:*.h=93:*.haml=93:*.hpp=93:*.hs=93:*.htm=93:*.html=93:*.java=93:*.js=93:*.l=93:*.latex=93:*.less=93:*.log=93:*.man=93:*.md=93:*.n=93:*.objc=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.pod=93:*.py=93:*.rb=93:*.rdf=93:*.sass=93:*.scss=93:*.sh=93:*.shtml=93:*.sql=93:*.sv=93:*.svh=93:*.tex=93:*.txt=93:*.v=93:*.vh=93:*.vhd=93:*.vim=93:*.xml=93:*.zsh=93'
+
+export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
+export PAGER=less
+export PERLDOC_PAGER='less -R'
+
+export PGPPATH=~/.pgp
+
+export EDITOR=vim
+export CVSEDITOR=vim
+export RSYNC_RSH=ssh
+
+export CVSROOT=ananas:/tank/data/czo/CzoDoc/cvsroot
+
+case $(domainname 2>/dev/null) in
+    NIS-CZO*) export PRINTER=U172-magos ;;
+    *) export PRINTER=BW_Pigeonnier_ananas ;;
+esac
+
+export HTML_TIDY=$HOME/.tidyrc
+
+
 ##======= Aliases & Functions ========================================##
 
 unalias -m '*'
@@ -375,14 +442,14 @@ alias st='source ~/.zshrc'
 alias hload='fc -R'
 alias hsave='fc -AI'
 alias hclear='local HISTSIZE=0'
-alias hclearlog="echo > /var/log/wtmp ; echo > /var/log/lastlog ; local HISTSIZE=0 ; "
+alias hclearlog='echo > /var/log/wtmp ; echo > /var/log/lastlog ; local HISTSIZE=0'
 
 alias hi='fc -l 1'
 alias hgrep='fc -l 1 | grep'
 
 alias where='whence -ca'
-
-alias t=where
+alias t='whence -ca'
+alias eq='whence -p'
 v() { set | grep -ai $1; }
 
 # csh compatibility env set
@@ -447,6 +514,7 @@ alias llexe='find . -type f -perm +1 -print'
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1"  ; cd "$1"; }
 ff() { find . -iname "*$1*"; }
+ff_case_sensitive() { find . -name "*$1*"; }
 
 alias rmf='rm -fr'
 alias rmexe='find . -perm +1 -print -exec rm {} \;'
@@ -468,6 +536,22 @@ alias nvim='nvim -u ~/.vimrc'
 alias ne='emacs -nw'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
+
+alias wgetr='wget -m -np -k -r'
+alias wgetp='wget -m -l 1 --np -k'
+
+ncd() {
+    $HOME/local/$PLATFORM/bin/ncd $*
+    E=$?
+    if [ $E -eq 0 ]; then
+        cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"
+    fi
+    return $E
+}
+
+alias slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
+alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
+alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
 
 ## CAO VLSI IBP.FR
 alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
@@ -502,49 +586,6 @@ alias debug='zsh -v -x -c'
 tsc() { find . -name "*.c" -type f -print -exec grep -n $* {} \;; }
 tsh() { find . -name "*.h" -type f -print -exec grep -n $* {} \;; }
 
-alias wgetr='wget -m -np -k -r'
-alias wgetp='wget -m -l 1 --np -k'
-
-ncd() {
-    $HOME/local/$PLATFORM/bin/ncd $*
-    E=$?
-    if [ $E -eq 0 ]; then
-        cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"
-    fi
-    return $E
-}
-
-mccd() {
-    MC_USER=$(id | sed 's/[^(]*(//;s/).*//' 2>/dev/null)
-    MC_PWD_FILE="${TMPDIR}/mc-$MC_USER/mc.pwd.$$"
-    /usr/bin/mc -P "$MC_PWD_FILE" "$@"
-
-    if test -r "$MC_PWD_FILE"; then
-        MC_PWD="$(cat "$MC_PWD_FILE" 2>/dev/null)"
-        if test -n "$MC_PWD" && test -d "$MC_PWD"; then
-            cd "$MC_PWD"
-        fi
-        unset MC_PWD
-    fi
-
-    rm -f "$MC_PWD_FILE"
-    unset MC_PWD_FILE
-}
-
-conf() {
-    echo "This machine is a $(uname -a 2>/dev/null)"
-    echo ""
-    echo "Settings :"
-    echo "    PLATFORM     = $PLATFORM"
-    echo "    PRINTER      = $PRINTER"
-    echo "    CVSROOT      = $CVSROOT"
-    echo "    DISPLAY      = $DISPLAY"
-    echo "    KDEDIR       = $KDEDIR"
-    echo "    LIMIT        = $(ulimit 2>/dev/null)"
-    echo ""
-}
-
-
 ## GEOMAGNET
 alias matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
 alias matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
@@ -559,11 +600,6 @@ alias sshvoyelle='ssh -p40024 lartha'
 
 # ubuntu
 ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
-
-alias slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
-alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
-alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
-
 
 ## NEW
 
@@ -583,8 +619,8 @@ xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
 xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
 
 # passwd_sha512() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..16) ."\$") . "\n"' $1; }
-passwd_md5='openssl passwd -1 '
-passwd_sha512='openssl passwd -6 '
+alias passwd_md5='openssl passwd -1 '
+alias passwd_sha512='openssl passwd -6 '
 
 sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
@@ -670,73 +706,11 @@ alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME
 
 alias ssha='eval $(ssh-agent); ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 
-# fileencoding 
+# fileencoding
 # iconv -t utf8 -f iso88591 1rjm_ctemp -o 1rjm_ctemp
 alias utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
 
 
-
-##======= Completions ================================================##
-
-# WARNING: it doesn't work...
-# error in completer _complete _ignored with no correct or approximate
-
-autoload -Uz compinit 
-compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
-
-zstyle ':completion:*' rehash true
-zstyle ':completion:*' accept-exact-dirs true 
-# cache
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zcompcache
-# for use with expand-or-complete
-#zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
-#zstyle ':completion:*' completer _complete _match _prefix:-complete _list _ignored
-zstyle ':completion:*' completer _complete _ignored
-# _list anywhere to the completers always only lists completions on first tab
-zstyle ':completion:*:prefix-complete:*' completer _complete
-zstyle ':completion:*:prefix-approximate:*' completer _approximate
-# configure the match completer, with original set to only it doesn't act like a `*' was inserted at the cursor position
-zstyle ':completion:*:match:*' original only
-# first case insensitive completion, then case-sensitive partial-word c., then case-insensitive (with -_. as possible anchors)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[-_.]=* r:|=*' 'm:{a-z}={A-Z} r:|[-_.]=* r:|=*'
-# allow 2 erros in correct completer
-zstyle ':completion:*:correct:*' max-errors 2 not-numeric
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) numeric )'
-
-# meu selection with 2 candidates or more
-zstyle ':completion:*' menu select=2
-# Add colors in completions
-#zmodload -i zsh/complist
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# messages/warnings format
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:corrections'  format $' %{\e[0;93m%}-- %d (errors: %e) --%{\e[m%}'
-zstyle ':completion:*:descriptions' format $' %{\e[0;92m%}-- %d --%{\e[m%}'
-zstyle ':completion:*:messages'     format $' %{\e[0;91m%}-- %d --%{\e[m%}'
-zstyle ':completion:*:warnings'     format $' %{\e[0;93m%}-- no matches for: %d --%{\e[m%}'
-# make completions appear below the description of which listing they come from
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:default' select-prompt %SScrolling active: current selection at %p%s
-
-# completion of commands
-zstyle ':completion:*:*:kill:*' command 'ps -u$USER -o pid,%cpu,tty,cputime,cmd'
-zstyle ':completion:*:*:killall:*' command 'ps -u$USER -o cmd'
-#zstyle ':completion:*:(ssh|scp):*' tag-order    hosts-ports-users hosts users-hosts users hosts
-#zstyle ':completion:*:(ssh|scp):*' group-order  hosts-ports-users hosts users-hosts users hosts
-
-if [ "$PLATFORM" = "Cygwin" ]
-then
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-    zstyle ':completion:*:complete:-command-:*:commands' ignored-patterns '(^(*.(#i)(exe|com|bat|pl)))'
-    zstyle ':completion:*' completer _complete _ignored
-fi
-
-if [ "$PLATFORM" = "Darwin" ]
-then
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-fi
 
 ##======= Main ======================================================##
 
@@ -764,6 +738,11 @@ preexec() {
     title "$cmd[1]:t $cmd[2,-1] (${USER}@${HOSTNAME})"
 }
 
+zshaddhistory() {
+    print -sr "${(z)1%%$'\n'}"
+    return 1
+}
+
 if [[ -x /usr/lib/command-not-found ]] ; then
     command_not_found_handler() {
         [[ -x /usr/lib/command-not-found ]] || return 1
@@ -774,18 +753,18 @@ fi
 #HOSTNAME=czophone
 #USER=root
 
-USER_HASH=$( echo -n "AA$USER"     | cksum | cut -d" " -f1 )
-HOST_HASH=$( echo -n "JC$HOSTNAME" | cksum | cut -d" " -f1 )
+USER_HASH=$( echo -n "AA$USER"     | cksum | awk '{ print $1 }')
+HOST_HASH=$( echo -n "JC$HOSTNAME" | cksum | awk '{ print $1 }')
 
-USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2) % 6 ) + 1 ))
+USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2 ) % 6 ) + 1 ))
 # export for screen
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
-export HOST_PROMPT_SIZE=%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))=
+export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.270 2021/04/07 12:52:14 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.283 2021/05/15 11:11:08 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
-PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;92m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited

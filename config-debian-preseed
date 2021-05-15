@@ -2,10 +2,10 @@
 #
 # Filename: config-debian-preseed
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: August 2020
-# Last Modified: dimanche 28 mars 2021, 22:29
-# Edit Time: 1:08:36
+# Last Modified: samedi 15 mai 2021, 13:17
+# Edit Time: 1:08:44
 # Description:
 #
 #   debian preseed/late_command, single or double quote forbiden in pxe/append
@@ -13,13 +13,13 @@
 #   wget --no-check-certificate -qO- https://git.io/JkHdk | sh
 #   
 #
-# $Id: config-debian-preseed,v 1.19 2021/03/28 20:29:23 czo Exp $
+# $Id: config-debian-preseed,v 1.20 2021/05/15 13:27:11 czo Exp $
 
 mkdir -p  .config/htop
 mkdir -p  .config/mc
 chmod 700 .config/mc
 
-for f in .Xresources .bashrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
+for f in .Xresources .bashrc .cshrc .cvsrc .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc czolsb .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
 do
   wget --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 done

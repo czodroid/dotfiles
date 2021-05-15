@@ -4,13 +4,14 @@
 #
 # Filename: .screenrc
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
-# Last Modified: lundi 19 octobre 2020, 02:41
-# Edit Time: 23:11:58
-# Description: screen conf file
+# Last Modified: mercredi 12 mai 2021, 00:23
+# Edit Time: 23:12:20
+# Description: 
+#                 screen conf file
 #
-# $Id: .screenrc,v 1.39 2020/10/19 00:41:59 czo Exp $
+# $Id: .screenrc,v 1.40 2021/05/12 08:54:49 czo Exp $
 
 #term xterm-256color
 
