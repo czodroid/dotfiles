@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 15 mai 2021, 21:36
-# Edit Time: 130:16:33
+# Last Modified: mercredi 19 mai 2021, 15:07
+# Edit Time: 130:19:15
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.286 2021/05/15 19:36:46 czo Exp $
+# $Id: .zshrc,v 1.292 2021/05/19 13:28:07 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -438,19 +438,18 @@ export HTML_TIDY=$HOME/.tidyrc
 
 unalias -m '*'
 
-alias st='source ~/.zshrc'
-alias hload='fc -R'
-alias hsave='fc -AI'
-alias hclear='local HISTSIZE=0'
-alias hclearlog='echo > /var/log/wtmp ; echo > /var/log/lastlog ; local HISTSIZE=0'
+#alias where='whence -ca'
+alias t='whence -ca'
+alias eq='whence -p'
 
+alias st='source ~/.zshrc'
 alias hi='fc -l 1'
 alias hgrep='fc -l 1 | grep'
 
-alias where='whence -ca'
-alias t='whence -ca'
-alias eq='whence -p'
-v() { set | grep -ai $1; }
+alias history_load='fc -R'
+alias history_save='fc -AI'
+alias history_clear='local HISTSIZE=0'
+alias history_clear_all_log='echo > /var/log/wtmp ; echo > /var/log/lastlog ; local HISTSIZE=0'
 
 # csh compatibility env set
 setenv() { export $1=$2; }
@@ -510,7 +509,7 @@ alias l='ls -alrt'
 
 alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
-alias llexe='find . -type f -perm +1 -print'
+alias llx='find . -type f -perm -1 -print'
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1" ; cd "$1"; }
 ff() { find . -iname "*$1*"; }
@@ -536,90 +535,10 @@ alias ne='emacs -nw'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
+n() { \ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"; fi; }
+
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
-
-ncd() { \ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"; fi; }
-
-## CAO VLSI IBP.FR
-alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
-alias xroot='xv -root +noresetroot -quit'
-alias xv='\xv -perfect -8'
-alias xload='\xload -hl red'
-alias key='perl -MCrypt::SKey -e key'
-alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
-
-alias imprime='a2ps -2 -s2'
-alias imprimeman='a2ps -2 -s2 -man'
-alias imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
-
-alias xmbk='eval $(\xmbk -c 2>/dev/null)'
-alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
-alias fing='finger | sort | uniq -w 15'
-
-alias sun='export TERM=sun-cmd ; echo TERM=$TERM'
-alias vt100='export TERM=vt100 ; echo TERM=$TERM'
-alias xte='export TERM=xterm ; echo TERM=$TERM'
-alias xts='export TERM=screen ; echo TERM=$TERM'
-alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
-alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
-
-
-## GEOMAGNET
-alias matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
-alias matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
-alias ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
-alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
-
-alias bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
-alias sshlaga='ssh -p30022 lartha'
-alias sshaberlour='ssh -p40022 lartha'
-alias sshgp-vm110='ssh -p40023 lartha'
-alias sshvoyelle='ssh -p40024 lartha'
-
-# ubuntu
-ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
-
-## NEW
-
-listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
-
-alias mountlist='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
-alias rsyncsys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
-alias rsyncfull='rsync --numeric-ids -S -H --delete -av'
-alias rsyncfat='rsync --no-p --no-g --modify-window=1 --delete -av'
-
-alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
-alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
-
-acrypt() { echo $1; }
-xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
-xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
-
-# passwd_sha512() { perl -e 'print crypt($ARGV[0],"\$6\$". join("", map { (a..z,A..Z,0..9,".","/")[rand 64] } 1..16) ."\$") . "\n"' $1; }
-alias passwd_md5='openssl passwd -1 '
-alias passwd_sha512='openssl passwd -6 '
-
-sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
-sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
-
-cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
-cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec cvs add '{}' \; \); }
-
-alias cvu='cd ~/etc ; cvs up ; cd -'
-alias cvd='cd ~/etc ; cvs diff ; cd -'
-alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
-
-alias gitl='git pull'
-alias gits='git status'
-alias gitd='git diff'
-alias gitf='git fetch; git diff master origin/master'
-alias gita='git add .'
-alias gitc='git commit -mok -a'
-alias gitp='git push'
-
-alias whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
 
 # vieux truc 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
@@ -629,10 +548,53 @@ alias tara='\tar -czf'
 alias tarx='\tar -xf'
 alias tarxiso='cmake -E tar xf'
 #alias tarxiso='bsdtar -xf'
-#tarxiso() { [ -f $1 ] && { \mkdir -p "${1%%.iso}" ; cd "${1%%.iso}" ; cmake -E tar xf ../$1; } || echo "$1 doesn't exist..."; }
 
-# android
-alias asu='su --preserve-environment -c "LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib exec /data/data/com.termux/files/usr/bin/bash" --login'
+listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
+
+alias ipl='echo $(wget -q -O- http://czo.free.fr/myipa.php)'
+alias ipa='ip a | grep "inet "'
+alias ifa='ifconfig | grep "inet "'
+alias screena='screen -d -R'
+alias tmuxa='tmux attach -d || tmux new'
+
+alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
+alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_full='rsync --numeric-ids -S -H --delete -av'
+alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av'
+
+alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
+alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
+alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
+
+alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
+
+alias passwd_md5='openssl passwd -1 '
+alias passwd_sha512='openssl passwd -6 '
+alias ssha='eval $(ssh-agent); ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
+alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+
+alias mytree='tree -adn | grep -v CVS'
+alias cvu='cd ~/etc ; cvs up ; cd -'
+alias cvd='cd ~/etc ; cvs diff ; cd -'
+alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
+cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
+cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
+
+alias gitl='git pull'
+alias gits='git status'
+alias gitd='git diff'
+alias gitf='git fetch; git diff master origin/master'
+alias gita='git add .'
+alias gitc='git commit -mok -a'
+alias gitp='git push'
+
+alias debconf_after_install='F=preseed_$(date +%Y-%m-%d)_$$.txt; debconf-get-selections --installer > $F ; debconf-get-selections >> $F'
+
+alias pkg_inst_debian="aptitude search '~i !~M' -F %p | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_debian2="dpkg-query -W --showformat='${Package}\n' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
 alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
@@ -640,60 +602,81 @@ alias AI='aptitude install'
 alias AP='aptitude purge'
 alias AS='aptitude search'
 
+# redhat, fedora 
+alias YU='yum update'
+alias YI='yum install'
+alias YP='yum remove'
+alias YS='yum search'
+
 # archlinux
 alias PU='pacman -Syu'
 alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
 
-# redhat: yum, dnf
 # suse: zypper
 # freebsd: pkg
 # netbsd: pkgin
-# update, install, remove, search
 
-# OOTHER
-alias mytree='tree -adn | grep -v CVS'
-alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-alias batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
-alias pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
-alias qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
-alias czomac='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
-ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
-alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+alias sun='export TERM=sun-cmd ; echo TERM=$TERM'
+alias vt100='export TERM=vt100 ; echo TERM=$TERM'
+alias xte='export TERM=xterm ; echo TERM=$TERM'
+alias xts='export TERM=screen ; echo TERM=$TERM'
+alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
+alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
-alias color16='for i in $(seq 0 15) ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done'
+alias whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
+alias show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+alias show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
+alias mac_czo='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
+alias kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias proxmox_qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
+
 alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n"; for i in $(seq 8 15); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n";'
-alias color256='for i in $(seq 0 255) ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done'
 alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
 alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
-
-alias ipl='echo $(wget -q -O- http://czo.free.fr/myipa.php)'
-alias ipa='ip a | grep "inet "'
-alias ifa='ifconfig | grep "inet "'
-alias kfm='setxkbmap fr mac'
-alias tmuxa='tmux attach -d || tmux new'
-alias screena='screen -d -R'
-alias edl='export DISPLAY=localhost:0'
 
 alias slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
 alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
 alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
-
-alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
-alias debconf_after_install='F=preseed_$(date +%Y-%m-%d)_$$.txt; debconf-get-selections --installer > $F ; debconf-get-selections >> $F'
-
-alias pkg_inst_debian="aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-
-alias ssha='eval $(ssh-agent); ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
-
-# fileencoding
-# iconv -t utf8 -f iso88591 1rjm_ctemp -o 1rjm_ctemp
 alias utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
 
+xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
+xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
 
+# alias kfm='setxkbmap fr mac'
+# alias edl='export DISPLAY=localhost:0'
+
+# crossorigin_sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
+# crossorigin_sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
+
+## CAO VLSI IBP.FR
+# alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
+# alias xroot='xv -root +noresetroot -quit'
+# alias xv='\xv -perfect -8'
+# alias xload='\xload -hl red'
+# alias key='perl -MCrypt::SKey -e key'
+# alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
+
+# alias imprime='a2ps -2 -s2'
+# alias imprimeman='a2ps -2 -s2 -man'
+# alias imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
+
+# alias xmbk='eval $(\xmbk -c 2>/dev/null)'
+# alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
+# alias fing='finger | sort | uniq -w 15'
+
+
+## GEOMAGNET
+# alias matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
+# alias matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
+# alias ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
+# alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
+
+# alias bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
+
+## ubuntu
+# ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
 
 ##======= Main ======================================================##
 
@@ -744,7 +727,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2 ) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.286 2021/05/15 19:36:46 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.292 2021/05/19 13:28:07 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
@@ -752,18 +735,10 @@ PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${T
 # limit -s
 # ulimit unlimited
 stty -ixon
-
-if [ $(id -u) -eq 0 ]; then
-    umask 002
-else
-    umask 022
-fi
+umask 022
 
 export -U PATH
 
-#export LC_ALL=C
-
 #zprof
-
 # EOF
 

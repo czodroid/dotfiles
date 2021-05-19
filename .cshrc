@@ -6,22 +6,21 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: samedi 15 mai 2021, 21:13
+# Last Modified: mercredi 19 mai 2021, 15:44
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
 #       it was really a good trick to update my .cshrc
 #       with my .bashrc 20 years later!!!
-#       but be careful, I dont use it...
+#       but be careful, I don't use it, and I don't know
+#       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.9 2021/05/15 19:14:43 czo Exp $
+# $Id: .cshrc,v 1.16 2021/05/19 13:44:32 czo Exp $
 #
 
 
 
 ##======= Settings ================================================##
-# en test !
-#    exit 0
 
 # If not running interactively, don't do anything
 if (! $?prompt) then
@@ -251,14 +250,15 @@ setenv HTML_TIDY $HOME/.tidyrc
 
 unalias *
 
+alias t     'where'
+#alias v     'set | grep -ai \!*'
+
 alias st    'source ~/.cshrc'
-alias hload 'history -L -M'
-alias hsave 'history -S -M'
 alias hi    'history'
 alias hgrep 'history | grep'
 
-alias t     'where'
-alias v     'set | grep -ai \!*'
+alias history_load 'history -L -M'
+alias history_hsave 'history -S -M'
 
 switch ($PLATFORM)
     case Linux*:
@@ -307,64 +307,74 @@ endsw
 alias rule 'echo "....|....1....|....2....|....3....|....4....|....5....|....6....|....7....|....8....|....9" '
 
 #alias ls '\ls --time-style=long-iso --color=auto -a'
-alias ll        'ls -l'
-alias lh        'ls -lh'
-alias l         'ls -alrt'
+alias ll       'ls -l'
+alias lh       'ls -lh'
+alias l        'ls -alrt'
 
-alias llt       'find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
-alias lls       'find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
-alias llexe     'find . -type f -perm +1 -print'
-alias md        '\mkdir -p'
-alias mdcd      '\mkdir -p "\!*" ; cd "\!*"'
-alias ff        'find . -iname "*\!**"'
-alias ff_cs     'find . -name "*\!**"'
+alias llt      'find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
+alias lls      'find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
+alias llx      'find . -type f -perm -1 -print'
+alias md       '\mkdir -p'
+alias mdcd     '\mkdir -p "\!*" ; cd "\!*"'
+alias ff       'find . -iname "*\!**"'
+alias ff_cs    'find . -name "*\!**"'
 
-alias rmf       'rm -fr'
-alias rmemptyf  'find . -empty -type f -print -exec rm {} \;'
-alias rmemptyd  'find . -empty -type d -print -exec rm -fr {} \;'
-alias rmbak     'find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
-alias rm._      'find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable"  \) -type f -print -exec rm -f {} \;'
+alias rmf      'rm -fr'
+alias rmemptyf 'find . -empty -type f -print -exec rm {} \;'
+alias rmemptyd 'find . -empty -type d -print -exec rm -fr {} \;'
+alias rmbak    'find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
+alias rm._     'find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable"  \) -type f -print -exec rm -f {} \;'
 
-alias more less
+alias more     'less'
+alias vi       'vim'
+alias nvim     'nvim -u ~/.vimrc'
+alias ne       'emacs -nw'
 
-#alias vim vimx
-alias vi vim
-alias nvim      'nvim -u ~/.vimrc'
-alias ne        'emacs -nw'
+alias psg      'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k 3"'
 
-alias psg       'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k 3"'
+alias n        '\ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
 
-alias wgetr     'wget -m -np -k -r'
-alias wgetp     'wget -m -np -k -l1'
-
-alias ncd       '\ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
-
-#alias vt100     'set term=vt100 ; echo term=$term'
-
-## CAO VLSI IBP.FR
-
-alias sun    'set term=sun-cmd ; echo term=$term'
-alias vt100  'set term=vt100 ; echo term=$term'
-alias xte    'set term=xterm ; echo term=$term'
-alias xts    'set term=screen ; echo term=$term'
-alias xtc    'set term=xterm-color ; echo term=$term'
-alias xtc256 'set term=xterm-256color ; echo term=$term'
+# listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
+# ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
+# cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
+# cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
+# xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
+# xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
 
 
-## NEW
+alias wgetr 'wget -m -np -k -r'
+alias wgetp 'wget -m -np -k -l1'
 
-alias mountlist 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P";'
-alias rsyncsys  'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
-alias rsyncfull 'rsync --numeric-ids -S -H --delete -av'
-alias rsyncfat  'rsync --no-p --no-g --modify-window=1 --delete -av'
+alias chmodr 'chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
+alias chmodg 'chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
+
+alias tara '\tar -czf'
+alias tarx '\tar -xf'
+alias tarxiso 'cmake -E tar xf'
+
+alias ipl 'echo `wget -q -O- http://czo.free.fr/myipa.php`'
+alias ipa 'ip a | grep "inet "'
+alias ifa 'ifconfig | grep "inet "'
+alias screena 'screen -d -R'
+alias tmuxa 'tmux attach -d || tmux new'
+
+alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
+alias rsync_sys 'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_full 'rsync --numeric-ids -S -H --delete -av'
+alias rsync_fat 'rsync --no-p --no-g --modify-window=1 --delete -av'
 
 alias curl_config_fast_copy 'curl -fsSL https://git.io/JU6cm | sh'
-alias curl_config_fast_ssh  'curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all  'wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
+alias curl_config_fast_ssh 'curl -fsSL https://git.io/JU6c2 | sh'
+alias wget_config_fast_all 'wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
 
-alias passwd_md5    'openssl passwd -1 '
+alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d\ %H:%M`, do not reply" root'
+
+alias passwd_md5 'openssl passwd -1 '
 alias passwd_sha512 'openssl passwd -6 '
+alias ssha 'eval `ssh-agent -c`; ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias tmate_ssh 'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
+alias mytree 'tree -adn | grep -v CVS'
 alias cvu 'cd ~/etc ; cvs up ; cd -'
 alias cvd 'cd ~/etc ; cvs diff ; cd -'
 alias cvc 'cd ~/etc ; cvs ci -mok ; cd -'
@@ -377,15 +387,13 @@ alias gita 'git add .'
 alias gitc 'git commit -mok -a'
 alias gitp 'git push'
 
-alias whatsappjpg 'mogrify -resize 1918800@ -quality 75 *.jpg'
+alias debconf_after_install 'F=preseed_`date +%Y-%m-%d`_$$.txt; debconf-get-selections --installer > $F ; debconf-get-selections >> $F'
 
-# vieux truc 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
-alias chmodr 'chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
-alias chmodg 'chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
-
-alias tara '\tar -czf'
-alias tarx '\tar -xf'
-alias tarxiso 'cmake -E tar xf'
+# LANG=C 
+alias pkg_inst_debian "aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
+alias pkg_inst_debian2 "dpkg-query -W --showformat='"\$"{Package}\n'  | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
+alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
+alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
 alias AU 'aptitude update && aptitude upgrade &&  aptitude clean'
@@ -393,31 +401,36 @@ alias AI 'aptitude install'
 alias AP 'aptitude purge'
 alias AS 'aptitude search'
 
+# redhat, fedora 
+alias YU 'yum update'
+alias YI 'yum install'
+alias YP 'yum remove'
+alias YS 'yum search'
+
 # archlinux
 alias PU 'pacman -Syu'
 alias PI 'pacman -S'
 alias PP 'pacman -Rs'
 alias PS 'pacman -Ss'
 
-# redhat: yum, dnf
 # suse: zypper
 # freebsd: pkg
 # netbsd: pkgin
-# update, install, remove, search
 
-# OOTHER
-alias mytree 'tree -adn | grep -v CVS'
-alias bat 'upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-alias batcycle 'cat /sys/class/power_supply/BAT0/cycle_count'
-alias pxe 'kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
-alias qma 'qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
-alias czomac 'openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
-alias ssh_tmux "ssh -t \!* 'tmux attach -d || tmux new'"
-alias tmate_ssh 'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+alias sun 'set term=sun-cmd ; echo term=$term'
+alias vt100 'set term=vt100 ; echo term=$term'
+alias xte 'set term=xterm ; echo term=$term'
+alias xts 'set term=screen ; echo term=$term'
+alias xtc 'set term=xterm-color ; echo term=$term'
+alias xtc256 'set term=xterm-256color ; echo term=$term'
 
-alias color16 'foreach i ( `seq 0 15` )\
-printf "\x1b[38;5;${i}mcolour${i}\n"\
-end'
+alias whatsappjpg 'mogrify -resize 1918800@ -quality 75 *.jpg'
+alias show_bat 'upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+alias show_batcycle 'cat /sys/class/power_supply/BAT0/cycle_count'
+alias mac_czo 'openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
+alias kvm_pxe 'kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias proxmox_qma 'qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
+
 alias 16color '\
     foreach i ( `seq 0 7` )\
         printf "\x1b[48;5;${i}m  "\
@@ -427,32 +440,12 @@ alias 16color '\
         printf "\x1b[48;5;${i}m  "\
     end\
     printf "\x1b[0m\n\n"'
-alias color256 'foreach i ( `seq 0 255` )\
-    printf "\x1b[38;5;${i}mcolour${i}\n"\
-    end'
 alias console_color '/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
 alias console_color_cursor '/bin/echo -ne "\e]12;#98971a\a"'
 
-alias ipl 'echo `wget -q -O- http://czo.free.fr/myipa.php`'
-alias ipa 'ip a | grep "inet "'
-alias ifa 'ifconfig | grep "inet "'
-alias kfm 'setxkbmap fr mac'
-alias tmuxa 'tmux attach -d || tmux new'
-alias screena 'screen -d -R'
-alias edl 'export DISPLAY=localhost:0'
-
-alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d\ %H:%M`, do not reply" root'
-alias debconf_after_install 'F=preseed_`date +%Y-%m-%d`_$$.txt; debconf-get-selections --installer > $F ; debconf-get-selections >> $F'
-
-# exit 42
-# alias pkg_inst_debian "aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-# alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-# alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-
-alias ssha 'eval `ssh-agent`; ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
-
-# fileencoding
-# iconv -t utf8 -f iso88591 1rjm_ctemp -o 1rjm_ctemp
+alias slax_create_mksquashfs 'mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
+alias macbook_kbd_bright_30 'echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
+alias macbook_vid_bright_30 'echo 30 > /sys/class/backlight/acpi_video0/brightness'
 alias utf8_redode_this_directory "file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
 
 
@@ -486,6 +479,9 @@ endif
 rehash
 stty -ixon
 umask 022
+
+#FIXME: zsh, export -U PATH
+setenv PATH `echo $PATH | awk -F: '{for (i=1;i<=NF;i++) {if ( \\!x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}'`
 
 # EOF
 
