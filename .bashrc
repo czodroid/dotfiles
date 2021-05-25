@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mercredi 19 mai 2021, 17:07
-# Edit Time: 91:08:21
+# Last Modified: mardi 25 mai 2021, 14:28
+# Edit Time: 91:25:17
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.325 2021/05/19 15:07:45 czo Exp $
+# $Id: .bashrc,v 1.327 2021/05/25 12:31:11 czo Exp $
 
 #set -v
 #set -x
@@ -191,7 +191,7 @@ case $(uname 2>/dev/null) in
 
     OSF1)    PLATFORM=OSF ;;
 
-    CYGWIN)  PLATFORM=Cygwin ;;
+    CYGWIN*) PLATFORM=Cygwin ;;
 
     Darwin)  PLATFORM=Darwin ;;
 
@@ -371,7 +371,7 @@ alias ne='emacs -nw'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
-n() { \ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"; fi; }
+n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir")"; fi; }
 
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
@@ -553,7 +553,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2 ) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.325 2021/05/19 15:07:45 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.327 2021/05/25 12:31:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

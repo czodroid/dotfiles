@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mercredi 19 mai 2021, 15:44
+# Last Modified: mardi 25 mai 2021, 14:30
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.16 2021/05/19 13:44:32 czo Exp $
+# $Id: .cshrc,v 1.18 2021/05/25 12:31:11 czo Exp $
 #
 
 
@@ -203,7 +203,7 @@ case OSF1:
     setenv PLATFORM OSF
     breaksw
 
-case CYGWIN:
+case CYGWIN*:
     setenv PLATFORM Cygwin
     breaksw
 
@@ -332,7 +332,7 @@ alias ne       'emacs -nw'
 
 alias psg      'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k 3"'
 
-alias n        '\ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
+alias n        'ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
 
 # listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 # ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }

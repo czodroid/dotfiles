@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mercredi 19 mai 2021, 15:07
-# Edit Time: 130:19:15
+# Last Modified: mardi 25 mai 2021, 14:29
+# Edit Time: 130:19:50
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.292 2021/05/19 13:28:07 czo Exp $
+# $Id: .zshrc,v 1.294 2021/05/25 12:31:11 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -357,7 +357,7 @@ case $(uname 2>/dev/null) in
 
     OSF1)    PLATFORM=OSF ;;
 
-    CYGWIN)  PLATFORM=Cygwin ;;
+    CYGWIN*) PLATFORM=Cygwin ;;
 
     Darwin)  PLATFORM=Darwin ;;
 
@@ -535,7 +535,7 @@ alias ne='emacs -nw'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
-n() { \ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir" 2>/dev/null)"; fi; }
+n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir")"; fi; }
 
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
@@ -727,7 +727,7 @@ USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2 ) % 6 ) + 1 ))
 export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.292 2021/05/19 13:28:07 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.294 2021/05/25 12:31:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
