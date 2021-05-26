@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mardi 25 mai 2021, 14:28
-# Edit Time: 91:25:17
+# Last Modified: mercredi 26 mai 2021, 18:44
+# Edit Time: 91:48:19
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.327 2021/05/25 12:31:11 czo Exp $
+# $Id: .bashrc,v 1.328 2021/05/26 16:48:29 czo Exp $
 
 #set -v
 #set -x
@@ -240,7 +240,7 @@ export PATH
 
 ##======= Environment Variables ======================================##
 
-{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
+{ [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
@@ -252,7 +252,7 @@ export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes
 export PAGER=less
 export PERLDOC_PAGER='less -R'
 
-export PGPPATH=~/.pgp
+export PGPPATH=~/.gnupg
 
 export EDITOR=vim
 export CVSEDITOR=vim
@@ -545,15 +545,13 @@ fi
 #HOSTNAME=czophone
 #USER=root
 
-USER_HASH=$( echo -n "AA$USER"     | cksum | awk '{ print $1 }')
-HOST_HASH=$( echo -n "JC$HOSTNAME" | cksum | awk '{ print $1 }')
-
-USER_PROMPT_COLOR=$(( ( ( $USER_HASH + 2 ) % 6 ) + 1 ))
+# hash for colors
+USER_PROMPT_COLOR=$( echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
 # export for screen
-export HOST_PROMPT_COLOR=$(( ( ( $HOST_HASH + 1 ) % 6 ) + 1 ))
+export HOST_PROMPT_COLOR=$( echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.327 2021/05/25 12:31:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.328 2021/05/26 16:48:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
@@ -572,7 +570,6 @@ fi
 # limit -s
 # ulimit unlimited
 stty -ixon
-# root: umask 002, bof
 umask 022
 
 #FIXME: zsh, export -U PATH

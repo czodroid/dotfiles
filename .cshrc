@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 25 mai 2021, 14:30
+# Last Modified: mercredi 26 mai 2021, 18:48
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.18 2021/05/25 12:31:11 czo Exp $
+# $Id: .cshrc,v 1.19 2021/05/26 16:48:29 czo Exp $
 #
 
 
@@ -237,7 +237,7 @@ endif
 setenv LESS     '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
 setenv PAGER    less
 setenv PERLDOC_PAGER 'less -R'
-setenv PGPPATH ~/.pgp
+setenv PGPPATH ~/.gnugp
 setenv EDITOR vim
 setenv CVSEDITOR vim
 setenv RSYNC_RSH ssh
@@ -458,13 +458,10 @@ set MYTTY     = `tty | sed s,/dev/,,`
 
 if ($?tcsh) then
     set SHELLNAME = `echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
-    set USER_HASH = `echo -n "AA$USER"     | cksum | awk '{ print $1 }'`
-    set HOST_HASH = `echo -n "JC$HOSTNAME" | cksum | awk '{ print $1 }'`
-    @ calc = ( ( ( $USER_HASH + 2 ) % 6 ) + 1 )
-    set USER_PROMPT_COLOR = $calc
+    # hash for colors
+    set USER_PROMPT_COLOR = `echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
     # export for screen
-    @ calc = ( ( ( $HOST_HASH + 1 ) % 6 ) + 1 )
-    setenv HOST_PROMPT_COLOR $calc
+    setenv HOST_PROMPT_COLOR `echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
     @ calc = ( ( `echo "$HOSTNAME" | wc -c` + 17 ) )
     setenv HOST_PROMPT_SIZE "%-0$calc="
 
@@ -477,6 +474,8 @@ ${USER}@${HOSTNAME}:${PWD}\
 endif
 
 rehash
+# limit -s
+# ulimit unlimited
 stty -ixon
 umask 022
 
