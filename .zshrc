@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mardi 25 mai 2021, 14:29
-# Edit Time: 130:19:50
+# Last Modified: jeudi 27 mai 2021, 20:22
+# Edit Time: 130:20:58
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.296 2021/05/26 22:29:59 czo Exp $
+# $Id: .zshrc,v 1.297 2021/05/27 18:23:59 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -418,7 +418,7 @@ export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes
 export PAGER=less
 export PERLDOC_PAGER='less -R'
 
-export PGPPATH=~/.gnupg
+export PGPPATH=$HOME/.gnupg
 
 export EDITOR=vim
 export CVSEDITOR=vim
@@ -441,6 +441,7 @@ unalias -m '*'
 #alias where='whence -ca'
 alias t='whence -ca'
 alias eq='whence -p'
+# v() { set | grep -ai $1; }
 
 alias st='source ~/.zshrc'
 alias hi='fc -l 1'
@@ -725,7 +726,7 @@ USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 )
 export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.296 2021/05/26 22:29:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.297 2021/05/27 18:23:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
