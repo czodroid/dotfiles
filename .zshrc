@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.297 2021/05/27 18:23:59 czo Exp $
+# $Id: .zshrc,v 1.298 2021/05/27 18:50:54 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -373,7 +373,7 @@ export PLATFORM
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
 #FIXME: typeset -U for bash
-export PATH=/system/bin:/system/xbin:/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$HOME/bin:$HOME/.local/bin:$HOME/local/${PLATFORM}/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
 
 ## config cpan perl libs not in distro
 #export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
@@ -383,17 +383,17 @@ export PATH=/system/bin:/system/xbin:/users/project/swarm/data/tools/IpgpSoftwar
 #export PATH="$HOME/perl5/bin:$PATH";
 
 ## config android
-export PATH=$HOME/Android/Sdk/tools:${PATH}
-export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
-export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
-export PATH=/opt/android-studio/bin:${PATH}
+#export PATH=$HOME/Android/Sdk/tools:${PATH}
+#export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
+#export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
+#export PATH=/opt/android-studio/bin:${PATH}
 
 ## config termux for android
-export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:${PATH}
+export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
 export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 
-## config macos brew
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
+## config SWARM
+#export PATH=/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$PATH
 
 # there was a time when I needed it, but I can't remember anymore...
 #typeset -U MANPATH=$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH
@@ -441,7 +441,6 @@ unalias -m '*'
 #alias where='whence -ca'
 alias t='whence -ca'
 alias eq='whence -p'
-# v() { set | grep -ai $1; }
 
 alias st='source ~/.zshrc'
 alias hi='fc -l 1'
@@ -454,6 +453,7 @@ alias history_clear_all_log='echo > /var/log/wtmp ; echo > /var/log/lastlog ; lo
 
 # csh compatibility env set
 setenv() { export $1=$2; }
+# v() { set | grep -ai $1; }
 
 case $PLATFORM in
 
@@ -480,6 +480,8 @@ case $PLATFORM in
     Darwin)
         export DISPLAY=:0
         export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
+        ## config macos brew
+        export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
         alias grep='\grep --color'
         alias ps='\ps -Awww'
         { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
@@ -726,7 +728,7 @@ USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 )
 export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.297 2021/05/27 18:23:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.298 2021/05/27 18:50:54 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
