@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mercredi 26 mai 2021, 18:48
+# Last Modified: jeudi 27 mai 2021, 00:28
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.19 2021/05/26 16:48:29 czo Exp $
+# $Id: .cshrc,v 1.20 2021/05/26 22:29:59 czo Exp $
 #
 
 
@@ -358,7 +358,7 @@ alias ifa 'ifconfig | grep "inet "'
 alias screena 'screen -d -R'
 alias tmuxa 'tmux attach -d || tmux new'
 
-alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo -e "Runing: $P\n"; eval "$P"'
+alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys 'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsync_full 'rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat 'rsync --no-p --no-g --modify-window=1 --delete -av'
@@ -371,7 +371,7 @@ alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d
 
 alias passwd_md5 'openssl passwd -1 '
 alias passwd_sha512 'openssl passwd -6 '
-alias ssha 'eval `ssh-agent -c`; ssh-add; echo "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias ssha 'eval `ssh-agent -c`; ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 alias tmate_ssh 'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
 alias mytree 'tree -adn | grep -v CVS'
@@ -452,16 +452,16 @@ alias utf8_redode_this_directory "file -i * | grep iso-8859 | sed 's/:.*//' | xa
 
 ##======= Main ======================================================##
 
-alias precmd 'if (($term =~ xterm*)) echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ;  echo "[00m" '
+alias precmd 'if (($term =~ xterm*)) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ;  echo "[00m" '
 
 set MYTTY     = `tty | sed s,/dev/,,`
 
 if ($?tcsh) then
     set SHELLNAME = `echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
     # hash for colors
-    set USER_PROMPT_COLOR = `echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
+    set USER_PROMPT_COLOR = `/bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
     # export for screen
-    setenv HOST_PROMPT_COLOR `echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
+    setenv HOST_PROMPT_COLOR `/bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
     @ calc = ( ( `echo "$HOSTNAME" | wc -c` + 17 ) )
     setenv HOST_PROMPT_SIZE "%-0$calc="
 
