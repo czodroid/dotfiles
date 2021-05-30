@@ -2,10 +2,10 @@
 #
 # Filename: czolsb
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2009
-# Last Modified: vendredi 26 mars 2021, 11:30
-# Edit Time: 28:30:54
+# Last Modified: dimanche 30 mai 2021, 13:11
+# Edit Time: 28:32:15
 # Description:
 #  czolsb > /etc/motd
 #  et mettre ce truc dans crond...
@@ -16,12 +16,13 @@
 #  centos_6.5-x86_64-czo_servup-20140410
 #  mais avec /etc/os-release
 #
-# $Id: czolsb,v 1.39 2021/03/26 10:30:45 czo Exp $
+# $Id: czolsb,v 1.41 2021/05/30 11:41:42 czo Exp $
 #
 
 export LANG=C
+export PATH=$PATH:/sbin
 
-{ [ -x "$(command -v getprop)" ] && export HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
+{ [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
 
 WELCOME=$(perl -e '$H="Welcome on " . $ENV{HOSTNAME}; print map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } $H;')

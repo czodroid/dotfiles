@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: jeudi 27 mai 2021, 20:34
+# Last Modified: dimanche 30 mai 2021, 13:38
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.22 2021/05/27 18:50:54 czo Exp $
+# $Id: .cshrc,v 1.23 2021/05/30 11:41:42 czo Exp $
 #
 
 
@@ -270,18 +270,18 @@ switch ($PLATFORM)
         alias ls    '\ls --time-style=long-iso --color=auto -a'
         breaksw
 
-    case FreeBSD)
+    case FreeBSD:
         alias grep '\grep --color'
         alias ps   '\ps -Awww'
         alias ls   '\ls -G -a'
         breaksw
 
-    case NetBSD | OpenBSD)
+    case NetBSD | OpenBSD:
         alias ps '\ps -Awww'
         alias ls '\ls -a'
         breaksw
 
-    case Darwin)
+    case Darwin:
         setenv DISPLAY :0
         setenv JAVA_HOME /Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
         alias grep '\grep --color'
@@ -289,12 +289,12 @@ switch ($PLATFORM)
         alias ls   '\ls -G -a'
         breaksw
 
-    case SunOS | Solaris)
+    case SunOS | Solaris:
         alias ps '\ps -ef'
         alias ls '\ls -a'
         breaksw
 
-    case Cygwin)
+    case Cygwin:
         setenv DISPLAY localhost:0
         alias cp   '\cp -i'
         alias mv   '\mv -i'
