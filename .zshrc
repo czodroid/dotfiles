@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 27 mai 2021, 20:22
-# Edit Time: 130:20:58
+# Last Modified: lundi 31 mai 2021, 15:27
+# Edit Time: 130:23:13
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.298 2021/05/27 18:50:54 czo Exp $
+# $Id: .zshrc,v 1.300 2021/05/31 13:30:01 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -444,7 +444,7 @@ alias eq='whence -p'
 
 alias st='source ~/.zshrc'
 alias hi='fc -l 1'
-alias hgrep='fc -l 1 | grep'
+alias h='fc -l 1 | grep'
 
 alias history_load='fc -R'
 alias history_save='fc -AI'
@@ -707,10 +707,11 @@ preexec() {
     title "$cmd[1]:t $cmd[2,-1] (${USER}@${HOSTNAME})"
 }
 
-zshaddhistory() {
-    print -sr "${(z)1%%$'\n'}"
-    return 1
-}
+# don't work!
+# zshaddhistory() {
+#     print -sr "${(z)1%%$'\n'}"
+#     return 1
+# }
 
 if [[ -x /usr/lib/command-not-found ]] ; then
     command_not_found_handler() {
@@ -728,7 +729,7 @@ USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 )
 export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.298 2021/05/27 18:50:54 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.300 2021/05/31 13:30:01 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

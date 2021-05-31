@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 30 mai 2021, 13:38
+# Last Modified: lundi 31 mai 2021, 15:28
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.23 2021/05/30 11:41:42 czo Exp $
+# $Id: .cshrc,v 1.24 2021/05/31 13:30:01 czo Exp $
 #
 
 
@@ -255,7 +255,7 @@ alias t     'where'
 
 alias st    'source ~/.cshrc'
 alias hi    'history'
-alias hgrep 'history | grep'
+alias h     'history | grep'
 
 alias history_load 'history -L -M'
 alias history_hsave 'history -S -M'
