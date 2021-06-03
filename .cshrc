@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: lundi 31 mai 2021, 15:28
+# Last Modified: jeudi 03 juin 2021, 18:24
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.24 2021/05/31 13:30:01 czo Exp $
+# $Id: .cshrc,v 1.25 2021/06/03 16:31:44 czo Exp $
 #
 
 
@@ -395,16 +395,21 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_`d
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-alias AU 'aptitude update && aptitude upgrade &&  aptitude clean'
-alias AI 'aptitude install'
-alias AP 'aptitude purge'
-alias AS 'aptitude search'
+# apt-get autoremove since debian 4
+alias AU 'apt-get update && apt-get upgrade; apt-get clean; apt-get autoremove'
+# aptitude install even if badnames...
+alias AI 'apt-get install'
+alias AP 'apt-get purge'
+alias AS 'apt-get search'
+# aptitude, the best of
+alias ASS 'aptitude search'
 
 # redhat, fedora 
 alias YU 'yum update'
 alias YI 'yum install'
 alias YP 'yum remove'
 alias YS 'yum search'
+alias YSS 'yum list "*\!**"'
 
 # archlinux
 alias PU 'pacman -Syu'
