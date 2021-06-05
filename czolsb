@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2009
-# Last Modified: dimanche 30 mai 2021, 13:11
-# Edit Time: 28:32:15
+# Last Modified: samedi 05 juin 2021, 11:51
+# Edit Time: 28:32:49
 # Description:
 #  czolsb > /etc/motd
 #  et mettre ce truc dans crond...
@@ -51,8 +51,8 @@ case "$OSN" in
       VERSION_ID=$(lsb_release -sr)
     fi
 
-    # debain 10 : plus de dot release cf /etc/debian_version
-    if [ "$ID" = "Debian" ] || [ "$ID" = "Raspbian" ]; then
+    # debian 10 : plus de dot release cf /etc/debian_version
+    if [ "$ID" = "debian" ] || [ "$ID" = "Debian" ] || [ "$ID" = "Raspbian" ]; then
       if [ $(echo "$VERSION_ID" | perl -pe 's/\..*//') -ge 10 ]; then
         # echo "-> found debian >= 10"
         if [ -f /etc/debian_version ]; then

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: jeudi 03 juin 2021, 18:30
-# Edit Time: 92:32:51
+# Last Modified: samedi 05 juin 2021, 12:46
+# Edit Time: 92:41:38
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -434,14 +434,10 @@ alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTN
 alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
-# apt-get autoremove since debian 4
-alias AU='apt-get update && apt-get upgrade; apt-get clean; apt-get autoremove'
-# aptitude install even if badnames...
-alias AI='apt-get install'
-alias AP='apt-get purge'
-alias AS='apt-get search'
-# aptitude, the best of
-alias ASS='aptitude search'
+alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
+alias AI='aptitude install'
+alias AP='aptitude purge'
+alias AS='aptitude search'
 
 # redhat, fedora 
 alias YU='yum update; yum clean all'
@@ -456,6 +452,7 @@ alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
 
+# openwrt: opkg
 # suse: zypper
 # freebsd: pkg
 # netbsd: pkgin

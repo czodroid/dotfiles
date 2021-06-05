@@ -598,14 +598,10 @@ alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTN
 alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
-# apt-get autoremove since debian 4
-alias AU='apt-get update && apt-get upgrade; apt-get clean; apt-get autoremove'
-# aptitude install even if badnames...
-alias AI='apt-get install'
-alias AP='apt-get purge'
-alias AS='apt-get search'
-# aptitude, the best of
-alias ASS='aptitude search'
+alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
+alias AI='aptitude install'
+alias AP='aptitude purge'
+alias AS='aptitude search'
 
 # redhat, fedora 
 alias YU='yum update; yum clean all'
@@ -620,6 +616,7 @@ alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
 
+# openwrt: opkg
 # suse: zypper
 # freebsd: pkg
 # netbsd: pkgin
