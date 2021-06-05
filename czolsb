@@ -16,7 +16,7 @@
 #  centos_6.5-x86_64-czo_servup-20140410
 #  mais avec /etc/os-release
 #
-# $Id: czolsb,v 1.41 2021/05/30 11:41:42 czo Exp $
+# $Id: czolsb,v 1.42 2021/06/05 16:14:40 czo Exp $
 #
 
 export LANG=C
