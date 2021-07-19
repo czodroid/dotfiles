@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: jeudi 15 juillet 2021, 15:08
+# Last Modified: vendredi 16 juillet 2021, 04:41
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.26 2021/06/05 16:14:40 czo Exp $
+# $Id: .cshrc,v 1.29 2021/07/16 02:44:08 czo Exp $
 #
 
 
@@ -47,8 +47,7 @@ set rmstar
 if (-d /etc/profile.d) then
     set nonomatch
     foreach i ( /etc/profile.d/*.csh )
-        test -f $i
-        if ($status == 0) then
+        if (-f $i) then
             source $i
         endif
     end
@@ -63,8 +62,8 @@ if ($?tcsh) then
 bindkey -e
 
 # Czo defines
-bindkey -cb C-xr   "source ~/.cshrc"
-bindkey -cb C-xx   "bindkey"
+bindkey -cb ^xr    "source ~/.cshrc"
+bindkey -cb ^xx    "bindkey"
 
 bindkey "\e[C"     forward-char
 bindkey "\e[OC"    forward-char
@@ -101,11 +100,11 @@ bindkey "\e[B"     history-search-forward
 bindkey "\eOB"     history-search-forward
 bindkey "\e[1;5B"  history-search-forward
 
-bindkey -b C-p     history-search-backward
-bindkey -b C-n     history-search-forward
+bindkey -b ^p      history-search-backward
+bindkey -b ^n      history-search-forward
 
 bindkey "\e[3~"    delete-char
-bindkey -b C-h     backward-delete-char
+bindkey -b ^h      backward-delete-char
 
 bindkey "\e[3;3~"  delete-word
 bindkey -b M-h     backward-delete-word
@@ -236,7 +235,7 @@ setenv LS_COLORS 'no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 endif
 
 # BSD ls
-setenv LSCOLORS 'ExGxfxFxHxacabxDXeae'
+setenv LSCOLORS 'ExGxfxFxHxacabxDxeae'
 
 setenv LESS     '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
 setenv PAGER    less
