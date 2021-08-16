@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mercredi 12 mai 2021, 00:23
-" Edit Time: 188:10:35
+" Last Modified: mercredi 21 juillet 2021, 19:04
+" Edit Time: 189:08:25
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.218 2021/05/12 08:54:49 czo Exp $
+" $Id: .vimrc,v 1.219 2021/07/21 17:04:25 czo Exp $
 
 if version >= 580
 "if 0
@@ -873,7 +873,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.218 2021/05/12 08:54:49 czo Exp $
+        " $Id: .vimrc,v 1.219 2021/07/21 17:04:25 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -985,12 +985,12 @@ function! Template (...)
         catch /^c$/
             0put =
                         \\"/*
-                        \\<nl> * Filename: foo
-                        \\<nl> * Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-                        \\<nl> * License: GPL (http://www.gnu.org/copyleft/gpl.html)
-                        \\<nl> * Started: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl> * Last Change: now
-                        \\<nl> * Edit Time: 0:00:01
+                        \\<nl> * Filename: template.c
+                        \\<nl> * Author: Olivier Sirol <czo@free.fr>
+                        \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
+                        \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl> * Last Modified: mercredi 21 juillet 2021, 18:55
+                        \\<nl> * Edit Time: 0:01:03
                         \\<nl> * Description:
                         \\<nl> *
                         \\<nl> */
@@ -1028,12 +1028,12 @@ function! Template (...)
         catch /^h$/
             0put =
                         \\"/*
-                        \\<nl> * Filename: foo
-                        \\<nl> * Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-                        \\<nl> * License: GPL (http://www.gnu.org/copyleft/gpl.html)
-                        \\<nl> * Started: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl> * Last Change: now
-                        \\<nl> * Edit Time: 0:00:01
+                        \\<nl> * Filename: template.h
+                        \\<nl> * Author: Olivier Sirol <czo@free.fr>
+                        \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
+                        \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl> * Last Modified: mercredi 21 juillet 2021, 18:59
+                        \\<nl> * Edit Time: 0:00:15
                         \\<nl> * Description:
                         \\<nl> *
                         \\<nl> */
@@ -1048,82 +1048,75 @@ function! Template (...)
                         \\<nl> * #### Prototypes
                         \\<nl> */
                         \\<nl>
-                        \\<nl>
                         \\<nl>#endif
                         \\"
 
+
             " ## Template .html ##################################################
         catch /^html$/
-            0put =
-                        \\"<!DOCTYPE html>
-                        \\<nl>
-                        \\<nl><!--
-                        \\<nl>Filename: pass.html
-                        \\<nl>Author: Olivier Sirol <czo@free.fr>
-                        \\<nl>License: GPL-2.0
-                        \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl>Last Modified: now
-                        \\<nl>Edit Time: 0:00:08
-                        \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
-                        \\<nl>-->
-                        \\<nl>
-                        \\<nl><html lang=\\"en\\">
-                        \\<nl>
-                        \\<nl><head>
-                        \\<nl>
-                        \\<nl>    <title>login</title>
-                        \\<nl>
-                        \\<nl>    <meta charset=\\"utf-8\\">
-                        \\<nl>    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-                        \\<nl>    <meta name=\\"theme-color\\" content=\\"#ddd\\">
-                        \\<nl>
-                        \\<nl>    <meta name=\\"Author\\" content=\\"Olivier Sirol <czo@free.fr>\\" />
-                        \\<nl>    <meta name=\\"Generator\\" content=\\"Vim\\">
-                        \\<nl>    <meta name=\\"Description\\" content=\\"__DESCRIPTION__\\">
-                        \\<nl>    <meta name=\\"Keywords\\" content=\\"__KEYWORDS__\\">
-                        \\<nl>
-                        \\<nl>    <link rel=\\"shortcut icon\\" href=\\"/128.png\\">
-                        \\<nl>    <link rel=\\"apple-touch-icon\\" href=\\"/128.png\\">
-                        \\<nl>    <link rel=\\"icon\\" href=\\"/128.png\\">
-                        \\<nl>
-                        \\<nl>    <link rel=\\"stylesheet\\" href=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\\" integrity=\\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\\" crossorigin=\\"anonymous\\">
-                        \\<nl>    <script src=\\"https://code.jquery.com/jquery-3.4.1.slim.min.js\\" integrity=\\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\\" crossorigin=\\"anonymous\\"></script>
-                        \\<nl>    <script src=\\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\\" integrity=\\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\\" crossorigin=\\"anonymous\\"></script>
-                        \\<nl>    <script src=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\\" integrity=\\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\\" crossorigin=\\"anonymous\\"></script>
-                        \\<nl>
-                        \\<nl></head>
-                        \\<nl>
-                        \\<nl><body>
-                        \\<nl>    <h1>Login: </h1>
-                        \\<nl>    <div id=\\"maincontent\\" class=\\"container\\">
-                        \\<nl>        <div class=\\"row\\">
-                        \\<nl>            <div class=\\"col-lg-8 col-lg-offset-2\\">
-                        \\<nl>                <div>
-                        \\<nl>                    <label for=\\"username\\">Username: </label>
-                        \\<nl>                    <input type=\\"text\\" id=\\"username\\" name=\\"username\\">
-                        \\<nl>                </div>
-                        \\<nl>                <div>
-                        \\<nl>                    <label for=\\"pass\\">Password: </label>
-                        \\<nl>                    <input autocomplete=\\"off\\" type=\\"password\\" id=\\"pass\\" name=\\"password\\" minlength=\\"8\\" required>
-                        \\<nl>                </div>
-                        \\<nl>                <input type=\\"submit\\" value=\\"Sign in\\">
-                        \\<nl>            </div>
-                        \\<nl>        </div>
-                        \\<nl>    </div>
-                        \\<nl></body>
-                        \\<nl>
-                        \\<nl></html>
-                        \\"
+            0put = \"
+            \<!DOCTYPE html>
+            \\<nl>
+            \\<nl><!--
+            \\<nl>Filename: template.html
+            \\<nl>Author: Olivier Sirol <czo@free.fr>
+            \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
+            \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
+            \\<nl>Last Modified: mercredi 21 juillet 2021, 18:13
+            \\<nl>Edit Time: 0:02:12
+            \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
+            \\<nl>-->
+            \\<nl>
+            \\<nl><html lang=\\"en\\">
+            \\<nl>
+            \\<nl><head>
+            \\<nl>
+            \\<nl>    <title>My bookmarks</title>
+            \\<nl>
+            \\<nl>    <meta charset=\\"utf-8\\">
+            \\<nl>    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+            \\<nl>    <meta name=\\"theme-color\\" content=\\"#007bff\\">
+            \\<nl>
+            \\<nl>    <meta name=\\"Author\\" content=\\"Olivier Sirol <czo@ipgp.fr>\\" />
+            \\<nl>    <meta name=\\"Generator\\" content=\\"Vim\\">
+            \\<nl>    <meta name=\\"Description\\" content=\\"__DESCRIPTION__\\">
+            \\<nl>    <meta name=\\"Keywords\\" content=\\"__KEYWORDS__\\">
+            \\<nl>
+            \\<nl>    <link rel=\\"shortcut icon\\" href=\\"favicon.png\\">
+            \\<nl>    <link rel=\\"apple-touch-icon\\" href=\\"favicon.png\\">
+            \\<nl>    <link rel=\\"icon\\" href=\\"favicon.png\\">
+            \\<nl>
+            \\<nl>    <link rel=\\"stylesheet\\" href=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\\" integrity=\\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\\" crossorigin=\\"anonymous\\">
+            \\<nl>    <script src=\\"https://code.jquery.com/jquery-3.4.1.slim.min.js\\" integrity=\\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\\" crossorigin=\\"anonymous\\"></script>
+            \\<nl>    <script src=\\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\\" integrity=\\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\\" crossorigin=\\"anonymous\\"></script>
+            \\<nl>    <script src=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\\" integrity=\\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\\" crossorigin=\\"anonymous\\"></script>
+            \\<nl>
+            \\<nl></head>
+            \\<nl>
+            \\<nl><body>
+            \\<nl>    <div id=\\"maincontent\\" class=\\"container\\">
+            \\<nl>        <h1>&nbsp;</h1>
+            \\<nl>        <div class=\\"list-group\\">
+            \\<nl>            <a href=\\"\\" class=\\"list-group-item list-group-item-action active\\" aria-current=\\"true\\">My bookmarks</a>
+            \\<nl>            <a href=\\"https://www.google.com/\\" class=\\"list-group-item list-group-item-action\\">Google search</a>
+            \\<nl>            <a href=\\"https://duckduckgo.com/\\" class=\\"list-group-item list-group-item-action\\">DuckDuckGo search</a>
+            \\<nl>        </div>
+            \\<nl>    </div>
+            \\<nl></body>
+            \\<nl>
+            \\<nl></html>
+            \\<nl>
+            \\"
 
             " ## Template .make ##################################################
         catch /^make$/
             0put =
-                        \\"# Filename: foo
+                        \\"# Filename: template.make
                         \\<nl># Author: Olivier Sirol <czo@free.fr>
-                        \\<nl># License: GNU General Public License v2.0
+                        \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                         \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl># Last Modified: foo
-                        \\<nl># Edit Time: 0:00:00
+                        \\<nl># Last Modified: mercredi 21 juillet 2021, 18:50
+                        \\<nl># Edit Time: 0:00:09
                         \\<nl># Description:
                         \\<nl>#      Makefile:
                         \\<nl>#      $@ Le nom de la cible
@@ -1133,7 +1126,6 @@ function! Template (...)
                         \\<nl>#      $* Le nom du fichier sans suffixe
                         \\<nl>#
                         \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                        \\<nl>#
                         \\<nl>
                         \\<nl>CC = gcc
                         \\<nl>CFLAGS = -Wall -Wextra -Wpedantic
@@ -1149,24 +1141,24 @@ function! Template (...)
                         \\<nl>EXEC = go
                         \\<nl>
                         \\<nl>all: $(EXEC)
-                        \\<nl>	@echo \\"<- all done!\\"
+                        \\<nl>\<TAB>@echo \\"<- all done!\\"
                         \\<nl>
                         \\<nl>viewdeps: $(DEPS)
-                        \\<nl>	@echo $(DEPS)
+                        \\<nl>\<TAB>@echo $(DEPS)
                         \\<nl>
                         \\<nl>$(EXEC): $(OBJ)
-                        \\<nl>	$(CC) -o $@ $^ $(LIBS)
+                        \\<nl>\<TAB>$(CC) -o $@ $^ $(LIBS)
                         \\<nl>
                         \\<nl>%.o: %.c $(DEPS)
-                        \\<nl>	$(CC) -c -o $@ $< $(CFLAGS)
+                        \\<nl>\<TAB>$(CC) -c -o $@ $< $(CFLAGS)
                         \\<nl>
                         \\<nl>clean:
-                        \\<nl>	rm -f *.o
-                        \\<nl>	@echo \\"<- clean done!\\"
+                        \\<nl>\<TAB>rm -f *.o
+                        \\<nl>\<TAB>@echo \\"<- clean done!\\"
                         \\<nl>
                         \\<nl>realclean: clean
-                        \\<nl>	rm -f $(EXEC)
-                        \\<nl>	@echo \\"<- realclean done!\\"
+                        \\<nl>\<TAB>rm -f $(EXEC)
+                        \\<nl>\<TAB>@echo \\"<- realclean done!\\"
                         \\<nl>
                         \\<nl>fclean: realclean
                         \\<nl>
@@ -1181,46 +1173,46 @@ function! Template (...)
             0put =
                         \\"#! /usr/bin/perl -w
                         \\<nl>#
-                        \\<nl># Filename: foo
-                        \\<nl># Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-                        \\<nl># License: GPL (http://www.gnu.org/copyleft/gpl.html)
-                        \\<nl># Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl># Last Change: now
-                        \\<nl># Edit Time: 0:00:01
+                        \\<nl># Filename: template.perl
+                        \\<nl># Author: Olivier Sirol <czo@free.fr>
+                        \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
+                        \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl># Last Modified: mercredi 21 juillet 2021, 18:34
+                        \\<nl># Edit Time: 0:00:14
                         \\<nl># Description:
                         \\<nl>#
                         \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                        \\<nl>#
                         \\<nl>
-                        \\<nl>undef $/;           # read in whole file, not just one line or paragraph
-                        \\<nl>while ( <> ) {
-                        \\<nl>
-                        \\<nl>    if (/<\s*title\s*>\s*(.*?)\s*<\s*\/\s*title\s*>/smi) {
+                        \\<nl># read in whole file, not just one line or paragraph
+                        \\<nl>undef $/;
+                        \\<nl>while (<>) {
+                        \\<nl>    if (/<s*titles*>s*(.*?)s*<s*/s*titles*>/smi) {
                         \\<nl>        $res = $1;
-                        \\<nl>        $res =~ s/\\n/ /smig;
+                        \\<nl>        $res =~ s/ \n / /smig;
                         \\<nl>        $res =~ s/  */ /smig;
-                        \\<nl>        print \\"$res\\n\\";
+                        \\<nl>        print \\"$res\n\\";
                         \\<nl>    }
                         \\<nl>}
+                        \\<nl>
                         \\"
 
             " ## Template .sh ####################################################
         catch /^sh$/
             0put =
-                        \\"#!/bin/sh
+                        \\"#! /bin/sh
                         \\<nl>#
-                        \\<nl># Filename: foo
-                        \\<nl># Copyright (C) VIMEX{=strftime(\\"%Y\\")} Olivier Sirol <czo@free.fr>
-                        \\<nl># License: GPL (http://www.gnu.org/copyleft/gpl.html)
-                        \\<nl># Started: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl># Last Change: now
-                        \\<nl># Edit Time: 0:00:01
+                        \\<nl># Filename: template.sh
+                        \\<nl># Author: Olivier Sirol <czo@free.fr>
+                        \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
+                        \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                        \\<nl># Last Modified: now
+                        \\<nl># Edit Time: 0:00:08
                         \\<nl># Description:
                         \\<nl>#
                         \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                        \\<nl>#
                         \\<nl>
-                        \\<nl>echo %%%%%%% Hello
+                        \\<nl>
+                        \\<nl>echo %%%%%Hello
                         \\"
 
 
