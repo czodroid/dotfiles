@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: vendredi 16 juillet 2021, 04:41
+# Last Modified: mardi 31 août 2021, 14:09
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.29 2021/07/16 02:44:08 czo Exp $
+# $Id: .cshrc,v 1.30 2021/08/31 12:11:04 czo Exp $
 #
 
 
@@ -336,23 +336,17 @@ alias psg      'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k
 
 alias n        'ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
 
-# listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
-# ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
-# cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
-# cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
-# xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
-# xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
-
-
 alias wgetr 'wget -m -np -k -r'
 alias wgetp 'wget -m -np -k -l1'
 
 alias chmodr 'chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg 'chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara '\tar -czf'
-alias tarx '\tar -xf'
+alias tara    '\tar -czf'
+alias tarx    '\tar -xf'
 alias tarxiso 'cmake -E tar xf'
+
+alias tsu     'su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
 alias ipl 'echo `wget -q -O- http://czo.free.fr/myipa.php`'
 alias ipa 'ip a | grep "inet "'
@@ -416,6 +410,7 @@ alias PI 'pacman -S'
 alias PP 'pacman -Rs'
 alias PS 'pacman -Ss'
 
+# openwrt: opkg
 # suse: zypper
 # freebsd: pkg
 # netbsd: pkgin
