@@ -4,14 +4,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: vendredi 02 juillet 2021, 15:17
-# Edit Time: 7:47:04
+# Last Modified: jeudi 02 septembre 2021, 12:26
+# Edit Time: 7:55:14
 # Description:
 #
 # debian 10 preseed geoscope update
 #
 # config files:
-#  curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
+#  curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed-geoscope | sh
 #
 # keyboard:
 #  apt-get install keyboard-configuration
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-geoscope,v 1.11 2021/07/02 13:19:09 czo Exp $
+# $Id: config-debian-preseed-geoscope,v 1.14 2021/09/08 09:50:53 czo Exp $
 
 (
 export LANG=C
@@ -55,7 +55,7 @@ echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
 # apt-get $QUIET dist-upgrade
 # apt-get $QUIET clean
 
-# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp
+# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp qemu-guest-agent
 
 echo "##== change config  ==================================================##"
 
@@ -80,7 +80,7 @@ systemctl restart autofs
 # NTP ntpq -p
 cat << 'EOF' > /etc/ntp.conf
 # /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
-# czo, 2010-03-04
+# czo, 2021-03-04
 
 driftfile /var/lib/ntp/ntp.drift
 leapfile /usr/share/zoneinfo/leap-seconds.list
@@ -114,7 +114,8 @@ EOF
 # munin IPGP
 perl -i -pe 's,^host_name localhost.localdomain,#host_name localhost.localdomain,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^10\\.2\\.5\\.10\$\n,,' /etc/munin/munin-node.conf
-perl -i -pe 's,^allow \^127\\.0\\.0\\.1.*,allow \^127\\.0\\.0\\.1\$\nallow \^10\\.2\\.5\\.10\$,' /etc/munin/munin-node.conf
+perl -i -pe 's,^allow \^10\\.1\\.6\\.16\$\n,,' /etc/munin/munin-node.conf
+perl -i -pe 's,^allow \^127\\.0\\.0\\.1.*,allow \^127\\.0\\.0\\.1\$\nallow \^10\\.1\\.6\\.16\$,' /etc/munin/munin-node.conf
 service munin-node restart
 
 # cron czo-email-at-reboot

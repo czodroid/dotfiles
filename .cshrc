@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 31 août 2021, 14:09
+# Last Modified: mardi 14 septembre 2021, 19:26
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.30 2021/08/31 12:11:04 czo Exp $
+# $Id: .cshrc,v 1.31 2021/09/14 17:29:37 czo Exp $
 #
 
 
@@ -368,6 +368,8 @@ alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d
 alias passwd_md5 'openssl passwd -1 '
 alias passwd_sha512 'openssl passwd -6 '
 alias ssha 'eval `ssh-agent -c`; ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias dig_lartha 'curl http://lartha:/hosts.html'
+alias remove_known_hosts 'perl -ni -e "print unless $. == $1" ~/.ssh/known_hosts'
 alias tmate_ssh 'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
 alias mytree 'tree -adn | grep -v CVS'
@@ -392,10 +394,10 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_`d
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
-alias AI='aptitude install'
-alias AP='aptitude purge'
-alias AS='aptitude search'
+alias AU 'aptitude update && aptitude upgrade &&  aptitude clean'
+alias AI 'aptitude install'
+alias AP 'aptitude purge'
+alias AS 'aptitude search'
 
 # redhat, fedora 
 alias YU 'yum update'
