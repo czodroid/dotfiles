@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mercredi 21 juillet 2021, 19:04
-" Edit Time: 189:08:25
+" Last Modified: samedi 25 septembre 2021, 19:26
+" Edit Time: 189:09:25
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.219 2021/07/21 17:04:25 czo Exp $
+" $Id: .vimrc,v 1.220 2021/09/25 17:27:15 czo Exp $
 
 if version >= 580
 "if 0
@@ -873,7 +873,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.219 2021/07/21 17:04:25 czo Exp $
+        " $Id: .vimrc,v 1.220 2021/09/25 17:27:15 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1243,9 +1243,10 @@ endfunction
 if version >= 700
 
     autocmd FileType xdefaults setlocal commentstring=!\ %s
-    autocmd FileType json setlocal commentstring=//\ %s
-    autocmd FileType cpp setlocal commentstring=//\ %s
-    autocmd FileType cfg setlocal commentstring=#\ %s
+    autocmd FileType json      setlocal commentstring=//\ %s
+    autocmd FileType cpp       setlocal commentstring=//\ %s
+    autocmd FileType cfg       setlocal commentstring=#\ %s
+    autocmd FileType apache    setlocal commentstring=#\ %s
 
     let g:loaded_commentary = 1
 
