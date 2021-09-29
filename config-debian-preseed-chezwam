@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mercredi 29 septembre 2021, 15:20
-# Edit Time: 7:21:50
+# Last Modified: mercredi 29 septembre 2021, 15:27
+# Edit Time: 7:21:55
 # Description:
 #
 #   debian 10 preseed update
@@ -129,9 +129,7 @@ chmod 644 /etc/cron.d/czo-email-at-reboot
 
 echo "##== Email         ==================================================##"
 # pb postfix
-#mkfifo /var/spool/postfix/public/pickup
-service postfix stop
-service postfix start
+mkfifo /var/spool/postfix/public/pickup
 
 
 echo "##== config files  ==================================================##"
