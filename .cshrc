@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 14 septembre 2021, 19:26
+# Last Modified: mercredi 29 septembre 2021, 18:45
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.31 2021/09/14 17:29:37 czo Exp $
+# $Id: .cshrc,v 1.32 2021/09/29 16:47:01 czo Exp $
 #
 
 
@@ -313,6 +313,7 @@ alias rule 'echo "....|....1....|....2....|....3....|....4....|....5....|....6..
 alias ll       'ls -l'
 alias lh       'ls -lh'
 alias l        'ls -alrt'
+alias g        'grep -si'
 
 alias llt      'find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls      'find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'

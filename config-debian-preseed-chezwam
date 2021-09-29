@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.12 2021/09/29 12:58:11 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.13 2021/09/29 13:31:18 czo Exp $
 
 (
 export LANG=C

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mardi 14 septembre 2021, 19:15
-# Edit Time: 93:14:13
+# Last Modified: mercredi 29 septembre 2021, 18:42
+# Edit Time: 93:16:04
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.339 2021/09/14 17:29:37 czo Exp $
+# $Id: .bashrc,v 1.340 2021/09/29 16:47:00 czo Exp $
 
 #set -v
 #set -x
@@ -349,6 +349,7 @@ alias rule='echo "....|....1....|....2....|....3....|....4....|....5....|....6..
 alias ll='ls -l'
 alias lh='ls -lh'
 alias l='ls -alrt'
+alias g='grep -si'
 
 alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
@@ -563,7 +564,7 @@ USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 )
 export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.339 2021/09/14 17:29:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.340 2021/09/29 16:47:00 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
