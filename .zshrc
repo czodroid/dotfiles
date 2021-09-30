@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mercredi 29 septembre 2021, 18:46
-# Edit Time: 130:25:47
+# Last Modified: jeudi 30 septembre 2021, 02:06
+# Edit Time: 130:25:52
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.308 2021/09/29 16:47:01 czo Exp $
+# $Id: .zshrc,v 1.309 2021/09/30 00:07:22 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -733,20 +733,33 @@ fi
 #HOSTNAME=czophone
 #USER=root
 
-# hash for colors
-USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
+# busybox has no cksum on openWRT!
+if [ -x "$(command -v cksum)" ]
+then
+    # hash for colors
+    USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
+    # export for screen
+    export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
+else
+    # hash for colors
+    USER_PROMPT_COLOR="1"
+    # export for screen
+    export HOST_PROMPT_COLOR="5"
+fi
 # export for screen
-export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.308 2021/09/29 16:47:01 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.309 2021/09/30 00:07:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited
-stty -ixon
+
+# busybox has no stty on openWRT!
+[ -x "$(command -v stty)" ] && stty -ixon
+
 umask 022
 
 export -U PATH
