@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 30 septembre 2021, 02:06
-# Edit Time: 130:25:52
+# Last Modified: samedi 09 octobre 2021, 15:55
+# Edit Time: 130:25:57
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.309 2021/09/30 00:07:22 czo Exp $
+# $Id: .zshrc,v 1.310 2021/10/09 13:59:37 czo Exp $
 
 #zmodload zsh/zprof
 
@@ -569,7 +569,7 @@ alias tmuxa='tmux attach -d || tmux new'
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
-alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av'
+alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 
 alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
@@ -749,7 +749,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.309 2021/09/30 00:07:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.310 2021/10/09 13:59:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

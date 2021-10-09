@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mercredi 29 septembre 2021, 18:45
+# Last Modified: samedi 09 octobre 2021, 15:55
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.32 2021/09/29 16:47:01 czo Exp $
+# $Id: .cshrc,v 1.33 2021/10/09 13:59:37 czo Exp $
 #
 
 
@@ -358,7 +358,7 @@ alias tmuxa 'tmux attach -d || tmux new'
 alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys 'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsync_full 'rsync --numeric-ids -S -H --delete -av'
-alias rsync_fat 'rsync --no-p --no-g --modify-window=1 --delete -av'
+alias rsync_fat 'rsync --no-p --no-g --modify-window=1 --delete -av -L'
 
 alias curl_config_fast_copy 'curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh 'curl -fsSL https://git.io/JU6c2 | sh'

@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 25 septembre 2021, 19:26
-" Edit Time: 189:09:25
+" Last Modified: samedi 09 octobre 2021, 15:59
+" Edit Time: 189:21:21
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.220 2021/09/25 17:27:15 czo Exp $
+" $Id: .vimrc,v 1.225 2021/10/09 13:59:37 czo Exp $
 
 if version >= 580
 "if 0
@@ -355,6 +355,13 @@ if has('clipboard')
         " but dont use Ctrl-A
         noremap <C-A> <C-A>
         inoremap <C-A> <C-A>
+
+        " " 2021/10/03 : macvim
+        " set clipboard=unnamed
+        " if has("unnamedplus") " X11 support
+        "     set clipboard+=unnamedplus
+        " endif
+
     endif
 else
     echom "Please install vim-athena/vim-gtk (debian)"
@@ -434,7 +441,7 @@ cmap <leader>rcm %s/<C-M>//g
 
 " == ABbreviations =====================================================
 
-" all starting with "_"
+" all starting with "_" like in visual code
 
 " insert the current filename:
 iab _n <C-R>=expand("%:t:r")<cr>
@@ -443,7 +450,9 @@ iab _ffn <C-R>=expand("%:p")<cr>
 iab _home <C-R>=$HOME<cr>
 iab _vim  <C-R>=$VIMRUNTIME<cr>
 iab _date <C-R>=strftime("%d %b %Y")<cr>
+iab _ma # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
 iab _mc # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
+iab _mi # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
 
 iab _abc abcdefghijklmnopqrstuvwxyz
 iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -477,7 +486,8 @@ if (has("syntax"))
     syntax reset
   endif
 
-  "let g:colors_name = "gruvbox64"
+  " 2021/10/03 : macvim
+  let g:colors_name = "gruvbox64"
 
 " gruvbox64.vim
 " Description: Retro groove color scheme for Vim
@@ -873,7 +883,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.220 2021/09/25 17:27:15 czo Exp $
+        " $Id: .vimrc,v 1.225 2021/10/09 13:59:37 czo Exp $
         "
         if 1
             " modif Started: in File Created:

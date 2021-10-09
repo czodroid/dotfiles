@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: jeudi 30 septembre 2021, 02:01
-# Edit Time: 93:41:18
+# Last Modified: mardi 05 octobre 2021, 21:43
+# Edit Time: 93:41:39
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.341 2021/09/30 00:07:22 czo Exp $
+# $Id: .bashrc,v 1.342 2021/10/09 13:59:37 czo Exp $
 
 #set -v
 #set -x
@@ -405,7 +405,7 @@ alias tmuxa='tmux attach -d || tmux new'
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
-alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av'
+alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 
 alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
@@ -574,7 +574,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.341 2021/09/30 00:07:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.342 2021/10/09 13:59:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
