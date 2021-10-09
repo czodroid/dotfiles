@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 09 octobre 2021, 15:55
-# Edit Time: 130:25:57
+# Last Modified: samedi 09 octobre 2021, 19:35
+# Edit Time: 130:26:21
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -654,8 +654,8 @@ alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brig
 alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
 alias utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
 
-xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
-xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
+pass_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
+pass_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
 # alias kfm='setxkbmap fr mac'
 # alias edl='export DISPLAY=localhost:0'

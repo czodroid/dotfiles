@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mardi 05 octobre 2021, 21:43
-# Edit Time: 93:41:39
+# Last Modified: samedi 09 octobre 2021, 19:25
+# Edit Time: 94:01:44
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.342 2021/10/09 13:59:37 czo Exp $
+# $Id: .bashrc,v 1.343 2021/10/09 17:32:13 czo Exp $
 
 #set -v
 #set -x
@@ -490,8 +490,8 @@ alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brig
 alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
 alias utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
 
-xcrypt() { perl -e 'print unpack"H*",$ARGV[0]' $1; }
-xdecrypt() { perl -e 'print pack"H*",$ARGV[0]' $1; }
+pass_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
+pass_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
 # alias kfm='setxkbmap fr mac'
 # alias edl='export DISPLAY=localhost:0'
@@ -574,7 +574,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.342 2021/10/09 13:59:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.343 2021/10/09 17:32:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
