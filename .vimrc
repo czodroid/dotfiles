@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 09 octobre 2021, 15:59
-" Edit Time: 189:21:21
+" Last Modified: dimanche 10 octobre 2021, 20:28
+" Edit Time: 189:43:40
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.225 2021/10/09 13:59:37 czo Exp $
+" $Id: .vimrc,v 1.227 2021/10/10 18:28:25 czo Exp $
 
 if version >= 580
 "if 0
@@ -264,6 +264,7 @@ set mousehide
   endif
 
 endif
+
 " == Autocommands ======================================================
 
 if has("autocmd")
@@ -439,6 +440,20 @@ vmap <leader>13 :!tr A-Za-z N-ZA-Mn-za-m
 " remove "control-m"s - for those mails sent from DOS:
 cmap <leader>rcm %s/<C-M>//g
 
+
+" == Command ===========================================================
+
+command!  CzoVisualGrey call CzoVisualGrey ()
+function! CzoVisualGrey ()
+    hi Visual guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White gui=inverse cterm=inverse term=inverse
+endfunction
+
+command!  CzoVisualClear call CzoVisualGrey ()
+function! CzoVisualClear ()
+    hi Visual guifg=NONE guibg=#304035 ctermfg=White ctermbg=DarkGray gui=NONE cterm=NONE term=NONE
+endfunction
+
+
 " == ABbreviations =====================================================
 
 " all starting with "_" like in visual code
@@ -575,6 +590,8 @@ hi Special          guifg=#fabd2f guibg=NONE    ctermfg=Yellow   ctermbg=NONE   
 hi Error            guifg=#fb4934 guibg=bg      ctermfg=Red      ctermbg=bg       gui=inverse        cterm=inverse        term=inverse
 hi Todo             guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
 
+"hi Visual           guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White    gui=inverse        cterm=inverse        term=inverse
+hi Visual           guifg=NONE    guibg=#304035 ctermfg=White    ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
 hi NonText          guifg=#504945 guibg=NONE    ctermfg=DarkGray ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
 hi SpecialKey       guifg=#504945 guibg=NONE    ctermfg=DarkGray ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
 hi TabLineFill      guifg=#7c6f64 guibg=#35302b ctermfg=DarkGray ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
@@ -582,7 +599,6 @@ hi TabLineSel       guifg=#ebdbb2 guibg=#35302b ctermfg=White    ctermbg=Black  
 hi MatchParen       guifg=NONE    guibg=#665c54 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
 hi ColorColumn      guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
 hi Conceal          guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
-hi Visual           guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White    gui=inverse        cterm=inverse        term=inverse
 hi Search           guifg=#fabd2f guibg=#3c3836 ctermfg=Yellow   ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
 hi IncSearch        guifg=#fe8019 guibg=#3c3836 ctermfg=Yellow   ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
 hi Underlined       guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=underline      cterm=underline      term=underline
@@ -883,7 +899,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.225 2021/10/09 13:59:37 czo Exp $
+        " $Id: .vimrc,v 1.227 2021/10/10 18:28:25 czo Exp $
         "
         if 1
             " modif Started: in File Created:
