@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 09 octobre 2021, 19:25
-# Edit Time: 94:01:44
+# Last Modified: samedi 16 octobre 2021, 13:02
+# Edit Time: 94:12:51
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.343 2021/10/09 17:32:13 czo Exp $
+# $Id: .bashrc,v 1.344 2021/10/16 11:05:35 czo Exp $
 
 #set -v
 #set -x
@@ -417,11 +417,12 @@ alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
 alias dig_lartha='curl http://lartha:/hosts.html'
 alias ssha='eval $(ssh-agent); ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
-# sed -i 173d ~/.ssh/known_hosts is working under linux,
-# but on FreeBSD you must have gnu-sed, so perl is best!
-remove_known_hosts() { perl -ni -e "print unless $. == $1" ~/.ssh/known_hosts; }
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+# sed -i 173d ~/.ssh/known_hosts is working under linux,
+# but on FreeBSD you must have gnu-sed, so perl is best!
+remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts; }
+alias remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
 
 alias mytree='tree -adn | grep -v CVS'
 alias cvu='cd ~/etc ; cvs up ; cd -'
@@ -449,7 +450,7 @@ alias AI='aptitude install'
 alias AP='aptitude purge'
 alias AS='aptitude search'
 
-# redhat, fedora 
+# redhat, fedora
 alias YU='yum update; yum clean all'
 alias YI='yum install'
 alias YP='yum remove'
@@ -574,7 +575,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.343 2021/10/09 17:32:13 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.344 2021/10/16 11:05:35 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

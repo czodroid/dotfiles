@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 10 octobre 2021, 20:28
-" Edit Time: 189:43:40
+" Last Modified: samedi 16 octobre 2021, 15:56
+" Edit Time: 191:37:07
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.227 2021/10/10 18:28:25 czo Exp $
+" $Id: .vimrc,v 1.232 2021/10/16 13:56:28 czo Exp $
 
 if version >= 580
 "if 0
@@ -23,7 +23,7 @@ if has("termguicolors")
   set termguicolors
 endif
 
-" for non working term colors
+"" for non working term colors
 "set notermguicolors
 "set t_Co=8
 "set t_Co=16
@@ -448,9 +448,29 @@ function! CzoVisualGrey ()
     hi Visual guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White gui=inverse cterm=inverse term=inverse
 endfunction
 
-command!  CzoVisualClear call CzoVisualGrey ()
+command!  CzoVisualClear call CzoVisualClear ()
 function! CzoVisualClear ()
-    hi Visual guifg=NONE guibg=#304035 ctermfg=White ctermbg=DarkGray gui=NONE cterm=NONE term=NONE
+    " test: #304035
+    hi Visual guifg=NONE guibg=#36403c ctermfg=NONE ctermbg=DarkGray gui=NONE cterm=NONE term=NONE
+endfunction
+
+command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
+function! CzoTrimTrailingWhitespace ()
+    " execute '%s/\s\+$//en'
+    " execute '%s/\s\+$//e'
+    execute '%s/\s\+$//ce'
+ endfunction
+
+command!  CzoConvertIndentationToSpaces call CzoConvertIndentationToSpaces ()
+function! CzoConvertIndentationToSpaces ()
+    execute '%s/\t/    /gce'
+endfunction
+
+command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
+function! CzoRemoveEmptyLinesAndComment ()
+    " execute 'g/^\s*#/d'
+    " execute 'g/^\s*$/d'
+    execute 'g/\(^\s*#\)\|\(^\s*$\)/d'
 endfunction
 
 
@@ -539,7 +559,6 @@ if (has("syntax"))
 " aqua2     #8ec07c
 " orange1   #d65d0e
 " orange2   #fe8019
-" 
 
 " NR-8 NAME             NR-16 NAME           Gruvbox64
 "  0   Black            0     Black          #282828
@@ -590,8 +609,11 @@ hi Special          guifg=#fabd2f guibg=NONE    ctermfg=Yellow   ctermbg=NONE   
 hi Error            guifg=#fb4934 guibg=bg      ctermfg=Red      ctermbg=bg       gui=inverse        cterm=inverse        term=inverse
 hi Todo             guifg=#83a598 guibg=NONE    ctermfg=Blue     ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
 
-"hi Visual           guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White    gui=inverse        cterm=inverse        term=inverse
-hi Visual           guifg=NONE    guibg=#304035 ctermfg=White    ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi Visual           guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White    gui=inverse        cterm=inverse        term=inverse
+if has("termguicolors")
+    hi Visual       guifg=NONE    guibg=#36403c ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+endif
+
 hi NonText          guifg=#504945 guibg=NONE    ctermfg=DarkGray ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
 hi SpecialKey       guifg=#504945 guibg=NONE    ctermfg=DarkGray ctermbg=NONE     gui=NONE           cterm=NONE           term=NONE
 hi TabLineFill      guifg=#7c6f64 guibg=#35302b ctermfg=DarkGray ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
@@ -899,7 +921,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.227 2021/10/10 18:28:25 czo Exp $
+        " $Id: .vimrc,v 1.232 2021/10/16 13:56:28 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1271,6 +1293,7 @@ if version >= 700
     autocmd FileType xdefaults setlocal commentstring=!\ %s
     autocmd FileType json      setlocal commentstring=//\ %s
     autocmd FileType cpp       setlocal commentstring=//\ %s
+    autocmd FileType php       setlocal commentstring=//\ %s
     autocmd FileType cfg       setlocal commentstring=#\ %s
     autocmd FileType apache    setlocal commentstring=#\ %s
 

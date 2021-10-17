@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: samedi 09 octobre 2021, 15:55
+# Last Modified: samedi 16 octobre 2021, 14:58
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.33 2021/10/09 13:59:37 czo Exp $
+# $Id: .cshrc,v 1.34 2021/10/16 12:58:59 czo Exp $
 #
 
 
@@ -370,8 +370,13 @@ alias passwd_md5 'openssl passwd -1 '
 alias passwd_sha512 'openssl passwd -6 '
 alias ssha 'eval `ssh-agent -c`; ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 alias dig_lartha 'curl http://lartha:/hosts.html'
-alias remove_known_hosts 'perl -ni -e "print unless $. == $1" ~/.ssh/known_hosts'
 alias tmate_ssh 'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+# sed -i 173d ~/.ssh/known_hosts is working under linux,
+# but on FreeBSD you must have gnu-sed, so perl is best!
+alias remove_known_hosts_line 'perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts'
+# 2021/10/16 : Modified by Olivier Sirol <czo@free.fr> 
+# escape quotes '
+alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#|^\s*$/'\'
 
 alias mytree 'tree -adn | grep -v CVS'
 alias cvu 'cd ~/etc ; cvs up ; cd -'
