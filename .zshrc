@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 16 octobre 2021, 13:05
-# Edit Time: 130:26:41
+# Last Modified: dimanche 17 octobre 2021, 19:20
+# Edit Time: 130:26:56
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -515,9 +515,9 @@ alias lh='ls -lh'
 alias l='ls -alrt'
 alias g='grep -si'
 
-alias llt='find . -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
-alias lls='find . -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
-alias llx='find . -type f -perm -1 -print'
+alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
+alias lls='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
+alias llx='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -perm -1 -print | sort'
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1" ; cd "$1"; }
 ff() { find . -iname "*$1*"; }
