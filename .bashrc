@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.344 2021/10/16 11:05:35 czo Exp $
+# $Id: .bashrc,v 1.345 2021/10/17 17:21:44 czo Exp $
 
 #set -v
 #set -x
@@ -575,7 +575,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.344 2021/10/16 11:05:35 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.345 2021/10/17 17:21:44 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

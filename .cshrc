@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.34 2021/10/16 12:58:59 czo Exp $
+# $Id: .cshrc,v 1.35 2021/10/17 17:21:44 czo Exp $
 #
 
 
