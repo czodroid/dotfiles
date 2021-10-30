@@ -503,16 +503,18 @@
 	<integer>0</integer>
 	<key>DisableANSIColor</key>
 	<false/>
+	<key>EastAsianAmbiguousWide</key>
+	<false/>
 	<key>EscapeNonASCIICharacters</key>
-	<true/>
+	<false/>
 	<key>Font</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
 	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGkCwwVFlUkbnVsbNQNDg8QERIT
-	FFZOU1NpemVYTlNmRmxhZ3NWTlNOYW1lViRjbGFzcyNAMQAAAAAAABAQgAKAA1ZNb25h
-	Y2/SFxgZGlokY2xhc3NuYW1lWCRjbGFzc2VzVk5TRm9udKIZG1hOU09iamVjdAgRGiQp
-	MjdJTFFTWF5nbnd+hY6QkpSboKu0u74AAAAAAAABAQAAAAAAAAAcAAAAAAAAAAAAAAAA
-	AAAAxw==
+	FFZOU1NpemVYTlNmRmxhZ3NWTlNOYW1lViRjbGFzcyNAMQAAAAAAABAQgAKAA18QIVNv
+	dXJjZUNvZGVQcm9Gb3JQb3dlcmxpbmUtUmVndWxhctIXGBkaWiRjbGFzc25hbWVYJGNs
+	YXNzZXNWTlNGb250ohkbWE5TT2JqZWN0CBEaJCkyN0lMUVNYXmdud36FjpCSlLi9yNHY
+	2wAAAAAAAAEBAAAAAAAAABwAAAAAAAAAAAAAAAAAAADk
 	</data>
 	<key>FontAntialias</key>
 	<true/>
@@ -533,6 +535,8 @@
 	ohYYWE5TT2JqZWN0CBEaJCkyN0lMUVNXXWRqd36nqauwu8TMzwAAAAAAAAEBAAAAAAAA
 	ABkAAAAAAAAAAAAAAAAAAADY
 	</data>
+	<key>SetLanguageEnvironmentVariables</key>
+	<true/>
 	<key>ShouldLimitScrollback</key>
 	<integer>1</integer>
 	<key>ShowActiveProcessInTitle</key>
@@ -553,6 +557,8 @@
 	<true/>
 	<key>ShowWindowSettingsNameInTitle</key>
 	<false/>
+	<key>TerminalType</key>
+	<string>xterm-256colour</string>
 	<key>TextBoldColor</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS

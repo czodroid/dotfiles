@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 17 octobre 2021, 19:15
+# Last Modified: dimanche 24 octobre 2021, 23:11
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.35 2021/10/17 17:21:44 czo Exp $
+# $Id: .cshrc,v 1.36 2021/10/24 21:11:33 czo Exp $
 #
 
 
@@ -352,8 +352,10 @@ alias tsu     'su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile 
 alias ipl 'echo `wget -q -O- http://czo.free.fr/myipa.php`'
 alias ipa 'ip a | grep "inet "'
 alias ifa 'ifconfig | grep "inet "'
+
 alias screena 'screen -d -R'
-alias tmuxa 'tmux attach -d || tmux new'
+alias tmuxa   'tmux attach -d || tmux new'
+alias tt      'tmux attach -d || tmux new'
 
 alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys 'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
