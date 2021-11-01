@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.36 2021/10/24 21:11:33 czo Exp $
+# $Id: .cshrc,v 1.37 2021/11/01 18:31:32 czo Exp $
 #
 
 
@@ -402,23 +402,29 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_`d
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-alias AU 'aptitude update && aptitude upgrade &&  aptitude clean'
-alias AI 'aptitude install'
-alias AP 'aptitude purge'
-alias AS 'aptitude search'
+alias AI  'apt-get install'
+alias AP  'apt-get purge'
+alias AS  'aptitude search'
+alias ASS 'apt-cache search'
+alias AL  'dpkg -L'
+alias AF  'dpkg -S'
 
 # redhat, fedora 
-alias YU 'yum update'
-alias YI 'yum install'
-alias YP 'yum remove'
-alias YS 'yum search'
-alias YSS 'yum list "*\!**"'
+alias YU  'yum update'
+alias YI  'yum install'
+alias YP  'yum remove'
+alias YS  'yum list "*\!**"'
+alias YSS 'yum search'
+alias YL  'rpm -ql'
+alias YF  'rpm -qf'
 
 # archlinux
 alias PU 'pacman -Syu'
 alias PI 'pacman -S'
 alias PP 'pacman -Rs'
 alias PS 'pacman -Ss'
+alias PL 'pacman -Ql'
+alias PF 'pacman -Qo'
 
 # openwrt: opkg
 # suse: zypper

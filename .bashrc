@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 30 octobre 2021, 02:23
-# Edit Time: 94:37:18
+# Last Modified: lundi 01 novembre 2021, 19:24
+# Edit Time: 95:03:03
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.351 2021/10/30 00:23:30 czo Exp $
+# $Id: .bashrc,v 1.352 2021/11/01 18:25:33 czo Exp $
 
 #set -v
 #set -x
@@ -451,23 +451,30 @@ alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTN
 alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
-alias AU='aptitude update && aptitude upgrade &&  aptitude clean'
-alias AI='aptitude install'
-alias AP='aptitude purge'
+alias AU='apt-get update && apt-get upgrade && apt-get clean'
+alias AI='apt-get install'
+alias AP='apt-get purge'
 alias AS='aptitude search'
+alias ASS='apt-cache search'
+alias AL='dpkg -L'
+alias AF='dpkg -S'
 
 # redhat, fedora
-alias YU='yum update; yum clean all'
+alias YU='yum update && yum clean all'
 alias YI='yum install'
 alias YP='yum remove'
-alias YS='yum search'
-YSS() { yum list "*$1*"; }
+YS() { yum list "*$1*"; }
+alias YSS='yum search'
+alias YL='rpm -ql'
+alias YF='rpm -qf'
 
 # archlinux
 alias PU='pacman -Syu'
 alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
+alias PL='pacman -Ql'
+alias PF='pacman -Qo'
 
 # openwrt: opkg
 # suse: zypper
@@ -579,7 +586,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.351 2021/10/30 00:23:30 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.352 2021/11/01 18:25:33 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
