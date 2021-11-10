@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 24 octobre 2021, 23:11
+# Last Modified: mercredi 10 novembre 2021, 20:10
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.37 2021/11/01 18:31:32 czo Exp $
+# $Id: .cshrc,v 1.38 2021/11/10 19:11:28 czo Exp $
 #
 
 
@@ -254,6 +254,7 @@ setenv HTML_TIDY $HOME/.tidyrc
 unalias *
 
 alias t     'where'
+alias a     'where'
 # alias v     'set | grep -ai \!*'
 
 alias st    'source ~/.cshrc'
@@ -349,13 +350,13 @@ alias tarxiso 'cmake -E tar xf'
 
 alias tsu     'su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
-alias ipl 'echo `wget -q -O- http://czo.free.fr/myipa.php`'
+alias ipl 'echo `wget -q -O- http://czo.free.fr/ip.php`'
 alias ipa 'ip a | grep "inet "'
 alias ifa 'ifconfig | grep "inet "'
 
 alias screena 'screen -d -R'
 alias tmuxa   'tmux attach -d || tmux new'
-alias tt      'tmux attach -d || tmux new'
+alias aa      'tmux attach -d || tmux new'
 
 alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys 'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'

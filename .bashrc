@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: lundi 01 novembre 2021, 19:24
-# Edit Time: 95:03:03
+# Last Modified: mercredi 10 novembre 2021, 20:02
+# Edit Time: 95:04:34
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.352 2021/11/01 18:25:33 czo Exp $
+# $Id: .bashrc,v 1.353 2021/11/10 19:11:28 czo Exp $
 
 #set -v
 #set -x
@@ -283,6 +283,7 @@ unalias -a
 
 alias where='type -a'
 alias t='type -a'
+alias a='type -a'
 alias eq='type -P'
 
 alias st='source ~/.bashrc'
@@ -401,12 +402,12 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias ipl='echo $(wget -q -O- http://czo.free.fr/myipa.php)'
+alias ipl='echo $(wget -q -O- http://czo.free.fr/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
 alias screena='screen -d -R'
 alias tmuxa='tmux attach -d || tmux new'
-alias tt='tmux attach -d || tmux new'
+alias aa='tmux attach -d || tmux new'
 
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
@@ -586,7 +587,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.352 2021/11/01 18:25:33 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.353 2021/11/10 19:11:28 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

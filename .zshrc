@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: lundi 01 novembre 2021, 19:26
-# Edit Time: 130:50:42
+# Last Modified: mercredi 10 novembre 2021, 20:04
+# Edit Time: 130:50:47
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.322 2021/11/01 18:31:32 czo Exp $
+# $Id: .zshrc,v 1.323 2021/11/10 19:11:28 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -443,6 +443,7 @@ unalias -m '*'
 
 #alias where='whence -ca'
 alias t='whence -ca'
+alias a='whence -ca'
 alias eq='whence -p'
 
 alias st='source ~/.zshrc'
@@ -559,12 +560,12 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias ipl='echo $(wget -q -O- http://czo.free.fr/myipa.php)'
+alias ipl='echo $(wget -q -O- http://czo.free.fr/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
 alias screena='screen -d -R'
 alias tmuxa='tmux attach -d || tmux new'
-alias tt='tmux attach -d || tmux new'
+alias aa='tmux attach -d || tmux new'
 
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
@@ -755,7 +756,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.322 2021/11/01 18:31:32 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.323 2021/11/10 19:11:28 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
