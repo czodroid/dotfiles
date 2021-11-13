@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 16 octobre 2021, 15:56
-" Edit Time: 191:37:07
+" Last Modified: samedi 13 novembre 2021, 19:47
+" Edit Time: 192:24:00
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.232 2021/10/16 13:56:28 czo Exp $
+" $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
 
 if version >= 580
 "if 0
@@ -308,9 +308,16 @@ augroup MyAbbrevs
 "autocmd BufNewFile,BufRead *.htm,*.html,*.mkd call MyHTMLAbbrevs()
 augroup END
 
-autocmd Filetype json let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
-autocmd FileType perl setlocal equalprg=perltidy\ -ce\ -l=0\ -st
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
+autocmd BufNewFile,BufRead *.h   set filetype=h
+autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
+autocmd FileType perl      setlocal equalprg=perltidy\ -ce\ -l=0\ -st
+autocmd FileType xdefaults setlocal commentstring=!\ %s
+autocmd FileType json      setlocal commentstring=//\ %s
+autocmd FileType cpp       setlocal commentstring=//\ %s
+autocmd FileType php       setlocal commentstring=//\ %s
+autocmd FileType cfg       setlocal commentstring=#\ %s
+autocmd FileType apache    setlocal commentstring=#\ %s
 
 endif
 
@@ -921,7 +928,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.232 2021/10/16 13:56:28 czo Exp $
+        " $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1012,263 +1019,606 @@ function! Template (...)
         let xft = a:1
     endif
 
+    " /* 2011/01/27 : czo */
+    " I have only a .vimrc, no more multiple config/template files
+    "
+    "    let mytemplatefile = expand("$HOME/etc/vim/templates/template\." . xft)
+    "    if filereadable(mytemplatefile)
+    "        normal 1G
+    "        execute ":r " . mytemplatefile
+    "        1d
+    "    endif
+    "
+    " cat template.sh | perl -pe 's/^/\\\\<nl>/; s/"/\\\\"/g; s/\\$/\\\\/g;'
+
     if xft != ""
-
-        " /* 2011/01/27 : czo */
-        " I have only a .vimrc, no more multiple config/template files
-        "
-        "    let mytemplatefile = expand("$HOME/etc/vim/templates/template\." . xft)
-        "    if filereadable(mytemplatefile)
-        "        normal 1G
-        "        execute ":r " . mytemplatefile
-        "        1d
-        "    endif
-
         try
             throw xft
 
-            " cat template.html | perl -pe 's/^/\\\\<nl>/; s/"/\\\\"/g; s/\\$/\\\\/g;'
+            "## template.c #########################################
+            catch /^c$/
+               0put = \"
+                      \/*
+                 \\<nl> * Filename: template.c
+                 \\<nl> * Author: Olivier Sirol <czo@free.fr>
+                 \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl> * Last Modified: Saturday 13 November 2021, 18:16
+                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Description:
+                 \\<nl> * 
+                 \\<nl> */
+                 \\<nl>
+                 \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
+                 \\<nl>
+                 \\<nl>/*
+                 \\<nl> * ####===========================================================####
+                 \\<nl> * #### Include Files
+                 \\<nl> */
+                 \\<nl>
+                 \\<nl>#include <stdio.h>
+                 \\<nl>#include <stdlib.h>
+                 \\<nl>#include <unistd.h>
+                 \\<nl>
+                 \\<nl>/*
+                 \\<nl> * ####===========================================================####
+                 \\<nl> * #### Main
+                 \\<nl> */
+                 \\<nl>
+                 \\<nl>int main (int argc, char *argv[], char *envp[])
+                 \\<nl>{
+                 \\<nl>    printf (\\"Size of   char: %d bytes\\n\\", sizeof(char));
+                 \\<nl>    printf (\\"Size of    int: %d bytes\\n\\", sizeof(int));
+                 \\<nl>    printf (\\"Size of  float: %d bytes\\n\\", sizeof(float));
+                 \\<nl>    printf (\\"Size of double: %d bytes\\n\\", sizeof(double));
+                 \\<nl>
+                 \\<nl>    return (0);
+                 \\<nl>}
+                 \\"
 
-            " ## Template .c #####################################################
-        catch /^c$/
-            0put =
-                        \\"/*
-                        \\<nl> * Filename: template.c
-                        \\<nl> * Author: Olivier Sirol <czo@free.fr>
-                        \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
-                        \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl> * Last Modified: mercredi 21 juillet 2021, 18:55
-                        \\<nl> * Edit Time: 0:01:03
-                        \\<nl> * Description:
-                        \\<nl> *
-                        \\<nl> */
-                        \\<nl>
-                        \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
-                        \\<nl>
-                        \\<nl>/*
-                        \\<nl> * ####===========================================================####
-                        \\<nl> * #### Include Files
-                        \\<nl> */
-                        \\<nl>
-                        \\<nl>#include <stdio.h>
-                        \\<nl>#include <stdlib.h>
-                        \\<nl>#include <unistd.h>
-                        \\<nl>
-                        \\<nl>/* for getopt (usualy included in unistd.h)
-                        \\<nl> * extern char *optarg;
-                        \\<nl> * extern int optind, opterr, optopt;
-                        \\<nl> */
-                        \\<nl>
-                        \\<nl>/*
-                        \\<nl> * ####===========================================================####
-                        \\<nl> * #### Main
-                        \\<nl> */
-                        \\<nl>
-                        \\<nl>int
-                        \\<nl>main (int argc, char *argv[], char *envp[])
-                        \\<nl>{
-                        \\<nl>  printf (\\"Hello World\\n\\");
-                        \\<nl>  return (0);
-                        \\<nl>}
-                        \\"
+            "## template.cpp #########################################
+            catch /^cpp$/
+               0put = \"
+                      \// Filename: template.cpp
+                 \\<nl>// Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl>// Last Modified: Saturday 13 November 2021, 18:16
+                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// Description:
+                 \\<nl>
+                 \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
+                 \\<nl>
+                 \\<nl>// ####===========================================================####
+                 \\<nl>// #### Include Files
+                 \\<nl>
+                 \\<nl>#include <iostream>
+                 \\<nl>
+                 \\<nl>using namespace std;
+                 \\<nl>
+                 \\<nl>// ####===========================================================####
+                 \\<nl>// #### Main
+                 \\<nl>
+                 \\<nl>int main (int argc, char *argv[], char *envp[])
+                 \\<nl>{    
+                 \\<nl>    cout << \\"Size of   char: \\" << sizeof(char)   << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"Size of    int: \\" << sizeof(int)    << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"Size of  float: \\" << sizeof(float)  << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"Size of double: \\" << sizeof(double) << \\" bytes\\" << endl;
+                 \\<nl>
+                 \\<nl>    return (0);
+                 \\<nl>}
+                 \\"
 
-            " ## Template .h #####################################################
-        catch /^h$/
-            0put =
-                        \\"/*
-                        \\<nl> * Filename: template.h
-                        \\<nl> * Author: Olivier Sirol <czo@free.fr>
-                        \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
-                        \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl> * Last Modified: mercredi 21 juillet 2021, 18:59
-                        \\<nl> * Edit Time: 0:00:15
-                        \\<nl> * Description:
-                        \\<nl> *
-                        \\<nl> */
-                        \\<nl>
-                        \\<nl>#ifndef MY_HEADER_H
-                        \\<nl>#define MY_HEADER_H
-                        \\<nl>
-                        \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
-                        \\<nl>
-                        \\<nl>/*
-                        \\<nl> * ####===========================================================####
-                        \\<nl> * #### Prototypes
-                        \\<nl> */
-                        \\<nl>
-                        \\<nl>#endif
-                        \\"
+            "## template.css #########################################
+            catch /^css$/
+               0put = \"
+                      \/*
+                 \\<nl> * Filename: template.css
+                 \\<nl> * Author: Olivier Sirol <czo@free.fr>
+                 \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl> * Last Modified: Saturday 13 November 2021, 18:16
+                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Description:
+                 \\<nl> * 
+                 \\<nl> */
+                 \\<nl>
+                 \\<nl>html {
+                 \\<nl>  background-color: #282828;
+                 \\<nl>  color: #ebdbb2;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>body {
+                 \\<nl>  margin: 0px 0px;
+                 \\<nl>  text-align: center;
+                 \\<nl>  font-family: \\"Bitter\\", monospace;
+                 \\<nl>  font-size: 52px;
+                 \\<nl>  line-height: 1.3;
+                 \\<nl>  text-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.9);
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>.code {
+                 \\<nl>  font-weight: bold;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>.reason {
+                 \\<nl>  font-size: 46px;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>a,
+                 \\<nl>a:visited,
+                 \\<nl>a:active,
+                 \\<nl>a:hover {
+                 \\<nl>  margin: 20px;
+                 \\<nl>  font-size: 22px;
+                 \\<nl>  color: #af4b3f;
+                 \\<nl>  text-decoration: none;
+                 \\<nl>  outline: 0;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>a:hover {
+                 \\<nl>  color: #d14836;
+                 \\<nl>  text-decoration: underline;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>.outer {
+                 \\<nl>  display: table;
+                 \\<nl>  position: absolute;
+                 \\<nl>  height: 100%;
+                 \\<nl>  width: 100%;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>.middle {
+                 \\<nl>  display: table-cell;
+                 \\<nl>  vertical-align: middle;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>.inner {
+                 \\<nl>  margin-left: auto;
+                 \\<nl>  margin-right: auto;
+                 \\<nl>  text-align: center;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>video {
+                 \\<nl>  width: 100vw;
+                 \\<nl>  height: 100vh;
+                 \\<nl>  object-fit: cover;
+                 \\<nl>  position: fixed;
+                 \\<nl>  top: 0;
+                 \\<nl>  left: 0;
+                 \\<nl>  z-index: -1;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>@media (prefers-color-scheme: dark) {
+                 \\<nl>  html {
+                 \\<nl>    background-color: #282828;
+                 \\<nl>    color: #ebdbb2;
+                 \\<nl>  }
+                 \\<nl>  body {
+                 \\<nl>    text-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.9);
+                 \\<nl>  }
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>@media (prefers-color-scheme: light) {
+                 \\<nl>  html {
+                 \\<nl>    background-color: #fefeff;
+                 \\<nl>    color: #3c3836;
+                 \\<nl>  }
+                 \\<nl>  body {
+                 \\<nl>    text-shadow: 0 0 0.2rem rgba(255, 255, 255, 0.9);
+                 \\<nl>  }
+                 \\<nl>}
+                 \\"
 
+            "## template.h #########################################
+            catch /^h$/
+               0put = \"
+                      \/*
+                 \\<nl> * Filename: template.h
+                 \\<nl> * Author: Olivier Sirol <czo@free.fr>
+                 \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl> * Last Modified: Saturday 13 November 2021, 14:59
+                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Description:
+                 \\<nl> * 
+                 \\<nl> */
+                 \\<nl>
+                 \\<nl>#ifndef MY_HEADER_H
+                 \\<nl>#define MY_HEADER_H
+                 \\<nl>
+                 \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
+                 \\<nl>
+                 \\<nl>/*
+                 \\<nl> * ####===========================================================####
+                 \\<nl> * #### Prototypes
+                 \\<nl> */
+                 \\<nl>
+                 \\<nl>#endif
+                 \\"
 
-            " ## Template .html ##################################################
-        catch /^html$/
-            0put = \"
-            \<!DOCTYPE html>
-            \\<nl>
-            \\<nl><!--
-            \\<nl>Filename: template.html
-            \\<nl>Author: Olivier Sirol <czo@free.fr>
-            \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
-            \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
-            \\<nl>Last Modified: mercredi 21 juillet 2021, 18:13
-            \\<nl>Edit Time: 0:02:12
-            \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
-            \\<nl>-->
-            \\<nl>
-            \\<nl><html lang=\\"en\\">
-            \\<nl>
-            \\<nl><head>
-            \\<nl>
-            \\<nl>    <title>My bookmarks</title>
-            \\<nl>
-            \\<nl>    <meta charset=\\"utf-8\\">
-            \\<nl>    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-            \\<nl>    <meta name=\\"theme-color\\" content=\\"#007bff\\">
-            \\<nl>
-            \\<nl>    <meta name=\\"Author\\" content=\\"Olivier Sirol <czo@ipgp.fr>\\" />
-            \\<nl>    <meta name=\\"Generator\\" content=\\"Vim\\">
-            \\<nl>    <meta name=\\"Description\\" content=\\"__DESCRIPTION__\\">
-            \\<nl>    <meta name=\\"Keywords\\" content=\\"__KEYWORDS__\\">
-            \\<nl>
-            \\<nl>    <link rel=\\"shortcut icon\\" href=\\"favicon.png\\">
-            \\<nl>    <link rel=\\"apple-touch-icon\\" href=\\"favicon.png\\">
-            \\<nl>    <link rel=\\"icon\\" href=\\"favicon.png\\">
-            \\<nl>
-            \\<nl>    <link rel=\\"stylesheet\\" href=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\\" integrity=\\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\\" crossorigin=\\"anonymous\\">
-            \\<nl>    <script src=\\"https://code.jquery.com/jquery-3.4.1.slim.min.js\\" integrity=\\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\\" crossorigin=\\"anonymous\\"></script>
-            \\<nl>    <script src=\\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\\" integrity=\\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\\" crossorigin=\\"anonymous\\"></script>
-            \\<nl>    <script src=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\\" integrity=\\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\\" crossorigin=\\"anonymous\\"></script>
-            \\<nl>
-            \\<nl></head>
-            \\<nl>
-            \\<nl><body>
-            \\<nl>    <div id=\\"maincontent\\" class=\\"container\\">
-            \\<nl>        <h1>&nbsp;</h1>
-            \\<nl>        <div class=\\"list-group\\">
-            \\<nl>            <a href=\\"\\" class=\\"list-group-item list-group-item-action active\\" aria-current=\\"true\\">My bookmarks</a>
-            \\<nl>            <a href=\\"https://www.google.com/\\" class=\\"list-group-item list-group-item-action\\">Google search</a>
-            \\<nl>            <a href=\\"https://duckduckgo.com/\\" class=\\"list-group-item list-group-item-action\\">DuckDuckGo search</a>
-            \\<nl>        </div>
-            \\<nl>    </div>
-            \\<nl></body>
-            \\<nl>
-            \\<nl></html>
-            \\<nl>
-            \\"
+            "## template.hpp #########################################
+            catch /^hpp$/
+               0put = \"
+                      \// Filename: template.hpp
+                 \\<nl>// Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl>// Last Modified: Saturday 13 November 2021, 18:16
+                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// Description:
+                 \\<nl>
+                 \\<nl>#ifndef MY_HEADER_H
+                 \\<nl>#define MY_HEADER_H
+                 \\<nl>
+                 \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
+                 \\<nl>
+                 \\<nl>// ####===========================================================####
+                 \\<nl>// #### Prototypes
+                 \\<nl>
+                 \\<nl>#endif
+                 \\"
 
-            " ## Template .make ##################################################
-        catch /^make$/
-            0put =
-                        \\"# Filename: template.make
-                        \\<nl># Author: Olivier Sirol <czo@free.fr>
-                        \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
-                        \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl># Last Modified: mercredi 21 juillet 2021, 18:50
-                        \\<nl># Edit Time: 0:00:09
-                        \\<nl># Description:
-                        \\<nl>#      Makefile:
-                        \\<nl>#      $@ Le nom de la cible
-                        \\<nl>#      $< Le nom de la première dépendance
-                        \\<nl>#      $^ La liste des dépendances
-                        \\<nl>#      $? La liste des dépendances plus récentes que la cible
-                        \\<nl>#      $* Le nom du fichier sans suffixe
-                        \\<nl>#
-                        \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                        \\<nl>
-                        \\<nl>CC = gcc
-                        \\<nl>CFLAGS = -Wall -Wextra -Wpedantic
-                        \\<nl>#CFLAGS += -I ..
-                        \\<nl>#LIBS += -lX11 -lXext -lhistory  -lreadline
-                        \\<nl>
-                        \\<nl>SRC= $(wildcard *.c)
-                        \\<nl>
-                        \\<nl>DEPS = $(wildcard *.c) $(wildcard *.h)
-                        \\<nl>
-                        \\<nl>OBJ  = $(SRC:.c=.o)
-                        \\<nl>
-                        \\<nl>EXEC = go
-                        \\<nl>
-                        \\<nl>all: $(EXEC)
-                        \\<nl>\<TAB>@echo \\"<- all done!\\"
-                        \\<nl>
-                        \\<nl>viewdeps: $(DEPS)
-                        \\<nl>\<TAB>@echo $(DEPS)
-                        \\<nl>
-                        \\<nl>$(EXEC): $(OBJ)
-                        \\<nl>\<TAB>$(CC) -o $@ $^ $(LIBS)
-                        \\<nl>
-                        \\<nl>%.o: %.c $(DEPS)
-                        \\<nl>\<TAB>$(CC) -c -o $@ $< $(CFLAGS)
-                        \\<nl>
-                        \\<nl>clean:
-                        \\<nl>\<TAB>rm -f *.o
-                        \\<nl>\<TAB>@echo \\"<- clean done!\\"
-                        \\<nl>
-                        \\<nl>realclean: clean
-                        \\<nl>\<TAB>rm -f $(EXEC)
-                        \\<nl>\<TAB>@echo \\"<- realclean done!\\"
-                        \\<nl>
-                        \\<nl>fclean: realclean
-                        \\<nl>
-                        \\<nl>re: realclean all
-                        \\<nl>
-                        \\<nl>.PHONY: all clean realclean fclean re
-                        \\<nl>
-                        \\"
+            "## template.html #########################################
+            catch /^html$/
+               0put = \"
+                      \<!DOCTYPE html>
+                 \\<nl>
+                 \\<nl><!--
+                 \\<nl>Filename: template.html
+                 \\<nl>Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl>Last Modified: Saturday 13 November 2021, 18:16
+                 \\<nl>Edit Time: 0:00:01
+                 \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>-->
+                 \\<nl>
+                 \\<nl><html lang=\\"en\\">
+                 \\<nl>
+                 \\<nl><head>
+                 \\<nl>
+                 \\<nl>    <title>My bookmarks</title>
+                 \\<nl>
+                 \\<nl>    <meta charset=\\"utf-8\\">
+                 \\<nl>    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+                 \\<nl>    <meta name=\\"theme-color\\" content=\\"#007bff\\">
+                 \\<nl>
+                 \\<nl>    <meta name=\\"Author\\" content=\\"Olivier Sirol <czo@ipgp.fr>\\" />
+                 \\<nl>    <meta name=\\"Generator\\" content=\\"Vim\\">
+                 \\<nl>    <meta name=\\"Description\\" content=\\"__DESCRIPTION__\\">
+                 \\<nl>    <meta name=\\"Keywords\\" content=\\"__KEYWORDS__\\">
+                 \\<nl>
+                 \\<nl>    <link rel=\\"shortcut icon\\" href=\\"favicon.png\\">
+                 \\<nl>    <link rel=\\"apple-touch-icon\\" href=\\"favicon.png\\">
+                 \\<nl>    <link rel=\\"icon\\" href=\\"favicon.png\\">
+                 \\<nl>
+                 \\<nl>    <link rel=\\"stylesheet\\" href=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\\" integrity=\\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\\" crossorigin=\\"anonymous\\">
+                 \\<nl>    <script src=\\"https://code.jquery.com/jquery-3.4.1.slim.min.js\\" integrity=\\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\\" crossorigin=\\"anonymous\\"></script>
+                 \\<nl>    <script src=\\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\\" integrity=\\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\\" crossorigin=\\"anonymous\\"></script>
+                 \\<nl>    <script src=\\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\\" integrity=\\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\\" crossorigin=\\"anonymous\\"></script>
+                 \\<nl>
+                 \\<nl></head>
+                 \\<nl>
+                 \\<nl><body>
+                 \\<nl>    <div id=\\"maincontent\\" class=\\"container\\">
+                 \\<nl>        <h1>&nbsp;</h1>
+                 \\<nl>        <div class=\\"list-group\\">
+                 \\<nl>            <a href=\\"\\" class=\\"list-group-item list-group-item-action active\\" aria-current=\\"true\\">My bookmarks</a>
+                 \\<nl>            <a href=\\"https://www.google.com/\\" class=\\"list-group-item list-group-item-action\\">Google search</a>
+                 \\<nl>            <a href=\\"https://duckduckgo.com/\\" class=\\"list-group-item list-group-item-action\\">DuckDuckGo search</a>
+                 \\<nl>        </div>
+                 \\<nl>    </div>
+                 \\<nl></body>
+                 \\<nl>
+                 \\<nl></html>
+                 \\"
 
-            " ## Template .perl###################################################
-        catch /^perl$/
-            0put =
-                        \\"#! /usr/bin/perl -w
-                        \\<nl>#
-                        \\<nl># Filename: template.perl
-                        \\<nl># Author: Olivier Sirol <czo@free.fr>
-                        \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
-                        \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl># Last Modified: mercredi 21 juillet 2021, 18:34
-                        \\<nl># Edit Time: 0:00:14
-                        \\<nl># Description:
-                        \\<nl>#
-                        \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                        \\<nl>
-                        \\<nl># read in whole file, not just one line or paragraph
-                        \\<nl>undef $/;
-                        \\<nl>while (<>) {
-                        \\<nl>    if (/<s*titles*>s*(.*?)s*<s*/s*titles*>/smi) {
-                        \\<nl>        $res = $1;
-                        \\<nl>        $res =~ s/ \n / /smig;
-                        \\<nl>        $res =~ s/  */ /smig;
-                        \\<nl>        print \\"$res\n\\";
-                        \\<nl>    }
-                        \\<nl>}
-                        \\<nl>
-                        \\"
+            "## template.java #########################################
+            catch /^java$/
+               0put = \"
+                      \package org.czo.badumtsss;
+                 \\<nl>
+                 \\<nl>// Filename: template.java
+                 \\<nl>// Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>// File Created: août 2015
+                 \\<nl>// Last Modified: Saturday 13 November 2021, 13:54
+                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// Description:
+                 \\<nl>// 
+                 \\<nl>// $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
+                 \\<nl>
+                 \\<nl>import android.app.Activity;
+                 \\<nl>import android.media.AudioManager;
+                 \\<nl>import android.media.MediaPlayer;
+                 \\<nl>import android.os.Bundle;
+                 \\<nl>import android.view.WindowManager;
+                 \\<nl>
+                 \\<nl>public class MainActivity extends Activity {
+                 \\<nl>
+                 \\<nl>    @Override
+                 \\<nl>    protected void onCreate(Bundle savedInstanceState) {
+                 \\<nl>        super.onCreate(savedInstanceState);
+                 \\<nl>        // Do not listen for touch events
+                 \\<nl>        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                 \\<nl>
+                 \\<nl>        // Stream at max volume
+                 \\<nl>        // final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+                 \\<nl>        // final int oldvol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                 \\<nl>        // audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                 \\<nl>
+                 \\<nl>        final MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.badum);
+                 \\<nl>        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                 \\<nl>
+                 \\<nl>        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                 \\<nl>            @Override
+                 \\<nl>            public void onCompletion(MediaPlayer mp) {
+                 \\<nl>                mp.release();
+                 \\<nl>                // audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldvol, 0);
+                 \\<nl>            }
+                 \\<nl>        });
+                 \\<nl>
+                 \\<nl>        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                 \\<nl>            @Override
+                 \\<nl>            public void onPrepared(MediaPlayer mp) {
+                 \\<nl>                mp.start();
+                 \\<nl>            }
+                 \\<nl>        });
+                 \\<nl>
+                 \\<nl>        finish();
+                 \\<nl>    }
+                 \\<nl>}
+                 \\"
 
-            " ## Template .sh ####################################################
-        catch /^sh$/
-            0put =
-                        \\"#! /bin/sh
-                        \\<nl>#
-                        \\<nl># Filename: template.sh
-                        \\<nl># Author: Olivier Sirol <czo@free.fr>
-                        \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
-                        \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                        \\<nl># Last Modified: now
-                        \\<nl># Edit Time: 0:00:08
-                        \\<nl># Description:
-                        \\<nl>#
-                        \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                        \\<nl>
-                        \\<nl>
-                        \\<nl>echo %%%%%Hello
-                        \\"
+            "## template.javascript #########################################
+            catch /^javascript$/
+               0put = \"
+                      \/*
+                 \\<nl> * Filename: template.javascript
+                 \\<nl> * Author: Olivier Sirol <czo@free.fr>
+                 \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl> * File Created: January 2019
+                 \\<nl> * Last Modified: Saturday 13 November 2021, 18:17
+                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Description:
+                 \\<nl> * 
+                 \\<nl> * $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
+                 \\<nl> */
+                 \\<nl>
+                 \\<nl>$(document).ready(function () {
+                 \\<nl>    var olddisptime = '';
+                 \\<nl>    var oldimgName = 0;
+                 \\<nl>
+                 \\<nl>    function debugc(str) {
+                 \\<nl>        if (0)
+                 \\<nl>            console.log(str);
+                 \\<nl>    }
+                 \\<nl>
+                 \\<nl>    function updateClock() {
+                 \\<nl>        var dow_fr = new Array(\\"dimanche\\", \\"lundi\\", \\"mardi\\", \\"mercredi\\", \\"jeudi\\", \\"vendredi\\", \\"samedi\\");
+                 \\<nl>        var month_fr = new Array(\\"janvier\\", \\"février\\", \\"mars\\", \\"avril\\", \\"mai\\", \\"juin\\", \\"juillet\\", \\"août\\", \\"septembre\\", \\"octobre\\", \\"novembre\\", \\"décembre\\");
+                 \\<nl>
+                 \\<nl>        var now = new Date();
+                 \\<nl>        var imgday = Math.floor(now.getTime() / 1000 / 60 / 60 / 24);
+                 \\<nl>
+                 \\<nl>        imgName = (imgday % 98) + 1;
+                 \\<nl>
+                 \\<nl>        debugc(now.getTime());
+                 \\<nl>        debugc(imgday);
+                 \\<nl>        debugc(imgName);
+                 \\<nl>
+                 \\<nl>        if ((imgName != oldimgName)) {
+                 \\<nl>            $(\\".intro\\").css(\\"background-image\\", \\"url(sbg/wal/\\" + imgName + \\".jpg)\\");
+                 \\<nl>            oldimgName = imgName;
+                 \\<nl>        }
+                 \\<nl>
+                 \\<nl>        hours = now.getHours();
+                 \\<nl>        mins = now.getMinutes();
+                 \\<nl>        secs = now.getSeconds();
+                 \\<nl>        day = dow_fr[now.getDay()] + \\" \\" + now.getDate() + \\" \\" + month_fr[now.getMonth()];
+                 \\<nl>
+                 \\<nl>        if (hours < 10) hours = \\"0\\" + hours;
+                 \\<nl>        if (mins < 10) mins = \\"0\\" + mins;
+                 \\<nl>        if (secs < 10) secs = \\"0\\" + secs;
+                 \\<nl>        disptime = hours + \\":\\" + mins;
+                 \\<nl>        debugc(disptime);
+                 \\<nl>
+                 \\<nl>        if (disptime != olddisptime) {
+                 \\<nl>            $('#czotime').text(disptime);
+                 \\<nl>            $('#czodate').text(day);
+                 \\<nl>            olddisptime = disptime;
+                 \\<nl>        }
+                 \\<nl>
+                 \\<nl>        // call this function again in 1000ms
+                 \\<nl>        setTimeout(updateClock, 1000);
+                 \\<nl>    }
+                 \\<nl>    updateClock();
+                 \\<nl>
+                 \\<nl>});
+                 \\"
 
+            "## template.make #########################################
+            catch /^make$/
+               0put = \"
+                      \# Filename: template.make
+                 \\<nl># Author: Olivier Sirol <czo@free.fr>
+                 \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl># Last Modified: Saturday 13 November 2021, 14:58
+                 \\<nl># Edit Time: 0:00:01
+                 \\<nl># Description:
+                 \\<nl>#      Makefile:
+                 \\<nl>#      $@ Le nom de la cible
+                 \\<nl>#      $< Le nom de la première dépendance
+                 \\<nl>#      $^ La liste des dépendances
+                 \\<nl>#      $? La liste des dépendances plus récentes que la cible
+                 \\<nl>#      $* Le nom du fichier sans suffixe
+                 \\<nl>#
+                 \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>
+                 \\<nl>CC = gcc 
+                 \\<nl>CFLAGS = -Wall -Wextra -Wpedantic
+                 \\<nl>#CFLAGS += -I ..
+                 \\<nl>#LIBS += -lX11 -lXext -lhistory  -lreadline
+                 \\<nl>
+                 \\<nl>SRC= $(wildcard *.c)
+                 \\<nl>
+                 \\<nl>DEPS = $(wildcard *.c) $(wildcard *.h)
+                 \\<nl>
+                 \\<nl>OBJ  = $(SRC:.c=.o)
+                 \\<nl>
+                 \\<nl>EXEC = go
+                 \\<nl>
+                 \\<nl>all: $(EXEC)
+                 \\<nl>	@echo \\"<- all done!\\"
+                 \\<nl>
+                 \\<nl>viewdeps: $(DEPS)
+                 \\<nl>	@echo $(DEPS)
+                 \\<nl>
+                 \\<nl>$(EXEC): $(OBJ)
+                 \\<nl>	$(CC) -o $@ $^ $(LIBS)
+                 \\<nl>
+                 \\<nl>%.o: %.c $(DEPS)
+                 \\<nl>	$(CC) -c -o $@ $< $(CFLAGS)
+                 \\<nl>
+                 \\<nl>clean:
+                 \\<nl>	rm -f *.o
+                 \\<nl>	@echo \\"<- clean done!\\"
+                 \\<nl>
+                 \\<nl>realclean: clean
+                 \\<nl>	rm -f $(EXEC)
+                 \\<nl>	@echo \\"<- realclean done!\\"
+                 \\<nl>
+                 \\<nl>fclean: realclean
+                 \\<nl>
+                 \\<nl>re: realclean all
+                 \\<nl>
+                 \\<nl>.PHONY: all clean realclean fclean re
+                 \\"
 
-        catch /.*/
+            "## template.perl #########################################
+            catch /^perl$/
+               0put = \"
+                      \#! /usr/bin/perl -w
+                 \\<nl>#
+                 \\<nl># Filename: template.perl
+                 \\<nl># Author: Olivier Sirol <czo@free.fr>
+                 \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl># Last Modified: Saturday 13 November 2021, 18:31
+                 \\<nl># Edit Time: 0:00:26
+                 \\<nl># Description:
+                 \\<nl>#
+                 \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>
+                 \\<nl>open( CMD, \\"zpool status \|\\" );
+                 \\<nl>foreach (<CMD>) {
+                 \\<nl>    if (m,^\\s*pool:\\s+(.*),) { $pool = $1; }
+                 \\<nl>    if (m,^\\s*scan:\\s+(.*),) { $scan = $1; $ok = 1; }
+                 \\<nl>    if ($ok) {
+                 \\<nl>        $ok = 0;
+                 \\<nl>        if ( $scan =~ 'scrub in progress\|resilver' ) {
+                 \\<nl>            $poollist{$pool} = 90;
+                 \\<nl>        } else {
+                 \\<nl>            $poollist{$pool} = 10;
+                 \\<nl>        }
+                 \\<nl>    }
+                 \\<nl>}
+                 \\<nl>close(CMD);
+                 \\<nl>
+                 \\<nl>if ( $ARGV[0] and $ARGV[0] eq \\"config\\" ) {
+                 \\<nl>    print <<EOT;
+                 \\<nl>graph_title scrub/resilver zpool
+                 \\<nl>graph_vlabel in scrub/rslv at 90
+                 \\<nl>graph_category ZFS
+                 \\<nl>graph_args --base 1000 --lower-limit 0 --upper-limit 100 --rigid
+                 \\<nl>graph_info This graph shows the pool scrub.
+                 \\<nl>EOT
+                 \\<nl>
+                 \\<nl>    foreach $d ( sort keys %poollist ) {
+                 \\<nl>        print \\"$d.label $d\\n\\";
+                 \\<nl>        print \\"$d.warning 2:20\\n\\";
+                 \\<nl>        print \\"$d.critical 1:99\\n\\";
+                 \\<nl>    }
+                 \\<nl>    exit 0;
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>foreach $d ( sort keys %poollist ) {
+                 \\<nl>    print \\"$d.value $poollist{$d}\\n\\";
+                 \\<nl>}
+                 \\<nl>
+                 \\<nl>__END__
+                 \\"
 
+            "## template.php #########################################
+            catch /^php$/
+               0put = \"
+                      \<?php
+                 \\<nl>
+                 \\<nl>// Filename: template.php
+                 \\<nl>// Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl>// Last Modified: Saturday 13 November 2021, 18:17
+                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>
+                 \\<nl>phpinfo();
+                 \\<nl>
+                 \\<nl>?>
+                 \\"
+
+            "## template.python #########################################
+            catch /^python$/
+               0put = \"
+                      \#! /usr/bin/python3
+                 \\<nl>#
+                 \\<nl># Filename: template.python
+                 \\<nl># Author: Olivier Sirol <czo@free.fr>
+                 \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl># Last Modified: Saturday 13 November 2021, 18:17
+                 \\<nl># Edit Time: 0:00:01
+                 \\<nl># Description:
+                 \\<nl>#
+                 \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>
+                 \\<nl>import numpy as np
+                 \\<nl>import matplotlib.pyplot as plt
+                 \\<nl>
+                 \\<nl>x = np.linspace(0, 2*np.pi, 30)
+                 \\<nl>y = np.cos(x)
+                 \\<nl>plt.plot(x, y)
+                 \\<nl>
+                 \\<nl>plt.show()
+                 \\"
+
+            "## template.sh #########################################
+            catch /^sh$/
+               0put = \"
+                      \#! /bin/sh
+                 \\<nl>#
+                 \\<nl># Filename: template.sh
+                 \\<nl># Author: Olivier Sirol <czo@free.fr>
+                 \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl># Last Modified: Saturday 13 November 2021, 18:17
+                 \\<nl># Edit Time: 0:00:01
+                 \\<nl># Description:
+                 \\<nl>#
+                 \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>
+                 \\<nl>echo %%%%%Hello
+                 \\"
+
+            catch /.*/
         endtry
-
     endif
+
     call TemplateMacro ()
     call TemplateGetTime ()
     call TemplateTimeStamp ()
@@ -1289,13 +1639,6 @@ endfunction
 " https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim
 
 if version >= 700
-
-    autocmd FileType xdefaults setlocal commentstring=!\ %s
-    autocmd FileType json      setlocal commentstring=//\ %s
-    autocmd FileType cpp       setlocal commentstring=//\ %s
-    autocmd FileType php       setlocal commentstring=//\ %s
-    autocmd FileType cfg       setlocal commentstring=#\ %s
-    autocmd FileType apache    setlocal commentstring=#\ %s
 
     let g:loaded_commentary = 1
 

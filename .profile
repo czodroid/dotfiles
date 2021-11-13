@@ -20,7 +20,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# xmpp login alert haha
+# xmpp login alert
 if [ -x "$HOME/xmpp-send-login42.pl" ]; then
 ( DATE=`date "+%Y-%m-%d %H:%M"` ; echo "LOGIN `id -un`@`hostname` at $DATE" ; who | grep "$DATE" ) | $HOME/xmpp-send-login42.pl > /dev/null 2>&1
 fi
