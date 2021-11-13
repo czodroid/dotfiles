@@ -1,6 +1,6 @@
 # My Dot Files
 
-    github:
+## github:
 
     wget -qO- https://git.io/JkHdk | sh
 
@@ -10,7 +10,7 @@
     curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
     curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh  | sh
 
-    gitlab:
+## gitlab:
 
     curl -fsSL https://gitlab.com/czo/dotfiles/raw/master/config-fast-copy | sh
     curl -fsSL https://gitlab.com/czo/dotfiles/raw/master/config-fast-ssh  | sh 
