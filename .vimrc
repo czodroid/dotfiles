@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 13 novembre 2021, 19:47
-" Edit Time: 192:24:00
+" Last Modified: dimanche 14 novembre 2021, 12:48
+" Edit Time: 192:27:07
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
+" $Id: .vimrc,v 1.243 2021/11/14 11:48:59 czo Exp $
 
 if version >= 580
 "if 0
@@ -309,7 +309,7 @@ augroup MyAbbrevs
 augroup END
 
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
-autocmd BufNewFile,BufRead *.h   set filetype=h
+autocmd BufNewFile,BufRead *.h   set filetype=c
 autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 autocmd FileType perl      setlocal equalprg=perltidy\ -ce\ -l=0\ -st
 autocmd FileType xdefaults setlocal commentstring=!\ %s
@@ -928,7 +928,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
+        " $Id: .vimrc,v 1.243 2021/11/14 11:48:59 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1118,10 +1118,11 @@ function! Template (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Saturday 13 November 2021, 18:16
-                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Last Modified: dimanche 14 novembre 2021, 12:46
+                 \\<nl> * Edit Time: 0:00:06
                  \\<nl> * Description:
                  \\<nl> * 
+                 \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl> */
                  \\<nl>
                  \\<nl>html {
@@ -1323,12 +1324,12 @@ function! Template (...)
                  \\<nl>// Filename: template.java
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>// File Created: août 2015
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
                  \\<nl>// Last Modified: Saturday 13 November 2021, 13:54
                  \\<nl>// Edit Time: 0:00:01
                  \\<nl>// Description:
                  \\<nl>// 
-                 \\<nl>// $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
+                 \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
                  \\<nl>import android.app.Activity;
                  \\<nl>import android.media.AudioManager;
@@ -1379,12 +1380,12 @@ function! Template (...)
                  \\<nl> * Filename: template.javascript
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl> * File Created: January 2019
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
                  \\<nl> * Last Modified: Saturday 13 November 2021, 18:17
                  \\<nl> * Edit Time: 0:00:01
                  \\<nl> * Description:
                  \\<nl> * 
-                 \\<nl> * $Id: .vimrc,v 1.241 2021/11/13 18:48:07 czo Exp $
+                 \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl> */
                  \\<nl>
                  \\<nl>$(document).ready(function () {
@@ -1496,6 +1497,33 @@ function! Template (...)
                  \\<nl>re: realclean all
                  \\<nl>
                  \\<nl>.PHONY: all clean realclean fclean re
+                 \\"
+
+            "## template.markdown #########################################
+            catch /^markdown$/
+               0put = \"
+                      \<!--
+                 \\<nl>Filename: template.md
+                 \\<nl>Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl>Last Modified: dimanche 14 novembre 2021, 12:15
+                 \\<nl>Edit Time: 0:00:01
+                 \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>-->
+                 \\<nl>
+                 \\<nl># Heading
+                 \\<nl>
+                 \\<nl>## Sub-heading
+                 \\<nl>
+                 \\<nl>[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+                 \\<nl>
+                 \\<nl>Paragraphs are separated 
+                 \\<nl>by a **blank line**.
+                 \\<nl>
+                 \\<nl>Two spaces at the end of a line  
+                 \\<nl>produce a line break.
+                 \\<nl>
                  \\"
 
             "## template.perl #########################################
@@ -1619,6 +1647,7 @@ function! Template (...)
         endtry
     endif
 
+    execute ':0'
     call TemplateMacro ()
     call TemplateGetTime ()
     call TemplateTimeStamp ()
