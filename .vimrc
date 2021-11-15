@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 14 novembre 2021, 12:48
-" Edit Time: 192:27:07
+" Last Modified: lundi 15 novembre 2021, 18:53
+" Edit Time: 193:11:28
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.243 2021/11/14 11:48:59 czo Exp $
+" $Id: .vimrc,v 1.245 2021/11/15 17:53:52 czo Exp $
 
 if version >= 580
 "if 0
@@ -310,6 +310,7 @@ augroup END
 
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
+autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 autocmd FileType perl      setlocal equalprg=perltidy\ -ce\ -l=0\ -st
 autocmd FileType xdefaults setlocal commentstring=!\ %s
@@ -486,15 +487,16 @@ endfunction
 " all starting with "_" like in visual code
 
 " insert the current filename:
-iab _n <C-R>=expand("%:t:r")<cr>
-iab _fn <C-R>=expand("%:t")<cr>
-iab _ffn <C-R>=expand("%:p")<cr>
+iab _n    <C-R>=expand("%:t:r")<cr>
+iab _e    <C-R>=expand("%:e")<cr>
+iab _fn   <C-R>=expand("%:t")<cr>
+iab _ffn  <C-R>=expand("%:p")<cr>
 iab _home <C-R>=$HOME<cr>
 iab _vim  <C-R>=$VIMRUNTIME<cr>
-iab _date <C-R>=strftime("%d %b %Y")<cr>
-iab _ma # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
-iab _mc # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
-iab _mi # <C-R>=strftime("%Y/%m/%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
+iab _date <C-R>=strftime("%Y-%m-%d")<cr>
+iab _ma # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
+iab _mc # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
+iab _mi # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
 
 iab _abc abcdefghijklmnopqrstuvwxyz
 iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -928,7 +930,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.243 2021/11/14 11:48:59 czo Exp $
+        " $Id: .vimrc,v 1.245 2021/11/15 17:53:52 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1015,6 +1017,13 @@ function! Template (...)
 
     if a:1 == ""
         let xft = &ft
+        let xfte = expand("%:e")
+        if (xft == "c") && (xfte == "h")
+            let xft = "h"
+        endif
+        if (xft == "cpp") && ((xfte == "hpp") || (xfte == "h++") || (xfte == "hh"))
+            let xft = "hpp"
+        endif
     else
         let xft = a:1
     endif
@@ -1634,13 +1643,27 @@ function! Template (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: Saturday 13 November 2021, 18:17
-                 \\<nl># Edit Time: 0:00:01
+                 \\<nl># Last Modified: lundi 15 novembre 2021, 18:34
+                 \\<nl># Edit Time: 0:00:02
                  \\<nl># Description:
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
-                 \\<nl>echo %%%%%Hello
+                 \\<nl>if [ \\"$#\\" -ne 1 ]; then
+                 \\<nl>    echo \\"ERROR : please specify a message...\\"
+                 \\<nl>    echo \\"Usage : $0 \\\\"a message text\\\\"\\"
+                 \\<nl>    exit 42
+                 \\<nl>fi
+                 \\<nl>
+                 \\<nl>(
+                 \\<nl>gdbus call --session   \\
+                 \\<nl>   --dest org.freedesktop.Notifications \\
+                 \\<nl>   --object-path /org/freedesktop/Notifications \\
+                 \\<nl>   --method org.freedesktop.Notifications.Notify \\
+                 \\<nl>   'notify-send' '42' 'utilities-terminal' 'notify-send!' \\
+                 \\<nl>   \\"$1\\" \\
+                 \\<nl>   '[]' '{}' '5000'
+                 \\<nl>) > /dev/null 2>&1
                  \\"
 
             catch /.*/
