@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mercredi 10 novembre 2021, 20:10
+# Last Modified: jeudi 18 novembre 2021, 21:16
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.38 2021/11/10 19:11:28 czo Exp $
+# $Id: .cshrc,v 1.41 2021/11/18 20:32:46 czo Exp $
 #
 
 
@@ -377,7 +377,6 @@ alias tmate_ssh 'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDI
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
 # but on FreeBSD you must have gnu-sed, so perl is best!
 alias remove_known_hosts_line 'perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts'
-# 2021/10/16 : Modified by Olivier Sirol <czo@free.fr> 
 # escape quotes '
 alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#|^\s*$/'\'
 
@@ -386,23 +385,22 @@ alias cvu 'cd ~/etc ; cvs up ; cd -'
 alias cvd 'cd ~/etc ; cvs diff ; cd -'
 alias cvc 'cd ~/etc ; cvs ci -mok ; cd -'
 
-alias gitl 'git pull'
-alias gits 'git status'
-alias gitd 'git diff'
-alias gitf 'git fetch; git diff master origin/master'
-alias gita 'git add .'
-alias gitc 'git commit -mok -a'
-alias gitp 'git push'
+alias gtl 'git pull'
+alias gts 'git status'
+alias gtd 'git diff'
+alias gtf 'git fetch; git diff master origin/master'
+alias gta 'git add .'
+alias gtc 'git commit -mok -a'
+alias gtp 'git push'
 
-alias debconf_after_install 'F=preseed_`date +%Y-%m-%d`_$$.txt; debconf-get-selections --installer > $F ; debconf-get-selections >> $F'
-
-# LANG=C 
+# missing LANG=C 
 alias pkg_inst_debian "aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 alias pkg_inst_debian2 "dpkg-query -W --showformat='"\$"{Package}\n'  | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
+alias AU  'apt-get update && apt-get upgrade && apt-get clean'
 alias AI  'apt-get install'
 alias AP  'apt-get purge'
 alias AS  'aptitude search'
@@ -411,7 +409,7 @@ alias AL  'dpkg -L'
 alias AF  'dpkg -S'
 
 # redhat, fedora 
-alias YU  'yum update'
+alias YU  'yum update && yum clean all'
 alias YI  'yum install'
 alias YP  'yum remove'
 alias YS  'yum list "*\!**"'
@@ -432,19 +430,12 @@ alias PF 'pacman -Qo'
 # freebsd: pkg
 # netbsd: pkgin
 
-alias sun 'set term=sun-cmd ; echo term=$term'
-alias vt100 'set term=vt100 ; echo term=$term'
-alias xte 'set term=xterm ; echo term=$term'
-alias xts 'set term=screen ; echo term=$term'
-alias xtc 'set term=xterm-color ; echo term=$term'
+alias sun    'set term=sun-cmd ; echo term=$term'
+alias vt100  'set term=vt100 ; echo term=$term'
+alias xte    'set term=xterm ; echo term=$term'
+alias xts    'set term=screen ; echo term=$term'
+alias xtc    'set term=xterm-color ; echo term=$term'
 alias xtc256 'set term=xterm-256color ; echo term=$term'
-
-alias whatsappjpg 'mogrify -resize 1918800@ -quality 75 *.jpg'
-alias show_bat 'upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-alias show_batcycle 'cat /sys/class/power_supply/BAT0/cycle_count'
-alias mac_czo 'openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
-alias kvm_pxe 'kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
-alias proxmox_qma 'qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
 
 alias 16color '\
     foreach i ( `seq 0 7` )\
@@ -455,23 +446,11 @@ alias 16color '\
         printf "\x1b[48;5;${i}m  "\
     end\
     printf "\x1b[0m\n\n"'
-alias console_color '/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
-alias console_color_cursor '/bin/echo -ne "\e]12;#98971a\a"'
-
-alias slax_create_mksquashfs 'mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
-alias macbook_kbd_bright_30 'echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
-alias macbook_vid_bright_30 'echo 30 > /sys/class/backlight/acpi_video0/brightness'
-alias utf8_redode_this_directory "file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
-
-
 
 ##======= Main ======================================================##
 
-alias precmd 'if (($term =~ xterm*)) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ;  echo "[00m" '
-
-set MYTTY     = `tty | sed s,/dev/,,`
-
 if ($?tcsh) then
+    set MYTTY     = `tty | sed s,/dev/,,`
     set SHELLNAME = `echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
     # hash for colors
     set USER_PROMPT_COLOR = `/bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
@@ -480,12 +459,12 @@ if ($?tcsh) then
     @ calc = ( ( `echo "$HOSTNAME" | wc -c` + 17 ) )
     setenv HOST_PROMPT_SIZE "%-0$calc="
 
-    set prompt = "%{^[[0;97m%}[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$status]\n%{^[[0;9${USER_PROMPT_COLOR}m%}${USER}%{^[[0;97m%}@%{^[[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{^[[0;97m%}:%{^[[0;94m%}%/\n%{^[[0;97m%}>>%{^[[m%} "
+    alias precmd 'set E=$status ; if (($term =~ xterm*)) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; echo "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$E]" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
+    
+    # set prompt = "%{^[[0;97m%}[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$?]\n%{^[[0;9${USER_PROMPT_COLOR}m%}${USER}%{^[[0;97m%}@%{^[[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{^[[0;97m%}:%{^[[0;94m%}%/\n%{^[[0;97m%}>>%{^[[m%} "
+    set prompt = "%{^[[0;97m%}>>%{^[[m%} "
 else
-    set prompt = "\
-[${PLATFORM}/csh] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY} - [$status]\
-${USER}@${HOSTNAME}:${PWD}\
->> "
+    set prompt = "${USER}@${HOSTNAME}:%/ >> "
 endif
 
 rehash

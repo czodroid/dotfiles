@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mercredi 10 novembre 2021, 20:02
-# Edit Time: 95:04:34
+# Last Modified: jeudi 18 novembre 2021, 18:25
+# Edit Time: 95:32:36
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.353 2021/11/10 19:11:28 czo Exp $
+# $Id: .bashrc,v 1.356 2021/11/18 17:47:47 czo Exp $
 
 #set -v
 #set -x
@@ -405,6 +405,7 @@ listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wan
 alias ipl='echo $(wget -q -O- http://czo.free.fr/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
+
 alias screena='screen -d -R'
 alias tmuxa='tmux attach -d || tmux new'
 alias aa='tmux attach -d || tmux new'
@@ -422,14 +423,13 @@ alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
-alias dig_lartha='curl http://lartha:/hosts.html'
+alias dig_lartha='curl -k https://lartha:/hosts.html'
 alias ssha='eval $(ssh-agent); ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
 # but on FreeBSD you must have gnu-sed, so perl is best!
 remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts; }
-alias remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
 
 alias mytree='tree -adn | grep -v CVS'
 alias cvu='cd ~/etc ; cvs up ; cd -'
@@ -438,13 +438,13 @@ alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
 
-alias gitl='git pull'
-alias gits='git status'
-alias gitd='git diff'
-alias gitf='git fetch; git diff master origin/master'
-alias gita='git add .'
-alias gitc='git commit -mok -a'
-alias gitp='git push'
+alias gtl='git pull'
+alias gts='git status'
+alias gtd='git diff'
+alias gtf='git fetch; git diff master origin/master'
+alias gta='git add .'
+alias gtc='git commit -mok -a'
+alias gtp='git push'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_inst_debian2="dpkg-query -W --showformat='"\$"{Package}\n' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
@@ -489,30 +489,30 @@ alias xts='export TERM=screen ; echo TERM=$TERM'
 alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
 alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
-alias whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
-alias show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-alias show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
-alias mac_czo='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
-alias kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
-alias proxmox_qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
-
 alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n"; for i in $(seq 8 15); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n";'
-alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
-alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 
-alias slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
-alias macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
-alias macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
-alias utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
 
-pass_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
-pass_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
-# alias kfm='setxkbmap fr mac'
-# alias edl='export DISPLAY=localhost:0'
-
-# crossorigin_sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
-# crossorigin_sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
+alias Remeber_This_kfm='setxkbmap fr mac'
+alias Remeber_This_edl='export DISPLAY=localhost:0'
+alias Remeber_This_remove_console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
+alias Remeber_This_remove_console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
+alias Remeber_This_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
+alias Remeber_This_export_svg2png='inkscape --export-width=128 --export-height=128 --export-png=icon.png icon.svg'
+alias Remeber_This_slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
+alias Remeber_This_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
+alias Remeber_This_macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
+alias Remeber_This_utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
+alias Remeber_This_whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
+alias Remeber_This_show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+alias Remeber_This_show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
+alias Remeber_This_mac_czo='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
+alias Remeber_This_kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias Remeber_This_proxmox_qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
+Remeber_This_crossorigin_sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
+Remeber_This_crossorigin_sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
+Remeber_This_remove_pass_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
+Remeber_This_remove_pass_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
 ## CAO VLSI IBP.FR
 # alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
@@ -587,7 +587,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.353 2021/11/10 19:11:28 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.356 2021/11/18 17:47:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
