@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 18 novembre 2021, 21:46
-# Edit Time: 130:51:20
+# Last Modified: Friday 19 November 2021, 02:24
+# Edit Time: 130:51:53
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.325 2021/11/18 16:35:56 czo Exp $
+# $Id: .zshrc,v 1.327 2021/11/19 01:25:17 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -581,7 +581,7 @@ alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
-alias dig_lartha='curl -k https://lartha:/hosts.html'
+alias dig_lartha='curl -k https://lartha/hosts.html'
 alias ssha='eval $(ssh-agent); ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
@@ -756,7 +756,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.325 2021/11/18 16:35:56 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.327 2021/11/19 01:25:17 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

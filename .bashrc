@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: jeudi 18 novembre 2021, 18:25
-# Edit Time: 95:32:36
+# Last Modified: Friday 19 November 2021, 01:57
+# Edit Time: 95:32:48
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.356 2021/11/18 17:47:47 czo Exp $
+# $Id: .bashrc,v 1.357 2021/11/19 00:57:52 czo Exp $
 
 #set -v
 #set -x
@@ -423,7 +423,7 @@ alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
-alias dig_lartha='curl -k https://lartha:/hosts.html'
+alias dig_lartha='curl -k https://lartha/hosts.html'
 alias ssha='eval $(ssh-agent); ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
@@ -587,7 +587,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.356 2021/11/18 17:47:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.357 2021/11/19 00:57:52 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

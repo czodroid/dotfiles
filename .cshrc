@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: jeudi 18 novembre 2021, 21:16
+# Last Modified: Friday 19 November 2021, 02:10
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.41 2021/11/18 20:32:46 czo Exp $
+# $Id: .cshrc,v 1.43 2021/11/19 01:12:06 czo Exp $
 #
 
 
@@ -394,10 +394,10 @@ alias gtc 'git commit -mok -a'
 alias gtp 'git push'
 
 # missing LANG=C 
-alias pkg_inst_debian "aptitude search '~i !~M' -F %p | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
-alias pkg_inst_debian2 "dpkg-query -W --showformat='"\$"{Package}\n'  | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
-alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
-alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
+alias pkg_inst_debian "aptitude search '~i !~M' -F %p | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
+alias pkg_inst_debian2 "dpkg-query -W --showformat='"\$"{Package}\n' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
+alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
+alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
 alias AU  'apt-get update && apt-get upgrade && apt-get clean'
@@ -459,7 +459,7 @@ if ($?tcsh) then
     @ calc = ( ( `echo "$HOSTNAME" | wc -c` + 17 ) )
     setenv HOST_PROMPT_SIZE "%-0$calc="
 
-    alias precmd 'set E=$status ; if (($term =~ xterm*)) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; echo "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$E]" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
+    alias precmd 'set E=$status ; if ($term =~ xterm*) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; /bin/echo -n "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - " ; if ($E == 0) echo "[0;97m[$E][m" ; if ($E != 0) echo "[0;91m[$E][m" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
     
     # set prompt = "%{^[[0;97m%}[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$?]\n%{^[[0;9${USER_PROMPT_COLOR}m%}${USER}%{^[[0;97m%}@%{^[[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{^[[0;97m%}:%{^[[0;94m%}%/\n%{^[[0;97m%}>>%{^[[m%} "
     set prompt = "%{^[[0;97m%}>>%{^[[m%} "
