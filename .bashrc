@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: Friday 19 November 2021, 01:57
-# Edit Time: 95:32:48
+# Last Modified: dimanche 21 novembre 2021, 11:58
+# Edit Time: 95:33:07
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.357 2021/11/19 00:57:52 czo Exp $
+# $Id: .bashrc,v 1.358 2021/11/21 10:59:11 czo Exp $
 
 #set -v
 #set -x
@@ -267,7 +267,7 @@ export EDITOR=vim
 export CVSEDITOR=vim
 export RSYNC_RSH=ssh
 
-export CVSROOT=ananas:/tank/data/czo/CzoDoc/cvsroot
+export CVSROOT=czo@ananas:/tank/data/czo/CzoDoc/cvsroot
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
@@ -587,7 +587,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.357 2021/11/19 00:57:52 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.358 2021/11/21 10:59:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

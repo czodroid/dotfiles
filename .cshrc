@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: Friday 19 November 2021, 02:10
+# Last Modified: dimanche 21 novembre 2021, 11:59
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.43 2021/11/19 01:12:06 czo Exp $
+# $Id: .cshrc,v 1.44 2021/11/21 10:59:11 czo Exp $
 #
 
 
@@ -244,7 +244,7 @@ setenv PGPPATH $HOME/.gnugp
 setenv EDITOR vim
 setenv CVSEDITOR vim
 setenv RSYNC_RSH ssh
-setenv CVSROOT ananas:/tank/data/czo/CzoDoc/cvsroot
+setenv CVSROOT czo@ananas:/tank/data/czo/CzoDoc/cvsroot
 setenv PRINTER BW_Pigeonnier_ananas
 setenv HTML_TIDY $HOME/.tidyrc
 
