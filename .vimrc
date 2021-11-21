@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: lundi 15 novembre 2021, 18:53
-" Edit Time: 193:11:28
+" Last Modified: dimanche 21 novembre 2021, 16:06
+" Edit Time: 193:13:18
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.245 2021/11/15 17:53:52 czo Exp $
+" $Id: .vimrc,v 1.246 2021/11/21 15:07:26 czo Exp $
 
 if version >= 580
 "if 0
@@ -112,6 +112,9 @@ set incsearch
 set wildmenu
 set wildmode=longest,full
 set wildoptions=tagfile
+
+" tab
+set tabpagemax=20
 
 if !has('nvim')
     set ttymouse=xterm2
@@ -930,7 +933,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.245 2021/11/15 17:53:52 czo Exp $
+        " $Id: .vimrc,v 1.246 2021/11/21 15:07:26 czo Exp $
         "
         if 1
             " modif Started: in File Created:
