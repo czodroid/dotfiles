@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: dimanche 21 novembre 2021, 11:58
-# Edit Time: 130:52:19
+# Last Modified: mercredi 01 décembre 2021, 03:42
+# Edit Time: 130:52:25
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.328 2021/11/21 10:59:11 czo Exp $
+# $Id: .zshrc,v 1.329 2021/12/01 02:44:28 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -647,58 +647,56 @@ alias xts='export TERM=screen ; echo TERM=$TERM'
 alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
 alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
+alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
+alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
 alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n"; for i in $(seq 8 15); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n";'
 
+passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
+passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
+alias sb="$(perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME)"
 
-alias Remeber_This_kfm='setxkbmap fr mac'
-alias Remeber_This_edl='export DISPLAY=localhost:0'
-alias Remeber_This_remove_console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
-alias Remeber_This_remove_console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
-alias Remeber_This_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
-alias Remeber_This_export_svg2png='inkscape --export-width=128 --export-height=128 --export-png=icon.png icon.svg'
-alias Remeber_This_slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
-alias Remeber_This_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
-alias Remeber_This_macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
-alias Remeber_This_utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
-alias Remeber_This_whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
-alias Remeber_This_show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-alias Remeber_This_show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
-alias Remeber_This_mac_czo='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/" | tr "[A-F]" "[a-f]"'
-alias Remeber_This_kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
-alias Remeber_This_proxmox_qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
-Remeber_This_crossorigin_sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
-Remeber_This_crossorigin_sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
-Remeber_This_remove_pass_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
-Remeber_This_remove_pass_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
-
-## CAO VLSI IBP.FR
-# alias win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
-# alias xroot='xv -root +noresetroot -quit'
-# alias xv='\xv -perfect -8'
-# alias xload='\xload -hl red'
-# alias key='perl -MCrypt::SKey -e key'
-# alias vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
-
-# alias imprime='a2ps -2 -s2'
-# alias imprimeman='a2ps -2 -s2 -man'
-# alias imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
-
-# alias xmbk='eval $(\xmbk -c 2>/dev/null)'
-# alias mbk='set | grep "MBK\|RDS\|ELP" | sort'
-# alias fing='finger | sort | uniq -w 15'
-
+## VERY OLD FASHIONED
+alias RemeberThis_kfm='setxkbmap fr mac'
+alias RemeberThis_edl='export DISPLAY=localhost:0'
+alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
+alias RemeberThis_export_svg2png='inkscape --export-width=128 --export-height=128 --export-png=icon.png icon.svg'
+alias RemeberThis_slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
+alias RemeberThis_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
+alias RemeberThis_macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
+alias RemeberThis_utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
+alias RemeberThis_whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
+alias RemeberThis_show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+alias RemeberThis_show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
+alias RemeberThis_mac_czo='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/"'
+alias RemeberThis_mac_random='openssl rand -hex 6 | sed "s/\(..\)/\1:/g; s/.$//"'
+alias RemeberThis_kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias RemeberThis_proxmox_qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
+RemeberThis_crossorigin_sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
+RemeberThis_crossorigin_sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 
 ## GEOMAGNET
-# alias matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
-# alias matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
-# alias ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
-# alias ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
+alias RemeberThis_bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
+alias RemeberThis_matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
+alias RemeberThis_matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
+alias RemeberThis_ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
+alias RemeberThis_ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
+RemeberThis_ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
 
-# alias bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
+## CAO VLSI IBP.FR
+alias RemeberThis_win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
+alias RemeberThis_xroot='xv -root +noresetroot -quit'
+alias RemeberThis_xv='\xv -perfect -8'
+alias RemeberThis_xload='\xload -hl red'
+alias RemeberThis_key='perl -MCrypt::SKey -e key'
+alias RemeberThis_vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
+alias RemeberThis_imprime='a2ps -2 -s2'
+alias RemeberThis_imprimeman='a2ps -2 -s2 -man'
+alias RemeberThis_imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
+alias RemeberThis_xmbk='eval $(\xmbk -c 2>/dev/null)'
+alias RemeberThis_mbk='set | grep "MBK\|RDS\|ELP" | sort'
+alias RemeberThis_fing='finger | sort | uniq -w 15'
 
-## ubuntu
-# ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
 
 ##======= Main ======================================================##
 
@@ -756,7 +754,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.328 2021/11/21 10:59:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.329 2021/12/01 02:44:28 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 21 novembre 2021, 16:06
-" Edit Time: 193:13:18
+" Last Modified: dimanche 21 novembre 2021, 18:37
+" Edit Time: 193:39:55
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.246 2021/11/21 15:07:26 czo Exp $
+" $Id: .vimrc,v 1.248 2021/11/21 17:38:02 czo Exp $
 
 if version >= 580
 "if 0
@@ -133,8 +133,10 @@ if has('nvim')
     set guicursor+=a:blinkon1
 else
     if &term =~ '^xterm'
-        " color: \e]12;#fe8019\x7
+        " color: \e]12;#b8bb26\x7
+        " NORMAL mode
         let &t_EI .= "\e[ q"
+        " INSERT mode
         let &t_SI .= "\e[5 q"
         if version > 704
             let &t_SR .= "\e[3 q"
@@ -572,23 +574,23 @@ if (has("syntax"))
 " orange1   #d65d0e
 " orange2   #fe8019
 
-" NR-8 NAME             NR-16 NAME           Gruvbox64
-"  0   Black            0     Black          #282828
-"  4   DarkBlue         1     DarkRed        #cc241d
-"  2   DarkGreen        2     DarkGreen      #98971a
-"  6   DarkCyan         3     DarkYellow     #d79921
-"  1   DarkRed          4     DarkBlue       #458588
-"  5   DarkMagenta      5     DarkMagenta    #b16286
-"  3   DarkYellow       6     DarkCyan       #689d6a
-"  7   Gray             7     Gray           #c9b788
-"  0*  DarkGray         8     DarkGray       #4a4239
-"  4*  Blue             9     Red            #fb4934
-"  2*  Green            10    Green          #b8bb26
-"  6*  Cyan             11    Yellow         #fabd2f
-"  1*  Red              12    Blue           #83a598
-"  5*  Magenta          13    Magenta        #d3869b
-"  3*  Yellow           14    Cyan           #8ec07c
-"  7*  White            15    White          #fbf1c7
+" NR-8 NAME             NR-16 NAME          Gruvbox64   Gruvbox
+"  0   Black            0     Black          #282828    #282828
+"  4   DarkBlue         1     DarkRed        #cc241d    #cc241d
+"  2   DarkGreen        2     DarkGreen      #98971a    #98971a
+"  6   DarkCyan         3     DarkYellow     #d79921    #d79921
+"  1   DarkRed          4     DarkBlue       #458588    #458588
+"  5   DarkMagenta      5     DarkMagenta    #b16286    #b16286
+"  3   DarkYellow       6     DarkCyan       #689d6a    #689d6a
+"  7   Gray             7     Gray           #c9b788    #a89984
+"  0*  DarkGray         8     DarkGray       #4a4239    #928374
+"  4*  Blue             9     Red            #fb4934    #fb4934
+"  2*  Green            10    Green          #b8bb26    #b8bb26
+"  6*  Cyan             11    Yellow         #fabd2f    #fabd2f
+"  1*  Red              12    Blue           #83a598    #83a598
+"  5*  Magenta          13    Magenta        #d3869b    #d3869b
+"  3*  Yellow           14    Cyan           #8ec07c    #8ec07c
+"  7*  White            15    White          #fbf1c7    #ebdbb2
 
 " normal : #ebdbb2 vs #c9b788
 hi Normal           guifg=#ebdbb2 guibg=#282828 ctermfg=White    ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
@@ -664,7 +666,7 @@ hi CursorLine       guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black  
 hi SignColumn       guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
 hi Folded           guifg=#928374 guibg=#3c3836 ctermfg=Gray     ctermbg=Black    gui=italic         cterm=italic         term=italic
 hi FoldColumn       guifg=#928374 guibg=#3c3836 ctermfg=Gray     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
-hi Cursor           guifg=#282828 guibg=#b8bb26 ctermfg=Black    ctermbg=Yellow   gui=NONE           cterm=NONE           term=NONE
+hi Cursor           guifg=#282828 guibg=#fbf1c7 ctermfg=Black    ctermbg=Yellow   gui=NONE           cterm=NONE           term=NONE
 hi Pmenu            guifg=#ebdbb2 guibg=#504945 ctermfg=White    ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
 hi PmenuSel         guifg=#282828 guibg=#83a598 ctermfg=Black    ctermbg=Blue     gui=NONE           cterm=NONE           term=NONE
 hi PmenuSbar        guifg=NONE    guibg=#504945 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
@@ -933,7 +935,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.246 2021/11/21 15:07:26 czo Exp $
+        " $Id: .vimrc,v 1.248 2021/11/21 17:38:02 czo Exp $
         "
         if 1
             " modif Started: in File Created:
