@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 21 novembre 2021, 18:37
-" Edit Time: 193:39:55
+" Last Modified: dimanche 05 décembre 2021, 17:54
+" Edit Time: 194:02:14
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.248 2021/11/21 17:38:02 czo Exp $
+" $Id: .vimrc,v 1.250 2021/12/05 17:10:00 czo Exp $
 
 if version >= 580
 "if 0
@@ -666,7 +666,7 @@ hi CursorLine       guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black  
 hi SignColumn       guifg=NONE    guibg=#3c3836 ctermfg=NONE     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
 hi Folded           guifg=#928374 guibg=#3c3836 ctermfg=Gray     ctermbg=Black    gui=italic         cterm=italic         term=italic
 hi FoldColumn       guifg=#928374 guibg=#3c3836 ctermfg=Gray     ctermbg=Black    gui=NONE           cterm=NONE           term=NONE
-hi Cursor           guifg=#282828 guibg=#fbf1c7 ctermfg=Black    ctermbg=Yellow   gui=NONE           cterm=NONE           term=NONE
+hi Cursor           guifg=#282828 guibg=#b8bb26 ctermfg=Black    ctermbg=Yellow   gui=NONE           cterm=NONE           term=NONE
 hi Pmenu            guifg=#ebdbb2 guibg=#504945 ctermfg=White    ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
 hi PmenuSel         guifg=#282828 guibg=#83a598 ctermfg=Black    ctermbg=Blue     gui=NONE           cterm=NONE           term=NONE
 hi PmenuSbar        guifg=NONE    guibg=#504945 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
@@ -860,7 +860,7 @@ command! -nargs=? Template call Template (<q-args>)
 command! TemplateMacro call TemplateMacro ()
 command! TemplateTimeStamp call TemplateTimeStamp ()
 
-autocmd BufNewFile * call Template ("")
+autocmd BufNewFile * call TemplateNewFile ("")
 autocmd BufReadPre,FileReadPre   * call TemplateGetTime ()
 autocmd BufWritePre,FileWritePre * call TemplateTimeStamp ()
 
@@ -935,7 +935,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.248 2021/11/21 17:38:02 czo Exp $
+        " $Id: .vimrc,v 1.250 2021/12/05 17:10:00 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1018,7 +1018,7 @@ function! TemplateTimeStamp ()
 
 endfunction
 
-function! Template (...)
+function! TemplateCzo (...)
 
     if a:1 == ""
         let xft = &ft
@@ -1679,8 +1679,18 @@ function! Template (...)
     call TemplateMacro ()
     call TemplateGetTime ()
     call TemplateTimeStamp ()
+endfunction
+
+function! TemplateNewFile (...)
+    call call(function("TemplateCzo"), a:000)
+endfunction
+
+function! Template (...)
+    call call(function("TemplateCzo"), a:000)
     set modified
 endfunction
+
+
 
 " end template.vim =====================================================
 

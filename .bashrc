@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mercredi 01 décembre 2021, 03:40
-# Edit Time: 96:31:42
+# Last Modified: dimanche 05 décembre 2021, 16:25
+# Edit Time: 96:44:14
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.359 2021/12/01 02:44:28 czo Exp $
+# $Id: .bashrc,v 1.360 2021/12/05 17:09:59 czo Exp $
 
 #set -v
 #set -x
@@ -452,9 +452,10 @@ alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTN
 alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
-alias AU='apt-get update && apt-get upgrade && apt-get clean'
-alias AI='apt-get install'
-alias AP='apt-get purge'
+#  aptitude upgrade = apt upgrade != apt-get upgrade
+alias AU='aptitude update && aptitude upgrade && aptitude clean'
+alias AI='aptitude install'
+alias AP='aptitude purge'
 alias AS='aptitude search'
 alias ASS='apt-cache search'
 alias AL='dpkg -L'
@@ -585,7 +586,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.359 2021/12/01 02:44:28 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.360 2021/12/05 17:09:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

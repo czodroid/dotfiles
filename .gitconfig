@@ -1,7 +1,42 @@
+#             ,,,
+#            (o o)
+####=====oOO--(_)--OOO==============================================####
+#
+# Filename: .gitconfig
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: mars 2018
+# Last Modified: dimanche 05 décembre 2021, 18:09
+# Edit Time: 2:38:27
+# Description:
+#                 git conf file
+#
+# $Id: .gitconfig,v 1.8 2021/12/05 17:09:59 czo Exp $
+
 [user]
-    ; email = czo@ipgp.fr
+    name = Olivier Sirol
+    username = czo
     email = czodroid@gmail.com
     ; email = spambazar@gmail.com
-    name = czo
+    ; email = czo@ipgp.fr
+
 [core]
     pager = cat
+
+[diff]
+    tool = vimdiff
+
+[merge]
+    tool          = vimdiff
+    conflictstyle = diff3
+    summary       = true
+
+[alias]
+    cld = clone --depth 1
+    f = fetch
+    fo = fetch origin
+    fu = fetch upstream
+    l = log --oneline
+    lg = log --oneline --graph --decorate
+    pst = push --tags
+

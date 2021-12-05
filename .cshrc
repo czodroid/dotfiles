@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.44 2021/11/21 10:59:11 czo Exp $
+# $Id: .cshrc,v 1.45 2021/12/05 17:09:59 czo Exp $
 #
 
 
@@ -400,9 +400,10 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${H
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-alias AU  'apt-get update && apt-get upgrade && apt-get clean'
-alias AI  'apt-get install'
-alias AP  'apt-get purge'
+#  aptitude upgrade = apt upgrade != apt-get upgrade
+alias AU  'aptitude update && aptitude upgrade && aptitude clean'
+alias AI  'aptitude install'
+alias AP  'aptitude purge'
 alias AS  'aptitude search'
 alias ASS 'apt-cache search'
 alias AL  'dpkg -L'
