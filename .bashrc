@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 05 décembre 2021, 16:25
-# Edit Time: 96:44:14
+# Last Modified: lundi 06 décembre 2021, 15:05
+# Edit Time: 97:09:20
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.360 2021/12/05 17:09:59 czo Exp $
+# $Id: .bashrc,v 1.362 2021/12/06 16:33:32 czo Exp $
 
 #set -v
 #set -x
@@ -227,9 +227,18 @@ export PATH=$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/lo
 #export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
 #export PATH=/opt/android-studio/bin:${PATH}
 
+## config openwrt
+if [ -d /rom/bin ] 
+then
+    export PATH=${PATH}:/rom/bin
+fi
+
 ## config termux for android
-export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
-export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+if [ -d /system/bin ] 
+then
+    export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
+    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+fi
 
 ## config SWARM
 #export PATH=/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$PATH
@@ -452,7 +461,6 @@ alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTN
 alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
-#  aptitude upgrade = apt upgrade != apt-get upgrade
 alias AU='aptitude update && aptitude upgrade && aptitude clean'
 alias AI='aptitude install'
 alias AP='aptitude purge'
@@ -497,7 +505,7 @@ alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf 
 passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
 passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
-alias sb="$(perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME)"
+sb() { perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME | sh ; }
 
 ## VERY OLD FASHIONED
 alias RemeberThis_kfm='setxkbmap fr mac'
@@ -586,7 +594,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.360 2021/12/05 17:09:59 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.362 2021/12/06 16:33:32 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 21 novembre 2021, 11:59
+# Last Modified: lundi 06 décembre 2021, 17:22
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.45 2021/12/05 17:09:59 czo Exp $
+# $Id: .cshrc,v 1.46 2021/12/06 16:33:32 czo Exp $
 #
 
 
@@ -400,7 +400,6 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${H
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-#  aptitude upgrade = apt upgrade != apt-get upgrade
 alias AU  'aptitude update && aptitude upgrade && aptitude clean'
 alias AI  'aptitude install'
 alias AP  'aptitude purge'

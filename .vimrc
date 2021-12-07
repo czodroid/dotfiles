@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 05 décembre 2021, 17:54
-" Edit Time: 194:02:14
+" Last Modified: mardi 07 décembre 2021, 15:21
+" Edit Time: 194:43:46
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.250 2021/12/05 17:10:00 czo Exp $
+" $Id: .vimrc,v 1.256 2021/12/07 14:22:30 czo Exp $
 
 if version >= 580
 "if 0
@@ -671,14 +671,15 @@ hi Pmenu            guifg=#ebdbb2 guibg=#504945 ctermfg=White    ctermbg=DarkGra
 hi PmenuSel         guifg=#282828 guibg=#83a598 ctermfg=Black    ctermbg=Blue     gui=NONE           cterm=NONE           term=NONE
 hi PmenuSbar        guifg=NONE    guibg=#504945 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
 hi PmenuThumb       guifg=NONE    guibg=#7c6f64 ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
-hi DiffChange       guifg=#959e9c guibg=#282828 ctermfg=Blue     ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
-hi DiffAdd          guifg=#45664c guibg=#ebdbb2 ctermfg=Cyan     ctermbg=White    gui=inverse        cterm=inverse        term=inverse
-hi DiffDelete       guifg=#402120 guibg=#ebdbb2 ctermfg=Red      ctermbg=White    gui=inverse        cterm=inverse        term=inverse
-hi DiffText         guifg=#ebdbb2 guibg=#282828 ctermfg=White    ctermbg=Black    gui=inverse        cterm=inverse        term=inverse
 hi SpellCap         guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
 hi SpellBad         guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
 hi SpellLocal       guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
 hi SpellRare        guifg=NONE    guibg=NONE    ctermfg=NONE     ctermbg=NONE     gui=underline      cterm=underline      term=underline
+
+hi DiffAdd          guifg=NONE    guibg=#4F2E2A ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi DiffChange       guifg=NONE    guibg=#4F2E2A ctermfg=NONE     ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi DiffDelete       guifg=#753730 guibg=#4F2E2A ctermfg=Black    ctermbg=DarkGray gui=NONE           cterm=NONE           term=NONE
+hi DiffText         guifg=NONE    guibg=#753730 ctermfg=NONE     ctermbg=DarkBlue gui=NONE           cterm=NONE           term=NONE
 
 hi! link vimCommentTitle Title
 hi! link CursorColumn CursorLine
@@ -935,7 +936,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.250 2021/12/05 17:10:00 czo Exp $
+        " $Id: .vimrc,v 1.256 2021/12/07 14:22:30 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1836,7 +1837,6 @@ if 0
     Plug 'godlygeek/tabular'
     Plug 'vim-scripts/colorizer'
     Plug 'Yggdroot/indentLine'
-    Plug 'sainnhe/gruvbox-material'
     Plug 'morhetz/gruvbox'
     Plug 'sbdchd/neoformat'
     call plug#end()
