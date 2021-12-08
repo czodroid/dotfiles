@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 07 décembre 2021, 15:21
-" Edit Time: 194:43:46
+" Last Modified: Wednesday 08 December 2021, 12:36
+" Edit Time: 194:45:33
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.256 2021/12/07 14:22:30 czo Exp $
+" $Id: .vimrc,v 1.258 2021/12/08 11:36:41 czo Exp $
 
 if version >= 580
 "if 0
@@ -936,7 +936,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.256 2021/12/07 14:22:30 czo Exp $
+        " $Id: .vimrc,v 1.258 2021/12/08 11:36:41 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1839,6 +1839,7 @@ if 0
     Plug 'Yggdroot/indentLine'
     Plug 'morhetz/gruvbox'
     Plug 'sbdchd/neoformat'
+    Plug 'kevinoid/vim-jsonc'
     call plug#end()
     " Then reload .vimrc and :PlugInstall to install plugins.
 
