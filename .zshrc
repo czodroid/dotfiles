@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: lundi 06 décembre 2021, 15:05
-# Edit Time: 130:55:19
+# Last Modified: dimanche 12 décembre 2021, 13:36
+# Edit Time: 130:57:13
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.332 2021/12/06 16:33:32 czo Exp $
+# $Id: .zshrc,v 1.336 2021/12/12 12:37:19 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -522,7 +522,7 @@ alias rule='echo "....|....1....|....2....|....3....|....4....|....5....|....6..
 alias ll='ls -l'
 alias lh='ls -lh'
 alias l='ls -alrt'
-alias g='grep -si'
+alias g='grep -sri'
 
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
@@ -610,7 +610,8 @@ alias gts='git status'
 alias gtd='git diff'
 alias gtf='git fetch; git diff master origin/master'
 alias gta='git add .'
-alias gtc='git commit -mok -a'
+alias gtc='git commit -a'
+alias gtu='git commit -a -mupdate ; git push ; git status'
 alias gtp='git push'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
@@ -663,7 +664,7 @@ alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf 
 passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
 passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
-sb() { perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME | sh ; }
+sb() { perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -z -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME | sh ; }
 
 ## VERY OLD FASHIONED
 alias RemeberThis_kfm='setxkbmap fr mac'
@@ -763,7 +764,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.332 2021/12/06 16:33:32 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.336 2021/12/12 12:37:19 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

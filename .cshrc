@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: lundi 06 décembre 2021, 17:22
+# Last Modified: dimanche 12 décembre 2021, 13:37
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.46 2021/12/06 16:33:32 czo Exp $
+# $Id: .cshrc,v 1.48 2021/12/12 12:37:19 czo Exp $
 #
 
 
@@ -390,7 +390,8 @@ alias gts 'git status'
 alias gtd 'git diff'
 alias gtf 'git fetch; git diff master origin/master'
 alias gta 'git add .'
-alias gtc 'git commit -mok -a'
+alias gtc 'git commit -a'
+alias gtu 'git commit -a -mupdate ; git push ; git status'
 alias gtp 'git push'
 
 # missing LANG=C 

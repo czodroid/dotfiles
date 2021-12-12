@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: Wednesday 08 December 2021, 12:36
-" Edit Time: 194:45:33
+" Last Modified: dimanche 12 décembre 2021, 11:34
+" Edit Time: 194:50:02
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.258 2021/12/08 11:36:41 czo Exp $
+" $Id: .vimrc,v 1.260 2021/12/12 10:34:49 czo Exp $
 
 if version >= 580
 "if 0
@@ -936,7 +936,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.258 2021/12/08 11:36:41 czo Exp $
+        " $Id: .vimrc,v 1.260 2021/12/12 10:34:49 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1684,6 +1684,12 @@ endfunction
 
 function! TemplateNewFile (...)
     call call(function("TemplateCzo"), a:000)
+    " to save all buffer with are not modofied do a
+    " :tabdo saveas %
+    " or a
+    " :tabdo set modified
+    " then
+    " :xa
 endfunction
 
 function! Template (...)
@@ -1844,11 +1850,6 @@ if 0
     " Then reload .vimrc and :PlugInstall to install plugins.
 
 endif
-
-let g:gruvbox_material_palette = 'original'
-let g:gruvbox_material_enable_italic = 0
-let g:gruvbox_material_disable_italic_comment = 1
-let g:gruvbox_material_enable_bold = 0
 
 " end Plugins ==========================================================
 
