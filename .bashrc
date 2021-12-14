@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 12 décembre 2021, 13:36
-# Edit Time: 97:13:32
+# Last Modified: lundi 13 décembre 2021, 21:41
+# Edit Time: 97:42:10
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.366 2021/12/12 12:37:19 czo Exp $
+# $Id: .bashrc,v 1.369 2021/12/13 20:43:17 czo Exp $
 
 #set -v
 #set -x
@@ -269,6 +269,7 @@ export LSCOLORS='ExGxfxFxHxacabxDxeae'
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
 export PAGER=less
 export PERLDOC_PAGER='less -R'
+export SYSTEMD_PAGER=cat
 
 export PGPPATH=$HOME/.gnupg
 
@@ -443,7 +444,7 @@ remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_ho
 alias mytree='tree -adn | grep -v CVS'
 alias cvu='cd ~/etc ; cvs up ; cd -'
 alias cvd='cd ~/etc ; cvs diff ; cd -'
-alias cvc='cd ~/etc ; cvs ci -mok ; cd -'
+alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
 
@@ -506,7 +507,7 @@ alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf 
 passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
 passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
-sb() { perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -z -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME | sh ; }
+sb() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -b 4096:6892 -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
 alias RemeberThis_kfm='setxkbmap fr mac'
@@ -595,7 +596,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.366 2021/12/12 12:37:19 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.369 2021/12/13 20:43:17 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

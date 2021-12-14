@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 12 décembre 2021, 13:37
+# Last Modified: lundi 13 décembre 2021, 21:42
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.48 2021/12/12 12:37:19 czo Exp $
+# $Id: .cshrc,v 1.50 2021/12/13 20:43:17 czo Exp $
 #
 
 
@@ -237,13 +237,17 @@ endif
 # BSD ls
 setenv LSCOLORS 'ExGxfxFxHxacabxDxeae'
 
-setenv LESS     '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-setenv PAGER    less
+setenv LESS          '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
+setenv PAGER         less
 setenv PERLDOC_PAGER 'less -R'
+setenv SYSTEMD_PAGER cat
+
 setenv PGPPATH $HOME/.gnugp
+
 setenv EDITOR vim
 setenv CVSEDITOR vim
 setenv RSYNC_RSH ssh
+
 setenv CVSROOT czo@ananas:/tank/data/czo/CzoDoc/cvsroot
 setenv PRINTER BW_Pigeonnier_ananas
 setenv HTML_TIDY $HOME/.tidyrc
@@ -383,7 +387,7 @@ alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#
 alias mytree 'tree -adn | grep -v CVS'
 alias cvu 'cd ~/etc ; cvs up ; cd -'
 alias cvd 'cd ~/etc ; cvs diff ; cd -'
-alias cvc 'cd ~/etc ; cvs ci -mok ; cd -'
+alias cvc 'cd ~/etc ; cvs ci -mupdate ; cd -'
 
 alias gtl 'git pull'
 alias gts 'git status'
