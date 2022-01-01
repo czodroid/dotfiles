@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: Wednesday 15 December 2021, 20:01
-" Edit Time: 197:43:27
+" Last Modified: samedi 01 janvier 2022, 13:22
+" Edit Time: 198:05:24
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.272 2021/12/15 19:08:10 czo Exp $
+" $Id: .vimrc,v 1.276 2022/01/01 12:23:03 czo Exp $
 
 if version >= 580
 "if 0
@@ -198,19 +198,19 @@ endfunction
 
 function! ChangeStatusLineMode()
   if (LineMode() =~ '^I')
-    exec 'hi User1 guifg=#35302b guibg=#b8bb26 ctermfg=DarkGray ctermbg=Green   gui=inverse cterm=inverse term=inverse'
+    exec 'hi User1 guifg=#35302b guibg=#b8bb26 gui=inverse ctermfg=DarkGray ctermbg=Green   cterm=inverse term=inverse'
   elseif (LineMode() =~ '^R')
-    exec 'hi User1 guifg=#35302b guibg=#fb4934 ctermfg=DarkGray ctermbg=Red     gui=inverse cterm=inverse term=inverse'
+    exec 'hi User1 guifg=#35302b guibg=#fb4934 gui=inverse ctermfg=DarkGray ctermbg=Red     cterm=inverse term=inverse'
   elseif (LineMode() =~ '^V')
-    exec 'hi User1 guifg=#35302b guibg=#d3869b ctermfg=DarkGray ctermbg=Magenta gui=inverse cterm=inverse term=inverse'
+    exec 'hi User1 guifg=#35302b guibg=#d3869b gui=inverse ctermfg=DarkGray ctermbg=Magenta cterm=inverse term=inverse'
   elseif (LineMode() =~ '^S')
-    exec 'hi User1 guifg=#35302b guibg=#d3869b ctermfg=DarkGray ctermbg=Magenta gui=inverse cterm=inverse term=inverse'
+    exec 'hi User1 guifg=#35302b guibg=#d3869b gui=inverse ctermfg=DarkGray ctermbg=Magenta cterm=inverse term=inverse'
   elseif (LineMode() =~ '^T')
-    exec 'hi User1 guifg=#35302b guibg=#fe8019 ctermfg=DarkGray ctermbg=Yellow  gui=inverse cterm=inverse term=inverse'
+    exec 'hi User1 guifg=#35302b guibg=#fe8019 gui=inverse ctermfg=DarkGray ctermbg=Yellow  cterm=inverse term=inverse'
   elseif (LineMode() =~ '^C')
-    exec 'hi User1 guifg=#35302b guibg=#fe8019 ctermfg=DarkGray ctermbg=Yellow  gui=inverse cterm=inverse term=inverse'
+    exec 'hi User1 guifg=#35302b guibg=#fe8019 gui=inverse ctermfg=DarkGray ctermbg=Yellow  cterm=inverse term=inverse'
   else " NORMAL
-    exec 'hi User1 guifg=#35302b guibg=#83a598 ctermfg=DarkGray ctermbg=Blue    gui=inverse cterm=inverse term=inverse'
+    exec 'hi User1 guifg=#35302b guibg=#83a598 gui=inverse ctermfg=DarkGray ctermbg=Blue    cterm=inverse term=inverse'
   endif
   return LineMode()
 endfunction
@@ -459,13 +459,17 @@ cmap <leader>rcm %s/<C-M>//g
 
 command!  CzoVisualGrey call CzoVisualGrey ()
 function! CzoVisualGrey ()
-    hi Visual guifg=#665c54 guibg=#ebdbb2 ctermfg=DarkGray ctermbg=White gui=inverse cterm=inverse term=inverse
+    hi Visual        guifg=#928374 guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
+    hi Search        guifg=#d79921 guibg=#3c3836 gui=inverse   ctermfg=DarkYellow ctermbg=Black    cterm=inverse   term=inverse
+    hi IncSearch     guifg=#83a598 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endfunction
 
 command!  CzoVisualClear call CzoVisualClear ()
 function! CzoVisualClear ()
     " test: #304035
-    hi Visual guifg=NONE guibg=#36403c ctermfg=NONE ctermbg=DarkGray gui=NONE cterm=NONE term=NONE
+    hi Visual    guifg=NONE guibg=#36403c gui=NONE cterm=NONE term=NONE
+    hi Search    guifg=NONE guibg=#3d342b gui=NONE cterm=NONE term=NONE
+    hi IncSearch guifg=NONE guibg=#3e4a4b gui=NONE cterm=NONE term=NONE
 endfunction
 
 command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
@@ -543,7 +547,7 @@ if (has("syntax"))
 " Description: Retro groove color scheme for Vim
 "     gruvbox64 colors, inspired by gruvbox style, without bold
 "     works with xterm-256color with 'set termguicolors' in vim
-"     works with xterm 8c / 16c with similar colors
+"     works with xterm 8c / 16c with nearly similar colors
 
 " gruvbox dark
 " bg0-h     #1d2021
@@ -670,14 +674,14 @@ hi DiffChange    guifg=NONE    guibg=#4F2E2A gui=NONE      ctermfg=NONE       ct
 hi DiffDelete    guifg=#753730 guibg=#4F2E2A gui=NONE      ctermfg=Black      ctermbg=DarkGray cterm=NONE      term=NONE
 hi DiffText      guifg=NONE    guibg=#753730 gui=NONE      ctermfg=NONE       ctermbg=DarkBlue cterm=NONE      term=NONE
 
-hi Visual        guifg=#665c54 guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
+hi Visual        guifg=#928374 guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
 hi Search        guifg=#d79921 guibg=#3c3836 gui=inverse   ctermfg=DarkYellow ctermbg=Black    cterm=inverse   term=inverse
 hi IncSearch     guifg=#83a598 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 
 if has("termguicolors") && (&termguicolors != 0)
     hi Visual    guifg=NONE guibg=#36403c gui=NONE cterm=NONE term=NONE
-    hi Search    guifg=NONE guibg=#6C4C2A gui=NONE cterm=NONE term=NONE
-    hi IncSearch guifg=NONE guibg=#596B63 gui=NONE cterm=NONE term=NONE
+    hi Search    guifg=NONE guibg=#3d342b gui=NONE cterm=NONE term=NONE
+    hi IncSearch guifg=NONE guibg=#3e4a4b gui=NONE cterm=NONE term=NONE
 endif
 
 hi StatusLine       guifg=#35302b guibg=#fbf1c7 gui=inverse        ctermfg=DarkGray ctermbg=White cterm=inverse        term=inverse
@@ -940,7 +944,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.272 2021/12/15 19:08:10 czo Exp $
+        " $Id: .vimrc,v 1.276 2022/01/01 12:23:03 czo Exp $
         "
         if 1
             " modif Started: in File Created:

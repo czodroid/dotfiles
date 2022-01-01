@@ -6,19 +6,20 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: mars 2018
-# Last Modified: dimanche 05 décembre 2021, 18:09
-# Edit Time: 2:38:27
+# Last Modified: samedi 01 janvier 2022, 17:27
+# Edit Time: 2:43:47
 # Description:
 #                 git conf file
 #
-# $Id: .gitconfig,v 1.8 2021/12/05 17:09:59 czo Exp $
+# $Id: .gitconfig,v 1.11 2022/01/01 16:29:35 czo Exp $
 
 [user]
-    name = Olivier Sirol
+    name     = Olivier Sirol
     username = czo
-    email = czodroid@gmail.com
-    ; email = spambazar@gmail.com
-    ; email = czo@ipgp.fr
+    email    = czo@free.fr
+    ; email    = czodroid@gmail.com
+    ; email    = spambazar@gmail.com
+    ; email    = czo@ipgp.fr
 
 [core]
     pager = cat
@@ -26,17 +27,27 @@
 [diff]
     tool = vimdiff
 
+[difftool]
+    prompt = false
+
+[difftool "vimdiff"]
+    cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
+
 [merge]
     tool          = vimdiff
     conflictstyle = diff3
     summary       = true
 
 [alias]
-    cld = clone --depth 1
-    f = fetch
-    fo = fetch origin
-    fu = fetch upstream
-    l = log --oneline
-    lg = log --oneline --graph --decorate
+    d   = diff
+    dt  = difftool
+    c   = clone
+    c1  = clone --depth 1
+    f   = fetch
+    fo  = fetch origin
+    fu  = fetch upstream
+    l   = log --oneline
+    lg  = log --oneline --graph --decorate
     pst = push --tags
+
 
