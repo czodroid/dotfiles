@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mercredi 15 septembre 2021, 15:41
-# Edit Time: 7:55:47
+# Last Modified: mardi 04 janvier 2022, 17:56
+# Edit Time: 8:00:57
 # Description:
 #
 # debian 10 preseed geoscope update
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-geoscope,v 1.15 2021/09/15 13:48:17 czo Exp $
+# $Id: config-debian-preseed-geoscope,v 1.16 2022/01/04 16:56:38 czo Exp $
 
 (
 export LANG=C
@@ -147,8 +147,13 @@ ssh-keygen -t rsa -b 4096 -N "" -f .ssh/id_rsa
 cat << 'EOF' >> .ssh/config
 # Filename: config
 # Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
-# Last Modified: vendredi 02 juillet 2021, 15:02
+# Last Modified:
+# Description:
+#   ssh settings
+#    ssh -J, ssh -W, ssh -tt
+#    ProxyCommand,  ProxyJump
 #
 
 # SMV+GEOSCOPE
@@ -171,28 +176,12 @@ Host smv-ups
 Host smv-pdu*
  Ciphers aes256-cbc
 
-# CHEZWAM
-
-# Host test* debian* ubuntu* centos* fedora* arch* freebsd*
-#  StrictHostKeyChecking no
-
-Host centos5 debian4 solaris10 opensolaris
- KexAlgorithms diffie-hellman-group1-sha1
-
-Host fedora5 fedora1
- Ciphers aes256-cbc
- KexAlgorithms diffie-hellman-group1-sha1
-
-Host freebsd5
- HostKeyAlgorithms ssh-dss
- KexAlgorithms diffie-hellman-group1-sha1
-
 # DHCP
-Host chezwam-* magdhcp-* 
+Host chezwam-* magdhcp-*
  UserKnownHostsFile /dev/null
  StrictHostKeyChecking no
 
-# the remainder
+# THE REMAINDER
 Host *
  Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
  ForwardX11 yes
