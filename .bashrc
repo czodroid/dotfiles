@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: lundi 13 décembre 2021, 21:41
-# Edit Time: 97:42:10
+# Last Modified: jeudi 06 janvier 2022, 15:13
+# Edit Time: 101:11:56
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.369 2021/12/13 20:43:17 czo Exp $
+# $Id: .bashrc,v 1.373 2022/01/06 14:14:47 czo Exp $
 
 #set -v
 #set -x
@@ -151,10 +151,8 @@ fi
 
 if [ -n "$BASH_VERSION" ]; then
     #linux, but not on idefix (debian 5)
-    if [ "X${HOSTNAME}" != "Xidefix" ]; then
-        if [ -f /etc/bash_completion ]; then
-            . /etc/bash_completion
-        fi
+    if [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
     fi
     #freebsd
     if [ -f /usr/local/share/bash-completion/bash_completion.sh ]; then
@@ -228,13 +226,13 @@ export PATH=$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/lo
 #export PATH=/opt/android-studio/bin:${PATH}
 
 ## config openwrt
-if [ -d /rom/bin ] 
+if [ -d /rom/bin ]
 then
     export PATH=${PATH}:/rom/bin
 fi
 
 ## config termux for android
-if [ -d /system/bin ] 
+if [ -d /system/bin ]
 then
     export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
@@ -277,7 +275,11 @@ export EDITOR=vim
 export CVSEDITOR=vim
 export RSYNC_RSH=ssh
 
-export CVSROOT=czo@ananas:/tank/data/czo/CzoDoc/cvsroot
+if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
+    export CVSROOT=czo@ananas:/tank/data/czo/.cvsroot
+else
+    export CVSROOT=czo@ananaschezwam:/tank/data/czo/.cvsroot
+fi
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
@@ -404,10 +406,61 @@ alias wgetp='wget -m -np -k -l1'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara='\tar -czf'
-alias tarx='\tar -xf'
-alias tarxiso='cmake -E tar xf'
+alias tara='tar -czf'
+
+#unzip -d $ZIP-ext $ZIP
+
+#alias tarx='tar -xf'
+tarx() {
+    if [ $# -ne 1 ]
+    then
+        echo "tarx, extract a TAR file into exdir"
+        echo "Error: need a tar file..."
+    else
+        TAR=$1
+        DIR=${TAR##*/}
+        DIR=${DIR%.*}
+        if [ -f "$TAR" ]
+        then
+            if [ ! -e "$DIR" ]
+            then
+                mkdir -p "$DIR"
+                tar -C "$DIR" -xf "$TAR"
+            else
+                echo "$DIR does exist, please correct it..."
+            fi
+        else
+            echo "$TAR doesn't exist..."
+        fi
+    fi
+}
+
+#alias tarxiso='cmake -E tar xf'
 #alias tarxiso='bsdtar -xf'
+tarxiso() {
+    if [ $# -ne 1 ]
+    then
+        echo "tarxiso, extract an ISO file into exdir"
+        echo "Error: need an iso file..."
+    else
+        ISO=$1
+        DIR=${ISO##*/}
+        DIR=${DIR%.*}
+        if [ -f "$ISO" ]
+        then
+            if [ ! -e "$DIR" ]
+            then
+                mkdir -p "$DIR"
+                bsdtar -C "$DIR" -xf "$ISO"
+            else
+                echo "$DIR does exist, please correct it..."
+            fi
+        else
+            echo "$ISO doesn't exist..."
+        fi
+    fi
+}
+
 alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
@@ -596,7 +649,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.369 2021/12/13 20:43:17 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.373 2022/01/06 14:14:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 01 janvier 2022, 13:22
-" Edit Time: 198:05:24
+" Last Modified: mercredi 05 janvier 2022, 14:22
+" Edit Time: 198:46:28
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.276 2022/01/01 12:23:03 czo Exp $
+" $Id: .vimrc,v 1.282 2022/01/05 13:23:58 czo Exp $
 
 if version >= 580
 "if 0
@@ -121,7 +121,7 @@ if !has('nvim')
     set ttymouse=xterm2
 endif
 
-if version >= 710
+if version >= 701
     set mouse=a
 endif
 
@@ -161,9 +161,18 @@ if &term =~ '^vt100'
     execute "set <S-Left>=\e[1;2D"
 endif
 
-if version >= 800
-    set listchars=tab:>-,trail:~,space:.
-    "set list
+if exists('+listchars')
+    if version >= 801
+        set listchars=tab:-->,trail:¶,space:·
+    elseif version >= 800
+        set listchars=tab:>-,trail:¶,space:·
+    else
+        set listchars=tab:>-,trail:%
+    endif
+endif
+
+if exists('+list')
+    set list
 endif
 
 " tags search path
@@ -627,13 +636,13 @@ hi Special       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ct
 hi Error         guifg=#fb4934 guibg=bg      gui=inverse   ctermfg=Red        ctermbg=bg       cterm=inverse   term=inverse
 hi Todo          guifg=#83a598 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
 
-hi NonText       guifg=#504945 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
-hi SpecialKey    guifg=#504945 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
+hi NonText       guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
+hi SpecialKey    guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
+hi Conceal       guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
 hi TabLineFill   guifg=#7c6f64 guibg=#35302b gui=NONE      ctermfg=DarkGray   ctermbg=Black    cterm=NONE      term=NONE
 hi TabLineSel    guifg=#ebdbb2 guibg=#35302b gui=NONE      ctermfg=White      ctermbg=Black    cterm=NONE      term=NONE
 hi MatchParen    guifg=NONE    guibg=#665c54 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi ColorColumn   guifg=NONE    guibg=#3c3836 gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
-hi Conceal       guifg=#83a598 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
 hi Underlined    guifg=#83a598 guibg=NONE    gui=underline ctermfg=Blue       ctermbg=NONE     cterm=underline term=underline
 hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
 hi User2         guifg=#35302b guibg=#fabd2f gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
@@ -654,11 +663,11 @@ hi ModeMsg       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ct
 hi Question      guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=DarkYellow ctermbg=NONE     cterm=NONE      term=NONE
 hi WarningMsg    guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi LineNr        guifg=#504945 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
-hi CursorLineNr  guifg=#7c6f64 guibg=#3c3836 gui=NONE      ctermfg=DarkGray   ctermbg=Black    cterm=NONE      term=NONE
-hi CursorLine    guifg=NONE    guibg=#3c3836 gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
-hi SignColumn    guifg=NONE    guibg=#3c3836 gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
-hi Folded        guifg=#928374 guibg=#3c3836 gui=italic    ctermfg=Gray       ctermbg=Black    cterm=italic    term=italic
-hi FoldColumn    guifg=#928374 guibg=#3c3836 gui=NONE      ctermfg=Gray       ctermbg=Black    cterm=NONE      term=NONE
+hi CursorLineNr  guifg=#928374 guibg=#32302f gui=NONE      ctermfg=DarkGray   ctermbg=Black    cterm=NONE      term=NONE
+hi CursorLine    guifg=NONE    guibg=#32302f gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
+hi SignColumn    guifg=NONE    guibg=#32302f gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
+hi Folded        guifg=#928374 guibg=#32302f gui=italic    ctermfg=Gray       ctermbg=Black    cterm=italic    term=italic
+hi FoldColumn    guifg=#928374 guibg=#32302f gui=NONE      ctermfg=Gray       ctermbg=Black    cterm=NONE      term=NONE
 hi Cursor        guifg=#282828 guibg=#b8bb26 gui=NONE      ctermfg=Black      ctermbg=Yellow   cterm=NONE      term=NONE
 hi Pmenu         guifg=#ebdbb2 guibg=#504945 gui=NONE      ctermfg=White      ctermbg=DarkGray cterm=NONE      term=NONE
 hi PmenuSel      guifg=#282828 guibg=#83a598 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
@@ -680,8 +689,8 @@ hi IncSearch     guifg=#83a598 guibg=#3c3836 gui=inverse   ctermfg=Blue       ct
 
 if has("termguicolors") && (&termguicolors != 0)
     hi Visual    guifg=NONE guibg=#36403c gui=NONE cterm=NONE term=NONE
-    hi Search    guifg=NONE guibg=#3d342b gui=NONE cterm=NONE term=NONE
-    hi IncSearch guifg=NONE guibg=#3e4a4b gui=NONE cterm=NONE term=NONE
+    hi Search    guifg=NONE guibg=#503825 gui=NONE cterm=NONE term=NONE
+    hi IncSearch guifg=NONE guibg=#596B63 gui=NONE cterm=NONE term=NONE
 endif
 
 hi StatusLine       guifg=#35302b guibg=#fbf1c7 gui=inverse        ctermfg=DarkGray ctermbg=White cterm=inverse        term=inverse
@@ -944,7 +953,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.276 2022/01/01 12:23:03 czo Exp $
+        " $Id: .vimrc,v 1.282 2022/01/05 13:23:58 czo Exp $
         "
         if 1
             " modif Started: in File Created:

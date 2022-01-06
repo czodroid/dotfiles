@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: lundi 13 décembre 2021, 21:41
-# Edit Time: 130:58:14
+# Last Modified: jeudi 06 janvier 2022, 13:20
+# Edit Time: 131:49:56
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.339 2021/12/13 20:43:17 czo Exp $
+# $Id: .zshrc,v 1.347 2022/01/06 14:14:47 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -26,7 +26,7 @@ setopt AUTO_CD                # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
 #setopt CD_SILENT              # Never print the working directory
 setopt COMBINING_CHARS        # Displays combining characters correctly
-setopt COMPLETE_IN_WORD       # Completion works inside words
+setopt NO_COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
 setopt NO_GLOB_DOTS           # Patterns may match leading dots
@@ -124,6 +124,7 @@ zle -N history-beginning-search-forward-end czo-history-search-end
 #do
 #  autoload $dirname/*(.x:t)
 #done
+
 
 ##======= Key bindings ===============================================##
 
@@ -258,10 +259,8 @@ for key     kcap   seq        mode   widget (
   bindkey "${terminfo[$kcap]-$seq}" key-$key
 }
 
-##======= Completions ================================================##
 
-# WARNING: it doesn't work...
-# error in completer _complete _ignored with no correct or approximate
+##======= Completions ================================================##
 
 autoload -Uz compinit
 compinit
@@ -270,57 +269,19 @@ compinit
 
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' accept-exact-dirs true
-# cache
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zcomp
-# for use with expand-or-complete
-#zstyle ':completion:*' completer _complete _match _prefix:-complete _list _correct _approximate _prefix:-approximate _ignored
-#zstyle ':completion:*' completer _complete _match _prefix:-complete _list _ignored
-zstyle ':completion:*' completer _complete _ignored
-# _list anywhere to the completers always only lists completions on first tab
-zstyle ':completion:*:prefix-complete:*' completer _complete
-zstyle ':completion:*:prefix-approximate:*' completer _approximate
-# configure the match completer, with original set to only it doesn't act like a `*' was inserted at the cursor position
-zstyle ':completion:*:match:*' original only
-# first case insensitive completion, then case-sensitive partial-word c., then case-insensitive (with -_. as possible anchors)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[-_.]=* r:|=*' 'm:{a-z}={A-Z} r:|[-_.]=* r:|=*'
-# allow 2 erros in correct completer
-zstyle ':completion:*:correct:*' max-errors 2 not-numeric
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) numeric )'
-
-# meu selection with 2 candidates or more
-zstyle ':completion:*' menu select=2
-# Add colors in completions
-#zmodload -i zsh/complist
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# messages/warnings format
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:corrections'  format $' %{\e[0;93m%}-- %d (errors: %e) --%{\e[m%}'
-zstyle ':completion:*:descriptions' format $' %{\e[0;92m%}-- %d --%{\e[m%}'
-zstyle ':completion:*:messages'     format $' %{\e[0;91m%}-- %d --%{\e[m%}'
-zstyle ':completion:*:warnings'     format $' %{\e[0;93m%}-- no matches for: %d --%{\e[m%}'
-# make completions appear below the description of which listing they come from
+zstyle ':completion:*' cache-path ~/.zcompcache
+zstyle ':completion:*' menu select
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*:default' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# completion of commands
-zstyle ':completion:*:*:kill:*' command 'ps -u$USER -o pid,%cpu,tty,cputime,cmd'
-zstyle ':completion:*:*:killall:*' command 'ps -u$USER -o cmd'
-#zstyle ':completion:*:(ssh|scp):*' tag-order    hosts-ports-users hosts users-hosts users hosts
-#zstyle ':completion:*:(ssh|scp):*' group-order  hosts-ports-users hosts users-hosts users hosts
+# messages/warnings format
+zstyle ':completion:*:descriptions' format $' %{\e[0;92m%}-- %d --%{\e[m%}'
+zstyle ':completion:*:messages'     format $' %{\e[0;93m%}-- %d --%{\e[m%}'
+zstyle ':completion:*:corrections'  format $' %{\e[0;91m%}-- %d (errors: %e) --%{\e[m%}'
+zstyle ':completion:*:warnings'     format $' %{\e[0;91m%}-- no matches for: %d --%{\e[m%}'
 
-if [ "$PLATFORM" = "Cygwin" ]
-then
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-    zstyle ':completion:*:complete:-command-:*:commands' ignored-patterns '(^(*.(#i)(exe|com|bat|pl)))'
-    zstyle ':completion:*' completer _complete _ignored
-fi
-
-if [ "$PLATFORM" = "Darwin" ]
-then
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-fi
 
 
 ##======= Platform ===================================================##
@@ -388,13 +349,13 @@ export PATH=$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/lo
 #export PATH=/opt/android-studio/bin:${PATH}
 
 ## config openwrt
-if [ -d /rom/bin ] 
+if [ -d /rom/bin ]
 then
     export PATH=${PATH}:/rom/bin
 fi
 
 ## config termux for android
-if [ -d /system/bin ] 
+if [ -d /system/bin ]
 then
     export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
@@ -437,7 +398,11 @@ export EDITOR=vim
 export CVSEDITOR=vim
 export RSYNC_RSH=ssh
 
-export CVSROOT=czo@ananas:/tank/data/czo/CzoDoc/cvsroot
+if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
+    export CVSROOT=czo@ananas:/tank/data/czo/.cvsroot
+else
+    export CVSROOT=czo@ananaschezwam:/tank/data/czo/.cvsroot
+fi
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
@@ -562,10 +527,61 @@ alias wgetp='wget -m -np -k -l1'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara='\tar -czf'
-alias tarx='\tar -xf'
-alias tarxiso='cmake -E tar xf'
+alias tara='tar -czf'
+
+#unzip -d $ZIP-ext $ZIP
+
+#alias tarx='tar -xf'
+tarx() {
+    if [ $# -ne 1 ]
+    then
+        echo "tarx, extract a TAR file into exdir"
+        echo "Error: need a tar file..."
+    else
+        TAR=$1
+        DIR=${TAR##*/}
+        DIR=${DIR%.*}
+        if [ -f "$TAR" ]
+        then
+            if [ ! -e "$DIR" ]
+            then
+                mkdir -p "$DIR"
+                tar -C "$DIR" -xf "$TAR"
+            else
+                echo "$DIR does exist, please correct it..."
+            fi
+        else
+            echo "$TAR doesn't exist..."
+        fi
+    fi
+}
+
+#alias tarxiso='cmake -E tar xf'
 #alias tarxiso='bsdtar -xf'
+tarxiso() {
+    if [ $# -ne 1 ]
+    then
+        echo "tarxiso, extract an ISO file into exdir"
+        echo "Error: need an iso file..."
+    else
+        ISO=$1
+        DIR=${ISO##*/}
+        DIR=${DIR%.*}
+        if [ -f "$ISO" ]
+        then
+            if [ ! -e "$DIR" ]
+            then
+                mkdir -p "$DIR"
+                bsdtar -C "$DIR" -xf "$ISO"
+            else
+                echo "$DIR does exist, please correct it..."
+            fi
+        else
+            echo "$ISO doesn't exist..."
+        fi
+    fi
+}
+
 alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
@@ -765,7 +781,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.339 2021/12/13 20:43:17 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.347 2022/01/06 14:14:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

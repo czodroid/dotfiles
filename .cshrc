@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: lundi 13 décembre 2021, 21:42
+# Last Modified: jeudi 06 janvier 2022, 14:46
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.50 2021/12/13 20:43:17 czo Exp $
+# $Id: .cshrc,v 1.52 2022/01/06 14:14:47 czo Exp $
 #
 
 
@@ -216,6 +216,7 @@ default:
 
 endsw
 
+
 ##======= Paths ===================================================##
 
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
@@ -342,42 +343,43 @@ alias psg      'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k
 
 alias n        'ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
 
-alias wgetr 'wget -m -np -k -r'
-alias wgetp 'wget -m -np -k -l1'
+alias wgetr    'wget -m -np -k -r'
+alias wgetp    'wget -m -np -k -l1'
 
-alias chmodr 'chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
-alias chmodg 'chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
+alias chmodr   'chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
+alias chmodg   'chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara    '\tar -czf'
-alias tarx    '\tar -xf'
-alias tarxiso 'cmake -E tar xf'
+alias tara     'tar -czf'
+alias tarx     'tar -xf'
+alias tarxiso  'bsdtar -xf'
 
-alias tsu     'su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
+alias tsu      'su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
-alias ipl 'echo `wget -q -O- http://czo.free.fr/ip.php`'
-alias ipa 'ip a | grep "inet "'
-alias ifa 'ifconfig | grep "inet "'
+alias ipl      'echo `wget -q -O- http://czo.free.fr/ip.php`'
+alias ipa      'ip a | grep "inet "'
+alias ifa      'ifconfig | grep "inet "'
 
-alias screena 'screen -d -R'
-alias tmuxa   'tmux attach -d || tmux new'
-alias aa      'tmux attach -d || tmux new'
+alias screena  'screen -d -R'
+alias tmuxa    'tmux attach -d || tmux new'
+alias aa       'tmux attach -d || tmux new'
 
 alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
-alias rsync_sys 'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_sys  'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsync_full 'rsync --numeric-ids -S -H --delete -av'
-alias rsync_fat 'rsync --no-p --no-g --modify-window=1 --delete -av -L'
+alias rsync_fat  'rsync --no-p --no-g --modify-window=1 --delete -av -L'
 
 alias curl_config_fast_copy 'curl -fsSL https://git.io/JU6cm | sh'
-alias curl_config_fast_ssh 'curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all 'wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
+alias curl_config_fast_ssh  'curl -fsSL https://git.io/JU6c2 | sh'
+alias wget_config_fast_all  'wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
 
 alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d\ %H:%M`, do not reply" root'
 
-alias passwd_md5 'openssl passwd -1 '
-alias passwd_sha512 'openssl passwd -6 '
-alias ssha 'eval `ssh-agent -c`; ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
-alias dig_lartha 'curl http://lartha:/hosts.html'
-alias tmate_ssh 'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+alias passwd_md5     'openssl passwd -1 '
+alias passwd_sha512  'openssl passwd -6 '
+alias ssha           'eval `ssh-agent -c`; ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias dig_lartha     'curl http://lartha:/hosts.html'
+alias tmate_ssh      'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
+
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
 # but on FreeBSD you must have gnu-sed, so perl is best!
 alias remove_known_hosts_line 'perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts'
@@ -385,6 +387,7 @@ alias remove_known_hosts_line 'perl -ni -e "print unless $. == $1 " ~/.ssh/known
 alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#|^\s*$/'\'
 
 alias mytree 'tree -adn | grep -v CVS'
+
 alias cvu 'cd ~/etc ; cvs up ; cd -'
 alias cvd 'cd ~/etc ; cvs diff ; cd -'
 alias cvc 'cd ~/etc ; cvs ci -mupdate ; cd -'
@@ -398,7 +401,7 @@ alias gtc 'git commit -a'
 alias gtu 'git commit -a -mupdate ; git push ; git status'
 alias gtp 'git push'
 
-# missing LANG=C 
+# missing LANG=C
 alias pkg_inst_debian "aptitude search '~i !~M' -F %p | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 alias pkg_inst_debian2 "dpkg-query -W --showformat='"\$"{Package}\n' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
@@ -413,7 +416,7 @@ alias ASS 'apt-cache search'
 alias AL  'dpkg -L'
 alias AF  'dpkg -S'
 
-# redhat, fedora 
+# redhat, fedora
 alias YU  'yum update && yum clean all'
 alias YI  'yum install'
 alias YP  'yum remove'
@@ -465,7 +468,7 @@ if ($?tcsh) then
     setenv HOST_PROMPT_SIZE "%-0$calc="
 
     alias precmd 'set E=$status ; if ($term =~ xterm*) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; /bin/echo -n "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - " ; if ($E == 0) echo "[0;97m[$E][m" ; if ($E != 0) echo "[0;91m[$E][m" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
-    
+
     # set prompt = "%{^[[0;97m%}[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$?]\n%{^[[0;9${USER_PROMPT_COLOR}m%}${USER}%{^[[0;97m%}@%{^[[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{^[[0;97m%}:%{^[[0;94m%}%/\n%{^[[0;97m%}>>%{^[[m%} "
     set prompt = "%{^[[0;97m%}>>%{^[[m%} "
 else
