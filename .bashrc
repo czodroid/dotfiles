@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: jeudi 06 janvier 2022, 15:13
-# Edit Time: 101:11:56
+# Last Modified: jeudi 06 janvier 2022, 17:53
+# Edit Time: 101:41:56
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.373 2022/01/06 14:14:47 czo Exp $
+# $Id: .bashrc,v 1.374 2022/01/06 16:56:01 czo Exp $
 
 #set -v
 #set -x
@@ -406,9 +406,24 @@ alias wgetp='wget -m -np -k -l1'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara='tar -czf'
-
-#unzip -d $ZIP-ext $ZIP
+#alias tara='tar -czf'
+tara() {
+    if [ $# -ne 1 ]
+    then
+        echo "tara, create a TAR file compressed"
+        echo "Error: need a directory..."
+    else
+        DIR=$1
+        TAR=${DIR%/*}
+        TAR=${TAR#*/}.tgz
+        if [ ! -e "$TAR" ]
+        then
+            tar -czf ${TAR} ${DIR}
+        else
+            echo "$TAR exist's, please correct it..."
+        fi
+    fi
+}
 
 #alias tarx='tar -xf'
 tarx() {
@@ -427,7 +442,7 @@ tarx() {
                 mkdir -p "$DIR"
                 tar -C "$DIR" -xf "$TAR"
             else
-                echo "$DIR does exist, please correct it..."
+                echo "$DIR exist's, please correct it..."
             fi
         else
             echo "$TAR doesn't exist..."
@@ -453,7 +468,7 @@ tarxiso() {
                 mkdir -p "$DIR"
                 bsdtar -C "$DIR" -xf "$ISO"
             else
-                echo "$DIR does exist, please correct it..."
+                echo "$DIR exist's, please correct it..."
             fi
         else
             echo "$ISO doesn't exist..."
@@ -649,7 +664,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.373 2022/01/06 14:14:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.374 2022/01/06 16:56:01 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

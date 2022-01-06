@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 06 janvier 2022, 13:20
-# Edit Time: 131:49:56
+# Last Modified: jeudi 06 janvier 2022, 17:55
+# Edit Time: 131:50:07
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.347 2022/01/06 14:14:47 czo Exp $
+# $Id: .zshrc,v 1.348 2022/01/06 16:56:01 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -527,9 +527,24 @@ alias wgetp='wget -m -np -k -l1'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
-alias tara='tar -czf'
-
-#unzip -d $ZIP-ext $ZIP
+#alias tara='tar -czf'
+tara() {
+    if [ $# -ne 1 ]
+    then
+        echo "tara, create a TAR file compressed"
+        echo "Error: need a directory..."
+    else
+        DIR=$1
+        TAR=${DIR%/*}
+        TAR=${TAR#*/}.tgz
+        if [ ! -e "$TAR" ]
+        then
+            tar -czf ${TAR} ${DIR}
+        else
+            echo "$TAR exist's, please correct it..."
+        fi
+    fi
+}
 
 #alias tarx='tar -xf'
 tarx() {
@@ -548,7 +563,7 @@ tarx() {
                 mkdir -p "$DIR"
                 tar -C "$DIR" -xf "$TAR"
             else
-                echo "$DIR does exist, please correct it..."
+                echo "$DIR exist's, please correct it..."
             fi
         else
             echo "$TAR doesn't exist..."
@@ -574,7 +589,7 @@ tarxiso() {
                 mkdir -p "$DIR"
                 bsdtar -C "$DIR" -xf "$ISO"
             else
-                echo "$DIR does exist, please correct it..."
+                echo "$DIR exist's, please correct it..."
             fi
         else
             echo "$ISO doesn't exist..."
@@ -781,7 +796,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.347 2022/01/06 14:14:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.348 2022/01/06 16:56:01 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
