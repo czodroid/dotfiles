@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 06 janvier 2022, 17:55
-# Edit Time: 131:50:07
+# Last Modified: jeudi 06 janvier 2022, 21:44
+# Edit Time: 131:51:44
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.348 2022/01/06 16:56:01 czo Exp $
+# $Id: .zshrc,v 1.349 2022/01/07 00:03:35 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -26,7 +26,8 @@ setopt AUTO_CD                # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
 #setopt CD_SILENT              # Never print the working directory
 setopt COMBINING_CHARS        # Displays combining characters correctly
-setopt NO_COMPLETE_IN_WORD       # Completion works inside words
+#setopt NO_COMPLETE_IN_WORD       # Completion works inside words
+setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
 setopt NO_GLOB_DOTS           # Patterns may match leading dots
@@ -796,7 +797,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.348 2022/01/06 16:56:01 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.349 2022/01/07 00:03:35 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

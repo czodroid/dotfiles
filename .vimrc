@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mercredi 05 janvier 2022, 14:22
-" Edit Time: 198:46:28
+" Last Modified: jeudi 06 janvier 2022, 21:53
+" Edit Time: 198:52:51
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.282 2022/01/05 13:23:58 czo Exp $
+" $Id: .vimrc,v 1.283 2022/01/07 00:03:35 czo Exp $
 
 if version >= 580
 "if 0
@@ -172,7 +172,7 @@ if exists('+listchars')
 endif
 
 if exists('+list')
-    set list
+    "set list
 endif
 
 " tags search path
@@ -465,6 +465,21 @@ cmap <leader>rcm %s/<C-M>//g
 
 
 " == Command ===========================================================
+
+command!  CzoInvList call CzoInvList ()
+function! CzoInvList ()
+    execute 'set invlist'
+ endfunction
+
+command!  CzoInvWrap call CzoInvWrap ()
+function! CzoInvWrap ()
+    execute 'set invwrap'
+ endfunction
+
+command!  CzoInvPaste call CzoInvPaste ()
+function! CzoInvPaste ()
+    execute 'set invpaste'
+ endfunction
 
 command!  CzoVisualGrey call CzoVisualGrey ()
 function! CzoVisualGrey ()
@@ -953,7 +968,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.282 2022/01/05 13:23:58 czo Exp $
+        " $Id: .vimrc,v 1.283 2022/01/07 00:03:35 czo Exp $
         "
         if 1
             " modif Started: in File Created:
