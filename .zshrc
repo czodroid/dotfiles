@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 06 janvier 2022, 21:44
-# Edit Time: 131:51:44
+# Last Modified: samedi 08 janvier 2022, 19:51
+# Edit Time: 132:09:48
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.349 2022/01/07 00:03:35 czo Exp $
+# $Id: .zshrc,v 1.350 2022/01/08 18:52:29 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -631,7 +631,10 @@ alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDI
 # but on FreeBSD you must have gnu-sed, so perl is best!
 remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts; }
 
-alias mytree='tree -adn | grep -v CVS'
+alias tree-cvs='tree -adn | grep -v CVS'
+alias dft='df -hPT'
+alias lsblka='lsblk -o name,size,fstype,label,ro,mountpoint,model'
+
 alias cvu='cd ~/etc ; cvs up ; cd -'
 alias cvd='cd ~/etc ; cvs diff ; cd -'
 alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
@@ -797,7 +800,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.349 2022/01/07 00:03:35 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.350 2022/01/08 18:52:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

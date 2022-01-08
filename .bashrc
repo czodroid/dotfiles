@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: jeudi 06 janvier 2022, 17:53
-# Edit Time: 101:41:56
+# Last Modified: samedi 08 janvier 2022, 19:51
+# Edit Time: 101:42:04
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.374 2022/01/06 16:56:01 czo Exp $
+# $Id: .bashrc,v 1.375 2022/01/08 18:52:29 czo Exp $
 
 #set -v
 #set -x
@@ -509,7 +509,10 @@ alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDI
 # but on FreeBSD you must have gnu-sed, so perl is best!
 remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts; }
 
-alias mytree='tree -adn | grep -v CVS'
+alias tree-cvs='tree -adn | grep -v CVS'
+alias dft='df -hPT'
+alias lsblka='lsblk -o name,size,fstype,label,ro,mountpoint,model'
+
 alias cvu='cd ~/etc ; cvs up ; cd -'
 alias cvd='cd ~/etc ; cvs diff ; cd -'
 alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
@@ -664,7 +667,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.374 2022/01/06 16:56:01 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.375 2022/01/08 18:52:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

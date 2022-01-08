@@ -6,7 +6,7 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: jeudi 06 janvier 2022, 14:46
+# Last Modified: samedi 08 janvier 2022, 19:51
 # Description:
 #
 #       ~/.cshrc config file for csh or tcsh
@@ -15,7 +15,7 @@
 #       but be careful, I don't use it, and I don't know
 #       if all the alias are OK...
 #
-# $Id: .cshrc,v 1.52 2022/01/06 14:14:47 czo Exp $
+# $Id: .cshrc,v 1.53 2022/01/08 18:52:29 czo Exp $
 #
 
 
@@ -386,7 +386,9 @@ alias remove_known_hosts_line 'perl -ni -e "print unless $. == $1 " ~/.ssh/known
 # escape quotes '
 alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#|^\s*$/'\'
 
-alias mytree 'tree -adn | grep -v CVS'
+alias tree-cvs 'tree -adn | grep -v CVS'
+alias dft      'df -hPT'
+alias lsblka   'lsblk -o name,size,fstype,label,ro,mountpoint,model'
 
 alias cvu 'cd ~/etc ; cvs up ; cd -'
 alias cvd 'cd ~/etc ; cvs diff ; cd -'
