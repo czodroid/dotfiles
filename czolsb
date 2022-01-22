@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2009
-# Last Modified: samedi 05 juin 2021, 11:51
-# Edit Time: 28:32:49
+# Last Modified: Samedi 22 janvier 2022, 12:27
+# Edit Time: 28:58:38
 # Description:
 #  czolsb > /etc/motd
 #  et mettre ce truc dans crond...
@@ -16,7 +16,7 @@
 #  centos_6.5-x86_64-czo_servup-20140410
 #  mais avec /etc/os-release
 #
-# $Id: czolsb,v 1.42 2021/06/05 16:14:40 czo Exp $
+# $Id: czolsb,v 1.44 2022/01/22 11:29:27 czo Exp $
 #
 
 export LANG=C
@@ -66,8 +66,8 @@ case "$OSN" in
 
     CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
     CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); $A4=~s/  */ /g; print $A4;')
-    CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf "%.1fGB RAM",$mem;')
-    CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
+    CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf("%.1fGB RAM",$mem);')
+    CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); if ($mem eq 0) { printf("no swap"); } else { $mem=$mem/1024/1024; printf("%.1fGB SWAP",$mem); }')
 
     ;;
 
@@ -80,8 +80,8 @@ case "$OSN" in
 
     # FreeBSD | OpenBSD
     CCOREMODEL=$(sysctl -n hw.model)
-    CMEM=$(perl -e '($mem)=qx"sysctl -n hw.physmem"; $mem=$mem/1024/1024/1024; printf "%.1fGB RAM",$mem;')
-    CSWAP=$(perl -e '($mem)=(qx"swapctl -sk" =~ /^total:\s*(.*) .*/mi); $mem=$mem/1024/1024; printf "%.1fGB SWAP",$mem;')
+    CMEM=$(perl -e '($mem)=qx"sysctl -n hw.physmem"; $mem=$mem/1024/1024/1024; printf("%.1fGB RAM",$mem);')
+    CSWAP=$(perl -e '($mem)=(qx"swapctl -sk" =~ /^total:\s*(.*) .*/mi); if ($mem eq 0) { printf("no swap"); } else { $mem=$mem/1024/1024; printf("%.1fGB SWAP",$mem); }')
 
     if [ "$OSN" = "NetBSD" ]; then
       CCOREMODEL=$(sysctl -n machdep.cpu_brand)
@@ -89,8 +89,8 @@ case "$OSN" in
 
     if [ "$OSN" = "Darwin" ]; then
       CCOREMODEL=$(sysctl -n machdep.cpu.brand_string)
-      CMEM=$(perl -e '($mem)=qx"sysctl -n hw.memsize"; $mem=$mem/1024/1024/1024; printf "%.1fGB RAM",$mem;')
-      CSWAP=$(perl -e '($mem)=(qx"sysctl -n vm.swapusage" =~ /^total = (.*)M.*/mi); $mem=$mem/1024; printf "%.1fGB SWAP",$mem;')
+      CMEM=$(perl -e '($mem)=qx"sysctl -n hw.memsize"; $mem=$mem/1024/1024/1024; printf("%.1fGB RAM",$mem);')
+      CSWAP=$(perl -e '($mem)=(qx"sysctl -n vm.swapusage" =~ /^total = ([^M]*)M .*/mi); $mem=$mem/1; if ($mem eq 0) { printf("no swap"); } else { $mem=$mem/1024; printf("%.1fGB SWAP",$mem); }')
     fi
 
     ;;

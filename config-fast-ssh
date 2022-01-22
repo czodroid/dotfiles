@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mercredi 05 janvier 2022, 15:20
-# Edit Time: 8:37:47
+# Last Modified: dimanche 16 janvier 2022, 12:16
+# Edit Time: 8:39:20
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -14,7 +14,7 @@
 #
 #   also works in wget: wget -qO- https://pwet | bash
 #
-# $Id: config-fast-ssh,v 1.14 2022/01/05 14:20:45 czo Exp $
+# $Id: config-fast-ssh,v 1.15 2022/01/16 11:16:40 czo Exp $
 
 # you must do a "cd" before running this script
 
@@ -34,7 +34,7 @@ cat << 'EOF' >> .ssh/config
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
-# Last Modified:
+# Last Modified: mercredi 05 janvier 2022, 15:20
 # Description:
 #   ssh settings
 #    ssh -J, ssh -W, ssh -tt

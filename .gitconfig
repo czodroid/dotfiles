@@ -6,12 +6,12 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: mars 2018
-# Last Modified: samedi 01 janvier 2022, 17:27
-# Edit Time: 2:43:47
+# Last Modified: mercredi 12 janvier 2022, 14:29
+# Edit Time: 2:49:03
 # Description:
 #                 git conf file
 #
-# $Id: .gitconfig,v 1.11 2022/01/01 16:29:35 czo Exp $
+# $Id: .gitconfig,v 1.12 2022/01/12 13:29:43 czo Exp $
 
 [user]
     name     = Olivier Sirol
@@ -39,10 +39,12 @@
     summary       = true
 
 [alias]
-    d   = diff
-    dt  = difftool
     c   = clone
     c1  = clone --depth 1
+    co  = checkout
+    ci  = commit
+    d   = diff
+    dt  = difftool
     f   = fetch
     fo  = fetch origin
     fu  = fetch upstream
