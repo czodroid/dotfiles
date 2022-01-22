@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: jeudi 06 janvier 2022, 21:53
-" Edit Time: 198:52:51
+" Last Modified: samedi 22 janvier 2022, 13:26
+" Edit Time: 199:16:08
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.283 2022/01/07 00:03:35 czo Exp $
+" $Id: .vimrc,v 1.285 2022/01/22 12:27:48 czo Exp $
 
 if version >= 580
 "if 0
@@ -355,8 +355,6 @@ endif
 " mswin...
 " present in vim.gtk but not in vim or vim-nox
 " +clipboard +xterm_clipboard +virtualedit
-" set clipboard=unnamedplus
-" he paste nopaste
 "
 " nvim clipboard
 "  - pbcopy, pbpaste (macOS)
@@ -371,6 +369,12 @@ endif
 " # Linux Xorg
 " :'<,'>w !xclip -selection clipboard
 "
+" 2021/10/03 : macvim
+" set clipboard=unnamed
+" if has("unnamedplus") " X11 support
+"     set clipboard+=unnamedplus
+" endif
+"
 " https://github.com/kana/vim-fakeclip
 
 if has('clipboard')
@@ -379,19 +383,10 @@ if has('clipboard')
         " but dont use Ctrl-A
         noremap <C-A> <C-A>
         inoremap <C-A> <C-A>
-
-        " " 2021/10/03 : macvim
-        " set clipboard=unnamed
-        " if has("unnamedplus") " X11 support
-        "     set clipboard+=unnamedplus
-        " endif
-
     endif
 else
-    echom "Please install vim-athena/vim-gtk (debian)"
-    echom "vim-X11 (and run vimx) (centos) or nvim to"
-    echom "be able to access the system clipboard..."
-    echoe "Vim compiled with no clipboard!!!"
+    "Please install vim-athena/vim-gtk (debian) or vim-X11 (and run vimx) (centos)
+    echoe "NO SYSTEM CLIPBOARD: vim compiled without clipboard or nvim is running without X11!!!"
     noremap <C-Q> <C-V>
 endif
 
@@ -968,7 +963,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.283 2022/01/07 00:03:35 czo Exp $
+        " $Id: .vimrc,v 1.285 2022/01/22 12:27:48 czo Exp $
         "
         if 1
             " modif Started: in File Created:
