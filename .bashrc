@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 08 janvier 2022, 19:51
-# Edit Time: 101:42:04
+# Last Modified: lundi 24 janvier 2022, 19:52
+# Edit Time: 101:59:26
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.375 2022/01/08 18:52:29 czo Exp $
+# $Id: .bashrc,v 1.376 2022/01/24 18:55:56 czo Exp $
 
 #set -v
 #set -x
@@ -29,8 +29,6 @@
 [ -z "$PS1" ] && return
 
 export TMPDIR=${TMPDIR-/tmp}
-#android
-#export TMPDIR=${TMPDIR-/data/local/tmp}
 
 export HISTFILE=${TMPDIR}/.sh_history
 
@@ -234,6 +232,7 @@ fi
 ## config termux for android
 if [ -d /system/bin ]
 then
+    export TMPDIR=/data/local/tmp
     export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 fi
@@ -252,10 +251,16 @@ export PATH
 
 ##======= Environment Variables ======================================##
 
-{ [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
+if [ -x "$(command -v getprop)" ]; then
+    HOSTNAME=$(getprop net.hostname 2>/dev/null)
+elif [ -x "$(command -v hostname)" ]; then
+    HOSTNAME=$(hostname 2>/dev/null)
+else
+    HOSTNAME=$(uname -n 2>/dev/null)
+fi
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
-{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
+{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
 export USER
 
 # GNU ls
@@ -650,9 +655,6 @@ if [ -n "$BASH_VERSION" ]; then
     PS0='$(title "$(history 1  2>/dev/null | sed "s/^ *[0-9]\+ \+//" 2>/dev/null) (${USER}@${HOSTNAME})")'
 fi
 
-#HOSTNAME=czophone
-#USER=root
-
 # busybox has no cksum on openWRT!
 if [ -x "$(command -v cksum)" ]
 then
@@ -667,7 +669,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.375 2022/01/08 18:52:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.376 2022/01/24 18:55:56 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

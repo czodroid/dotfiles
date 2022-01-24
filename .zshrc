@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 08 janvier 2022, 19:51
-# Edit Time: 132:09:48
+# Last Modified: lundi 24 janvier 2022, 19:54
+# Edit Time: 132:13:49
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         This is Alex Fenyo, my guru, who made me discover this
@@ -15,7 +15,7 @@
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
 #
-# $Id: .zshrc,v 1.350 2022/01/08 18:52:29 czo Exp $
+# $Id: .zshrc,v 1.351 2022/01/24 18:55:56 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -48,8 +48,6 @@ setopt RM_STAR_SILENT         # Don’t warn on rm *
 setopt SH_WORD_SPLIT          # Split non­array variables yuckily
 
 export TMPDIR=${TMPDIR-/tmp}
-#android
-#export TMPDIR=${TMPDIR-/data/local/tmp}
 
 export HISTFILE=$HOME/.sh_history
 export SAVEHIST=55000
@@ -358,6 +356,7 @@ fi
 ## config termux for android
 if [ -d /system/bin ]
 then
+    export TMPDIR=/data/local/tmp
     export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 fi
@@ -376,10 +375,16 @@ export -U PATH
 
 ##======= Environment Variables ======================================##
 
-{ [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
+if [ -x "$(command -v getprop)" ]; then
+    HOSTNAME=$(getprop net.hostname 2>/dev/null)
+elif [ -x "$(command -v hostname)" ]; then
+    HOSTNAME=$(hostname 2>/dev/null)
+else
+    HOSTNAME=$(uname -n 2>/dev/null)
+fi
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
-{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null) || [ -n "$USER" ]
+{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
 export USER
 
 # GNU ls
@@ -800,7 +805,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.350 2022/01/08 18:52:29 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.351 2022/01/24 18:55:56 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
