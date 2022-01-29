@@ -6,13 +6,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mercredi 12 mai 2021, 00:24
-# Edit Time: 4:26:08
+# Last Modified: samedi 29 janvier 2022, 01:02
+# Edit Time: 4:33:53
 # Description: ~/.inputrc
 #              See readline(3readline) and `info rluserman' 
 #              for more information.
 #
-# $Id: .inputrc,v 1.7 2021/05/12 08:54:49 czo Exp $
+# $Id: .inputrc,v 1.8 2022/01/29 00:03:04 czo Exp $
 
 
 # Be 8 bit clean.
@@ -21,7 +21,7 @@ set output-meta on
 set convert-meta off
 
 # do not bell on tab-completion
- set bell-style none
+set bell-style none
 #set 'bell-style visible
 
 set show-all-if-ambiguous on
