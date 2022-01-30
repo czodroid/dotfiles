@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 22 janvier 2022, 13:26
-" Edit Time: 199:16:08
+" Last Modified: dimanche 30 janvier 2022, 12:47
+" Edit Time: 200:03:02
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.285 2022/01/22 12:27:48 czo Exp $
+" $Id: .vimrc,v 1.286 2022/01/30 11:49:36 czo Exp $
 
 if version >= 580
 "if 0
@@ -461,6 +461,33 @@ cmap <leader>rcm %s/<C-M>//g
 
 " == Command ===========================================================
 
+command!  CzoEditorTabToSpaceAndTrailWhite call CzoEditorTabToSpaceAndTrailWhite ()
+function! CzoEditorTabToSpaceAndTrailWhite ()
+    echom "Convert Tab to Space"
+    execute '%s/\t/    /gce'
+    echom "Trim Trailing Whitespace"
+    execute '%s/\s\+$//ce'
+endfunction
+
+command!  CzoTabToSpaces call CzoTabToSpaces ()
+function! CzoTabToSpaces ()
+    execute '%s/\t/    /gce'
+endfunction
+
+command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
+function! CzoTrimTrailingWhitespace ()
+    " execute '%s/\s\+$//en'
+    " execute '%s/\s\+$//e'
+    execute '%s/\s\+$//ce'
+ endfunction
+
+command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
+function! CzoRemoveEmptyLinesAndComment ()
+    " execute 'g/^\s*#/d'
+    " execute 'g/^\s*$/d'
+    execute 'g/\(^\s*#\)\|\(^\s*$\)/d'
+endfunction
+
 command!  CzoInvList call CzoInvList ()
 function! CzoInvList ()
     execute 'set invlist'
@@ -489,25 +516,6 @@ function! CzoVisualClear ()
     hi Visual    guifg=NONE guibg=#36403c gui=NONE cterm=NONE term=NONE
     hi Search    guifg=NONE guibg=#3d342b gui=NONE cterm=NONE term=NONE
     hi IncSearch guifg=NONE guibg=#3e4a4b gui=NONE cterm=NONE term=NONE
-endfunction
-
-command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
-function! CzoTrimTrailingWhitespace ()
-    " execute '%s/\s\+$//en'
-    " execute '%s/\s\+$//e'
-    execute '%s/\s\+$//ce'
- endfunction
-
-command!  CzoConvertIndentationToSpaces call CzoConvertIndentationToSpaces ()
-function! CzoConvertIndentationToSpaces ()
-    execute '%s/\t/    /gce'
-endfunction
-
-command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
-function! CzoRemoveEmptyLinesAndComment ()
-    " execute 'g/^\s*#/d'
-    " execute 'g/^\s*$/d'
-    execute 'g/\(^\s*#\)\|\(^\s*$\)/d'
 endfunction
 
 
@@ -963,7 +971,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.285 2022/01/22 12:27:48 czo Exp $
+        " $Id: .vimrc,v 1.286 2022/01/30 11:49:36 czo Exp $
         "
         if 1
             " modif Started: in File Created:
