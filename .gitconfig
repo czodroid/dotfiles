@@ -6,12 +6,12 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: mars 2018
-# Last Modified: mercredi 12 janvier 2022, 14:29
-# Edit Time: 2:49:03
+# Last Modified: vendredi 04 février 2022, 01:53
+# Edit Time: 2:56:03
 # Description:
 #                 git conf file
 #
-# $Id: .gitconfig,v 1.12 2022/01/12 13:29:43 czo Exp $
+# $Id: .gitconfig,v 1.14 2022/02/04 00:53:03 czo Exp $
 
 [user]
     name     = Olivier Sirol
@@ -31,15 +31,9 @@
     prompt = false
 
 [difftool "vimdiff"]
-    cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
-
-[merge]
-    tool          = vimdiff
-    conflictstyle = diff3
-    summary       = true
+    cmd = vim -d \"$REMOTE\" \"$LOCAL\"
 
 [alias]
-    c   = clone
     c1  = clone --depth 1
     co  = checkout
     ci  = commit

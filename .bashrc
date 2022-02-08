@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 29 janvier 2022, 15:43
-# Edit Time: 102:16:01
+# Last Modified: mardi 08 février 2022, 14:06
+# Edit Time: 102:17:20
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.381 2022/01/29 14:44:39 czo Exp $
+# $Id: .bashrc,v 1.385 2022/02/08 13:06:47 czo Exp $
 
 #set -v
 #set -x
@@ -102,7 +102,7 @@ export PLATFORM
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
 #FIXME: typeset -U for bash
-export PATH=$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
 
 ## config cpan perl libs not in distro
 #export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
@@ -181,7 +181,7 @@ fi
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
-    *) export PRINTER=BW_Pigeonnier_ananas ;;
+    *) export PRINTER=BW_Pigeonnier ;;
 esac
 
 export HTML_TIDY=$HOME/.tidyrc
@@ -385,10 +385,11 @@ alias rm._='find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -
 [ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 [ -x "$(command -v less)" ] || alias more=less
 
-[ -x "$(command -v nvim)" ] && alias vim='\nvim -u ~/.vimrc'
-[ -x "$(command -v vimx)" ] && alias vim=vimx
-{ [ -x "$(command -v vim)" ] && alias vi=vim; } || alias vi="vi -u NONE"
-alias nvim='nvim -u ~/.vimrc'
+[ -f "$HOME/.vimrc.czo" ] && export MYVIMRC="$HOME/.vimrc.czo" || export MYVIMRC="$HOME/.vimrc" 
+[ -x "$(command -v nvim)" ] && alias vim="nvim -u $MYVIMRC"
+[ -x "$(command -v vimx)" ] && alias vim="vimx -u $MYVIMRC"
+{ [ -x "$(command -v vim)" ] && alias vim="\vim -u $MYVIMRC"; } || alias vi="\vi -u NONE"
+alias nvim="\nvim -u $MYVIMRC"
 alias ne='emacs -nw'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
@@ -659,7 +660,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.381 2022/01/29 14:44:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.385 2022/02/08 13:06:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

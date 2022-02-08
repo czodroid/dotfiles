@@ -6,16 +6,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 29 janvier 2022, 15:43
-# Edit Time: 132:23:42
+# Last Modified: mardi 08 février 2022, 14:06
+# Edit Time: 132:41:54
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
-#         This is Alex Fenyo, my guru, who made me discover this
-#         amazing shell in 1996... I am forever grateful to him.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
 #         and put instead .profile
+#         This is Alex Fenyo, my guru, who made me discover this
+#         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.354 2022/01/29 14:44:39 czo Exp $
+# $Id: .zshrc,v 1.358 2022/02/08 13:06:47 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -119,7 +119,7 @@ export PLATFORM
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
 #FIXME: typeset -U for bash
-export PATH=$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
 
 ## config cpan perl libs not in distro
 #export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
@@ -198,7 +198,7 @@ fi
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
-    *) export PRINTER=BW_Pigeonnier_ananas ;;
+    *) export PRINTER=BW_Pigeonnier ;;
 esac
 
 export HTML_TIDY=$HOME/.tidyrc
@@ -507,10 +507,11 @@ alias rm._='find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -
 [ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 [ -x "$(command -v less)" ] || alias more=less
 
-[ -x "$(command -v nvim)" ] && alias vim='\nvim -u ~/.vimrc'
-[ -x "$(command -v vimx)" ] && alias vim=vimx
-{ [ -x "$(command -v vim)" ] && alias vi=vim; } || alias vi="vi -u NONE"
-alias nvim='nvim -u ~/.vimrc'
+[ -f "$HOME/.vimrc.czo" ] && export MYVIMRC="$HOME/.vimrc.czo" || export MYVIMRC="$HOME/.vimrc" 
+[ -x "$(command -v nvim)" ] && alias vim="nvim -u $MYVIMRC"
+[ -x "$(command -v vimx)" ] && alias vim="vimx -u $MYVIMRC"
+{ [ -x "$(command -v vim)" ] && alias vim="\vim -u $MYVIMRC"; } || alias vi="\vi -u NONE"
+alias nvim="\nvim -u $MYVIMRC"
 alias ne='emacs -nw'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
@@ -792,7 +793,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.354 2022/01/29 14:44:39 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.358 2022/02/08 13:06:47 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

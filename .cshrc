@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: samedi 29 janvier 2022, 15:44
-# Edit Time: 28:43:41
+# Last Modified: mardi 08 février 2022, 14:05
+# Edit Time: 28:50:59
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.55 2022/01/29 14:44:39 czo Exp $
+# $Id: .cshrc,v 1.59 2022/02/08 13:06:47 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -121,7 +121,7 @@ endsw
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 # WARNING : tcsh 6.07.02 : Words can be no longer than 1024 characters.
 
-setenv PATH $HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+setenv PATH $HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/bin:/usr/pkg/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/local/sbin:/sbin:/bin:/usr/bin:/usr/5bin:/usr/X11/bin:/usr/X11R6/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/X11:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/games:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/sbin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
 
 ##======= Environment Variables ======================================##
 
@@ -148,7 +148,7 @@ setenv CVSEDITOR vim
 setenv RSYNC_RSH ssh
 
 setenv CVSROOT czo@ananas:/tank/data/czo/CzoDoc/cvsroot
-setenv PRINTER BW_Pigeonnier_ananas
+setenv PRINTER BW_Pigeonnier
 setenv HTML_TIDY $HOME/.tidyrc
 
 ##======= Key bindings ============================================##
@@ -328,8 +328,15 @@ alias rmemptyd 'find . -empty -type d -print -exec rm -fr {} \;'
 alias rmbak    'find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
 alias rm._     'find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable"  \) -type f -print -exec rm -f {} \;'
 
+if (-f "$HOME/.vimrc.czo") then
+    setenv MYVIMRC "$HOME/.vimrc.czo"
+else
+    setenv MYVIMRC "$HOME/.vimrc"
+endif
+ 
 alias more     'less'
-alias nvim     'nvim -u ~/.vimrc'
+alias vim      "\vim  -u $MYVIMRC"
+alias nvim     "\nvim -u $MYVIMRC"
 alias ne       'emacs -nw'
 
 alias psg      'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k 3"'
