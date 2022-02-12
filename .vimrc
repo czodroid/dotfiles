@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 30 janvier 2022, 12:47
-" Edit Time: 200:03:02
+" Last Modified: samedi 12 février 2022, 14:36
+" Edit Time: 200:04:37
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.286 2022/01/30 11:49:36 czo Exp $
+" $Id: .vimrc,v 1.287 2022/02/12 13:38:04 czo Exp $
 
 if version >= 580
 "if 0
@@ -971,7 +971,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.286 2022/01/30 11:49:36 czo Exp $
+        " $Id: .vimrc,v 1.287 2022/02/12 13:38:04 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1093,8 +1093,8 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Saturday 13 November 2021, 18:16
-                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:11
+                 \\<nl> * Edit Time: 0:00:49
                  \\<nl> * Description:
                  \\<nl> *
                  \\<nl> */
@@ -1133,8 +1133,8 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>// Last Modified: Saturday 13 November 2021, 18:16
-                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// Last Modified: Wednesday 15 December 2021, 20:12
+                 \\<nl>// Edit Time: 0:01:02
                  \\<nl>// Description:
                  \\<nl>
                  \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
@@ -1168,8 +1168,8 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: dimanche 14 novembre 2021, 12:46
-                 \\<nl> * Edit Time: 0:00:06
+                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:12
+                 \\<nl> * Edit Time: 0:01:19
                  \\<nl> * Description:
                  \\<nl> *
                  \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
@@ -1270,8 +1270,8 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Saturday 13 November 2021, 14:59
-                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:12
+                 \\<nl> * Edit Time: 0:01:27
                  \\<nl> * Description:
                  \\<nl> *
                  \\<nl> */
@@ -1375,8 +1375,8 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>// Last Modified: Saturday 13 November 2021, 13:54
-                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// Last Modified: Wednesday 15 December 2021, 20:12
+                 \\<nl>// Edit Time: 0:01:55
                  \\<nl>// Description:
                  \\<nl>//
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
@@ -1431,8 +1431,8 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Saturday 13 November 2021, 18:17
-                 \\<nl> * Edit Time: 0:00:01
+                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:13
+                 \\<nl> * Edit Time: 0:02:08
                  \\<nl> * Description:
                  \\<nl> *
                  \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
@@ -1497,8 +1497,8 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: Saturday 13 November 2021, 14:58
-                 \\<nl># Edit Time: 0:00:01
+                 \\<nl># Last Modified: Wednesday 15 December 2021, 20:13
+                 \\<nl># Edit Time: 0:02:20
                  \\<nl># Description:
                  \\<nl>#      Makefile:
                  \\<nl>#      $@ Le nom de la cible
@@ -1553,12 +1553,12 @@ function! TemplateCzo (...)
             catch /^markdown$/
                0put = \"
                       \<!--
-                 \\<nl>Filename: template.md
+                 \\<nl>Filename: template.markdown
                  \\<nl>Author: Olivier Sirol <czo@free.fr>
                  \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>Last Modified: dimanche 14 novembre 2021, 12:15
-                 \\<nl>Edit Time: 0:00:01
+                 \\<nl>Last Modified: Wednesday 15 December 2021, 20:13
+                 \\<nl>Edit Time: 0:02:32
                  \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>-->
                  \\<nl>
@@ -1579,20 +1579,22 @@ function! TemplateCzo (...)
             "## template.perl #########################################
             catch /^perl$/
                0put = \"
-                      \#! /usr/bin/perl -w
+                      \#! /usr/bin/env perl
                  \\<nl>#
                  \\<nl># Filename: template.perl
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: Saturday 13 November 2021, 18:31
-                 \\<nl># Edit Time: 0:00:26
+                 \\<nl># Last Modified: samedi 12 février 2022, 11:23
+                 \\<nl># Edit Time: 0:00:09
                  \\<nl># Description:
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
-                 \\<nl>open( CMD, \\"zpool status \|\\" );
-                 \\<nl>foreach (<CMD>) {
+                 \\<nl>#use strict;
+                 \\<nl>#use warnings;
+                 \\<nl>
+                 \\<nl>foreach (qx(zpool status)) {
                  \\<nl>    if (m,^\\s*pool:\\s+(.*),) { $pool = $1; }
                  \\<nl>    if (m,^\\s*scan:\\s+(.*),) { $scan = $1; $ok = 1; }
                  \\<nl>    if ($ok) {
@@ -1604,7 +1606,19 @@ function! TemplateCzo (...)
                  \\<nl>        }
                  \\<nl>    }
                  \\<nl>}
-                 \\<nl>close(CMD);
+                 \\<nl>
+                 \\<nl>foreach (qx(zpool status)) {
+                 \\<nl>    if (m,^\\s*pool:\\s+(.*),) { $pool = $1; }
+                 \\<nl>    if (m,^\\s*scan:\\s+(.*),) { $scan = $1; $ok = 1; }
+                 \\<nl>    if ($ok) {
+                 \\<nl>        $ok = 0;
+                 \\<nl>        if ( $scan =~ 'scrub in progress\|resilver' ) {
+                 \\<nl>            $poollist{$pool} = 90;
+                 \\<nl>        } else {
+                 \\<nl>            $poollist{$pool} = 10;
+                 \\<nl>        }
+                 \\<nl>    }
+                 \\<nl>}
                  \\<nl>
                  \\<nl>if ( $ARGV[0] and $ARGV[0] eq \\"config\\" ) {
                  \\<nl>    print <<EOT;
@@ -1628,6 +1642,7 @@ function! TemplateCzo (...)
                  \\<nl>}
                  \\<nl>
                  \\<nl>__END__
+                 \\<nl>
                  \\"
 
             "## template.php #########################################
@@ -1653,14 +1668,14 @@ function! TemplateCzo (...)
             "## template.python #########################################
             catch /^python$/
                0put = \"
-                      \#! /usr/bin/python3
+                      \#! /usr/bin/env python3
                  \\<nl>#
                  \\<nl># Filename: template.python
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: Saturday 13 November 2021, 18:17
-                 \\<nl># Edit Time: 0:00:01
+                 \\<nl># Last Modified: samedi 12 février 2022, 11:31
+                 \\<nl># Edit Time: 0:00:16
                  \\<nl># Description:
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
@@ -1678,21 +1693,21 @@ function! TemplateCzo (...)
             "## template.sh #########################################
             catch /^sh$/
                0put = \"
-                      \#! /bin/sh
+                      \#! /usr/bin/env sh
                  \\<nl>#
                  \\<nl># Filename: template.sh
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: lundi 15 novembre 2021, 18:34
-                 \\<nl># Edit Time: 0:00:02
+                 \\<nl># Last Modified: samedi 12 février 2022, 11:33
+                 \\<nl># Edit Time: 0:00:34
                  \\<nl># Description:
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
                  \\<nl>if [ \\"$#\\" -ne 1 ]; then
                  \\<nl>    echo \\"ERROR : please specify a message...\\"
-                 \\<nl>    echo \\"Usage : $0 \\\\"a message text\\\\"\\"
+                 \\<nl>    echo \\"Usage : $0 'a message text'\\"
                  \\<nl>    exit 42
                  \\<nl>fi
                  \\<nl>
