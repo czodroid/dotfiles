@@ -6,8 +6,8 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 12 février 2022, 14:36
-" Edit Time: 200:04:37
+" Last Modified: samedi 12 février 2022, 17:30
+" Edit Time: 200:04:59
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -163,9 +163,9 @@ endif
 
 if exists('+listchars')
     if version >= 801
-        set listchars=tab:-->,trail:¶,space:·
+        set listchars=tab:-->,trail:%,space:.
     elseif version >= 800
-        set listchars=tab:>-,trail:¶,space:·
+        set listchars=tab:>-,trail:%,space:.
     else
         set listchars=tab:>-,trail:%
     endif
