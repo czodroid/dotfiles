@@ -6,18 +6,20 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 12 février 2022, 17:30
-" Edit Time: 200:04:59
+" Last Modified: dimanche 13 février 2022, 18:47
+" Edit Time: 200:05:46
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.287 2022/02/12 13:38:04 czo Exp $
+" $Id: .vimrc,v 1.288 2022/02/13 17:47:50 czo Exp $
 
 if version >= 580
 "if 0
 
 " == Options ===========================================================
+
+set encoding=utf-8
 
 if has("termguicolors")
   set termguicolors
@@ -163,9 +165,9 @@ endif
 
 if exists('+listchars')
     if version >= 801
-        set listchars=tab:-->,trail:%,space:.
+        set listchars=tab:-->,trail:¶,space:·
     elseif version >= 800
-        set listchars=tab:>-,trail:%,space:.
+        set listchars=tab:>-,trail:¶,space:·
     else
         set listchars=tab:>-,trail:%
     endif
@@ -386,7 +388,7 @@ if has('clipboard')
     endif
 else
     "Please install vim-athena/vim-gtk (debian) or vim-X11 (and run vimx) (centos)
-    echoe "NO SYSTEM CLIPBOARD: vim compiled without clipboard or nvim is running without X11!!!"
+    echoe "NO SYSTEM CLIPBOARD: n/vim is compiled without clipboard or works without X11!!!"
     noremap <C-Q> <C-V>
 endif
 
@@ -971,7 +973,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.287 2022/02/12 13:38:04 czo Exp $
+        " $Id: .vimrc,v 1.288 2022/02/13 17:47:50 czo Exp $
         "
         if 1
             " modif Started: in File Created:
