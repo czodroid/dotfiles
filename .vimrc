@@ -6,15 +6,15 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 19 février 2022, 10:22
-" Edit Time: 202:44:57
+" Last Modified: samedi 19 février 2022, 22:53
+" Edit Time: 202:46:18
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.295 2022/02/19 09:22:30 czo Exp $
+" $Id: .vimrc,v 1.296 2022/02/19 21:53:28 czo Exp $
 
-if version >= 580
+if version >= 508
 "if 0
 
 " == Options ===========================================================
@@ -193,7 +193,8 @@ set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tag
 " == Statusline ========================================================
 
 set statusline=
-set statusline+=%1*\ [%n]\                           " buffer number
+"set statusline+=%1*\ [%n]\                           " buffer number
+set statusline+=%1*\                                 " NO buffer number
 set statusline+=%5*%<%f\                             " Filename
 set statusline+=%6*%m                                " Modified?
 set statusline+=%3*%r                                " RO?
@@ -937,7 +938,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.295 2022/02/19 09:22:30 czo Exp $
+        " $Id: .vimrc,v 1.296 2022/02/19 21:53:28 czo Exp $
         "
         if 1
             " modif Started: in File Created:
