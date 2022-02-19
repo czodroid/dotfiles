@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: samedi 19 février 2022, 12:19
-# Edit Time: 29:13:53
+# Last Modified: samedi 19 février 2022, 16:17
+# Edit Time: 29:14:24
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.66 2022/02/19 11:19:36 czo Exp $
+# $Id: .cshrc,v 1.67 2022/02/19 15:18:37 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -340,6 +340,7 @@ alias more     'less'
 alias vim      "\vim  -u $MYVIMRC"
 alias nvim     "\nvim -u $MYVIMRC"
 alias ne       '\emacs -nw'
+
 alias mc       '\mc -b -u'
 alias htop     '\htop -C'
 

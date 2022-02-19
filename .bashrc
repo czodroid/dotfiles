@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 19 février 2022, 13:02
-# Edit Time: 102:45:37
+# Last Modified: samedi 19 février 2022, 16:17
+# Edit Time: 102:47:13
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.393 2022/02/19 12:09:11 czo Exp $
+# $Id: .bashrc,v 1.394 2022/02/19 15:18:37 czo Exp $
 
 #set -v
 #set -x
@@ -401,7 +401,7 @@ alias aa='tmux attach -d || tmux new'
 alias screena='screen -d -R'
 alias mc='\mc -b -u'
 alias htop='\htop -C'
-\ncdu --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --color off'
+\ncdu --graph-style hash --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --graph-style hash --color off'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
@@ -667,7 +667,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.393 2022/02/19 12:09:11 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .bashrc,v 1.394 2022/02/19 15:18:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
