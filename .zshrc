@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 19 février 2022, 12:18
-# Edit Time: 132:52:55
+# Last Modified: samedi 19 février 2022, 12:55
+# Edit Time: 132:53:05
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.365 2022/02/19 11:19:36 czo Exp $
+# $Id: .zshrc,v 1.366 2022/02/19 11:55:57 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -511,11 +511,17 @@ alias rm._='find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -
 
 [ -f "$HOME/.vimrc.czo" ] && export MYVIMRC="$HOME/.vimrc.czo" || export MYVIMRC="$HOME/.vimrc" 
 [ -x "$(command -v nvim)" ] && alias vim="\nvim -u $MYVIMRC"
+[ -x "$(command -v vim)"  ] && alias vim="\vim  -u $MYVIMRC"
 [ -x "$(command -v vimx)" ] && alias vim="\vimx -u $MYVIMRC"
-{ [ -x "$(command -v vim)" ] && alias vim="\vim -u $MYVIMRC"; } || alias vi="\vi -u NONE"
 alias nvim="\nvim -u $MYVIMRC"
 alias ne='\emacs -nw'
 
+[ -f "$HOME/.tmux.conf.czo" ] && export MYTMUXRC="$HOME/.tmux.conf.czo" || export MYTMUXRC="$HOME/.tmux.conf" 
+alias tmux="\tmux -f $MYTMUXRC"
+alias tmuxa='tmux attach -d || tmux new'
+alias aa='tmux attach -d || tmux new'
+
+alias screena='screen -d -R'
 alias mc='\mc -b -u'
 alias htop='\htop -C'
 \ncdu --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --color off'
@@ -608,10 +614,6 @@ listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wan
 alias ipl='echo $(wget -q -O- http://czo.free.fr/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
-
-alias screena='screen -d -R'
-alias tmuxa='tmux attach -d || tmux new'
-alias aa='tmux attach -d || tmux new'
 
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
@@ -799,7 +801,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.365 2022/02/19 11:19:36 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.366 2022/02/19 11:55:57 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
