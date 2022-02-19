@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mardi 15 février 2022, 18:42
-# Edit Time: 132:52:21
+# Last Modified: samedi 19 février 2022, 12:18
+# Edit Time: 132:52:55
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.361 2022/02/15 17:45:22 czo Exp $
+# $Id: .zshrc,v 1.365 2022/02/19 11:19:36 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -510,11 +510,15 @@ alias rm._='find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -
 [ -x "$(command -v less)" ] || alias more=less
 
 [ -f "$HOME/.vimrc.czo" ] && export MYVIMRC="$HOME/.vimrc.czo" || export MYVIMRC="$HOME/.vimrc" 
-[ -x "$(command -v nvim)" ] && alias vim="nvim -u $MYVIMRC"
-[ -x "$(command -v vimx)" ] && alias vim="vimx -u $MYVIMRC"
+[ -x "$(command -v nvim)" ] && alias vim="\nvim -u $MYVIMRC"
+[ -x "$(command -v vimx)" ] && alias vim="\vimx -u $MYVIMRC"
 { [ -x "$(command -v vim)" ] && alias vim="\vim -u $MYVIMRC"; } || alias vi="\vi -u NONE"
 alias nvim="\nvim -u $MYVIMRC"
-alias ne='emacs -nw'
+alias ne='\emacs -nw'
+
+alias mc='\mc -b -u'
+alias htop='\htop -C'
+\ncdu --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --color off'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
@@ -795,7 +799,7 @@ fi
 # export for screen
 export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.361 2022/02/15 17:45:22 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
+BVERS=$(echo '$Id: .zshrc,v 1.365 2022/02/19 11:19:36 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '

@@ -5,7 +5,7 @@ auto_save_setup=true
 preallocate_space=false
 auto_menu=false
 use_internal_view=true
-use_internal_edit=false
+use_internal_edit=true
 clear_before_exec=true
 confirm_delete=true
 confirm_overwrite=true
@@ -139,12 +139,12 @@ select_flags=6
 
 simple_swap=false
 
+[terminal:xterm-256color]
+f10=^x
+f8=\\e[3~
+
 [Panelize]
 Find *.orig after patching=find . -name \\*.orig -print
 Find SUID and SGID programs=find . \\( \\( -perm -04000 -a -perm /011 \\) -o \\( -perm -02000 -a -perm /01 \\) \\) -print
 Find rejects after patching=find . -name \\*.rej -print
 Modified git files=git ls-files --modified
-
-[terminal:xterm-256color]
-f10=^x
-
