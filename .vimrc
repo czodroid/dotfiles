@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 19 février 2022, 08:21
-" Edit Time: 201:37:21
+" Last Modified: samedi 19 février 2022, 10:22
+" Edit Time: 202:44:57
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.293 2022/02/19 07:22:13 czo Exp $
+" $Id: .vimrc,v 1.295 2022/02/19 09:22:30 czo Exp $
 
 if version >= 580
 "if 0
@@ -194,7 +194,7 @@ set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tag
 
 set statusline=
 set statusline+=%1*\ [%n]\                           " buffer number
-set statusline+=%0*%<%f\                             " Filename
+set statusline+=%5*%<%f\                             " Filename
 set statusline+=%6*%m                                " Modified?
 set statusline+=%3*%r                                " RO?
 set statusline+=%=                                   " right
@@ -629,7 +629,7 @@ hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ct
 hi User2         guifg=#35302b guibg=#fabd2f gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
 hi User3         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
 hi User4         guifg=#35302b guibg=#b8bb26 gui=inverse   ctermfg=DarkGray   ctermbg=Green    cterm=inverse   term=inverse
-hi User5         guifg=#35302b guibg=#928374 gui=inverse   ctermfg=DarkGray   ctermbg=Gray     cterm=inverse   term=inverse
+hi User5         guifg=#35302b guibg=#fbf1c7 gui=inverse   ctermfg=DarkGray   ctermbg=White    cterm=inverse   term=inverse
 hi User6         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
 hi User7         guifg=#35302b guibg=#928374 gui=inverse   ctermfg=DarkGray   ctermbg=Gray     cterm=inverse   term=inverse
 hi User8         guifg=#35302b guibg=#8ec07c gui=inverse   ctermfg=DarkGray   ctermbg=Cyan     cterm=inverse   term=inverse
@@ -937,7 +937,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.293 2022/02/19 07:22:13 czo Exp $
+        " $Id: .vimrc,v 1.295 2022/02/19 09:22:30 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1715,8 +1715,14 @@ endfunction
 " end template.vim =====================================================
 
 
-"endif
-" for vim 6 delete to the bottom and uncomment the endif above
+
+" ======================================================================
+" == END if < 700 ======================================================
+
+if version < 700
+  endif
+  finish
+endif
 
 
 " ======================================================================
@@ -1842,6 +1848,7 @@ if version >= 700
 
 endif
 " end commentary.vim ===================================================
+
 
 " ======================================================================
 " == Plugins ===========================================================

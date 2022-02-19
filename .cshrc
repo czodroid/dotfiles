@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: vendredi 18 février 2022, 17:04
-# Edit Time: 29:03:40
+# Last Modified: samedi 19 février 2022, 09:08
+# Edit Time: 29:12:45
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.63 2022/02/18 16:05:48 czo Exp $
+# $Id: .cshrc,v 1.64 2022/02/19 08:27:34 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -450,14 +450,14 @@ alias xtc    'set term=xterm-color ; echo term=$term'
 alias xtc256 'set term=xterm-256color ; echo term=$term'
 
 alias 16color '\
-    foreach i ( `seq 0 7` )\
-        printf "\x1b[48;5;${i}m  "\
+    foreach i ( 0 1 2 3 4 5 6 7 )\
+        printf "\033[48;5;${i}m  "\
     end\
-    printf "\x1b[0m\n"\
-    foreach i ( `seq 8 15` )\
-        printf "\x1b[48;5;${i}m  "\
+    printf "\033[0m\n"\
+    foreach i ( 8 9 10 11 12 13 14 15 )\
+        printf "\033[48;5;${i}m  "\
     end\
-    printf "\x1b[0m\n\n"'
+    printf "\033[0m\n\n"'
 
 ##======= Main ======================================================##
 
