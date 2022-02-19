@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: vendredi 18 février 2022, 19:20
-" Edit Time: 201:23:05
+" Last Modified: samedi 19 février 2022, 08:21
+" Edit Time: 201:37:21
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.292 2022/02/18 18:20:18 czo Exp $
+" $Id: .vimrc,v 1.293 2022/02/19 07:22:13 czo Exp $
 
 if version >= 580
 "if 0
@@ -44,7 +44,7 @@ if version > 603
     set nocursorcolumn
 endif
 set showcmd
-set noshowmode
+set showmode
 set showmatch
 set ruler
 set shortmess=aOt
@@ -193,7 +193,7 @@ set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tag
 " == Statusline ========================================================
 
 set statusline=
-set statusline+=%0*\                                 " space
+set statusline+=%1*\ [%n]\                           " buffer number
 set statusline+=%0*%<%f\                             " Filename
 set statusline+=%6*%m                                " Modified?
 set statusline+=%3*%r                                " RO?
@@ -640,7 +640,7 @@ hi Directory     guifg=#b8bb26 guibg=NONE    gui=NONE      ctermfg=Green      ct
 hi Title         guifg=#a89984 guibg=NONE    gui=NONE      ctermfg=Gray       ctermbg=NONE     cterm=NONE      term=NONE
 hi ErrorMsg      guifg=#282828 guibg=#fb4934 gui=NONE      ctermfg=Black      ctermbg=Red      cterm=NONE      term=NONE
 hi MoreMsg       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ctermbg=NONE     cterm=NONE      term=NONE
-hi ModeMsg       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ctermbg=NONE     cterm=NONE      term=NONE
+hi ModeMsg       guifg=#928374 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
 hi Question      guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=DarkYellow ctermbg=NONE     cterm=NONE      term=NONE
 hi WarningMsg    guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi LineNr        guifg=#504945 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
@@ -937,7 +937,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.292 2022/02/18 18:20:18 czo Exp $
+        " $Id: .vimrc,v 1.293 2022/02/19 07:22:13 czo Exp $
         "
         if 1
             " modif Started: in File Created:
