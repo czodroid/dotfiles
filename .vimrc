@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 13 février 2022, 18:47
-" Edit Time: 200:05:46
+" Last Modified: vendredi 18 février 2022, 19:20
+" Edit Time: 201:23:05
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.288 2022/02/13 17:47:50 czo Exp $
+" $Id: .vimrc,v 1.292 2022/02/18 18:20:18 czo Exp $
 
 if version >= 580
 "if 0
@@ -40,7 +40,9 @@ let mapleader=","
 "set nonumber
 set number
 "set cursorline
-set nocursorcolumn
+if version > 603
+    set nocursorcolumn
+endif
 set showcmd
 set noshowmode
 set showmatch
@@ -114,10 +116,11 @@ set incsearch
 
 set wildmenu
 set wildmode=longest,full
-set wildoptions=tagfile
+if version > 603
+    set wildoptions=tagfile
+    set tabpagemax=20
+endif
 
-" tab
-set tabpagemax=20
 
 if !has('nvim')
     set ttymouse=xterm2
@@ -136,11 +139,13 @@ if has('nvim')
     set guicursor+=a:blinkon1
 else
     if &term =~ '^xterm'
-        " color: \e]12;#b8bb26\x7
-        " NORMAL mode
-        let &t_EI .= "\e[ q"
-        " INSERT mode
-        let &t_SI .= "\e[5 q"
+        if version > 603
+            " color: \e]12;#b8bb26\x7
+            " NORMAL mode
+            let &t_EI .= "\e[ q"
+            " INSERT mode
+            let &t_SI .= "\e[5 q"
+        endif
         if version > 704
             let &t_SR .= "\e[3 q"
         endif
@@ -187,53 +192,8 @@ set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tag
 
 " == Statusline ========================================================
 
-" :h mode() to see all modes
-let g:currentmode={
-       \ 'n'      : 'NORMAL',
-       \ 'i'      : 'INSERT',
-       \ 'R'      : 'REPLAC',
-       \ 'Rv'     : 'REPLAC',
-       \ 'v'      : 'VISUAL',
-       \ 'V'      : 'VISUAL',
-       \ "\<C-v>" : 'VISUAL',
-       \ 'c'      : 'COMMAN',
-       \ 's'      : 'SELECT',
-       \ 'S'      : 'SELECT',
-       \ "\<C-s>" : 'SELECT',
-       \ 't'      : 'TERMIN',
-       \   }
-
-function! LineMode() abort
-  return get(g:currentmode, mode(), 'N')
-endfunction
-
-function! ChangeStatusLineMode()
-  if (LineMode() =~ '^I')
-    exec 'hi User1 guifg=#35302b guibg=#b8bb26 gui=inverse ctermfg=DarkGray ctermbg=Green   cterm=inverse term=inverse'
-  elseif (LineMode() =~ '^R')
-    exec 'hi User1 guifg=#35302b guibg=#fb4934 gui=inverse ctermfg=DarkGray ctermbg=Red     cterm=inverse term=inverse'
-  elseif (LineMode() =~ '^V')
-    exec 'hi User1 guifg=#35302b guibg=#d3869b gui=inverse ctermfg=DarkGray ctermbg=Magenta cterm=inverse term=inverse'
-  elseif (LineMode() =~ '^S')
-    exec 'hi User1 guifg=#35302b guibg=#d3869b gui=inverse ctermfg=DarkGray ctermbg=Magenta cterm=inverse term=inverse'
-  elseif (LineMode() =~ '^T')
-    exec 'hi User1 guifg=#35302b guibg=#fe8019 gui=inverse ctermfg=DarkGray ctermbg=Yellow  cterm=inverse term=inverse'
-  elseif (LineMode() =~ '^C')
-    exec 'hi User1 guifg=#35302b guibg=#fe8019 gui=inverse ctermfg=DarkGray ctermbg=Yellow  cterm=inverse term=inverse'
-  else " NORMAL
-    exec 'hi User1 guifg=#35302b guibg=#83a598 gui=inverse ctermfg=DarkGray ctermbg=Blue    cterm=inverse term=inverse'
-  endif
-  return LineMode()
-endfunction
-
-augroup ChangeStatusLineMode
-  autocmd!
-  autocmd WinEnter,BufWinEnter,FileType,SessionLoadPost * call ChangeStatusLineMode()
-  autocmd CursorMoved,BufUnload * call ChangeStatusLineMode()
-augroup END
-
 set statusline=
-set statusline+=%1*\ %{ChangeStatusLineMode()}\      " current mode
+set statusline+=%0*\                                 " space
 set statusline+=%0*%<%f\                             " Filename
 set statusline+=%6*%m                                " Modified?
 set statusline+=%3*%r                                " RO?
@@ -244,8 +204,7 @@ set statusline+=%4*%{''.(&fenc!=''?&fenc:&enc).''}   " Encoding
 set statusline+=%{(&bomb?\',BOM\':\'\')}             " Encoding2
 set statusline+=%4*\/%{&ff}                          " FileFormat unix/dos
 set statusline+=%6*\ %y                              " FileType
-"set statusline+=%7*\ %L                              " Number of line
-set statusline+=%8*\ %P(%L)                           " Top/bot.% / NumOfLine
+set statusline+=%8*\ %P(%L)                          " Top/bot.% / NumOfLine
 set statusline+=\                                    " Blank last char
 
 " old statusline
@@ -292,9 +251,11 @@ autocmd!
 " on the last edit line
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
-" cursorline when in insert mode
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul
+if version > 603
+    " cursorline when in insert mode
+    autocmd InsertEnter * set cul
+    autocmd InsertLeave * set nocul
+endif
 
 " reset cursor when vim exits
 "autocmd VimLeave * silent !echo -n "\033]112\007"
@@ -830,6 +791,8 @@ if 0
   hi! link typescriptParens Normal
 endif
 
+
+if version > 603
 if has('nvim')
   let g:terminal_color_0  = '#282828'
   let g:terminal_color_1  = '#cc241d'
@@ -866,6 +829,7 @@ else
 \                           '#8ec07c',
 \                           '#fbf1c7'
 \                                     ]
+endif
 endif
 
 endif
@@ -973,7 +937,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.288 2022/02/13 17:47:50 czo Exp $
+        " $Id: .vimrc,v 1.292 2022/02/18 18:20:18 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1748,15 +1712,16 @@ function! Template (...)
     call call(function("TemplateCzo"), a:000)
     set modified
 endfunction
-
-
-
 " end template.vim =====================================================
+
+
+"endif
+" for vim 6 delete to the bottom and uncomment the endif above
+
 
 " ======================================================================
 " == commentary.vim ====================================================
 
-" commentary.vim - Comment stuff out
 " Maintainer:   Tim Pope <http://tpo.pe/>
 " Version:      1.3
 " GetLatestVimScripts: 3695 1 :AutoInstall: commentary.vim
@@ -1876,7 +1841,6 @@ if version >= 700
 
 
 endif
-
 " end commentary.vim ===================================================
 
 " ======================================================================
@@ -1903,10 +1867,8 @@ if 0
     " Then reload .vimrc and :PlugInstall to install plugins.
 
 endif
-
 " end Plugins ==========================================================
 
 endif
-
 " The end! =============================================================
 
