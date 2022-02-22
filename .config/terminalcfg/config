@@ -1,12 +1,12 @@
 # Filename: config
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: avr. 2013
-# Last Modified: dimanche 07 février 2021, 10:39
-# Edit Time: 0:19:54
+# Last Modified: mardi 22 février 2022, 14:49
+# Edit Time: 0:20:56
 # Description:
 #               terminator config
-# $Id: config,v 1.5 2021/02/07 09:55:54 czo Exp $
+# $Id: config,v 1.6 2022/02/22 13:59:30 czo Exp $
 #
 
 [global_config]
@@ -28,7 +28,7 @@
     scrollbar_position = hidden
     scrollback_lines = 99000
     scrollback_infinite = True
-    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#c9b788:#4a4239:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#fbf1c7"
+    palette = "#282828:#cc241d:#98971a:#fe8019:#458588:#b16286:#689d6a:#c9b788:#4a4239:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#fbf1c7"
     use_system_font = False
     copy_on_selection = True
 [layouts]
