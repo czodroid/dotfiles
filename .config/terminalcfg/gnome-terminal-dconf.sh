@@ -2,13 +2,13 @@
 #
 # Filename: gnome-terminal-dconf.sh
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: sept. 2020
-# Last Modified: lundi 05 octobre 2020, 22:15
-# Edit Time: 0:02:41
+# Last Modified: mardi 22 février 2022, 15:41
+# Edit Time: 0:03:20
 # Description:
 #
-# $Id: gnome-terminal-dconf.sh,v 1.1 2021/02/09 18:23:39 czo Exp $
+# $Id: gnome-terminal-dconf.sh,v 1.2 2022/02/22 14:42:27 czo Exp $
 #
 
 dconf load / << 'EOF'
@@ -61,7 +61,7 @@ allow-bold=false
 audible-bell=false
 background-color='rgb(40,40,40)'
 background-transparency-percent=6
-bold-color='rgb(177,98,134)'
+bold-color='rgb(254,128,25)'
 bold-color-same-as-fg=false
 bold-is-bright=true
 cursor-background-color='rgb(152,151,26)'
@@ -75,7 +75,7 @@ foreground-color='rgb(201,183,136)'
 highlight-background-color='rgb(69,133,136)'
 highlight-colors-set=true
 highlight-foreground-color='rgb(251,241,199)'
-palette=['rgb(40,40,40)', 'rgb(204,36,29)', 'rgb(152,151,26)', 'rgb(215,153,33)', 'rgb(69,133,136)', 'rgb(177,98,134)', 'rgb(104,157,106)', 'rgb(201,183,136)', 'rgb(74,66,57)', 'rgb(251,73,52)', 'rgb(184,187,38)', 'rgb(250,189,47)', 'rgb(131,165,152)', 'rgb(211,134,155)', 'rgb(142,192,124)', 'rgb(251,241,199)']
+palette=['rgb(40,40,40)', 'rgb(204,36,29)', 'rgb(152,151,26)', 'rgb(254,128,25)', 'rgb(69,133,136)', 'rgb(177,98,134)', 'rgb(104,157,106)', 'rgb(201,183,136)', 'rgb(74,66,57)', 'rgb(251,73,52)', 'rgb(184,187,38)', 'rgb(250,189,47)', 'rgb(131,165,152)', 'rgb(211,134,155)', 'rgb(142,192,124)', 'rgb(251,241,199)']
 scrollback-unlimited=true
 scrollbar-policy='never'
 use-system-font=false
