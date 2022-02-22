@@ -6,14 +6,14 @@
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
 ! File Created: mars 1996
-! Last Modified: mercredi 12 mai 2021, 00:21
-! Edit Time: 4:41:46
+! Last Modified: lundi 21 février 2022, 18:51
+! Edit Time: 4:44:36
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources
 !
-! $Id: .Xresources,v 1.36 2021/05/12 08:54:49 czo Exp $
+! $Id: .Xresources,v 1.37 2022/02/21 18:56:05 czo Exp $
 
 Xft.dpi:        96
 Xft.antialias:  1
@@ -114,7 +114,7 @@ XTerm*vt100*color9:     #fb4934
 XTerm*vt100*color2:     #98971a
 XTerm*vt100*color10:    #b8bb26
 ! DarkYellow + Yellow
-XTerm*vt100*color3:     #d79921
+XTerm*vt100*color3:     #fe8019
 XTerm*vt100*color11:    #fabd2f
 ! DarkBlue + Blue
 XTerm*vt100*color4:     #458588
@@ -129,8 +129,8 @@ XTerm*vt100*color14:    #8ec07c
 XTerm*vt100*color7:     #c9b788
 XTerm*vt100*color15:    #fbf1c7
 ! Bold and Underline colors
-XTerm*vt100*colorBD:    #b16286
-XTerm*vt100*colorUL:    #d79921
+XTerm*vt100*colorBD:    #fe8019
+XTerm*vt100*colorUL:    #b16286
 ! selection
 XTerm*vt100*highlightColorMode: true
 XTerm*vt100*highlightReverse:   false

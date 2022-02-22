@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 19 février 2022, 16:17
-# Edit Time: 132:53:11
+# Last Modified: mardi 22 février 2022, 13:43
+# Edit Time: 132:57:52
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.367 2022/02/19 15:18:37 czo Exp $
+# $Id: .zshrc,v 1.369 2022/02/22 12:44:02 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -198,7 +198,7 @@ fi
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
-    *) export PRINTER=BW_Pigeonnier ;;
+    *) export PRINTER=BW-Dressing ;;
 esac
 
 export HTML_TIDY=$HOME/.tidyrc
@@ -696,6 +696,7 @@ alias vt100='export TERM=vt100 ; echo TERM=$TERM'
 alias xte='export TERM=xterm ; echo TERM=$TERM'
 alias xts='export TERM=screen ; echo TERM=$TERM'
 alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
+alias xtc16='export TERM=xterm-16color ; echo TERM=$TERM'
 alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
 alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
@@ -792,16 +793,12 @@ if [ -x "$(command -v cksum)" ]
 then
     # hash for colors
     USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
-    # export for screen
-    export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
+    HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 else
     USER_PROMPT_COLOR="1"
-    export HOST_PROMPT_COLOR="5"
+    HOST_PROMPT_COLOR="5"
 fi
-# export for screen
-export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .zshrc,v 1.367 2022/02/19 15:18:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
@@ -818,4 +815,3 @@ export -U PATH
 
 # zprof
 # EOF
-

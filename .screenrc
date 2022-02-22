@@ -6,14 +6,18 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
-# Last Modified: samedi 29 mai 2021, 18:22
-# Edit Time: 23:13:08
+# Last Modified: mardi 22 février 2022, 13:32
+# Edit Time: 39:20:32
 # Description: 
 #                 screen conf file
 #
-# $Id: .screenrc,v 1.41 2021/05/29 16:51:22 czo Exp $
+# $Id: .screenrc,v 1.48 2022/02/22 12:32:39 czo Exp $
 
-#term xterm-256color
+# screen doesn't have xterm true color
+# put this in vim
+#   set notermguicolors
+
+#term xterm-16color
 
 startup_message off
 msgwait 2
@@ -30,10 +34,9 @@ hardstatus off
 hardstatus ignore
 sorendition "=s Wr"
 
-# 17 car
-# dim. 05, 22:24
 # caption always splitonly
-caption always "%{YK}[%n] %{W.}%h ${HOST_PROMPT_SIZE} %{C.}%D %d, %c%{-} %{k}%{.${HOST_PROMPT_COLOR}} %H %{-}"
+#caption always "%{= KW}%{Y}[%n] %{W}%h %= %{= KM} %l %{= KC} %D %d, %c %{= Wk}%{${SCREEN_HOST_PROMPT_COLOR}.} %H %{-}"
+caption always "%{= KW}%{Y}[%n] %{W}%h %= %{= KM} %l %{= KC} %D %d, %c %{= Wk} %H %{-}"
 
 # key bindings
 bind r   source ~/.screenrc

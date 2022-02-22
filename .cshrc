@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: samedi 19 février 2022, 16:17
-# Edit Time: 29:14:24
+# Last Modified: mardi 22 février 2022, 13:46
+# Edit Time: 29:16:04
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.67 2022/02/19 15:18:37 czo Exp $
+# $Id: .cshrc,v 1.69 2022/02/22 12:56:00 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -148,7 +148,7 @@ setenv CVSEDITOR vim
 setenv RSYNC_RSH ssh
 
 setenv CVSROOT czo@ananas:/tank/data/czo/CzoDoc/cvsroot
-setenv PRINTER BW_Pigeonnier
+setenv PRINTER BW-Dressing
 setenv HTML_TIDY $HOME/.tidyrc
 
 ##======= Key bindings ============================================##
@@ -450,6 +450,7 @@ alias vt100  'set term=vt100 ; echo term=$term'
 alias xte    'set term=xterm ; echo term=$term'
 alias xts    'set term=screen ; echo term=$term'
 alias xtc    'set term=xterm-color ; echo term=$term'
+alias xtc16  'set term=xterm-16color ; echo term=$term'
 alias xtc256 'set term=xterm-256color ; echo term=$term'
 
 alias 16color '\
@@ -469,10 +470,7 @@ if ($?tcsh) then
     set SHELLNAME = `echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
     # hash for colors
     set USER_PROMPT_COLOR = `/bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
-    # export for screen
-    setenv HOST_PROMPT_COLOR `/bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
-    @ calc = ( ( `echo "$HOSTNAME" | wc -c` + 17 ) )
-    setenv HOST_PROMPT_SIZE "%-0$calc="
+    set HOST_PROMPT_COLOR `/bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
 
     alias precmd 'set E=$status ; if ($term =~ xterm*) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; /bin/echo -n "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - " ; if ($E == 0) echo "[0;97m[$E][m" ; if ($E != 0) echo "[0;91m[$E][m" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
 

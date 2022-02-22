@@ -1,13 +1,13 @@
 # Filename: .minttyrc
 # Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 2019
-# Last Modified: lundi 11 janvier 2021, 18:05
-# Edit Time: 0:35:32
+# Last Modified: lundi 21 février 2022, 18:52
+# Edit Time: 0:36:27
 # Description:
 #       gruvbox colorsheme for mintty
 #
-# $Id: .minttyrc,v 1.1 2021/02/09 18:23:39 czo Exp $
+# $Id: .minttyrc,v 1.2 2022/02/21 18:56:05 czo Exp $
 #
 BoldAsFont=no
 CursorType=block
@@ -37,7 +37,7 @@ Red=#cc241d
 BoldRed=#fb4934
 Green=#98971a
 BoldGreen=#b8bb26
-Yellow=#d79921
+Yellow=#fe8019
 BoldYellow=#fabd2f
 Blue=#458588
 BoldBlue=#83a598
@@ -48,8 +48,8 @@ BoldCyan=#8ec07c
 White=#c9b788
 BoldWhite=#fbf1c7
 
-BoldColour=#b16286
-UnderlineColour=#d79921
+BoldColour=#fe8019
+UnderlineColour=#b16286
 
 HighlightBackgroundColour=#458588
 HighlightForegroundColour=#fbf1c7

@@ -2,12 +2,12 @@
 #            (o o)
 ####=====oOO--(_)--OOO==============================================####
 #
-# Filename: .bashrc.czo
+# Filename: .bashrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 19 février 2022, 16:17
-# Edit Time: 102:47:13
+# Last Modified: mardi 22 février 2022, 13:28
+# Edit Time: 102:56:00
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.394 2022/02/19 15:18:37 czo Exp $
+# $Id: .bashrc,v 1.396 2022/02/22 12:32:39 czo Exp $
 
 #set -v
 #set -x
@@ -181,7 +181,7 @@ fi
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
-    *) export PRINTER=BW_Pigeonnier ;;
+    *) export PRINTER=BW-Dressing ;;
 esac
 
 export HTML_TIDY=$HOME/.tidyrc
@@ -573,6 +573,7 @@ alias vt100='export TERM=vt100 ; echo TERM=$TERM'
 alias xte='export TERM=xterm ; echo TERM=$TERM'
 alias xts='export TERM=screen ; echo TERM=$TERM'
 alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
+alias xtc16='export TERM=xterm-16color ; echo TERM=$TERM'
 alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
 alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
@@ -658,16 +659,12 @@ if [ -x "$(command -v cksum)" ]
 then
     # hash for colors
     USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
-    # export for screen
-    export HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
+    HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 else
     USER_PROMPT_COLOR="1"
-    export HOST_PROMPT_COLOR="5"
+    HOST_PROMPT_COLOR="5"
 fi
-# export for screen
-export HOST_PROMPT_SIZE="%-0$(( $( echo "$HOSTNAME" | wc -c ) + 17 ))="
 
-BVERS=$(echo '$Id: .bashrc,v 1.394 2022/02/19 15:18:37 czo Exp $' | sed -e 's/^.*,v 1.//' -e 's/ .*$//' 2>/dev/null)
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
 MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)

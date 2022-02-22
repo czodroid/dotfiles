@@ -6,26 +6,29 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: samedi 19 février 2022, 22:53
-" Edit Time: 202:46:18
+" Last Modified: mardi 22 février 2022, 13:41
+" Edit Time: 206:53:20
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.296 2022/02/19 21:53:28 czo Exp $
+" $Id: .vimrc,v 1.308 2022/02/22 12:44:02 czo Exp $
 
-if version >= 508
 "if 0
+if version >= 505
 
 " == Options ===========================================================
 
-set encoding=utf-8
+if version >= 600
+    set encoding=utf-8
+endif
 
+" vim 8
 if has("termguicolors")
   set termguicolors
 endif
 
-"" for non working term colors
+" for non working term colors
 "set notermguicolors
 "set t_Co=1
 "set t_Co=8
@@ -40,7 +43,7 @@ let mapleader=","
 "set nonumber
 set number
 "set cursorline
-if version > 603
+if version > 604
     set nocursorcolumn
 endif
 set showcmd
@@ -94,9 +97,11 @@ set shiftwidth=4
 set shiftround
 
 " Indentation gérée par les plugins plutôt que par autoindent
-set noautoindent
-filetype plugin on
-filetype indent on
+if version >= 600
+    set noautoindent
+    filetype plugin on
+    filetype indent on
+endif
 
 "set smartindent
 set cindent
@@ -116,7 +121,7 @@ set incsearch
 
 set wildmenu
 set wildmode=longest,full
-if version > 603
+if version > 604
     set wildoptions=tagfile
     set tabpagemax=20
 endif
@@ -139,7 +144,7 @@ if has('nvim')
     set guicursor+=a:blinkon1
 else
     if &term =~ '^xterm'
-        if version > 603
+        if version > 604
             " color: \e]12;#b8bb26\x7
             " NORMAL mode
             let &t_EI .= "\e[ q"
@@ -152,14 +157,6 @@ else
     endif
 endif
 
-" tmux will send xterm-style keys when xterm-keys is on
-if &term =~ '^screen'
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-endif
-
 " vt100
 if &term =~ '^vt100'
     execute "set <S-Up>=\e[1;2A"
@@ -169,7 +166,7 @@ if &term =~ '^vt100'
 endif
 
 if exists('+listchars')
-    if version >= 801
+    if version >= 802
         set listchars=tab:-->,trail:¶,space:·
     elseif version >= 800
         set listchars=tab:>-,trail:¶,space:·
@@ -192,26 +189,27 @@ set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tag
 
 " == Statusline ========================================================
 
-set statusline=
-"set statusline+=%1*\ [%n]\                           " buffer number
-set statusline+=%1*\                                 " NO buffer number
-set statusline+=%5*%<%f\                             " Filename
-set statusline+=%6*%m                                " Modified?
-set statusline+=%3*%r                                " RO?
-set statusline+=%=                                   " right
-set statusline+=%2*%l/%c\                            " ln col
-set statusline+=%3*%b:0x%2B\                         " char hex
-set statusline+=%4*%{''.(&fenc!=''?&fenc:&enc).''}   " Encoding
-set statusline+=%{(&bomb?\',BOM\':\'\')}             " Encoding2
-set statusline+=%4*\/%{&ff}                          " FileFormat unix/dos
-set statusline+=%6*\ %y                              " FileType
-set statusline+=%8*\ %P(%L)                          " Top/bot.% / NumOfLine
-set statusline+=\                                    " Blank last char
 
-" old statusline
-"[1] .vimrc [vim] utf-8 unix en                  75:  79 0x4F 35/1222   1%
-"let &statusline="[%n] %<%f %y %{''.(&fenc!=''?&fenc:&enc).''}%{(&bomb?\',BOM\':\'\')} %{&ff} %{&spelllang} %= %c: %3b 0x%2B    %l/%L %m%r%w %P "
-
+if version >= 600
+    set statusline=
+    "set statusline+=%1*\ [%n]\                           " buffer number
+    set statusline+=%1*\                                 " NO buffer number
+    set statusline+=%5*%<%f\                             " Filename
+    set statusline+=%6*%m                                " Modified?
+    set statusline+=%3*%r                                " RO?
+    set statusline+=%=                                   " right
+    set statusline+=%2*%l/%c\                            " ln col
+    set statusline+=%3*%b:0x%2B\                         " char hex
+    set statusline+=%4*%{''.(&fenc!=''?&fenc:&enc).''}   " Encoding
+    set statusline+=%{(&bomb?\',BOM\':\'\')}             " Encoding2
+    set statusline+=%4*\/%{&ff}                          " FileFormat unix/dos
+    set statusline+=%6*\ %y                              " FileType
+    set statusline+=%8*\ %P(%L)                          " Top/bot.% / NumOfLine
+    set statusline+=\                                    " Blank last char
+else
+    " .vimrc                      218/50 66:0x42 11%(1888)
+    let &statusline=" %<%f %m %r %= %l/%c %b:0x%2B %P(%L) "
+endif
 
 " == GUI Mode ==========================================================
 
@@ -252,7 +250,7 @@ autocmd!
 " on the last edit line
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
-if version > 603
+if version > 604
     " cursorline when in insert mode
     autocmd InsertEnter * set cul
     autocmd InsertLeave * set nocul
@@ -467,19 +465,18 @@ function! CzoInvPaste ()
     execute 'set invpaste'
  endfunction
 
-command!  CzoVisualGrey call CzoVisualGrey ()
-function! CzoVisualGrey ()
-    hi Visual        guifg=#928374 guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-    hi Search        guifg=#d79921 guibg=#3c3836 gui=inverse   ctermfg=DarkYellow ctermbg=Black    cterm=inverse   term=inverse
-    hi IncSearch     guifg=#83a598 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
-endfunction
-
 command!  CzoVisualClear call CzoVisualClear ()
 function! CzoVisualClear ()
-    " test: #304035
-    hi Visual    guifg=NONE guibg=#36403c gui=NONE cterm=NONE term=NONE
-    hi Search    guifg=NONE guibg=#3d342b gui=NONE cterm=NONE term=NONE
-    hi IncSearch guifg=NONE guibg=#3e4a4b gui=NONE cterm=NONE term=NONE
+    hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+    hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+    hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
+endfunction
+
+command!  CzoVisualGrey call CzoVisualGrey ()
+function! CzoVisualGrey ()
+    hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
+    hi Search        guifg=#503825 guibg=#3c3836 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+    hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endfunction
 
 
@@ -542,52 +539,38 @@ if (has("syntax"))
 
 " gruvbox dark
 " bg0-h     #1d2021
-" bg0       #282828
-" bg0-s     #32302f
-" bg1       #3c3836
-" bg2       #504945
-" bg3       #665c54
-" bg4       #7c6f64
-" gray      #928374
-" fg0       #fbf1c7
-" fg1       #ebdbb2
+" bg0       #282828 -
+" bg0-s     #32302f -
+" bg1       #3c3836 -
+" bg2       #504945 -
+" bg3       #665c54 -
+" bg4       #7c6f64 -
+" gray      #928374 -
+" fg0       #fbf1c7 -
+" fg1       #ebdbb2 -
 " fg2       #d5c4a1
 " fg3       #bdae93
-" fg4       #a89984
-" red1      #cc241d
-" red2      #fb4934
-" green1    #98971a
-" green2    #b8bb26
-" yellow1   #d79921
-" yellow2   #fabd2f
-" blue1     #458588
-" blue2     #83a598
-" purple1   #b16286
-" purple2   #d3869b
-" aqua1     #689d6a
-" aqua2     #8ec07c
-" orange1   #d65d0e
-" orange2   #fe8019
+" fg4       #a89984 -
 
-" NR-8 NAME             NR-16 NAME          Gruvbox64   Gruvbox
-"  0   Black            0     Black          #282828    #282828
-"  4   DarkBlue         1     DarkRed        #cc241d    #cc241d
-"  2   DarkGreen        2     DarkGreen      #98971a    #98971a
-"  6   DarkCyan         3     DarkYellow     #d79921    #d79921
-"  1   DarkRed          4     DarkBlue       #458588    #458588
-"  5   DarkMagenta      5     DarkMagenta    #b16286    #b16286
-"  3   DarkYellow       6     DarkCyan       #689d6a    #689d6a
-"  7   Gray             7     Gray           #c9b788    #a89984
-"  0*  DarkGray         8     DarkGray       #4a4239    #928374
-"  4*  Blue             9     Red            #fb4934    #fb4934
-"  2*  Green            10    Green          #b8bb26    #b8bb26
-"  6*  Cyan             11    Yellow         #fabd2f    #fabd2f
-"  1*  Red              12    Blue           #83a598    #83a598
-"  5*  Magenta          13    Magenta        #d3869b    #d3869b
-"  3*  Yellow           14    Cyan           #8ec07c    #8ec07c
-"  7*  White            15    White          #fbf1c7    #ebdbb2
+" NR-8 NAME             NR-16 NAME            Gruvbox    Gruvbox64
+"  0   Black            0     Black           #282828     #282828 -
+"  4   DarkBlue         1     DarkRed         #cc241d     #cc241d
+"  2   DarkGreen        2     DarkGreen       #98971a     #98971a
+"  6   DarkCyan         3     DarkYellow      #d79921 --> #fe8019 -
+"  1   DarkRed          4     DarkBlue        #458588     #458588
+"  5   DarkMagenta      5     DarkMagenta     #b16286     #b16286
+"  3   DarkYellow       6     DarkCyan        #689d6a     #689d6a
+"  7   Gray             7     Gray            #a89984 --> #c9b788
+"  0*  DarkGray         8     DarkGray      - #928374 --> #4a4239
+"  4*  Blue             9     Red             #fb4934     #fb4934 -
+"  2*  Green            10    Green           #b8bb26     #b8bb26 -
+"  6*  Cyan             11    Yellow          #fabd2f     #fabd2f -
+"  1*  Red              12    Blue            #83a598     #83a598 -
+"  5*  Magenta          13    Magenta         #d3869b     #d3869b -
+"  3*  Yellow           14    Cyan            #8ec07c     #8ec07c -
+"  7*  White            15    White         - #ebdbb2 --> #fbf1c7 -
 
-" normal : #ebdbb2 vs #c9b788
+" normal : #ebdbb2 vs #c9b788 vs #d5c4a1
 hi Normal        guifg=#ebdbb2 guibg=#282828 gui=NONE      ctermfg=White      ctermbg=Black    cterm=NONE      term=NONE
 hi Comment       guifg=#928374 guibg=NONE    gui=NONE      ctermfg=Gray       ctermbg=NONE     cterm=NONE      term=NONE
 hi Constant      guifg=#d3869b guibg=NONE    gui=NONE      ctermfg=Magenta    ctermbg=NONE     cterm=NONE      term=NONE
@@ -626,15 +609,6 @@ hi TabLineSel    guifg=#ebdbb2 guibg=#35302b gui=NONE      ctermfg=White      ct
 hi MatchParen    guifg=NONE    guibg=#665c54 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi ColorColumn   guifg=NONE    guibg=#3c3836 gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
 hi Underlined    guifg=#83a598 guibg=NONE    gui=underline ctermfg=Blue       ctermbg=NONE     cterm=underline term=underline
-hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
-hi User2         guifg=#35302b guibg=#fabd2f gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
-hi User3         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
-hi User4         guifg=#35302b guibg=#b8bb26 gui=inverse   ctermfg=DarkGray   ctermbg=Green    cterm=inverse   term=inverse
-hi User5         guifg=#35302b guibg=#fbf1c7 gui=inverse   ctermfg=DarkGray   ctermbg=White    cterm=inverse   term=inverse
-hi User6         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
-hi User7         guifg=#35302b guibg=#928374 gui=inverse   ctermfg=DarkGray   ctermbg=Gray     cterm=inverse   term=inverse
-hi User8         guifg=#35302b guibg=#8ec07c gui=inverse   ctermfg=DarkGray   ctermbg=Cyan     cterm=inverse   term=inverse
-hi User9         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
 hi VertSplit     guifg=#35302b guibg=#35302b gui=NONE      ctermfg=Black      ctermbg=Black    cterm=NONE      term=NONE
 hi WildMenu      guifg=#83a598 guibg=#282828 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 hi Directory     guifg=#b8bb26 guibg=NONE    gui=NONE      ctermfg=Green      ctermbg=NONE     cterm=NONE      term=NONE
@@ -650,7 +624,7 @@ hi CursorLine    guifg=NONE    guibg=#32302f gui=NONE      ctermfg=NONE       ct
 hi SignColumn    guifg=NONE    guibg=#32302f gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
 hi Folded        guifg=#928374 guibg=#32302f gui=italic    ctermfg=Gray       ctermbg=Black    cterm=italic    term=italic
 hi FoldColumn    guifg=#928374 guibg=#32302f gui=NONE      ctermfg=Gray       ctermbg=Black    cterm=NONE      term=NONE
-hi Cursor        guifg=#282828 guibg=#b8bb26 gui=NONE      ctermfg=Black      ctermbg=Yellow   cterm=NONE      term=NONE
+hi Cursor        guifg=#282828 guibg=#b8bb26 gui=NONE      ctermfg=Black      ctermbg=Green    cterm=NONE      term=NONE
 hi Pmenu         guifg=#ebdbb2 guibg=#504945 gui=NONE      ctermfg=White      ctermbg=DarkGray cterm=NONE      term=NONE
 hi PmenuSel      guifg=#282828 guibg=#83a598 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
 hi PmenuSbar     guifg=NONE    guibg=#504945 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
@@ -665,15 +639,27 @@ hi DiffChange    guifg=NONE    guibg=#4F2E2A gui=NONE      ctermfg=NONE       ct
 hi DiffDelete    guifg=#753730 guibg=#4F2E2A gui=NONE      ctermfg=Black      ctermbg=DarkGray cterm=NONE      term=NONE
 hi DiffText      guifg=NONE    guibg=#753730 gui=NONE      ctermfg=NONE       ctermbg=DarkBlue cterm=NONE      term=NONE
 
-hi Visual        guifg=#928374 guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-hi Search        guifg=#d79921 guibg=#3c3836 gui=inverse   ctermfg=DarkYellow ctermbg=Black    cterm=inverse   term=inverse
-hi IncSearch     guifg=#83a598 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 
-if has("termguicolors") && (&termguicolors != 0)
-    hi Visual    guifg=NONE guibg=#36403c gui=NONE cterm=NONE term=NONE
-    hi Search    guifg=NONE guibg=#503825 gui=NONE cterm=NONE term=NONE
-    hi IncSearch guifg=NONE guibg=#596B63 gui=NONE cterm=NONE term=NONE
+hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
+
+if &t_Co < 16
+hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
+hi Search        guifg=#503825 guibg=#3c3836 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endif
+
+
+hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue       cterm=inverse term=inverse
+hi User2         guifg=#35302b guibg=#fabd2f gui=inverse   ctermfg=DarkGray   ctermbg=Yellow     cterm=inverse term=inverse
+hi User3         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue       cterm=inverse term=inverse
+hi User4         guifg=#35302b guibg=#b8bb26 gui=inverse   ctermfg=DarkGray   ctermbg=Green      cterm=inverse term=inverse
+hi User5         guifg=#35302b guibg=#fbf1c7 gui=inverse   ctermfg=DarkGray   ctermbg=White      cterm=inverse term=inverse
+hi User6         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=DarkYellow cterm=inverse term=inverse
+hi User7         guifg=#35302b guibg=#928374 gui=inverse   ctermfg=DarkGray   ctermbg=Gray       cterm=inverse term=inverse
+hi User8         guifg=#35302b guibg=#8ec07c gui=inverse   ctermfg=DarkGray   ctermbg=Cyan       cterm=inverse term=inverse
+hi User9         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=DarkYellow cterm=inverse term=inverse
 
 hi StatusLine       guifg=#35302b guibg=#fbf1c7 gui=inverse        ctermfg=DarkGray ctermbg=White cterm=inverse        term=inverse
 hi StatusLineTerm   guifg=#35302b guibg=#fbf1c7 gui=inverse        ctermfg=DarkGray ctermbg=White cterm=inverse        term=inverse
@@ -793,12 +779,12 @@ if 0
 endif
 
 
-if version > 603
+if version > 604
 if has('nvim')
   let g:terminal_color_0  = '#282828'
   let g:terminal_color_1  = '#cc241d'
   let g:terminal_color_2  = '#98971a'
-  let g:terminal_color_3  = '#d79921'
+  let g:terminal_color_3  = '#fe8019'
   let g:terminal_color_4  = '#458588'
   let g:terminal_color_5  = '#b16286'
   let g:terminal_color_6  = '#689d6a'
@@ -816,7 +802,7 @@ else
 \                           '#282828',
 \                           '#cc241d',
 \                           '#98971a',
-\                           '#d79921',
+\                           '#fe8019',
 \                           '#458588',
 \                           '#b16286',
 \                           '#689d6a',
@@ -938,7 +924,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.296 2022/02/19 21:53:28 czo Exp $
+        " $Id: .vimrc,v 1.308 2022/02/22 12:44:02 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1715,16 +1701,16 @@ function! Template (...)
 endfunction
 " end template.vim =====================================================
 
+endif
+" The end! =============================================================
 
 
 " ======================================================================
-" == END if < 700 ======================================================
+" == Don't load Commentary nor Plugins if version < 700 ================
 
 if version < 700
-  endif
   finish
-endif
-
+else
 
 " ======================================================================
 " == commentary.vim ====================================================
@@ -1735,8 +1721,6 @@ endif
 " autocmd FileType apache setlocal commentstring=#\ %s
 " 2019/06/18: Modified by Olivier Sirol <czo@free.fr>
 " https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim
-
-if version >= 700
 
     let g:loaded_commentary = 1
 
@@ -1845,38 +1829,34 @@ if version >= 700
     "   endif
     "   nmap gcu <Plug>Commentary<Plug>Commentary
     " endif
-
-
-endif
 " end commentary.vim ===================================================
 
 
 " ======================================================================
 " == Plugins ===========================================================
 
-if 0
-
+  if 0
     " Install vim-plug if not found
     if empty(glob('~/.vim/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     endif
 
     call plug#begin('~/.vim/pack/vendor/start')
-    Plug 'preservim/nerdtree'
-    Plug 'godlygeek/tabular'
     Plug 'vim-scripts/colorizer'
-    Plug 'Yggdroot/indentLine'
     Plug 'morhetz/gruvbox'
     Plug 'sainnhe/gruvbox-material'
+    Plug 'Yggdroot/indentLine'
     Plug 'sbdchd/neoformat'
+    Plug 'preservim/nerdtree'
+    Plug 'godlygeek/tabular'
     Plug 'kevinoid/vim-jsonc'
     call plug#end()
     " Then reload .vimrc and :PlugInstall to install plugins.
-
-endif
+  endif
 " end Plugins ==========================================================
 
 endif
-" The end! =============================================================
+" The end, really ! ====================================================
+
 
