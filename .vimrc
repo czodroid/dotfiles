@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 22 février 2022, 13:41
-" Edit Time: 206:53:20
+" Last Modified: mardi 22 février 2022, 18:43
+" Edit Time: 207:05:00
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.308 2022/02/22 12:44:02 czo Exp $
+" $Id: .vimrc,v 1.309 2022/02/22 17:44:44 czo Exp $
 
 "if 0
 if version >= 505
@@ -247,8 +247,13 @@ if has("autocmd")
 " remove all autocommands
 autocmd!
 
-" on the last edit line
+" pos on the last edit line
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
+if version > 601
+    " vim diff with wrap
+    autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
+endif
 
 if version > 604
     " cursorline when in insert mode
@@ -258,32 +263,6 @@ endif
 
 " reset cursor when vim exits
 "autocmd VimLeave * silent !echo -n "\033]112\007"
-
-"set verbose=9 "for testing
-"pour mon laptop 1024x768
-"autocmd GUIEnter * set lines=36
-"autocmd GUIEnter * set columns=87
-"autocmd GUIEnter * winpos 20 40
-
-"FIXME:
-function! MyHTMLAbbrevs()
- iab <buffer> ''l &lsquo;
- iab <buffer> ''r &rsquo;
- iab py_   Olivier Sirol <czo@free.fr>
- iab <a <a href=""></a><left><left><left><left><left>
- iab <i <img src="" /><left><left><left>
- iab l" &ldquo;&rdquo;<left><left><left><left><left><left>
- iab r" &rdquo;
- iab l' &lsquo;
- iab r' &rsquo;
- iab "" &quot;&quot;<left><left><left><left><left>
- iab <? <?php?><left><left>
-endfunction
-
-augroup MyAbbrevs
-"autocmd!
-"autocmd BufNewFile,BufRead *.htm,*.html,*.mkd call MyHTMLAbbrevs()
-augroup END
 
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
@@ -924,7 +903,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.308 2022/02/22 12:44:02 czo Exp $
+        " $Id: .vimrc,v 1.309 2022/02/22 17:44:44 czo Exp $
         "
         if 1
             " modif Started: in File Created:
