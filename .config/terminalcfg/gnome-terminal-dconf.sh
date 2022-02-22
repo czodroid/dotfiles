@@ -4,11 +4,11 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: sept. 2020
-# Last Modified: mardi 22 février 2022, 15:41
-# Edit Time: 0:03:20
+# Last Modified: mardi 22 février 2022, 16:37
+# Edit Time: 0:04:08
 # Description:
 #
-# $Id: gnome-terminal-dconf.sh,v 1.2 2022/02/22 14:42:27 czo Exp $
+# $Id: gnome-terminal-dconf.sh,v 1.3 2022/02/22 15:41:19 czo Exp $
 #
 
 dconf load / << 'EOF'
@@ -70,7 +70,8 @@ cursor-foreground-color='rgb(40,40,40)'
 cursor-shape='block'
 default-size-columns=90
 default-size-rows=24
-font='Monospace Regular 14'
+# font='Monospace Regular 13'
+font='Source Code Pro for Powerline 13'
 foreground-color='rgb(201,183,136)'
 highlight-background-color='rgb(69,133,136)'
 highlight-colors-set=true

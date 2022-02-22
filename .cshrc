@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 22 février 2022, 13:46
-# Edit Time: 29:16:04
+# Last Modified: mardi 22 février 2022, 17:20
+# Edit Time: 29:20:27
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.69 2022/02/22 12:56:00 czo Exp $
+# $Id: .cshrc,v 1.70 2022/02/22 16:30:39 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -381,7 +381,7 @@ alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d
 
 alias passwd_md5     'openssl passwd -1 '
 alias passwd_sha512  'openssl passwd -6 '
-alias ssha           'eval `ssh-agent -c`; ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias ssha           'eval `ssh-agent -c`; ssh-add; echo ""; echo "To add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 alias dig_lartha     'curl http://lartha:/hosts.html'
 alias tmate_ssh      'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
@@ -469,10 +469,10 @@ if ($?tcsh) then
     set MYTTY     = `tty | sed s,/dev/,,`
     set SHELLNAME = `echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
     # hash for colors
-    set USER_PROMPT_COLOR = `/bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
-    set HOST_PROMPT_COLOR `/bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
+    set USER_PROMPT_COLOR = `echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
+    set HOST_PROMPT_COLOR = `echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
 
-    alias precmd 'set E=$status ; if ($term =~ xterm*) /bin/echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; /bin/echo -n "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - " ; if ($E == 0) echo "[0;97m[$E][m" ; if ($E != 0) echo "[0;91m[$E][m" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
+    alias precmd 'set E=$status ; if ($term =~ xterm*) echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; echo -n "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - " ; if ($E == 0) echo "[0;97m[$E][m" ; if ($E != 0) echo "[0;91m[$E][m" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
 
     # set prompt = "%{^[[0;97m%}[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - [$?]\n%{^[[0;9${USER_PROMPT_COLOR}m%}${USER}%{^[[0;97m%}@%{^[[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{^[[0;97m%}:%{^[[0;94m%}%/\n%{^[[0;97m%}>>%{^[[m%} "
     set prompt = "%{^[[0;97m%}>>%{^[[m%} "

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mardi 22 février 2022, 13:43
-# Edit Time: 132:57:52
+# Last Modified: mardi 22 février 2022, 17:28
+# Edit Time: 132:59:22
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.369 2022/02/22 12:44:02 czo Exp $
+# $Id: .zshrc,v 1.371 2022/02/22 16:30:39 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -629,7 +629,7 @@ alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
 alias dig_lartha='curl -k https://lartha/hosts.html'
-alias ssha='eval $(ssh-agent); ssh-add; /bin/echo -e "\nTo add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias ssha='eval $(ssh-agent); ssh-add; echo ""; echo "To add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
@@ -699,8 +699,8 @@ alias xtc='export TERM=xterm-color ; echo TERM=$TERM'
 alias xtc16='export TERM=xterm-16color ; echo TERM=$TERM'
 alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
-alias console_color='/bin/echo -e "\e]P0282828\e]P1cc241d\e]P298971a\e]P3d79921\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7" ; clear'
-alias console_color_cursor='/bin/echo -ne "\e]12;#98971a\a"'
+alias console_color="printf '\e]P0282828\e]P1cc241d\e]P298971a\e]P3fe8019\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7'"
+alias console_color_cursor="printf '\e]12;#98971a\a'"
 alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n"; for i in $(seq 8 15); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n";'
 
 passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
@@ -754,11 +754,11 @@ alias RemeberThis_fing='finger | sort | uniq -w 15'
 title() {
     case "$TERM" in
         xterm* | rxvt*)
-            printf "\033]0;%s\007" "$*"
+            printf '\033]0;%s\007' "$*"
             ;;
         screen*)
-            printf "\033k%s\033\\" "$*"
-            printf "\033]0;%s\007" "$*"
+            printf '\033k%s\033\\' "$*"
+            printf '\033]0;%s\007' "$*"
             ;;
     esac
 }
@@ -792,8 +792,8 @@ fi
 if [ -x "$(command -v cksum)" ]
 then
     # hash for colors
-    USER_PROMPT_COLOR=$( /bin/echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
-    HOST_PROMPT_COLOR=$( /bin/echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
+    USER_PROMPT_COLOR=$( echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
+    HOST_PROMPT_COLOR=$( echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 else
     USER_PROMPT_COLOR="1"
     HOST_PROMPT_COLOR="5"
