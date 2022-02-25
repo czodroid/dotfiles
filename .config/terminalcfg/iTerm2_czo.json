@@ -465,13 +465,6 @@
   "Name" : "iTerm2_czo",
   "Blinking Cursor" : true,
   "Guid" : "56B66D3C-B620-42A0-9F20-F297414E6DB8",
-  "Idle Code" : 0,
-  "Ansi 10 Color" : {
-    "Red Component" : 0.72156862745098038,
-    "Color Space" : "sRGB",
-    "Blue Component" : 0.14901960784313725,
-    "Green Component" : 0.73333333333333328
-  },
   "Ansi 8 Color" : {
     "Red Component" : 0.29019607843137257,
     "Color Space" : "sRGB",
@@ -479,6 +472,13 @@
     "Alpha Component" : 1,
     "Green Component" : 0.25882352941176473
   },
+  "Ansi 10 Color" : {
+    "Red Component" : 0.72156862745098038,
+    "Color Space" : "sRGB",
+    "Blue Component" : 0.14901960784313725,
+    "Green Component" : 0.73333333333333328
+  },
+  "Idle Code" : 0,
   "Badge Color" : {
     "Red Component" : 1,
     "Color Space" : "sRGB",
@@ -556,9 +556,9 @@
   "Use Tab Color" : false,
   "Columns" : 143,
   "Visual Bell" : true,
-  "ASCII Ligatures" : false,
+  "Custom Directory" : "No",
   "Thin Strokes" : 3,
-  "Custom Directory" : "No"
+  "ASCII Ligatures" : false
 },
 {
   "Ansi 5 Color" : {
@@ -1024,8 +1024,8 @@
     "Green Component" : 0.14117647058823529
   },
   "Name" : "iTerm2_tmux",
-  "Blinking Cursor" : true,
   "Guid" : "8A30FF65-FE74-43A8-BA72-F2B41FE340F2",
+  "Blinking Cursor" : true,
   "Ansi 8 Color" : {
     "Red Component" : 0.29019607843137257,
     "Color Space" : "sRGB",
@@ -1069,7 +1069,7 @@
   },
   "AWDS Tab Directory" : "",
   "AWDS Pane Option" : "No",
-  "Command" : "sh -c \"tmux attach -d || tmux new\"",
+  "Command" : "",
   "Terminal Type" : "xterm-256color",
   "Horizontal Spacing" : 1,
   "Underline Color" : {
@@ -1097,6 +1097,7 @@
     "Green Component" : 0.61568627450980395
   },
   "Transparency" : 0,
+  "Initial Text" : "sh -c \" \/usr\/local\/bin\/tmux attach -d || \/usr\/local\/bin\/tmux new \"",
   "Background Color" : {
     "Red Component" : 0.15686274509803921,
     "Color Space" : "sRGB",
@@ -1120,9 +1121,9 @@
   "Use Tab Color" : false,
   "Columns" : 143,
   "Visual Bell" : true,
-  "ASCII Ligatures" : false,
+  "Custom Directory" : "No",
   "Thin Strokes" : 3,
-  "Custom Directory" : "No"
+  "ASCII Ligatures" : false
 }
 ]
 }

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 22 février 2022, 19:15
-# Edit Time: 29:25:26
+# Last Modified: vendredi 25 février 2022, 07:42
+# Edit Time: 29:53:05
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.72 2022/02/22 18:15:15 czo Exp $
+# $Id: .cshrc,v 1.74 2022/02/25 06:46:40 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -130,8 +130,8 @@ if ( ! $?HOSTNAME ) setenv HOSTNAME `uname -n | sed 's/\..*//'`
 if ( ! $?USER )     setenv USER     `id -nu`
 
 if ($?tcsh) then
-# GNU ls, line too long if csh
-setenv LS_COLORS 'no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:ex=97:*.7z=91:*.ace=91:*.arc=91:*.arj=91:*.bz2=91:*.bz=91:*.cab=91:*.cpio=91:*.deb=91:*.dz=91:*.ear=91:*.gz=91:*.jar=91:*.lha=91:*.lrz=91:*.lz4=91:*.lz=91:*.lzh=91:*.lzma=91:*.lzo=91:*.rar=91:*.rpm=91:*.rz=91:*.t7z=91:*.tar=91:*.taz=91:*.tbz2=91:*.tbz=91:*.tgz=91:*.tlz=91:*.txz=91:*.tz=91:*.tzst=91:*.war=91:*.xz=91:*.z=91:*.Z=91:*.zip=91:*.zoo=91:*.zst=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.oga=36:*.ogg=36:*.opus=36:*.ra=36:*.spx=36:*.wav=36:*.xspf=36:*.css=92:*.doc=92:*.docx=92:*.htm=92:*.html=92:*.json=92:*.latex=92:*.less=92:*.log=92:*.mak=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.sass=92:*.scss=92:*.shtml=92:*.tex=92:*.txt=92:*.xls=92:*.xlsx=92:*.xml=92:*.bat=93:*.c=93:*.C=93:*.cc=93:*.cl=93:*.cmd=93:*.cpp=93:*.csh=93:*.csv=93:*.cxx=93:*.el=93:*.f90=93:*.f=93:*.F=93:*.go=93:*.h=93:*.hh=93:*.hpp=93:*.hs=93:*.java=93:*.js=93:*.l=93:*.n=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.sh=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93:'
+# GNU ls, line < 1024 char
+setenv LS_COLORS 'no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:ex=97:*.7z=91:*.bz2=91:*.bz=91:*.cpio=91:*.deb=91:*.gz=91:*.jar=91:*.rar=91:*.rpm=91:*.tar=91:*.tgz=91:*.xz=91:*.z=91:*.Z=91:*.zip=91:*.bmp=95:*.gif=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xpm=95:*.avi=35:*.flv=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.ogm=35:*.ogv=35:*.ogx=35:*.webm=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mp3=36:*.ogg=36:*.opus=36:*.wav=36:*.conf=92:*.css=92:*.doc=92:*.docx=92:*.htm=92:*.html=92:*.json=92:*.latex=92:*.log=92:*.mak=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.tex=92:*.txt=92:*.xls=92:*.xlsx=92:*.xml=92:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.csh=93:*.cxx=93:*.f90=93:*.f=93:*.F=93:*.go=93:*.h=93:*.hh=93:*.hpp=93:*.hs=93:*.java=93:*.js=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.sh=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93:'
 endif
 
 # BSD ls
@@ -470,8 +470,8 @@ if ($?tcsh) then
     set MYTTY     = `tty | sed s,/dev/,,`
     set SHELLNAME = `echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
     # hash for colors
-    set USER_PROMPT_COLOR = `echo -n "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
-    set HOST_PROMPT_COLOR = `echo -n "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
+    set USER_PROMPT_COLOR = `printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
+    set HOST_PROMPT_COLOR = `printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
 
     alias precmd 'set E=$status ; if ($term =~ xterm*) echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; echo -n "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - " ; if ($E == 0) echo "[0;97m[$E][m" ; if ($E != 0) echo "[0;91m[$E][m" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
 
