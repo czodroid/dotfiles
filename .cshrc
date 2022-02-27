@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 27 février 2022, 16:33
-# Edit Time: 29:55:57
+# Last Modified: dimanche 27 février 2022, 18:40
+# Edit Time: 29:56:24
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.75 2022/02/27 15:30:11 czo Exp $
+# $Id: .cshrc,v 1.76 2022/02/27 17:41:26 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -437,7 +437,7 @@ alias YL  'rpm -ql'
 alias YF  'rpm -qf'
 
 # archlinux
-alias PU 'pacman -Syu'
+alias PU 'pacman -Syu && pacman -Scc'
 alias PI 'pacman -S'
 alias PP 'pacman -Rs'
 alias PS 'pacman -Ss'

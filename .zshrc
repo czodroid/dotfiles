@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: dimanche 27 février 2022, 16:30
-# Edit Time: 133:02:14
+# Last Modified: dimanche 27 février 2022, 18:35
+# Edit Time: 133:02:35
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.376 2022/02/27 15:30:11 czo Exp $
+# $Id: .zshrc,v 1.377 2022/02/27 17:41:26 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -682,7 +682,7 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # archlinux
-alias PU='pacman -Syu'
+alias PU='pacman -Syu && pacman -Scc'
 alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'

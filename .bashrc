@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 27 février 2022, 16:29
-# Edit Time: 103:42:43
+# Last Modified: dimanche 27 février 2022, 18:30
+# Edit Time: 103:53:53
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.406 2022/02/27 15:30:11 czo Exp $
+# $Id: .bashrc,v 1.407 2022/02/27 17:41:26 czo Exp $
 
 #set -v
 #set -x
@@ -559,7 +559,7 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # archlinux
-alias PU='pacman -Syu'
+alias PU='pacman -Syu && pacman -Scc'
 alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
