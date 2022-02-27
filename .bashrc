@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: vendredi 25 février 2022, 07:43
-# Edit Time: 103:25:38
+# Last Modified: dimanche 27 février 2022, 16:29
+# Edit Time: 103:42:43
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.403 2022/02/25 06:46:39 czo Exp $
+# $Id: .bashrc,v 1.406 2022/02/27 15:30:11 czo Exp $
 
 #set -v
 #set -x
@@ -496,6 +496,10 @@ alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /de
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
+alias rsync_normal='rsync --delete -av'
+alias zpool_hitory='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
+alias lsblka='lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
+alias lsblkp='lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 
 alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
@@ -515,7 +519,6 @@ remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_ho
 
 alias tree-cvs='tree -adn | grep -v CVS'
 alias dft='df -hPT'
-alias lsblka='lsblk -o name,size,fstype,label,ro,mountpoint,model'
 
 alias cvu='cd ~/etc ; cvs up ; cd -'
 alias cvd='cd ~/etc ; cvs diff ; cd -'

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: vendredi 25 février 2022, 07:42
-# Edit Time: 29:53:05
+# Last Modified: dimanche 27 février 2022, 16:33
+# Edit Time: 29:55:57
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.74 2022/02/25 06:46:40 czo Exp $
+# $Id: .cshrc,v 1.75 2022/02/27 15:30:11 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -369,10 +369,14 @@ alias screena  'screen -d -R'
 alias tmuxa    'tmux attach -d || tmux new'
 alias aa       'tmux attach -d || tmux new'
 
-alias mount_list 'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
-alias rsync_sys  'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
-alias rsync_full 'rsync --numeric-ids -S -H --delete -av'
-alias rsync_fat  'rsync --no-p --no-g --modify-window=1 --delete -av -L'
+alias mount_list   'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
+alias rsync_sys    'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_full   'rsync --numeric-ids -S -H --delete -av'
+alias rsync_fat    'rsync --no-p --no-g --modify-window=1 --delete -av -L'
+alias rsync_normal 'rsync --delete -av'
+alias zpool_hitory 'zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
+alias lsblka       'lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
+alias lsblkp       'lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 
 alias curl_config_fast_copy 'curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh  'curl -fsSL https://git.io/JU6c2 | sh'
@@ -394,7 +398,6 @@ alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#
 
 alias tree-cvs 'tree -adn | grep -v CVS'
 alias dft      'df -hPT'
-alias lsblka   'lsblk -o name,size,fstype,label,ro,mountpoint,model'
 
 alias cvu 'cd ~/etc ; cvs up ; cd -'
 alias cvd 'cd ~/etc ; cvs diff ; cd -'
@@ -491,4 +494,3 @@ umask 022
 setenv PATH `echo $PATH | awk -F: '{for (i=1;i<=NF;i++) {if ( \\!x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}'`
 
 # EOF
-
