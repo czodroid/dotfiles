@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 27 février 2022, 18:30
-# Edit Time: 103:53:53
+# Last Modified: samedi 05 mars 2022, 15:48
+# Edit Time: 103:54:50
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.407 2022/02/27 17:41:26 czo Exp $
+# $Id: .bashrc,v 1.408 2022/03/05 15:12:33 czo Exp $
 
 #set -v
 #set -x
@@ -510,7 +510,7 @@ alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
 alias dig_lartha='curl -k https://lartha/hosts.html'
-alias ssha='eval $(ssh-agent); ssh-add; echo ""; echo "To add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias ssha='eval $(ssh-agent); ssh-add; echo; echo "To add another identity:"; echo "ssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 # sed -i 173d ~/.ssh/known_hosts is working under linux,

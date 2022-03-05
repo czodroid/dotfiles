@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 27 février 2022, 18:40
-# Edit Time: 29:56:24
+# Last Modified: samedi 05 mars 2022, 16:12
+# Edit Time: 29:57:27
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.76 2022/02/27 17:41:26 czo Exp $
+# $Id: .cshrc,v 1.77 2022/03/05 15:12:33 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -386,7 +386,7 @@ alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d
 
 alias passwd_md5     'openssl passwd -1 '
 alias passwd_sha512  'openssl passwd -6 '
-alias ssha           'eval `ssh-agent -c`; ssh-add; echo ""; echo "To add another identity:\nssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias ssha           'eval `ssh-agent -c`; ssh-add; echo; echo "To add another identity:"; echo "ssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
 alias dig_lartha     'curl http://lartha:/hosts.html'
 alias tmate_ssh      'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
