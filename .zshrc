@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 05 mars 2022, 15:49
-# Edit Time: 133:02:47
+# Last Modified: vendredi 11 mars 2022, 00:14
+# Edit Time: 133:02:54
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.378 2022/03/05 15:12:33 czo Exp $
+# $Id: .zshrc,v 1.379 2022/03/10 23:16:52 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -523,7 +523,7 @@ alias aa='tmux attach -d || tmux new'
 
 alias screena='screen -d -R'
 alias mc='\mc -b -u'
-alias htop='\htop -C'
+#alias htop='\htop -C'
 \ncdu --graph-style hash --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --graph-style hash --color off'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 05 mars 2022, 15:48
-# Edit Time: 103:54:50
+# Last Modified: vendredi 11 mars 2022, 00:14
+# Edit Time: 103:55:04
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.408 2022/03/05 15:12:33 czo Exp $
+# $Id: .bashrc,v 1.409 2022/03/10 23:16:52 czo Exp $
 
 #set -v
 #set -x
@@ -400,7 +400,7 @@ alias aa='tmux attach -d || tmux new'
 
 alias screena='screen -d -R'
 alias mc='\mc -b -u'
-alias htop='\htop -C'
+#alias htop='\htop -C'
 \ncdu --graph-style hash --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --graph-style hash --color off'
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
