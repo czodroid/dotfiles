@@ -6,16 +6,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: mars 2018
-# Last Modified: jeudi 10 mars 2022, 17:22
-# Edit Time: 2:56:17
+# Last Modified: jeudi 10 mars 2022, 21:51
+# Edit Time: 2:58:10
 # Description:
 #                 git conf file
 #
-# $Id: .gitconfig,v 1.14 2022/02/04 00:53:03 czo Exp $
+# $Id: .gitconfig,v 1.15 2022/03/10 19:42:41 czo Exp $
 
 [user]
     name     = czo
-    username = czo
+    ; username = Olivier Sirol
     email    = czo@free.fr
     ; email    = czodroid@gmail.com
     ; email    = spambazar@gmail.com
