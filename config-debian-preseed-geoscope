@@ -4,11 +4,11 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: vendredi 28 janvier 2022, 17:18
-# Edit Time: 8:02:24
+# Last Modified: mardi 29 mars 2022, 12:29
+# Edit Time: 8:16:22
 # Description:
 #
-# debian 10 preseed geoscope update
+#               debian 10 preseed geoscope update
 #
 # config files:
 #  curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed-geoscope | sh
@@ -28,7 +28,9 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-geoscope,v 1.19 2022/01/28 16:21:41 czo Exp $
+# $Id: config-debian-preseed-geoscope,v 1.20 2022/03/29 10:31:20 czo Exp $
+
+LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
 (
 export LANG=C
@@ -55,7 +57,7 @@ echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
 # apt-get $QUIET dist-upgrade
 # apt-get $QUIET clean
 
-# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node postfix mailutils autofs nfs-client ntp qemu-guest-agent
+# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node cu picocom bc perltidy tidy bsdtar hexcurse net-tools telnet tree postfix mailutils autofs nfs-client ntp qemu-guest-agent
 
 echo "##== change config  ==================================================##"
 
@@ -72,6 +74,7 @@ dpkg-reconfigure -f noninteractive tzdata
 perl -i -pe 's,# en_US.UTF-8 UTF-8,en_US.UTF-8 UTF-8,' /etc/locale.gen
 perl -i -pe 's,# fr_FR.UTF-8 UTF-8,fr_FR.UTF-8 UTF-8,' /etc/locale.gen
 update-locale LANG=en_US.UTF-8
+locale-gen
 
 # autofs
 perl -i -pe 's,^#/net\s*-hosts.*,/net    -hosts,' /etc/auto.master
@@ -205,7 +208,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxcaXJWMUucnrYd3oRWLZ1e/ur4knE1KeKXXYiwr3u
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCpuVrKcw0PcSUnOIBz+yaSVObq3oroyFeL1luCgHhHKER7TxhiRFNLYRJpjZHxslaORLVM++Nd+rwWRFnrSGEugfvkQjdL45tnY9IvT1KeMsAotd72DN9oYNy3Nq7XAYvx9obpf71JPyaR0Y2hfx0sKDHn5NHT0mTs3KH66HHybRpCvPI9W6g+TBEIAOFiUY3zoK4D36wDGwR0aZBzDqtfedgwgXKzHCVb8ZNnCqHP/2DVJRgvqQbtX164D/LAFx66qwSqzp2ogTlhHtk2qF34cw+ve30Q7cSHVIraky+innjkTRkMkenSd4Mv1mLyp/ItkQY0cTfxXGttfHYTFGKV1MD0TKWi9ccihrW2+slXWFxbkXG7TGpBNCsYVW7ueCy4Ki8FIREOhiZSoHXza4JjMdR1Xgkn80xgeBnauRL4Dj9RGGLFrbuZFyoUx3gnpw1HkqrmvhhkkuVSzYvU9E8gkfoSm1yL3ALl4vQEtzdPPPd9mMqfaqbRluKIEfx0X2BAS9tWCXZvWiJcQ/UkcHlK6NWYSZp60jGs1VrDVgHtS1p/B4+fB3Tpw2f7Oz5ePG5goybYBCRhOu87rU8xB3ka7XH7p6C/yS7jxYcvaq57INEknZ5P4mQ0BQRqz+/nDBMksIzxHXTDWVGc0hqSJtzKC33JyLKH3fudXJ0TSZQd5w== leroy@leroy-pc
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+vY2dC8ux0l7UbaSiVsczs32VXgPEIRKRxfuy0H8ircz9kyR6qB0BNs0OvNIbZCoY7tphOorppf7hZ2DsxrD3Tlo7g/vB5cxq3tmWcCmvUikatVsf2w65bMtOLCqZEVmRjFY/dCPph0GsX45RmqX3dxHkm8mRTXjlgu1yjC/cDMoGDBfDA88zWjpLEvraRyWjnQAkwkp50tnmAreyDL5M4T9cJ/OfTRxcGJuOqdFDze/gwmzocgyo0VyfA629+sZPLntY/AvhjM+98QwJKeNr2SLaCChJpqIgt8n8NNKO6LZf7NUztu0oqOx92eADbOdhhq9lPlKd7yJ1foLNYDCgN+DtVYxXChH+L7z2VID8VW0m02uwfkWvGhKPua8D0DeH6HF0NL58dumAf8oYmrlacLWNmiGjmWYrdzMc720VPQuXkSjuuhLwPvnMi9KZ+uEEvjDsxshBvU64IaZh7HwvtkdXIMCPnq++t35kcWG6qngG9fzsERYeCSFm8gRwjMnoGpN5K8O8ZbXJvkfBjiXL2luPceAbmgtlR20DZCX3oxqQ6x3CspwbGZRxE3vEDHIQuUBec1tvB0qPCPOky5UzSoXi3AV35XnMrUWm8kKzrFXerjUUnSs8HosRXkVDoTa737SY55ihSdtJHtqNZhFqYz2asgiY7F1p8eNGtmdHjQ== lecocq@ipgp.fr
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1pgf7e+gh3Ywe1rxOSqnyaq1sQBnSgRFsiZaAWjovBTK1JltKgzmDY6ipNj/6zv106mugogrIlE1BrWDtqahfMdEkahquBBeSCnRJgm3FcD31UWctwBMdaRRrgJU1oFkzx5ECu9vqokCBFnIEF6UZb4spJ9PEjJEnyFJ6t8lvSoVeQ42iW6Og/5B/6f2O60XEMcqo1reRGEAV+znkYC42kS9ZsgZCIznram28RKmN+k5T0vN849kXBQCnMrCOm031IUNsiQbLkUKgEhbiRbaUB4S5sAtnEpVtqILcVCy0CyfPLhspUzN+b74u/bZfay2S3yoGBMqeIw8fN1nY20XSz8TqcuDNtLGHmICyRxnNiV08Y6fhya6ajIjl1nVxCkoo0g7/RkDdqr7YGUdc+HiVY36hqtaFDTWIHT1H1BGScdhfME8IN3e8uHD3WPlKuhBhuFJuMdZiia3k70sl1D5XcFoVQiRckNk5YObDyk75aZ7PbybhXxMD3tzBofQzpPnHbfsnBTZFLFpQHlm63wEjojqoxd24BgRE8JGZE9dTo+1CFmzmvHYyZp9bg44fL3LGnDXtdn1z9CjRx3Y+spiCbXKYCQSFmPocoBS6pHQGO6wfwBf7RmFHbBq6WYsNzyFwfQsbvC7yJNlFrJznkkB81s4ZFB+NQfrzOdfQB/S18w== czo@bunnahabhain
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDnHUkqDCfD3ifnVKoEEbbewTY5PF7IEhgelt32luNk0ypKLQEn5JIe4JN3A1jFsLM1vPmUGNms/2/Q83LK6V7v54Y0BLeyGHiCxa9c4uA8fg7VNqSvgiWdU7gn21whcc2OK3bNK45MYSQjlo7Ft8eui6oYvf2yK2mYrpFz3xKOYg7Y3NcU46KHmEoC6oDx2q8RZO4uCUnCrlXQdt7cks183DgAg8UfluWHT1W7y/tQp7dHGcgXgaXuHeoc3HK5JoC15QIaIbgYmAmA671watlpE6EFQy1oryx39Au8ot60O98Rpxo4m4vtE8LS9uWMFAYA6+kvR3B6SvLiWyij+C3uT2kPfEtEmwQ5yrAwflYUkxbklVTYFt6LdD/AP2HxPPuVF3lq5SEGrnVjD+TD93TI9ZyBWt07nYQdJLVvdm+a6bBVLEAo4jgd/E8VOxReJnfakg1wwvP52BhlO0uJZk9SWnJvoSFZcZTSvT4ZmJYoRspVORTjomDCZI5RFMLpeCJ8hf+6V3NUnRdtphvS8Kkm3VQwPzwPgnIeLb58Ss+dGySV+efd9AXCul1sfeJwnEX0kKqpnP4a61uf8a/BmrJU+CQyacy9f7HScgqm0iilwzAT2ovRF1mvcJbFxFYiLURB24cgalVTbSdZm/CMTwUiNRJ1K7E1A4f7/L80ZGH8Jw== celeste@george
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDo0JPz6p+m66sxUEMtXzZp/XVeH0rZItCa0tLjeBKxUNH29On8tmfSfHHgnC52DIjuRlEbfpPj7LghnHA5tLb1J1CMUTPu2xSblE7w4z3RiNwdwnaKzR8dElQUicNPoFhFzyLIRm7dTWJlsEwdoDRVQN/jrhsauCTLMdQkmDvbQDctFyHFUsHIfsIIeGH+ErrDS1hk6RGIam45tkAJDsGQoKQqckYxuzDAyDwLxJO3ps+PC5adT5Vg4gLt1Eu3oYlIdqfYRc90XY+qRPeuULKorIag2cUdySHSE36segwkP0aui8qGQ0P1L0J6YD7BtEXJKZUJvpr8QU/VMiG2gqGKLAczadOqpJaUSiEzT/pnXAnK3iS1vHWyxQTbUPgfqrmWcWQgejndzEr2+LhtjCOZJSUR/9aYi6CDmrJJRXI5j0sOQldhN5xkDOV+mZ3cohzl51WYiF8/jPV9y8O5iOsWo42gWpaO53giBZEeXBQoF12Ks6RjFJ37RouQsHlOApSivUHZzOilCFpQ3mlduFKuGnx23GCwG3VulyTFDfQpq/Irf8KmkRw595wWnR3b8HfcvvkPauKd3sTxk4V9Dg4f9oqjHR7J+QrHm+bM4n1PkKn2x2g+aDhSkODi8b+L/MNlsD/77OHevyLCiqRo+p6lBMHqIB6tlJO4PcOK/JaBxw== broucke@ordinavroche
 
 # others
 
@@ -218,6 +221,9 @@ echo "##== motd ===========================================================##"
 /root/czolsb > /etc/motd
 
 echo "##== end! ===========================================================##"
+echo
+echo "Log file in:"
+echo "$LOGFILE"
 
-) 2>&1 | tee /tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log
+) 2>&1 | tee $LOGFILE
 

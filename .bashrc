@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: vendredi 11 mars 2022, 00:14
-# Edit Time: 103:55:04
+# Last Modified: mardi 15 mars 2022, 10:53
+# Edit Time: 103:57:30
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.409 2022/03/10 23:16:52 czo Exp $
+# $Id: .bashrc,v 1.410 2022/03/15 10:00:26 czo Exp $
 
 #set -v
 #set -x
@@ -169,9 +169,10 @@ export SYSTEMD_PAGER=cat
 
 export PGPPATH=$HOME/.gnupg
 
+export RSYNC_RSH=ssh
 export EDITOR=vim
 export CVSEDITOR=vim
-export RSYNC_RSH=ssh
+export CVSIGNORE=.DS_Store
 
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
     export CVSROOT=czo@ananas:/tank/data/czo/.cvsroot

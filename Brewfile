@@ -1,18 +1,44 @@
+# Filename: Brewfile
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: mars 2015
+# Last Modified: jeudi 31 mars 2022, 11:59
+# Edit Time: 1:15:58
+# Description:
+#                   macos brew file
+#
+#   install brew:
+#       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#   create Brewfile:
+#       brew bundle dump
+#   install Brewfile:
+#       brew bundle
+#   update:
+#       brew update && brew upgrade && brew cleanup
+#
+# $Id: Brewfile,v 1.7 2022/03/31 10:00:00 czo Exp $
+
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
+tap "homebrew/services"
+brew "alerter"
 brew "bash"
 brew "cdrtools"
+brew "clipper"
 brew "coreutils"
 brew "cvs"
 brew "dhex"
 brew "dmg2img"
 brew "duti"
+brew "gnutls"
+brew "gobject-introspection"
+brew "harfbuzz"
 brew "opus"
 brew "tesseract"
-brew "ffmpeg"
+brew "ffmpeg", link: false
 brew "findutils"
 brew "gcc"
 brew "git"
@@ -26,8 +52,8 @@ brew "macvim"
 brew "mas"
 brew "midnight-commander"
 brew "ncdu"
-brew "neovim"
 brew "nmap"
+brew "node"
 brew "ocrmypdf"
 brew "p7zip"
 brew "par"
@@ -37,6 +63,7 @@ brew "pdftk-java"
 brew "reattach-to-user-namespace"
 brew "rsync"
 brew "squashfs"
+brew "subversion"
 brew "tcpdump"
 brew "tesseract-lang"
 brew "tmate"
@@ -49,8 +76,10 @@ cask "adoptopenjdk8"
 cask "android-file-transfer"
 cask "android-platform-tools"
 cask "arduino"
+cask "barrier"
 cask "cyberduck"
 cask "firefox"
+cask "font-meslo-for-powerline"
 cask "font-source-code-pro-for-powerline"
 cask "gimp"
 cask "gitkraken"

@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mercredi 29 septembre 2021, 15:27
-# Edit Time: 7:21:55
+# Last Modified: mardi 29 mars 2022, 12:00
+# Edit Time: 7:22:23
 # Description:
 #
 #   debian 10 preseed update
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.13 2021/09/29 13:31:18 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.14 2022/03/29 10:31:20 czo Exp $
 
 (
 export LANG=C
@@ -72,6 +72,7 @@ dpkg-reconfigure -f noninteractive tzdata
 perl -i -pe 's,# en_US.UTF-8 UTF-8,en_US.UTF-8 UTF-8,' /etc/locale.gen
 perl -i -pe 's,# fr_FR.UTF-8 UTF-8,fr_FR.UTF-8 UTF-8,' /etc/locale.gen
 update-locale LANG=en_US.UTF-8
+locale-gen
 
 # autofs
 perl -i -pe 's,^#/net\s*-hosts.*,/net    -hosts,' /etc/auto.master

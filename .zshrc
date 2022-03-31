@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: vendredi 11 mars 2022, 00:14
-# Edit Time: 133:02:54
+# Last Modified: lundi 28 mars 2022, 01:26
+# Edit Time: 133:04:53
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.379 2022/03/10 23:16:52 czo Exp $
+# $Id: .zshrc,v 1.381 2022/03/27 23:27:31 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -30,7 +30,7 @@ setopt COMBINING_CHARS        # Displays combining characters correctly
 setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt NO_GLOB_DOTS           # Patterns may match leading dots
+setopt GLOB_DOTS              # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
@@ -186,9 +186,10 @@ export SYSTEMD_PAGER=cat
 
 export PGPPATH=$HOME/.gnupg
 
+export RSYNC_RSH=ssh
 export EDITOR=vim
 export CVSEDITOR=vim
-export RSYNC_RSH=ssh
+export CVSIGNORE=.DS_Store
 
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
     export CVSROOT=czo@ananas:/tank/data/czo/.cvsroot

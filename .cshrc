@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: vendredi 11 mars 2022, 00:16
-# Edit Time: 29:57:31
+# Last Modified: mardi 15 mars 2022, 10:59
+# Edit Time: 30:00:56
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.78 2022/03/10 23:16:52 czo Exp $
+# $Id: .cshrc,v 1.79 2022/03/15 10:00:26 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -144,11 +144,12 @@ setenv SYSTEMD_PAGER cat
 
 setenv PGPPATH $HOME/.gnugp
 
+setenv RSYNC_RSH ssh
 setenv EDITOR vim
 setenv CVSEDITOR vim
-setenv RSYNC_RSH ssh
+setenv CVSIGNORE .DS_Store
+setenv CVSROOT czo@ananaschezwam:/tank/data/czo/.cvsroot
 
-setenv CVSROOT czo@ananas:/tank/data/czo/CzoDoc/cvsroot
 setenv PRINTER BW-Dressing
 setenv HTML_TIDY $HOME/.tidyrc
 
