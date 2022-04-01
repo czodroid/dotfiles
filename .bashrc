@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mardi 15 mars 2022, 10:53
-# Edit Time: 103:57:30
+# Last Modified: jeudi 31 mars 2022, 21:42
+# Edit Time: 103:57:57
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.410 2022/03/15 10:00:26 czo Exp $
+# $Id: .bashrc,v 1.411 2022/03/31 19:44:51 czo Exp $
 
 #set -v
 #set -x
@@ -102,7 +102,9 @@ export PLATFORM
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
 #FIXME: typeset -U for bash
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+
+# /usr/lib:
 
 ## config cpan perl libs not in distro
 #export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
@@ -175,9 +177,9 @@ export CVSEDITOR=vim
 export CVSIGNORE=.DS_Store
 
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
-    export CVSROOT=czo@ananas:/tank/data/czo/.cvsroot
+    export CVSROOT=czo@dalmore:/tank/data/czo/.cvsroot
 else
-    export CVSROOT=czo@ananaschezwam:/tank/data/czo/.cvsroot
+    export CVSROOT=czo@dalmorechezwam:/tank/data/czo/.cvsroot
 fi
 
 case $(domainname 2>/dev/null) in

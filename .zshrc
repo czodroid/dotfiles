@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: lundi 28 mars 2022, 01:26
-# Edit Time: 133:04:53
+# Last Modified: vendredi 01 avril 2022, 17:01
+# Edit Time: 133:14:28
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,18 +15,20 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.381 2022/03/27 23:27:31 czo Exp $
+# $Id: .zshrc,v 1.385 2022/04/01 15:02:11 czo Exp $
 
 # zmodload zsh/zprof
 
 ##======= Zsh Settings ===============================================##
 
 setopt ALWAYS_TO_END          # On completion go to end of word
-setopt AUTO_CD                # Directory as command does cd
+setopt NO_AUTO_CD             # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
+setopt NO_BG_NICE             # (!*)Background jobs at lower priority
 #setopt CD_SILENT              # Never print the working directory
+setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
 setopt COMBINING_CHARS        # Displays combining characters correctly
-#setopt NO_COMPLETE_IN_WORD       # Completion works inside words
+#setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt COMPLETE_IN_WORD       # Completion works inside words
 setopt EXTENDED_GLOB          # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
@@ -34,13 +36,11 @@ setopt GLOB_DOTS              # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
+setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
 setopt INTERACTIVE_COMMENTS   # Dash on interactive line for comment
 setopt INTERACTIVE            # Shell is interactive
 setopt LONG_LIST_JOBS         # More verbose listing of jobs
 setopt MONITOR                # Shell has job control enabled
-setopt NO_BG_NICE             # (!*)Background jobs at lower priority
-setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
-setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
 setopt PROMPT_SUBST           # $ expansion etc. in prompts
 setopt PUSHD_IGNORE_DUPS      # Don’t push dir multiply on stack
 setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
@@ -119,7 +119,9 @@ export PLATFORM
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
 #FIXME: typeset -U for bash
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+
+# /usr/lib:
 
 ## config cpan perl libs not in distro
 #export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
@@ -192,9 +194,9 @@ export CVSEDITOR=vim
 export CVSIGNORE=.DS_Store
 
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
-    export CVSROOT=czo@ananas:/tank/data/czo/.cvsroot
+    export CVSROOT=czo@dalmore:/tank/data/czo/.cvsroot
 else
-    export CVSROOT=czo@ananaschezwam:/tank/data/czo/.cvsroot
+    export CVSROOT=czo@dalmorechezwam:/tank/data/czo/.cvsroot
 fi
 
 case $(domainname 2>/dev/null) in
