@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: jeudi 31 mars 2022, 21:42
-# Edit Time: 103:57:57
+# Last Modified: vendredi 08 avril 2022, 15:03
+# Edit Time: 104:00:13
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.411 2022/03/31 19:44:51 czo Exp $
+# $Id: .bashrc,v 1.414 2022/04/08 13:07:03 czo Exp $
 
 #set -v
 #set -x
@@ -48,7 +48,7 @@ export TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 #BASHBUG history remove duplicates
 
 if [ -n "$BASH_VERSION" ]; then
-    shopt -s autocd
+    #shopt -s autocd
     shopt -s checkwinsize
     #shopt -s dotglob
     shopt -s globstar
@@ -114,10 +114,13 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/loca
 #export PATH="$HOME/perl5/bin:$PATH";
 
 ## config android
-#export PATH=$HOME/Android/Sdk/tools:${PATH}
-#export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
-#export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
-#export PATH=/opt/android-studio/bin:${PATH}
+if [ -d $HOME/Android/android-studio/bin ]
+then
+    # export PATH=$HOME/Android/Sdk/tools:${PATH}
+    # export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
+    # export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
+    export PATH=$HOME/Android/android-studio/bin:${PATH}
+fi
 
 ## config openwrt
 if [ -d /rom/bin ]
@@ -337,7 +340,7 @@ case $PLATFORM in
 
     Darwin)
         export DISPLAY=:0
-        export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
+        export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/Contents/Home
         ## config macos brew
         export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
         alias grep='\grep --color'
@@ -500,7 +503,7 @@ alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sa
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
-alias zpool_hitory='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
+alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
 alias lsblka='lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 alias lsblkp='lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 

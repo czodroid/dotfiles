@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: vendredi 01 avril 2022, 17:01
-# Edit Time: 133:14:28
+# Last Modified: vendredi 08 avril 2022, 15:02
+# Edit Time: 133:30:53
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.385 2022/04/01 15:02:11 czo Exp $
+# $Id: .zshrc,v 1.388 2022/04/08 13:07:03 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -131,10 +131,13 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/loca
 #export PATH="$HOME/perl5/bin:$PATH";
 
 ## config android
-#export PATH=$HOME/Android/Sdk/tools:${PATH}
-#export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
-#export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
-#export PATH=/opt/android-studio/bin:${PATH}
+if [ -d $HOME/Android/android-studio/bin ]
+then
+    # export PATH=$HOME/Android/Sdk/tools:${PATH}
+    # export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
+    # export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
+    export PATH=$HOME/Android/android-studio/bin:${PATH}
+fi
 
 ## config openwrt
 if [ -d /rom/bin ]
@@ -460,7 +463,7 @@ case $PLATFORM in
 
     Darwin)
         export DISPLAY=:0
-        export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
+        export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/Contents/Home
         ## config macos brew
         export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
         alias grep='\grep --color'
@@ -623,7 +626,7 @@ alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sa
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
-alias zpool_hitory='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
+alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
 alias lsblka='lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 alias lsblkp='lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 

@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mardi 29 mars 2022, 12:29
-# Edit Time: 8:16:22
+# Last Modified: vendredi 08 avril 2022, 15:57
+# Edit Time: 8:19:30
 # Description:
 #
 #               debian 10 preseed geoscope update
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-geoscope,v 1.20 2022/03/29 10:31:20 czo Exp $
+# $Id: config-debian-preseed-geoscope,v 1.21 2022/04/08 13:58:52 czo Exp $
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -159,8 +159,7 @@ cat << 'EOF' >> .ssh/config
 #    ProxyCommand,  ProxyJump
 #
 
-# SMV+GEOSCOPE
-
+# GEOSCOPE
 Host geoscopevpn
  Port 222
 
@@ -171,18 +170,6 @@ Host geoscopert
 Host geoscopegui
  Port 223
  Hostname geoscopert.dyndns.org
-
-Host smv-ups
- Ciphers aes256-cbc
- KexAlgorithms diffie-hellman-group1-sha1
-
-Host smv-pdu*
- Ciphers aes256-cbc
-
-# DHCP
-Host chezwam-* magdhcp-*
- UserKnownHostsFile /dev/null
- StrictHostKeyChecking no
 
 # THE REMAINDER
 Host *

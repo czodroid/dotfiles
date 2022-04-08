@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: jeudi 31 mars 2022, 21:44
-# Edit Time: 30:01:46
+# Last Modified: vendredi 08 avril 2022, 15:02
+# Edit Time: 30:10:52
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.80 2022/03/31 19:44:51 czo Exp $
+# $Id: .cshrc,v 1.82 2022/04/08 13:07:03 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -289,7 +289,6 @@ switch ($PLATFORM)
 
     case Darwin:
         setenv DISPLAY :0
-        setenv JAVA_HOME /Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
         alias grep '\grep --color'
         alias ps   '\ps -Awww'
         alias ls   '\ls -G -a'
@@ -370,14 +369,14 @@ alias screena  'screen -d -R'
 alias tmuxa    'tmux attach -d || tmux new'
 alias aa       'tmux attach -d || tmux new'
 
-alias mount_list   'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
-alias rsync_sys    'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
-alias rsync_full   'rsync --numeric-ids -S -H --delete -av'
-alias rsync_fat    'rsync --no-p --no-g --modify-window=1 --delete -av -L'
-alias rsync_normal 'rsync --delete -av'
-alias zpool_hitory 'zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
-alias lsblka       'lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
-alias lsblkp       'lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
+alias mount_list    'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
+alias rsync_sys     'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_full    'rsync --numeric-ids -S -H --delete -av'
+alias rsync_fat     'rsync --no-p --no-g --modify-window=1 --delete -av -L'
+alias rsync_normal  'rsync --delete -av'
+alias zpool_history 'zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
+alias lsblka        'lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
+alias lsblkp        'lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 
 alias curl_config_fast_copy 'curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh  'curl -fsSL https://git.io/JU6c2 | sh'
