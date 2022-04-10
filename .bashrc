@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: vendredi 08 avril 2022, 15:03
-# Edit Time: 104:00:13
+# Last Modified: dimanche 10 avril 2022, 14:01
+# Edit Time: 104:00:26
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.414 2022/04/08 13:07:03 czo Exp $
+# $Id: .bashrc,v 1.415 2022/04/10 16:02:50 czo Exp $
 
 #set -v
 #set -x
@@ -48,9 +48,9 @@ export TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 #BASHBUG history remove duplicates
 
 if [ -n "$BASH_VERSION" ]; then
-    #shopt -s autocd
+    shopt -u autocd
     shopt -s checkwinsize
-    #shopt -s dotglob
+    shopt -u dotglob
     shopt -s globstar
 fi
 
