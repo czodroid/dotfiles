@@ -6,39 +6,35 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 22 février 2022, 18:43
-" Edit Time: 207:05:00
+" Last Modified: mardi 26 avril 2022, 22:16
+" Edit Time: 207:20:29
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.309 2022/02/22 17:44:44 czo Exp $
+" $Id: .vimrc,v 1.312 2022/04/26 20:17:01 czo Exp $
 
-"if 0
 if version >= 505
 
 " == Options ===========================================================
 
-if version >= 600
-    set encoding=utf-8
-endif
-
-" vim 8
+" vim 8, works in gnome-shell, kde, xfce, xterm, iTerm, mintty
 if has("termguicolors")
   set termguicolors
 endif
 
-" for non working term colors
+" for non working term colors (eg macOS Terminal, OpenWRT)
 "set notermguicolors
-"set t_Co=1
-"set t_Co=8
 "set t_Co=16
-"set t_Co=256
 
 " vim mode
 set nocompatible
 
 let mapleader=","
+
+if version >= 600
+    set encoding=utf-8
+endif
 
 "set nonumber
 set number
@@ -903,7 +899,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.309 2022/02/22 17:44:44 czo Exp $
+        " $Id: .vimrc,v 1.312 2022/04/26 20:17:01 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1817,8 +1813,8 @@ else
   if 0
     " Install vim-plug if not found
     if empty(glob('~/.vim/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     endif
 
     call plug#begin('~/.vim/pack/vendor/start')

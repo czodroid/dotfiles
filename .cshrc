@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: vendredi 08 avril 2022, 15:02
-# Edit Time: 30:10:52
+# Last Modified: mercredi 27 avril 2022, 12:32
+# Edit Time: 30:14:17
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.82 2022/04/08 13:07:03 czo Exp $
+# $Id: .cshrc,v 1.84 2022/04/27 10:35:00 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -141,6 +141,7 @@ setenv LESS          '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m]
 setenv PAGER         less
 setenv PERLDOC_PAGER 'less -R'
 setenv SYSTEMD_PAGER cat
+setenv APT_LISTCHANGES_FRONTEND cat
 
 setenv PGPPATH $HOME/.gnugp
 
@@ -403,14 +404,11 @@ alias cvu 'cd ~/etc ; cvs up ; cd -'
 alias cvd 'cd ~/etc ; cvs diff ; cd -'
 alias cvc 'cd ~/etc ; cvs ci -mupdate ; cd -'
 
-alias gtl 'git pull'
-alias gts 'git status'
+alias gtu 'git pull'
 alias gtd 'git diff'
+alias gtc 'git commit -a -mupdate ; git push'
+alias gts 'git status'
 alias gtf 'git fetch; git diff master origin/master'
-alias gta 'git add .'
-alias gtc 'git commit -a'
-alias gtu 'git commit -a -mupdate ; git push ; git status'
-alias gtp 'git push'
 
 # missing LANG=C
 alias pkg_inst_debian "aptitude search '~i !~M' -F %p | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
@@ -419,7 +417,7 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${H
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-alias AU  'aptitude update && aptitude upgrade && aptitude clean'
+alias AU  'aptitude update && aptitude upgrade && aptitude clean  && echo `date +%Y%m%d` > /etc/lsb-czo-updatedate'
 alias AI  'aptitude install'
 alias AP  'aptitude purge'
 alias AS  'aptitude search'

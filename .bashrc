@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 10 avril 2022, 14:01
-# Edit Time: 104:00:26
+# Last Modified: mercredi 27 avril 2022, 12:32
+# Edit Time: 105:30:35
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.415 2022/04/10 16:02:50 czo Exp $
+# $Id: .bashrc,v 1.418 2022/04/27 10:35:00 czo Exp $
 
 #set -v
 #set -x
@@ -171,6 +171,7 @@ export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes
 export PAGER=less
 export PERLDOC_PAGER='less -R'
 export SYSTEMD_PAGER=cat
+export APT_LISTCHANGES_FRONTEND=cat
 
 export PGPPATH=$HOME/.gnupg
 
@@ -532,14 +533,11 @@ alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
 
-alias gtl='git pull'
-alias gts='git status'
+alias gtu='git pull'
 alias gtd='git diff'
+alias gtc='git commit -a -mupdate ; git push'
+alias gts='git status'
 alias gtf='git fetch; git diff master origin/master'
-alias gta='git add .'
-alias gtc='git commit -a'
-alias gtu='git commit -a -mupdate ; git push ; git status'
-alias gtp='git push'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_inst_debian2="dpkg-query -W --showformat='"\$"{Package}\n' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
@@ -547,7 +545,7 @@ alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTN
 alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
-alias AU='aptitude update && aptitude upgrade && aptitude clean'
+alias AU='aptitude update && aptitude upgrade && aptitude clean && echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate'
 alias AI='aptitude install'
 alias AP='aptitude purge'
 alias AS='aptitude search'
