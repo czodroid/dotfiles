@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 26 avril 2022, 22:16
-" Edit Time: 207:20:29
+" Last Modified: mercredi 27 avril 2022, 19:58
+" Edit Time: 207:30:50
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.312 2022/04/26 20:17:01 czo Exp $
+" $Id: .vimrc,v 1.314 2022/04/27 17:58:33 czo Exp $
 
 if version >= 505
 
@@ -899,7 +899,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.312 2022/04/26 20:17:01 czo Exp $
+        " $Id: .vimrc,v 1.314 2022/04/27 17:58:33 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1007,7 +1007,10 @@ function! TemplateCzo (...)
     "        1d
     "    endif
     "
-    " cat template.sh | perl -pe 's/^/\\\\<nl>/; s/"/\\\\"/g; s/\\$/\\\\/g;'
+    " run this 
+    " :r !cd ~/etc/vim/templates ; ./template
+    " after delting this
+    " ------------- SearchThisThenDelete -------------
 
     if xft != ""
         try
@@ -1485,22 +1488,162 @@ function! TemplateCzo (...)
                  \\<nl>Author: Olivier Sirol <czo@free.fr>
                  \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>Last Modified: Wednesday 15 December 2021, 20:13
-                 \\<nl>Edit Time: 0:02:32
+                 \\<nl>Last Modified: mercredi 27 avril 2022, 19:55
+                 \\<nl>Edit Time: 0:00:07
                  \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>-->
                  \\<nl>
-                 \\<nl># Heading
+                 \\<nl># Markdown Cheatsheet
                  \\<nl>
-                 \\<nl>## Sub-heading
+                 \\<nl>## Basic Formatting
                  \\<nl>
-                 \\<nl>[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+                 \\<nl>* **Bold**: `**Bold**`
+                 \\<nl>* _Emphasized_: `_Emphasized_`
+                 \\<nl>* Strikethrough : `~~Strikethrough~~`
+                 \\<nl>* Horizontal rules: `---`
                  \\<nl>
-                 \\<nl>Paragraphs are separated
-                 \\<nl>by a **blank line**.
+                 \\<nl>## Code
                  \\<nl>
-                 \\<nl>Two spaces at the end of a line
-                 \\<nl>produce a line break.
+                 \\<nl>### Inline
+                 \\<nl>
+                 \\<nl>    Inline `code`
+                 \\<nl>Inline `code`
+                 \\<nl>
+                 \\<nl>### Indented code
+                 \\<nl>
+                 \\<nl>```
+                 \\<nl>    // Some comments
+                 \\<nl>    line 1 of code
+                 \\<nl>    line 2 of code
+                 \\<nl>    line 3 of code
+                 \\<nl>```
+                 \\<nl>
+                 \\<nl>    // Some comments
+                 \\<nl>    line 1 of code
+                 \\<nl>    line 2 of code
+                 \\<nl>    line 3 of code
+                 \\<nl>
+                 \\<nl>
+                 \\<nl>### Block code \\"fences\\" between three ```
+                 \\<nl>
+                 \\<nl>    ```
+                 \\<nl>    Sample text here...
+                 \\<nl>    ```
+                 \\<nl>
+                 \\<nl>```
+                 \\<nl>Sample text here...
+                 \\<nl>```
+                 \\<nl>
+                 \\<nl>### Syntax highlighting between three ``` + lang
+                 \\<nl>
+                 \\<nl>    ``` js
+                 \\<nl>    var foo = function (bar) {
+                 \\<nl>      return bar++;
+                 \\<nl>    };
+                 \\<nl>
+                 \\<nl>    console.log(foo(5));
+                 \\<nl>    ```
+                 \\<nl>
+                 \\<nl>``` js
+                 \\<nl>var foo = function (bar) {
+                 \\<nl>  return bar++;
+                 \\<nl>};
+                 \\<nl>
+                 \\<nl>console.log(foo(5));
+                 \\<nl>```
+                 \\<nl>
+                 \\<nl>## Inline HTML
+                 \\<nl>
+                 \\<nl>    To reboot your computer, press <kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>del</kbd>.
+                 \\<nl>
+                 \\<nl>To reboot your computer, press <kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>del</kbd>.
+                 \\<nl>
+                 \\<nl>## Headers
+                 \\<nl>
+                 \\<nl>    # Heading 1
+                 \\<nl>    ## Heading 2
+                 \\<nl>    ### Heading 3
+                 \\<nl>
+                 \\<nl># Heading 1
+                 \\<nl>## Heading 2
+                 \\<nl>### Heading 3
+                 \\<nl>
+                 \\<nl>## Lists
+                 \\<nl>
+                 \\<nl>### Unordered
+                 \\<nl>
+                 \\<nl>~~~
+                 \\<nl>* One item
+                 \\<nl>  * A sub-item
+                 \\<nl>  * Another item
+                 \\<nl>~~~
+                 \\<nl>* One item
+                 \\<nl>  * A sub-item
+                 \\<nl>  * Another item
+                 \\<nl>
+                 \\<nl>### Ordered
+                 \\<nl>
+                 \\<nl>~~~
+                 \\<nl>1. An ordered list
+                 \\<nl>1. This is the second item
+                 \\<nl>1. One more in the ordered list
+                 \\<nl>~~~
+                 \\<nl>1. An ordered list
+                 \\<nl>1. This is the second item
+                 \\<nl>1. One more in the ordered list
+                 \\<nl>
+                 \\<nl>
+                 \\<nl>## Tables
+                 \\<nl>
+                 \\<nl>```
+                 \\<nl>\| left-aligned \| centered  \| right-aligned
+                 \\<nl>\| :-           \| :-:       \| -:
+                 \\<nl>\| zebra        \| stripes   \| are neat
+                 \\<nl>\| a            \| b         \| c
+                 \\<nl>\| foo          \| foo       \| foo
+                 \\<nl>```
+                 \\<nl>
+                 \\<nl>\| left-aligned \| centered  \| right-aligned
+                 \\<nl>\| :-           \| :-:       \| -:
+                 \\<nl>\| zebra        \| stripes   \| are neat
+                 \\<nl>\| a            \| b         \| c
+                 \\<nl>\| foo          \| foo       \| foo
+                 \\<nl>
+                 \\<nl>## Blockquotes
+                 \\<nl>
+                 \\<nl>~~~
+                 \\<nl>> Blockquotes can also be nested...
+                 \\<nl>>> ...by using additional greater-than signs right next to each other...
+                 \\<nl>~~~
+                 \\<nl>
+                 \\<nl>> Blockquotes can also be nested...
+                 \\<nl>>> ...by using additional greater-than signs right next to each other...
+                 \\<nl>
+                 \\<nl>## Links
+                 \\<nl>
+                 \\<nl>### Link
+                 \\<nl>
+                 \\<nl>    Go to Markdown [Code](#Code)
+                 \\<nl>Go to Markdown [Code](#Code)
+                 \\<nl>
+                 \\<nl>### Autoconverted link
+                 \\<nl>
+                 \\<nl>    Autoconverted https://duckduckgo.com/ from link.
+                 \\<nl>Autoconverted https://duckduckgo.com/ from link.
+                 \\<nl>
+                 \\<nl>
+                 \\<nl>### Autoconverted mail
+                 \\<nl>
+                 \\<nl>    Autoconverted <address@example.com> mail.
+                 \\<nl>Autoconverted <address@example.com> mail.
+                 \\<nl>
+                 \\<nl>## Images
+                 \\<nl>
+                 \\<nl>    ![Gruvbox64](https://raw.githubusercontent.com/czodroid/vscode-theme-gruvbox-64/main/store/icon.png)
+                 \\<nl>
+                 \\<nl>![Gruvbox64](https://raw.githubusercontent.com/czodroid/vscode-theme-gruvbox-64/main/store/icon.png)
+                 \\<nl>
+                 \\<nl>
                  \\<nl>
                  \\"
 
@@ -1653,6 +1796,8 @@ function! TemplateCzo (...)
             catch /.*/
         endtry
     endif
+
+    " ------------- SearchThisThenDelete -------------
 
     execute ':0'
     call TemplateMacro ()
