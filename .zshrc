@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mardi 03 mai 2022, 11:33
-# Edit Time: 133:45:36
+# Last Modified: mardi 03 mai 2022, 12:41
+# Edit Time: 133:46:27
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.393 2022/05/03 09:44:45 czo Exp $
+# $Id: .zshrc,v 1.394 2022/05/03 10:42:25 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -448,10 +448,10 @@ case $PLATFORM in
         alias grep='\grep --color'
         alias pgrep='\pgrep -af'
         
-        if \lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
-            alias lsblk='\lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
-        elif \lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
-            alias lsblk='\lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi
 
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'

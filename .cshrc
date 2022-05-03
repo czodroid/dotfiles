@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 03 mai 2022, 11:43
-# Edit Time: 30:17:40
+# Last Modified: mardi 03 mai 2022, 12:41
+# Edit Time: 30:17:57
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.86 2022/05/03 09:44:45 czo Exp $
+# $Id: .cshrc,v 1.87 2022/05/03 10:42:25 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -376,7 +376,7 @@ alias rsync_full    'rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat     'rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal  'rsync --delete -av'
 alias zpool_history 'zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
-alias lsblk         'lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+alias lsblk         'lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
 
 alias curl_config_fast_copy 'curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh  'curl -fsSL https://git.io/JU6c2 | sh'

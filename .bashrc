@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mardi 03 mai 2022, 11:32
-# Edit Time: 106:01:22
+# Last Modified: mardi 03 mai 2022, 12:39
+# Edit Time: 106:02:42
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.420 2022/05/03 09:44:45 czo Exp $
+# $Id: .bashrc,v 1.421 2022/05/03 10:42:25 czo Exp $
 
 #set -v
 #set -x
@@ -325,10 +325,10 @@ case $PLATFORM in
         alias grep='\grep --color'
         alias pgrep='\pgrep -af'
         
-        if \lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
-            alias lsblk='\lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
-        elif \lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
-            alias lsblk='\lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi
 
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'
