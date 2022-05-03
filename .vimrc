@@ -6,24 +6,30 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mercredi 27 avril 2022, 19:58
-" Edit Time: 207:30:50
+" Last Modified: mardi 03 mai 2022, 11:56
+" Edit Time: 207:42:48
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.314 2022/04/27 17:58:33 czo Exp $
+" $Id: .vimrc,v 1.316 2022/05/03 09:56:38 czo Exp $
 
 if version >= 505
 
 " == Options ===========================================================
 
-" vim 8, works in gnome-shell, kde, xfce, xterm, iTerm, mintty
-if has("termguicolors")
-  set termguicolors
+" vim8 termguicolors or 16colors to get the gruvbox64 theme
+if version >= 800
+    if has("termguicolors")
+        set termguicolors
+    endif
+else
+    set t_Co=16
 endif
 
+" works in gnome-shell, kde, xfce, xterm, iTerm, mintty
 " for non working term colors (eg macOS Terminal, OpenWRT)
+" just set this:
 "set notermguicolors
 "set t_Co=16
 
@@ -899,7 +905,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.314 2022/04/27 17:58:33 czo Exp $
+        " $Id: .vimrc,v 1.316 2022/05/03 09:56:38 czo Exp $
         "
         if 1
             " modif Started: in File Created:

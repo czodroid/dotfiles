@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mercredi 27 avril 2022, 12:33
-# Edit Time: 133:32:22
+# Last Modified: mardi 03 mai 2022, 11:33
+# Edit Time: 133:45:36
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.391 2022/04/27 10:35:00 czo Exp $
+# $Id: .zshrc,v 1.393 2022/05/03 09:44:45 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -447,6 +447,13 @@ case $PLATFORM in
         alias mv='\mv -i'
         alias grep='\grep --color'
         alias pgrep='\pgrep -af'
+        
+        if \lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        elif \lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        fi
+
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'
         { \ls -l --time-style=long-iso >/dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color=auto -a'
         ;;
@@ -628,8 +635,6 @@ alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
 alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
-alias lsblka='lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
-alias lsblkp='lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 
 alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'

@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mardi 29 mars 2022, 12:00
-# Edit Time: 7:22:23
+# Last Modified: mardi 03 mai 2022, 12:26
+# Edit Time: 7:24:45
 # Description:
 #
 #   debian 10 preseed update
@@ -28,7 +28,9 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.14 2022/03/29 10:31:20 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.15 2022/05/03 10:27:19 czo Exp $
+
+LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
 (
 export LANG=C
@@ -142,6 +144,9 @@ echo "##== motd ===========================================================##"
 /root/czolsb > /etc/motd
 
 echo "##== end! ===========================================================##"
+echo
+echo "Log file in:"
+echo "$LOGFILE"
 
-) 2>&1 | tee /root/debian_preseed_up_$(date '+%Y-%m-%d_%H-%M')_$$.log
+) 2>&1 | tee $LOGFILE
 

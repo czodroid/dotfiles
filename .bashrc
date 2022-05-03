@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mercredi 27 avril 2022, 12:32
-# Edit Time: 105:30:35
+# Last Modified: mardi 03 mai 2022, 11:32
+# Edit Time: 106:01:22
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.418 2022/04/27 10:35:00 czo Exp $
+# $Id: .bashrc,v 1.420 2022/05/03 09:44:45 czo Exp $
 
 #set -v
 #set -x
@@ -324,6 +324,13 @@ case $PLATFORM in
         alias mv='\mv -i'
         alias grep='\grep --color'
         alias pgrep='\pgrep -af'
+        
+        if \lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        elif \lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+            alias lsblk='\lsblk -o NAME,SIZE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        fi
+
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'
         { \ls -l --time-style=long-iso >/dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color=auto -a'
         ;;
@@ -505,8 +512,6 @@ alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
 alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
-alias lsblka='lsblk -o NAME,SIZE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
-alias lsblkp='lsblk -o NAME,SIZE,PTTYPE,FSTYPE,LABEL,RO,MOUNTPOINT,MODEL'
 
 alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
 alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'

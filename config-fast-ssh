@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: vendredi 08 avril 2022, 15:51
-# Edit Time: 8:41:34
+# Last Modified: mardi 03 mai 2022, 12:22
+# Edit Time: 8:43:45
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -14,7 +14,7 @@
 #
 #   also works in wget: wget -qO- https://pwet | bash
 #
-# $Id: config-fast-ssh,v 1.16 2022/04/08 13:58:52 czo Exp $
+# $Id: config-fast-ssh,v 1.18 2022/05/03 10:23:09 czo Exp $
 
 # you must do a "cd" before running this script
 
@@ -23,11 +23,13 @@ rm -fr .ssh
 mkdir .ssh
 chmod 700 .ssh
 
-#ssh-keygen -t rsa -N "" -f .ssh/id_rsa
 ssh-keygen -t rsa -b 4096 -N "" -f .ssh/id_rsa
 
 # new passphrase:
 #ssh-keygen -p -f id_rsa
+
+# new comment:
+#ssh-keygen -c -f id_rsa
 
 cat << 'EOF' >> .ssh/config
 # Filename: config
@@ -143,6 +145,7 @@ cat .ssh/id_rsa.pub  >> .ssh/authorized_keys
 cat << 'EOF' >> .ssh/authorized_keys
 
 # chezwam
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/nz200qgZLj9r9M99ig0LEXBTumuIYbW/64EoamTgVWr7kroRA/raDGDcq1SaZpmtvgKVwKGBidP/+ude9LlNxRb+YABZfPI/mOy2/TUsrK5w8z4IcoxZQy+ah1vGmlQk1GOlIkKkGK0VUjaYZeQfhbPxTLRmxzrZLIQ70qdfJ07BQIerlA0gWozbpzhbSLwdCPBJS9vKUpRIPlggnPpMY8fhwQSE2cZFmfJIFlI3G5BTQoMTCoQsLipBQc6TlY3NIXwl7LH1jAjytXfWkTsRSopQ9eVsHgOpZE657u1nQdI9ztCHsbyr9xnpPMK5iiWqYEQaG8j8u56A8GuUl0wkNeqF6+3t+9TI2ps5UmiPoFYMp+BA2krEVr1BjpWDrvCAy7Grd8dv7UrQas5jiI2iH9RaSSnXVmZ15DkKsoHm/h6pLewVkoLPRHF9OHDo2+A4sypX8psyRkeKW6f2hlZAvmUZmu9aNfy7njin7LHHPg67u5jikWbSMyM9qM2a42VKXwvktNV1KQUILgay7DInxEXwj5wKvEea2b8pRyTR1rgNr2DofyR+X4dM13XqCcCbPUOiXUscJz7U7+lBPbDi/4Tzm/eaQ9u35DU9QDznxXLb/eBTmMTiqdSQ96BX36FKm/guUOqSR34yMuRoin+l7hm66gxvhkGPiqTZ9OArsQ== czo@askaig
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDoQFYXob/+i4tZdSomRWZhbPXbkQvdjKmabQxEUe+dkiYcxt4r9CDorBqSf2ZYQ2o2unSnQVUFOSv2jUyDGro/veOyik6eMW/Q/Ju+1xYq78rNu0PFQmQr2e+7gxwMVTdFt77yINwC11G+u1LZsEz2AZLEf9xqC1Tu60vKoLKJTG0eW4S7aoQVToA6sbevMeLvqZD/xf5jX+/j18AxS06lxXvUWZQCaB2e1PQWR2lOvLY+lknxVdy1Aevxq+f9cKTkxcgA6aaMX/E5/Tx4qhvHYXomjvgJy7OCe9WbijIH9ac2HJe4CbIYLqzdHPrKo3IdW4cNHN259LzOyFnJM79fo2p/yMn+YcfpMRSSm73Hmd2/YturVvXJP1vdJ0KfvSi0/F0pCoytDgB5JnJdDyLzlQ69dNmusBgzY8g7O/KLgIZKI8QWXsJ6ll17micWIhg2S4jUAnIFpvr/2WKxdfeTyUzRmpFEz0Y8AIXmSbfBRI8Q16wJ5RYQw+h1XCDVef2xkyJvn1gHehpenuxAUiD/RFAMhCWwM7niVAa2Itk7Ugg7ycR6LNesQRSbQ0i+I67LHJ9F9qW3Ka3RNPJlZ7B+3oCJitBfh71Q/Mh4Zc3NymMaE6TAg/LkNvWQTBdEc8TVi6uRF+nGw3xtiQu1cnAqP7SnO8UelOCbk8qtbAFdtQ== czo@bruichladdich
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCtm1cbyMSlktddkp8UvYRLjCRI5aGuRlAHSFo09ZQ6ilNw6uqYZ4KW0RqWGVenkzePAvMnk4/y5S/4nmb8+FRz3uIfaslVikE1ydgrW1JlVc8+KUTb5yho/BApeQyf7WLIGX5DDS7WOBa7mYTig/Ss9VyynCrUQneJosCKFfRFxyBENojiILOgX36bjyi5DpD2c5/ysQx8LUVB/7zsCBIiZPnBH+869Hr1HF8JgdiNKz03k1drb0LsmkCtG6X8j1pj7xXDhDxcKVWksmb7Yf/9utjAjwWNc9NwwM3KvUdKRmLUJ34K3hgXTWpH8JD0ymoy1aCreR1+37C00u5nVQbSsioNl0u3a5i1VkoXE1TV7n8fDblLSrZaTxkFt81iliuB3pIaPHSkaG4ynCwz3UYP1q1gp/eiYm4FVPUhSoWbzNeeY3wuR1X6qNqaZGAlIePNqT2vwy38H9p7AwCs1A3i8DCD0BBSJbSQNU8KpHeKNMe+XWtH9v0V6fztCYC/tDYb8gbaY5IsV8w748T8qoFAHbqCiK/fiR2/HBqj2khXxEGC08nuL5Sog96NIIJl+Wi831M02iRYw/HegUouzuoXL6uab6IE1SpwazERKSQXInXCVT/iZH4W/qTn9Z13OjGCsyxrGlZNNb6/PcIcE3UXhB5V+BuXSheLYnU6ItZrKQ== root@bruichladdich
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGmlcfgW5Yym3jHM0yfCk5qBO6JLDUM2jqFU+6kAswsYy+1MjHHU9jCGHDXQkAkeVTMfqamWgPGoBZLvSLEYv2B8ZT79gZkjmQ0eIIiTzmOoj5b/dpMvCHzxqapOgvWSO45rUiIxlAxfCfR3klYxOFstDkTrlP4OlVR3Qq9P+oU6xmNsdsd3nHJg+NNG9xai4bunR4qdby+Th6kr5lQCFNAxuwAWXdTOXiXa2ZsCk0TKVIoDG3Y6LuAzR1C3Qf1pEI5sHjWHm/ElBmnQvqCT2zP79PkZMaRLgno7/Odcdqc5iOreSqMb11IynatsVsSS0vWt5O9NxCdqRFr+fm/e1bnyt8VTRf8cb1pYb0SjmES5whGCLzEdEfIs6hVC3m+X+MlsCMNxeKpTJHWdyGw6LaDFZSDUnvMuWhwEcFeOkFzPmyeTZK7ikjAGmaVy/oThYquF3H+lxAs1V3b054O83rZU5iv4Nedbul6X++LD8R0OJiC+w/tLf7RjSdwPObwmeYSvCS95NxxpwQneqjrh8/ToxkGn9r4xb9hssANZhqzZesYcsIgLAfWseIlO6O6u/FboGC4W4Pc3G0mIgRi3ho8NHtV37bb1HikrKsA4MhbK8kXZLVkTdaRQkGY0draRvUAZQJ9d3tfz6kaXQl9Lv0BzVh21tV72wcyE1RF1zXQQ== czo@dalmore
