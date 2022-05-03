@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 03 mai 2022, 11:56
-" Edit Time: 207:42:48
+" Last Modified: mardi 03 mai 2022, 15:27
+" Edit Time: 209:29:10
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.316 2022/05/03 09:56:38 czo Exp $
+" $Id: .vimrc,v 1.318 2022/05/03 13:28:20 czo Exp $
 
 if version >= 505
 
@@ -90,6 +90,7 @@ set nostartofline
 set backspace=indent,eol,start
 "set whichwrap=[,]
 set whichwrap=<,>,[,]
+set guioptions=egmrL
 
 set expandtab
 set smarttab
@@ -281,6 +282,109 @@ autocmd FileType apache    setlocal commentstring=#\ %s
 endif
 
 
+" == Abbreviations =====================================================
+
+" insert the current filename:
+iab _n    <C-R>=expand("%:t:r")<cr>
+iab _e    <C-R>=expand("%:e")<cr>
+iab _fn   <C-R>=expand("%:t")<cr>
+iab _ffn  <C-R>=expand("%:p")<cr>
+
+iab _home <C-R>=$HOME<cr>
+iab _vim  <C-R>=$VIMRUNTIME<cr>
+iab _date <C-R>=strftime("%Y-%m-%d")<cr>
+iab _ma # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
+iab _mc # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
+iab _mi # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
+
+iab _abc abcdefghijklmnopqrstuvwxyz
+iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
+iab _123 1234567890
+iab _rul ....\|....1....\|....2....\|....3....\|....4....\|....5....\|....6....\|....7....\|....8....\|....9
+
+iab _www   http://www-asim.lip6.fr/~czo/
+iab _ftp   ftp://ftp-asim.lip6.fr/
+
+iab _czo   Olivier Sirol <czo@free.fr>
+iab _czoa  Olivier Sirol <czo@asim.lip6.fr>
+iab _czoi  Olivier Sirol <czo@ipgp.fr>
+iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire d'Informatique de Paris 6<CR>Achitecture des Systemes Integres et Micro-Electronique<CR><CR>Coul. 55-65, 3e etg, Bur. 309<CR>4, Place Jussieu<CR>75252 Paris Cedex 05<CR>France<CR><CR>Tel: +33 1 44 27 53 24<CR>Fax: +33 1 44 27 72 80<CR><CR>http://www-asim.lip6.fr/alliance/<CR>mailto:alliance-support@asim.lip6.fr<CR>
+
+
+" == Command ===========================================================
+
+command!  CzoEditorTabToSpaceAndTrailWhite call CzoEditorTabToSpaceAndTrailWhite ()
+function! CzoEditorTabToSpaceAndTrailWhite ()
+    echom "Convert Tab to Space"
+    execute '%s/\t/    /gce'
+    echom "Trim Trailing Whitespace"
+    execute '%s/\s\+$//ce'
+endfunction
+
+command!  CzoTabToSpaces call CzoTabToSpaces ()
+function! CzoTabToSpaces ()
+    execute '%s/\t/    /gce'
+endfunction
+
+command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
+function! CzoTrimTrailingWhitespace ()
+    " execute '%s/\s\+$//en'
+    " execute '%s/\s\+$//e'
+    execute '%s/\s\+$//ce'
+ endfunction
+
+command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
+function! CzoRemoveEmptyLinesAndComment ()
+    " execute 'g/^\s*#/d'
+    " execute 'g/^\s*$/d'
+    execute 'g/\(^\s*#\)\|\(^\s*$\)/d'
+endfunction
+
+command!  CzoInvList call CzoInvList ()
+function! CzoInvList ()
+    execute 'set invlist'
+ endfunction
+
+command!  CzoInvWrap call CzoInvWrap ()
+function! CzoInvWrap ()
+    execute 'set invwrap'
+ endfunction
+
+command!  CzoInvPaste call CzoInvPaste ()
+function! CzoInvPaste ()
+    execute 'set invpaste'
+ endfunction
+
+command!  CzoVisualClear call CzoVisualClear ()
+function! CzoVisualClear ()
+    hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+    hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+    hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
+endfunction
+
+command!  CzoVisualGrey call CzoVisualGrey ()
+function! CzoVisualGrey ()
+    hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
+    hi Search        guifg=#503825 guibg=#3c3836 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+    hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+endfunction
+
+command!  CzoMSwinEnable call CzoMSwinEnable ()
+function! CzoMSwinEnable ()
+    if filereadable(expand("$VIMRUNTIME/mswin.vim"))
+        so $VIMRUNTIME/mswin.vim
+    endif
+endfunction
+
+command!  CzoMSwinDisable call CzoMSwinDisable ()
+function! CzoMSwinDisable ()
+    if !has("unix")
+        set guioptions+=a
+    endif
+    behave xterm
+endfunction
+
+
 " == MAPpings ==========================================================
 
 " COMMANDS                    MODES ~
@@ -321,18 +425,15 @@ endif
 " https://github.com/kana/vim-fakeclip
 
 if has('clipboard')
-    if filereadable(expand("$VIMRUNTIME/mswin.vim"))
-        so $VIMRUNTIME/mswin.vim
-        " but dont use Ctrl-A
-        noremap <C-A> <C-A>
-        inoremap <C-A> <C-A>
-    endif
+    call CzoMSwinEnable()
 else
-    "Please install vim-athena/vim-gtk (debian) or vim-X11 (and run vimx) (centos)
+    "Please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
     echoe "NO SYSTEM CLIPBOARD: n/vim is compiled without clipboard or works without X11!!!"
-    noremap <C-Q> <C-V>
+    call CzoMSwinDisable()
 endif
 
+" always use Ctrl-Q instead of Ctrl-V
+noremap <C-Q> <C-V>
 
 " search hilited text
 vmap / y/<C-R>"<CR>
@@ -400,95 +501,6 @@ vmap <leader>13 :!tr A-Za-z N-ZA-Mn-za-m
 
 " remove "control-m"s - for those mails sent from DOS:
 cmap <leader>rcm %s/<C-M>//g
-
-
-" == Command ===========================================================
-
-command!  CzoEditorTabToSpaceAndTrailWhite call CzoEditorTabToSpaceAndTrailWhite ()
-function! CzoEditorTabToSpaceAndTrailWhite ()
-    echom "Convert Tab to Space"
-    execute '%s/\t/    /gce'
-    echom "Trim Trailing Whitespace"
-    execute '%s/\s\+$//ce'
-endfunction
-
-command!  CzoTabToSpaces call CzoTabToSpaces ()
-function! CzoTabToSpaces ()
-    execute '%s/\t/    /gce'
-endfunction
-
-command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
-function! CzoTrimTrailingWhitespace ()
-    " execute '%s/\s\+$//en'
-    " execute '%s/\s\+$//e'
-    execute '%s/\s\+$//ce'
- endfunction
-
-command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
-function! CzoRemoveEmptyLinesAndComment ()
-    " execute 'g/^\s*#/d'
-    " execute 'g/^\s*$/d'
-    execute 'g/\(^\s*#\)\|\(^\s*$\)/d'
-endfunction
-
-command!  CzoInvList call CzoInvList ()
-function! CzoInvList ()
-    execute 'set invlist'
- endfunction
-
-command!  CzoInvWrap call CzoInvWrap ()
-function! CzoInvWrap ()
-    execute 'set invwrap'
- endfunction
-
-command!  CzoInvPaste call CzoInvPaste ()
-function! CzoInvPaste ()
-    execute 'set invpaste'
- endfunction
-
-command!  CzoVisualClear call CzoVisualClear ()
-function! CzoVisualClear ()
-    hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-    hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-    hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
-endfunction
-
-command!  CzoVisualGrey call CzoVisualGrey ()
-function! CzoVisualGrey ()
-    hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-    hi Search        guifg=#503825 guibg=#3c3836 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
-    hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
-endfunction
-
-
-" == ABbreviations =====================================================
-
-" all starting with "_" like in visual code
-
-" insert the current filename:
-iab _n    <C-R>=expand("%:t:r")<cr>
-iab _e    <C-R>=expand("%:e")<cr>
-iab _fn   <C-R>=expand("%:t")<cr>
-iab _ffn  <C-R>=expand("%:p")<cr>
-iab _home <C-R>=$HOME<cr>
-iab _vim  <C-R>=$VIMRUNTIME<cr>
-iab _date <C-R>=strftime("%Y-%m-%d")<cr>
-iab _ma # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
-iab _mc # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
-iab _mi # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
-
-iab _abc abcdefghijklmnopqrstuvwxyz
-iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
-iab _123 1234567890
-iab _rul ....\|....1....\|....2....\|....3....\|....4....\|....5....\|....6....\|....7....\|....8....\|....9
-
-iab _www   http://www-asim.lip6.fr/~czo/
-iab _ftp   ftp://ftp-asim.lip6.fr/
-
-iab _czo   Olivier Sirol <czo@free.fr>
-iab _czoa  Olivier Sirol <czo@asim.lip6.fr>
-iab _czoi  Olivier Sirol <czo@ipgp.fr>
-iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire d'Informatique de Paris 6<CR>Achitecture des Systemes Integres et Micro-Electronique<CR><CR>Coul. 55-65, 3e etg, Bur. 309<CR>4, Place Jussieu<CR>75252 Paris Cedex 05<CR>France<CR><CR>Tel: +33 1 44 27 53 24<CR>Fax: +33 1 44 27 72 80<CR><CR>http://www-asim.lip6.fr/alliance/<CR>mailto:alliance-support@asim.lip6.fr<CR>
 
 
 " == Color theme =======================================================
@@ -905,7 +917,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.316 2022/05/03 09:56:38 czo Exp $
+        " $Id: .vimrc,v 1.318 2022/05/03 13:28:20 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1013,7 +1025,7 @@ function! TemplateCzo (...)
     "        1d
     "    endif
     "
-    " run this 
+    " run this:
     " :r !cd ~/etc/vim/templates ; ./template
     " after delting this
     " ------------- SearchThisThenDelete -------------
