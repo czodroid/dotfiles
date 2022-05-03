@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 03 mai 2022, 15:27
-" Edit Time: 209:29:10
+" Last Modified: mardi 03 mai 2022, 22:12
+" Edit Time: 209:30:41
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.318 2022/05/03 13:28:20 czo Exp $
+" $Id: .vimrc,v 1.319 2022/05/03 20:13:08 czo Exp $
 
 if version >= 505
 
@@ -88,9 +88,7 @@ set undolevels=99000
 "set digraph
 set nostartofline
 set backspace=indent,eol,start
-"set whichwrap=[,]
 set whichwrap=<,>,[,]
-set guioptions=egmrL
 
 set expandtab
 set smarttab
@@ -98,6 +96,8 @@ set softtabstop=4
 set tabstop=4
 set shiftwidth=4
 set shiftround
+
+set guioptions=egmrL
 
 " Indentation gérée par les plugins plutôt que par autoindent
 if version >= 600
@@ -282,7 +282,7 @@ autocmd FileType apache    setlocal commentstring=#\ %s
 endif
 
 
-" == Abbreviations =====================================================
+" == ABbreviations =====================================================
 
 " insert the current filename:
 iab _n    <C-R>=expand("%:t:r")<cr>
@@ -917,7 +917,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.318 2022/05/03 13:28:20 czo Exp $
+        " $Id: .vimrc,v 1.319 2022/05/03 20:13:08 czo Exp $
         "
         if 1
             " modif Started: in File Created:
