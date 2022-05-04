@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 03 mai 2022, 22:12
-" Edit Time: 209:30:41
+" Last Modified: mercredi 04 mai 2022, 12:42
+" Edit Time: 209:34:53
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.319 2022/05/03 20:13:08 czo Exp $
+" $Id: .vimrc,v 1.320 2022/05/04 10:42:24 czo Exp $
 
 if version >= 505
 
@@ -28,8 +28,7 @@ else
 endif
 
 " works in gnome-shell, kde, xfce, xterm, iTerm, mintty
-" for non working term colors (eg macOS Terminal, OpenWRT)
-" just set this:
+" for non working terminal colors, just set this:
 "set notermguicolors
 "set t_Co=16
 
@@ -917,7 +916,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.319 2022/05/03 20:13:08 czo Exp $
+        " $Id: .vimrc,v 1.320 2022/05/04 10:42:24 czo Exp $
         "
         if 1
             " modif Started: in File Created:
