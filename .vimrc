@@ -6,30 +6,27 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mercredi 04 mai 2022, 12:42
-" Edit Time: 209:34:53
+" Last Modified: Wednesday 04 May 2022, 23:55
+" Edit Time: 210:11:57
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.320 2022/05/04 10:42:24 czo Exp $
+" $Id: .vimrc,v 1.323 2022/05/04 22:06:03 czo Exp $
 
 if version >= 505
 
 " == Options ===========================================================
 
-" vim8 termguicolors or 16colors to get the gruvbox64 theme
-if version >= 800
-    if has("termguicolors")
-        set termguicolors
-    endif
+" works in gnome-shell, kde, xfce, xterm, iTerm, mintty but not on apple
+" terminal which has no 24-bit colors
+if version >= 800 && has("termguicolors") && $TERM_PROGRAM !~ 'Apple_Terminal'
+    set termguicolors
 else
     set t_Co=16
 endif
 
-" works in gnome-shell, kde, xfce, xterm, iTerm, mintty
 " for non working terminal colors, just set this:
-"set notermguicolors
 "set t_Co=16
 
 " vim mode
@@ -916,7 +913,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.320 2022/05/04 10:42:24 czo Exp $
+        " $Id: .vimrc,v 1.323 2022/05/04 22:06:03 czo Exp $
         "
         if 1
             " modif Started: in File Created:
