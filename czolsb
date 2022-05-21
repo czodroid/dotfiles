@@ -4,20 +4,22 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2009
-# Last Modified: Samedi 22 janvier 2022, 12:27
-# Edit Time: 28:58:38
+# Last Modified: samedi 21 mai 2022, 17:19
+# Edit Time: 29:35:19
 # Description:
-#  czolsb > /etc/motd
-#  et mettre ce truc dans crond...
-#  faudra aussi mettre /var/www/index.html
 #
-#  sans lsb_release
-#  le vieux czolsb, lorsqu'il fallait donner à l'ESA la version bien définie
-#  centos_6.5-x86_64-czo_servup-20140410
-#  mais avec /etc/os-release
+#   /etc/czolsb > /etc/motd
 #
-# $Id: czolsb,v 1.44 2022/01/22 11:29:27 czo Exp $
+#   the older czolsb, without lsb_release but with /etc/os-release
+#   when it was necessary to give the ESA the well-defined version
+#   centos_6.5-x86_64-czo_servup-20140410
 #
+#   On Linux, copy this script to /etc
+#   and make a cron script for @reboot
+#
+#   TODO: redo in perl!
+#
+# $Id: czolsb,v 1.47 2022/05/21 15:20:21 czo Exp $
 
 export LANG=C
 export PATH=$PATH:/sbin
@@ -51,7 +53,7 @@ case "$OSN" in
       VERSION_ID=$(lsb_release -sr)
     fi
 
-    # debian 10 : plus de dot release cf /etc/debian_version
+    # debian 10 : no more dot release cf /etc/debian_version
     if [ "$ID" = "debian" ] || [ "$ID" = "Debian" ] || [ "$ID" = "Raspbian" ]; then
       if [ $(echo "$VERSION_ID" | perl -pe 's/\..*//') -ge 10 ]; then
         # echo "-> found debian >= 10"
@@ -72,7 +74,7 @@ case "$OSN" in
     ;;
 
   FreeBSD | OpenBSD | NetBSD | Darwin)
-    # peu testé
+    # poorly tested
     ID=$OSN
     VERSION_ID=$(echo "${CKNAME}" | perl -pe 's/-.*//g')
     CRELEASE="$ID $VERSION_ID"
@@ -98,7 +100,12 @@ case "$OSN" in
 esac
 
 CCOREMODEL=$(echo "${CCOREMODEL}" | perl -pe 's/\(TM\)|\(R\)//gi' | perl -pe 's/ +$//g')
-CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-$(date +%Y%m%d)" | perl -pe 's/(.*)/\L\1/')
+if [ -f /etc/lsb-czo-updatedate ]; then
+    DTAG=$(cat /etc/lsb-czo-updatedate | perl -pe 's/-//g')
+    CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-${DTAG}" | perl -pe 's/(.*)/\L\1/')
+else
+    CTAG='???'
+fi
 
 cat <<EOF
               ,,,

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 03 mai 2022, 12:41
-# Edit Time: 30:17:57
+# Last Modified: samedi 21 mai 2022, 17:21
+# Edit Time: 30:18:31
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.87 2022/05/03 10:42:25 czo Exp $
+# $Id: .cshrc,v 1.89 2022/05/21 15:22:04 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -141,7 +141,6 @@ setenv LESS          '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m]
 setenv PAGER         less
 setenv PERLDOC_PAGER 'less -R'
 setenv SYSTEMD_PAGER cat
-setenv APT_LISTCHANGES_FRONTEND cat
 
 setenv PGPPATH $HOME/.gnugp
 
@@ -416,7 +415,7 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${H
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-alias AU  'aptitude update && aptitude upgrade && aptitude clean  && echo `date +%Y%m%d` > /etc/lsb-czo-updatedate'
+alias AU  'aptitude update && aptitude upgrade && aptitude clean  && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
 alias AI  'aptitude install'
 alias AP  'aptitude purge'
 alias AS  'aptitude search'

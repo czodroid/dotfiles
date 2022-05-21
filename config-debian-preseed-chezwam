@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: mardi 03 mai 2022, 12:26
-# Edit Time: 7:24:45
+# Last Modified: samedi 21 mai 2022, 13:44
+# Edit Time: 7:29:16
 # Description:
 #
 #   debian 10 preseed update
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.15 2022/05/03 10:27:19 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.17 2022/05/21 11:46:30 czo Exp $
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -39,7 +39,7 @@ export DEBIAN_FRONTEND=noninteractive
 ##export DEBIAN_PRIORITY=critical
 
 echo $(date +%Y-%m-%d) > /etc/lsb-czo-installdate
-echo $(date +%Y%m%d) > /etc/lsb-czo-updatedate
+echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate
 
 # echo "##== apt sources/update  =============================================##"
 
@@ -124,11 +124,20 @@ service  munin-node restart
 # cron czo-email-at-reboot
 cat << 'EOF' > /etc/cron.d/czo-email-at-reboot
 # Filename: czo-email-at-reboot
-# 2011/09/10 : Modified by Olivier Sirol <czo@ipgp.fr>
+# 2011/09/10 : Modified by Olivier Sirol <czo@free.fr>
 
 @reboot      root   SUJ="[ADMIN] REBOOT `hostname` at `date`" ; ( echo $SUJ ; date ; uname -a ) | mail -s "$SUJ" root > /dev/null
 EOF
 chmod 644 /etc/cron.d/czo-email-at-reboot
+
+# cron czo-motd-czolsb
+cat << 'EOF' > /etc/cron.d/czo-motd-czolsb
+# Filename: czo-email-at-reboot
+# 2022/05/21 : Modified by Olivier Sirol <czo@free.fr>
+
+@reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
+EOF
+chmod 644 /etc/cron.d/czo-motd-czolsb
 
 echo "##== Email         ==================================================##"
 # pb postfix
