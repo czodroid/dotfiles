@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: lundi 09 mai 2022, 19:23
-# Edit Time: 8:19:40
+# Last Modified: samedi 21 mai 2022, 19:09
+# Edit Time: 8:20:32
 # Description:
 #
 #               debian 10 preseed geoscope update
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-geoscope,v 1.22 2022/05/09 17:25:12 czo Exp $
+# $Id: config-debian-preseed-geoscope,v 1.23 2022/05/21 17:21:22 czo Exp $
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -205,7 +205,7 @@ chmod 600 .ssh/config
 chmod 600 .ssh/authorized_keys
 
 echo "##== motd ===========================================================##"
-/root/czolsb > /etc/motd
+/etc/czolsb > /etc/motd
 
 echo "##== end! ===========================================================##"
 echo

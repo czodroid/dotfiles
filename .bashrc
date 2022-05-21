@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 21 mai 2022, 15:48
-# Edit Time: 106:06:45
+# Last Modified: samedi 21 mai 2022, 18:59
+# Edit Time: 106:07:41
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.423 2022/05/21 13:48:23 czo Exp $
+# $Id: .bashrc,v 1.424 2022/05/21 17:00:03 czo Exp $
 
 #set -v
 #set -x
@@ -171,7 +171,6 @@ export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes
 export PAGER=less
 export PERLDOC_PAGER='less -R'
 export SYSTEMD_PAGER=cat
-#export APT_LISTCHANGES_FRONTEND=cat 
 export APT_LISTCHANGES_FRONTEND=none
 
 export PGPPATH=$HOME/.gnupg

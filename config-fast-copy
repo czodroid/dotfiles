@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: samedi 21 mai 2022, 17:32
-# Edit Time: 5:02:35
+# Last Modified: samedi 21 mai 2022, 19:19
+# Edit Time: 5:04:00
 # Description:
 #
 #   copy my config files
@@ -18,7 +18,7 @@
 #       wget -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #       wget --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 #
-# $Id: config-fast-copy,v 1.26 2022/05/21 15:42:42 czo Exp $
+# $Id: config-fast-copy,v 1.27 2022/05/21 17:21:22 czo Exp $
 
 # you must do a "cd" before running this script
 
@@ -34,4 +34,6 @@ do
   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -o $f
 done
 
+curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/czolsb -o /etc/czolsb
+chmod 755 /etc/czolsb
 

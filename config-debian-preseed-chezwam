@@ -4,8 +4,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1999
-# Last Modified: samedi 21 mai 2022, 13:44
-# Edit Time: 7:29:16
+# Last Modified: samedi 21 mai 2022, 19:08
+# Edit Time: 7:30:15
 # Description:
 #
 #   debian 10 preseed update
@@ -28,7 +28,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.17 2022/05/21 11:46:30 czo Exp $
+# $Id: config-debian-preseed-chezwam,v 1.18 2022/05/21 17:21:22 czo Exp $
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -150,7 +150,7 @@ curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fas
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh
 
 echo "##== motd ===========================================================##"
-/root/czolsb > /etc/motd
+/etc/czolsb > /etc/motd
 
 echo "##== end! ===========================================================##"
 echo
