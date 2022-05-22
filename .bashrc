@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 21 mai 2022, 18:59
-# Edit Time: 106:07:41
+# Last Modified: dimanche 22 mai 2022, 01:39
+# Edit Time: 106:32:43
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.424 2022/05/21 17:00:03 czo Exp $
+# $Id: .bashrc,v 1.425 2022/05/21 23:42:53 czo Exp $
 
 #set -v
 #set -x
@@ -551,15 +551,18 @@ alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${H
 
 # debian, ubuntu
 alias AU='aptitude update && aptitude upgrade && aptitude clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias AUU='apt update && apt upgrade && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias AI='aptitude install'
+alias AII='apt install'
 alias AP='aptitude purge'
+alias APP='apt purge'
 alias AS='aptitude search'
-alias ASS='apt-cache search'
+alias ASS='apt search'
 alias AL='dpkg -L'
 alias AF='dpkg -S'
 
 # redhat, fedora
-alias YU='yum update && yum clean all'
+alias YU='yum update && yum clean all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias YI='yum install'
 alias YP='yum remove'
 YS() { yum list "*$1*"; }
@@ -568,16 +571,21 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # archlinux
-alias PU='pacman -Syu && pacman -Scc'
+alias PU='pacman -Syu && pacman -Scc && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
 alias PL='pacman -Ql'
 alias PF='pacman -Qo'
 
+# freebsd
+alias FU='pkg update -y && pkg upgrade -y && pkg clean -y && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+
+# brew macos
+alias BU='brew update && brew upgrade && brew cleanup'
+
 # openwrt: opkg
 # suse: zypper
-# freebsd: pkg
 # netbsd: pkgin
 
 alias sun='export TERM=sun-cmd ; echo TERM=$TERM'

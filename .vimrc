@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: Wednesday 04 May 2022, 23:55
-" Edit Time: 210:11:57
+" Last Modified: dimanche 22 mai 2022, 20:14
+" Edit Time: 210:12:11
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.323 2022/05/04 22:06:03 czo Exp $
+" $Id: .vimrc,v 1.324 2022/05/22 18:15:22 czo Exp $
 
 if version >= 505
 
@@ -23,6 +23,9 @@ if version >= 505
 if version >= 800 && has("termguicolors") && $TERM_PROGRAM !~ 'Apple_Terminal'
     set termguicolors
 else
+    if has('nvim') && has("termguicolors")
+        set termguicolors
+    endif
     set t_Co=16
 endif
 
@@ -913,7 +916,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.323 2022/05/04 22:06:03 czo Exp $
+        " $Id: .vimrc,v 1.324 2022/05/22 18:15:22 czo Exp $
         "
         if 1
             " modif Started: in File Created:

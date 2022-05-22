@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 21 mai 2022, 17:21
-# Edit Time: 133:46:54
+# Last Modified: dimanche 22 mai 2022, 01:40
+# Edit Time: 133:47:51
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.396 2022/05/21 15:22:04 czo Exp $
+# $Id: .zshrc,v 1.397 2022/05/21 23:42:53 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -675,15 +675,18 @@ alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${H
 
 # debian, ubuntu
 alias AU='aptitude update && aptitude upgrade && aptitude clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias AUU='apt update && apt upgrade && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias AI='aptitude install'
+alias AII='apt install'
 alias AP='aptitude purge'
+alias APP='apt purge'
 alias AS='aptitude search'
-alias ASS='apt-cache search'
+alias ASS='apt search'
 alias AL='dpkg -L'
 alias AF='dpkg -S'
 
 # redhat, fedora
-alias YU='yum update && yum clean all'
+alias YU='yum update && yum clean all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias YI='yum install'
 alias YP='yum remove'
 YS() { yum list "*$1*"; }
@@ -692,16 +695,21 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # archlinux
-alias PU='pacman -Syu && pacman -Scc'
+alias PU='pacman -Syu && pacman -Scc && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias PI='pacman -S'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
 alias PL='pacman -Ql'
 alias PF='pacman -Qo'
 
+# freebsd
+alias FU='pkg update -y && pkg upgrade -y && pkg clean -y && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+
+# brew macos
+alias BU='brew update && brew upgrade && brew cleanup'
+
 # openwrt: opkg
 # suse: zypper
-# freebsd: pkg
 # netbsd: pkgin
 
 alias sun='export TERM=sun-cmd ; echo TERM=$TERM'
