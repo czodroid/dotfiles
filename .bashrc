@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 22 mai 2022, 01:39
-# Edit Time: 106:32:43
+# Last Modified: vendredi 10 juin 2022, 17:20
+# Edit Time: 108:59:05
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.425 2022/05/21 23:42:53 czo Exp $
+# $Id: .bashrc,v 1.428 2022/06/10 15:24:51 czo Exp $
 
 #set -v
 #set -x
@@ -35,24 +35,21 @@ if [ -n "$BASH_VERSION" ]; then
     # olivier, repasse a zsh ...
     export HISTFILESIZE=55000
     export HISTSIZE=44000
-    export HISTCONTROL=ignoreboth:erasedups
+    export HISTCONTROL=erasedups
+    #export HISTTIMEFORMAT='%F %T '
+
+    # avoid overwriting history
+    #shopt -s histappend
+    shopt -u autocd
+    shopt -s checkwinsize
+    shopt -u dotglob
+    shopt -s globstar
 fi
 
 export TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 
 #BASHMISSING : REPORTTIME, complete alias, equal =foo
 # removed zsh preexec implementation of REPORTTIME, see rev 1.32
-#avoid overwriting history
-#shopt -s histappend
-#export HISTTIMEFORMAT='%F %T '
-#BASHBUG history remove duplicates
-
-if [ -n "$BASH_VERSION" ]; then
-    shopt -u autocd
-    shopt -s checkwinsize
-    shopt -u dotglob
-    shopt -s globstar
-fi
 
 ##======= Platform ===================================================##
 
@@ -114,8 +111,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/loca
 #export PATH="$HOME/perl5/bin:$PATH";
 
 ## config android
-if [ -d $HOME/Android/android-studio/bin ]
-then
+if [ -d $HOME/Android/android-studio/bin ]; then
     # export PATH=$HOME/Android/Sdk/tools:${PATH}
     # export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
     # export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
@@ -123,14 +119,12 @@ then
 fi
 
 ## config openwrt
-if [ -d /rom/bin ]
-then
+if [ -d /rom/bin ]; then
     export PATH=${PATH}:/rom/bin
 fi
 
 ## config termux for android
-if [ -d /system/bin ]
-then
+if [ -d /system/bin ]; then
     export TMPDIR=/data/local/tmp
     export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
@@ -301,8 +295,8 @@ alias t='type -a'
 alias a='type -a'
 alias eq='type -P'
 
-[ -f "$HOME/.bashrc.czo" ] && export MYBASHRC="$HOME/.bashrc.czo" || export MYBASHRC="$HOME/.bashrc" 
-alias st="source $MYBASHRC"
+alias st="source $HOME/.bashrc"
+[ -f "$HOME/.bashrc.czo" ] && alias st="source $HOME/.bashrc.czo"
 alias hi='fc -l -9111000'
 alias h='fc -l -9111000 | grep'
 
@@ -310,7 +304,7 @@ alias history_load='history -r'
 alias history_save='history -w'
 alias history_clear='history -c'
 alias history_clear_all_log='echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c'
-#to run sometimes, BUG no dup history
+#BASHBUG history remove duplicates
 alias history_bash_bug='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
 
 # csh compatibility env set
@@ -400,17 +394,29 @@ alias rm._='find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -
 [ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 [ -x "$(command -v less)" ] || alias more=less
 
-[ -f "$HOME/.vimrc.czo" ] && export MYVIMRC="$HOME/.vimrc.czo" || export MYVIMRC="$HOME/.vimrc" 
-[ -x "$(command -v nvim)" ] && alias vim="\nvim -u $MYVIMRC"
-[ -x "$(command -v vim)"  ] && alias vim="\vim  -u $MYVIMRC"
-[ -x "$(command -v vimx)" ] && alias vim="\vimx -u $MYVIMRC"
-alias nvim="\nvim -u $MYVIMRC"
+if [ -f "$HOME/.vimrc.czo" ]; then
+    export MYVIMRC="-u $HOME/.vimrc.czo"
+elif [ -f "$HOME/.vimrc" ]; then
+    export MYVIMRC="-u $HOME/.vimrc"
+else
+    export MYVIMRC=""
+fi
+[ -x "$(command -v nvim)" ] && alias vim="\nvim $MYVIMRC"
+[ -x "$(command -v vim)"  ] && alias vim="\vim  $MYVIMRC"
+[ -x "$(command -v vimx)" ] && alias vim="\vimx $MYVIMRC"
+alias nvim="\nvim $MYVIMRC"
 alias ne='\emacs -nw'
 
-[ -f "$HOME/.tmux.conf.czo" ] && export MYTMUXRC="$HOME/.tmux.conf.czo" || export MYTMUXRC="$HOME/.tmux.conf" 
-alias tmux="\tmux -f $MYTMUXRC"
-alias tmuxa='tmux attach -d || tmux new'
-alias aa='tmux attach -d || tmux new'
+if [ -f "$HOME/.tmux.conf.czo" ]; then
+    export MYTMUXRC="-f $HOME/.tmux.conf.czo"
+elif [ -f "$HOME/.tmux.conf" ]; then
+    export MYTMUXRC="-f $HOME/.tmux.conf"
+else
+    export MYTMUXRC=""
+fi
+alias tmux="\tmux $MYTMUXRC"
+alias tmuxa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
+alias aa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
 
 alias screena='screen -d -R'
 alias mc='\mc -b -u'
@@ -430,16 +436,14 @@ alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
 #alias tara='tar -czf'
 tara() {
-    if [ $# -ne 1 ]
-    then
+    if [ $# -ne 1 ]; then
         echo "tara, create a TAR file compressed"
         echo "Error: need a directory..."
     else
         DIR=$1
         TAR=${DIR%/*}
         TAR=${TAR#*/}.tgz
-        if [ ! -e "$TAR" ]
-        then
+        if [ ! -e "$TAR" ]; then
             tar -czf ${TAR} ${DIR}
         else
             echo "$TAR exist's, please correct it..."
@@ -449,18 +453,15 @@ tara() {
 
 #alias tarx='tar -xf'
 tarx() {
-    if [ $# -ne 1 ]
-    then
+    if [ $# -ne 1 ]; then
         echo "tarx, extract a TAR file into exdir"
         echo "Error: need a tar file..."
     else
         TAR=$1
         DIR=${TAR##*/}
         DIR=${DIR%.*}
-        if [ -f "$TAR" ]
-        then
-            if [ ! -e "$DIR" ]
-            then
+        if [ -f "$TAR" ]; then
+            if [ ! -e "$DIR" ]; then
                 mkdir -p "$DIR"
                 tar -C "$DIR" -xf "$TAR"
             else
@@ -475,18 +476,15 @@ tarx() {
 #alias tarxiso='cmake -E tar xf'
 #alias tarxiso='bsdtar -xf'
 tarxiso() {
-    if [ $# -ne 1 ]
-    then
+    if [ $# -ne 1 ]; then
         echo "tarxiso, extract an ISO file into exdir"
         echo "Error: need an iso file..."
     else
         ISO=$1
         DIR=${ISO##*/}
         DIR=${DIR%.*}
-        if [ -f "$ISO" ]
-        then
-            if [ ! -e "$DIR" ]
-            then
+        if [ -f "$ISO" ]; then
+            if [ ! -e "$DIR" ]; then
                 mkdir -p "$DIR"
                 bsdtar -C "$DIR" -xf "$ISO"
             else
@@ -675,8 +673,7 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # busybox has no cksum on openWRT!
-if [ -x "$(command -v cksum)" ]
-then
+if [ -x "$(command -v cksum)" ]; then
     # hash for colors
     USER_PROMPT_COLOR=$( printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
     HOST_PROMPT_COLOR=$( printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
