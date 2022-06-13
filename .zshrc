@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: vendredi 10 juin 2022, 17:23
-# Edit Time: 133:48:03
+# Last Modified: vendredi 10 juin 2022, 20:01
+# Edit Time: 133:54:33
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.398 2022/06/10 15:24:51 czo Exp $
+# $Id: .zshrc,v 1.399 2022/06/10 18:02:17 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -328,8 +328,8 @@ bindkey "\em"      copy-prev-shell-word
 # https://stackoverflow.com/questions/5407916/zsh-zle-shift-selection/12193631
 
 r-delregion() {
-  if ((REGION_ACTIVE)) then
-     zle kill-region
+  if ((REGION_ACTIVE)); then
+    zle kill-region
   else
     local widget_name=$1
     shift
@@ -445,9 +445,9 @@ case $PLATFORM in
         alias grep='\grep --color'
         alias pgrep='\pgrep -af'
         
-        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then 
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
-        elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1 ; then 
+        elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then 
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi
 
@@ -802,7 +802,7 @@ preexec() {
 #     return 1
 # }
 
-if [[ -x /usr/lib/command-not-found ]] ; then
+if [[ -x /usr/lib/command-not-found ]]; then
     command_not_found_handler() {
         [[ -x /usr/lib/command-not-found ]] || return 1
         /usr/lib/command-not-found -- ${1+"$1"} && :

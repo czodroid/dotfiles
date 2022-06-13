@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 22 mai 2022, 20:14
-" Edit Time: 210:12:11
+" Last Modified: lundi 13 juin 2022, 22:09
+" Edit Time: 210:19:46
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.324 2022/05/22 18:15:22 czo Exp $
+" $Id: .vimrc,v 1.325 2022/06/13 20:22:19 czo Exp $
 
 if version >= 505
 
@@ -88,6 +88,8 @@ set undolevels=99000
 set nostartofline
 set backspace=indent,eol,start
 set whichwrap=<,>,[,]
+
+set display=lastline,truncate,uhex
 
 set expandtab
 set smarttab
@@ -916,7 +918,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.324 2022/05/22 18:15:22 czo Exp $
+        " $Id: .vimrc,v 1.325 2022/06/13 20:22:19 czo Exp $
         "
         if 1
             " modif Started: in File Created:
