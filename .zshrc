@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.399 2022/06/10 18:02:17 czo Exp $
+# $Id: .zshrc,v 1.400 2022/06/13 23:30:09 czo Exp $
 
 # zmodload zsh/zprof
 

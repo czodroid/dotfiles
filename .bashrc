@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.429 2022/06/10 18:04:47 czo Exp $
+# $Id: .bashrc,v 1.430 2022/06/13 23:30:09 czo Exp $
 
 #set -v
 #set -x

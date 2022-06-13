@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: lundi 13 juin 2022, 22:09
-" Edit Time: 210:19:46
+" Last Modified: mardi 14 juin 2022, 01:33
+" Edit Time: 211:16:02
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.325 2022/06/13 20:22:19 czo Exp $
+" $Id: .vimrc,v 1.327 2022/06/13 23:34:15 czo Exp $
 
 if version >= 505
 
@@ -89,7 +89,6 @@ set nostartofline
 set backspace=indent,eol,start
 set whichwrap=<,>,[,]
 
-set display=lastline,truncate,uhex
 
 set expandtab
 set smarttab
@@ -100,8 +99,8 @@ set shiftround
 
 set guioptions=egmrL
 
-" Indentation gérée par les plugins plutôt que par autoindent
 if version >= 600
+    set display=lastline,uhex
     set noautoindent
     filetype plugin on
     filetype indent on
@@ -482,27 +481,28 @@ map  <F9> :syn include syntax/css/vim-coloresque.vim<CR>
 map  <F10> :q<CR>
 imap <F10> <C-O>:q<CR>
 
-map  <leader>x :so ~/.vimrc<CR>
-imap <leader>x <C-O>:so ~/.vimrc<CR>
+if version >= 600
+    map  <leader>x :so ~/.vimrc<CR>
+    imap <leader>x <C-O>:so ~/.vimrc<CR>
 
-map  <leader>w :so %<CR>
-imap <leader>w <C-O>:so %<CR>
+    map  <leader>w :so %<CR>
+    imap <leader>w <C-O>:so %<CR>
 
-nmap <leader>hh :set hls!<CR>
-imap <leader>hh <C-O>:set hls!<CR>
+    nmap <leader>hh :set hls!<CR>
+    imap <leader>hh <C-O>:set hls!<CR>
 
-nmap <leader>uu :!perl -pe 's/(\w+)/\u$1/g'<CR>
-imap <leader>uu <C-O>:!perl -pe 's/(\w+)/\u$1/g'<CR>
+    nmap <leader>uu :!perl -pe 's/(\w+)/\u$1/g'<CR>
+    imap <leader>uu <C-O>:!perl -pe 's/(\w+)/\u$1/g'<CR>
 
-map <leader>h2 yiw:let @/="<C-R>""<CR>:set hls<cr>map ,hh yiw:let @/="<C-R>""<CR>:set hls<cr>
-map <leader>h1 yiw:let @/="\\<<C-R>"\\>"<CR>:set hls<CR>
+    map <leader>h2 yiw:let @/="<C-R>""<CR>:set hls<cr>map ,hh yiw:let @/="<C-R>""<CR>:set hls<cr>
+    map <leader>h1 yiw:let @/="\\<<C-R>"\\>"<CR>:set hls<CR>
 
-" decode/encode rot13 text
-vmap <leader>13 :!tr A-Za-z N-ZA-Mn-za-m
+    " decode/encode rot13 text
+    vmap <leader>13 :!tr A-Za-z N-ZA-Mn-za-m
 
-" remove "control-m"s - for those mails sent from DOS:
-cmap <leader>rcm %s/<C-M>//g
-
+    " remove "control-m"s - for those mails sent from DOS:
+    cmap <leader>rcm %s/<C-M>//g
+endif
 
 " == Color theme =======================================================
 
@@ -517,7 +517,9 @@ endif
 
 if (has("syntax"))
   set background=dark
-  hi clear
+  if version >= 600
+    hi clear
+  endif
   if exists("syntax_on")
     syntax reset
   endif
@@ -550,10 +552,10 @@ if (has("syntax"))
 "  0   Black            0     Black           #282828     #282828 -
 "  4   DarkBlue         1     DarkRed         #cc241d     #cc241d
 "  2   DarkGreen        2     DarkGreen       #98971a     #98971a
-"  6   DarkCyan         3     DarkYellow      #d79921 --> #fe8019 -
+"  6   DarkCyan         3     Brown           #d79921 --> #fe8019 -
 "  1   DarkRed          4     DarkBlue        #458588     #458588
 "  5   DarkMagenta      5     DarkMagenta     #b16286     #b16286
-"  3   DarkYellow       6     DarkCyan        #689d6a     #689d6a
+"  3   Brown            6     DarkCyan        #689d6a     #689d6a
 "  7   Gray             7     Gray            #a89984 --> #c9b788
 "  0*  DarkGray         8     DarkGray      - #928374 --> #4a4239
 "  4*  Blue             9     Red             #fb4934     #fb4934 -
@@ -575,12 +577,12 @@ hi Boolean       guifg=#d3869b guibg=NONE    gui=NONE      ctermfg=Magenta    ct
 hi Float         guifg=#d3869b guibg=NONE    gui=NONE      ctermfg=Magenta    ctermbg=NONE     cterm=NONE      term=NONE
 hi Identifier    guifg=#83a598 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
 hi Function      guifg=#b8bb26 guibg=NONE    gui=NONE      ctermfg=Green      ctermbg=NONE     cterm=NONE      term=NONE
-hi Statement     guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=DarkYellow ctermbg=NONE     cterm=NONE      term=NONE
+hi Statement     guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=Brown      ctermbg=NONE     cterm=NONE      term=NONE
 hi Conditional   guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi Repeat        guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi Label         guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi Operator      guifg=#fbf1c7 guibg=NONE    gui=NONE      ctermfg=White      ctermbg=NONE     cterm=NONE      term=NONE
-hi Keyword       guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=DarkYellow ctermbg=NONE     cterm=NONE      term=NONE
+hi Keyword       guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=Brown      ctermbg=NONE     cterm=NONE      term=NONE
 hi Exception     guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi PreProc       guifg=#8ec07c guibg=NONE    gui=NONE      ctermfg=Cyan       ctermbg=NONE     cterm=NONE      term=NONE
 hi Include       guifg=#8ec07c guibg=NONE    gui=NONE      ctermfg=Cyan       ctermbg=NONE     cterm=NONE      term=NONE
@@ -588,7 +590,7 @@ hi Define        guifg=#8ec07c guibg=NONE    gui=NONE      ctermfg=Cyan       ct
 hi Macro         guifg=#8ec07c guibg=NONE    gui=NONE      ctermfg=Cyan       ctermbg=NONE     cterm=NONE      term=NONE
 hi PreCondit     guifg=#8ec07c guibg=NONE    gui=NONE      ctermfg=Cyan       ctermbg=NONE     cterm=NONE      term=NONE
 hi Type          guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ctermbg=NONE     cterm=NONE      term=NONE
-hi StorageClass  guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=DarkYellow ctermbg=NONE     cterm=NONE      term=NONE
+hi StorageClass  guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=Brown      ctermbg=NONE     cterm=NONE      term=NONE
 hi Structure     guifg=#8ec07c guibg=NONE    gui=NONE      ctermfg=Cyan       ctermbg=NONE     cterm=NONE      term=NONE
 hi Typedef       guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi Special       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ctermbg=NONE     cterm=NONE      term=NONE
@@ -610,7 +612,7 @@ hi Title         guifg=#a89984 guibg=NONE    gui=NONE      ctermfg=Gray       ct
 hi ErrorMsg      guifg=#282828 guibg=#fb4934 gui=NONE      ctermfg=Black      ctermbg=Red      cterm=NONE      term=NONE
 hi MoreMsg       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ctermbg=NONE     cterm=NONE      term=NONE
 hi ModeMsg       guifg=#928374 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
-hi Question      guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=DarkYellow ctermbg=NONE     cterm=NONE      term=NONE
+hi Question      guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=Brown      ctermbg=NONE     cterm=NONE      term=NONE
 hi WarningMsg    guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 hi LineNr        guifg=#504945 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
 hi CursorLineNr  guifg=#928374 guibg=#32302f gui=NONE      ctermfg=DarkGray   ctermbg=Black    cterm=NONE      term=NONE
@@ -645,15 +647,15 @@ hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ct
 endif
 
 
-hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue       cterm=inverse term=inverse
-hi User2         guifg=#35302b guibg=#fabd2f gui=inverse   ctermfg=DarkGray   ctermbg=Yellow     cterm=inverse term=inverse
-hi User3         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue       cterm=inverse term=inverse
-hi User4         guifg=#35302b guibg=#b8bb26 gui=inverse   ctermfg=DarkGray   ctermbg=Green      cterm=inverse term=inverse
-hi User5         guifg=#35302b guibg=#fbf1c7 gui=inverse   ctermfg=DarkGray   ctermbg=White      cterm=inverse term=inverse
-hi User6         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=DarkYellow cterm=inverse term=inverse
-hi User7         guifg=#35302b guibg=#928374 gui=inverse   ctermfg=DarkGray   ctermbg=Gray       cterm=inverse term=inverse
-hi User8         guifg=#35302b guibg=#8ec07c gui=inverse   ctermfg=DarkGray   ctermbg=Cyan       cterm=inverse term=inverse
-hi User9         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=DarkYellow cterm=inverse term=inverse
+hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
+hi User2         guifg=#35302b guibg=#fabd2f gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
+hi User3         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
+hi User4         guifg=#35302b guibg=#b8bb26 gui=inverse   ctermfg=DarkGray   ctermbg=Green    cterm=inverse   term=inverse
+hi User5         guifg=#35302b guibg=#fbf1c7 gui=inverse   ctermfg=DarkGray   ctermbg=White    cterm=inverse   term=inverse
+hi User6         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=Brown    cterm=inverse   term=inverse
+hi User7         guifg=#35302b guibg=#928374 gui=inverse   ctermfg=DarkGray   ctermbg=Gray     cterm=inverse   term=inverse
+hi User8         guifg=#35302b guibg=#8ec07c gui=inverse   ctermfg=DarkGray   ctermbg=Cyan     cterm=inverse   term=inverse
+hi User9         guifg=#35302b guibg=#fe8019 gui=inverse   ctermfg=DarkGray   ctermbg=Brown    cterm=inverse   term=inverse
 
 hi StatusLine       guifg=#35302b guibg=#fbf1c7 gui=inverse        ctermfg=DarkGray ctermbg=White cterm=inverse        term=inverse
 hi StatusLineTerm   guifg=#35302b guibg=#fbf1c7 gui=inverse        ctermfg=DarkGray ctermbg=White cterm=inverse        term=inverse
@@ -918,7 +920,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.325 2022/06/13 20:22:19 czo Exp $
+        " $Id: .vimrc,v 1.327 2022/06/13 23:34:15 czo Exp $
         "
         if 1
             " modif Started: in File Created:
