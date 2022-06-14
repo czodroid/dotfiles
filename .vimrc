@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 14 juin 2022, 01:33
-" Edit Time: 211:16:02
+" Last Modified: mardi 14 juin 2022, 15:45
+" Edit Time: 211:23:38
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.327 2022/06/13 23:34:15 czo Exp $
+" $Id: .vimrc,v 1.329 2022/06/14 13:45:43 czo Exp $
 
 if version >= 505
 
@@ -190,10 +190,11 @@ set tags=./tags,tags,/users/soft5/newlabo/cvstree/alliance/sources/tags
 set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tags
 
 
+
 " == Statusline ========================================================
 
-
 if version >= 600
+    " .vimrc                   220/9 117:0x75 utf-8/unix [vim]  9%(2003)
     set statusline=
     "set statusline+=%1*\ [%n]\                           " buffer number
     set statusline+=%1*\                                 " NO buffer number
@@ -210,9 +211,11 @@ if version >= 600
     set statusline+=%8*\ %P(%L)                          " Top/bot.% / NumOfLine
     set statusline+=\                                    " Blank last char
 else
-    " .vimrc                      218/50 66:0x42 11%(1888)
+    " .vimrc                                    218/50 66:0x42 11%(1888)
     let &statusline=" %<%f %m %r %= %l/%c %b:0x%2B %P(%L) "
 endif
+
+
 
 " == GUI Mode ==========================================================
 
@@ -635,7 +638,6 @@ hi DiffChange    guifg=NONE    guibg=#4F2E2A gui=NONE      ctermfg=NONE       ct
 hi DiffDelete    guifg=#753730 guibg=#4F2E2A gui=NONE      ctermfg=Black      ctermbg=DarkGray cterm=NONE      term=NONE
 hi DiffText      guifg=NONE    guibg=#753730 gui=NONE      ctermfg=NONE       ctermbg=DarkBlue cterm=NONE      term=NONE
 
-
 hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
@@ -645,7 +647,6 @@ hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ct
 hi Search        guifg=#503825 guibg=#3c3836 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
 hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endif
-
 
 hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
 hi User2         guifg=#35302b guibg=#fabd2f gui=inverse   ctermfg=DarkGray   ctermbg=Yellow   cterm=inverse   term=inverse
@@ -920,7 +921,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.327 2022/06/13 23:34:15 czo Exp $
+        " $Id: .vimrc,v 1.329 2022/06/14 13:45:43 czo Exp $
         "
         if 1
             " modif Started: in File Created:
