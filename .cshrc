@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: samedi 21 mai 2022, 17:21
-# Edit Time: 30:18:31
+# Last Modified: jeudi 16 juin 2022, 18:30
+# Edit Time: 30:27:44
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.89 2022/05/21 15:22:04 czo Exp $
+# $Id: .cshrc,v 1.92 2022/06/16 16:35:48 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -271,41 +271,48 @@ switch ($PLATFORM)
         alias cp    '\cp -i'
         alias mv    '\mv -i'
         alias grep  '\grep --color'
-        alias pgrep '\pgrep -af'
         alias ps    '\ps -eaf'
+        alias pg    '\pgrep -fia'
+        alias pk    '\pkill -fie'
         alias ls    '\ls --time-style=long-iso --color=auto -a'
         breaksw
 
     case FreeBSD:
-        alias grep '\grep --color'
-        alias ps   '\ps -Awww'
-        alias ls   '\ls -G -a'
+        alias grep  '\grep --color'
+        alias ps    '\ps -Awww'
+        alias pg    '\pgrep -fil'
+        alias pk    '\pkill -fil'
+        alias ls    '\ls -G -a'
         breaksw
 
     case NetBSD | OpenBSD:
-        alias ps '\ps -Awww'
-        alias ls '\ls -a'
+        alias ps    '\ps -Awww'
+        alias ls    '\ls -a'
         breaksw
 
     case Darwin:
         setenv DISPLAY :0
-        alias grep '\grep --color'
-        alias ps   '\ps -Awww'
-        alias ls   '\ls -G -a'
+        alias grep  '\grep --color'
+        alias ps    '\ps -Awww'
+        alias pg    '\pgrep -fil'
+        alias pk    '\pkill -fil'
+        alias ls    '\ls -G -a'
         breaksw
 
     case SunOS | Solaris:
-        alias ps '\ps -ef'
-        alias ls '\ls -a'
+        alias ps    '\ps -ef'
+        alias ls    '\ls -a'
         breaksw
 
     case Cygwin:
         setenv DISPLAY localhost:0
-        alias cp   '\cp -i'
-        alias mv   '\mv -i'
-        alias grep '\grep --color'
-        alias ps   '\ps -aflW'
-        alias ls   '\ls --time-style=long-iso --color=auto -a'
+        alias cp    '\cp -i'
+        alias mv    '\mv -i'
+        alias grep  '\grep --color'
+        alias ps    '\ps -aflW'
+        alias pg    '\pgrep -fia'
+        alias pk    '\pkill -fie'
+        alias ls    '\ls --time-style=long-iso --color=auto -a'
         breaksw
 endsw
 

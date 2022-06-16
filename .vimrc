@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: mardi 14 juin 2022, 15:45
-" Edit Time: 211:23:38
+" Last Modified: jeudi 16 juin 2022, 19:01
+" Edit Time: 211:35:25
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.329 2022/06/14 13:45:43 czo Exp $
+" $Id: .vimrc,v 1.330 2022/06/16 17:05:58 czo Exp $
 
 if version >= 505
 
@@ -521,10 +521,10 @@ endif
 if (has("syntax"))
   set background=dark
   if version >= 600
-    hi clear
-  endif
-  if exists("syntax_on")
-    syntax reset
+      hi clear
+      if exists("syntax_on")
+          syntax reset
+      endif
   endif
 
   " 2021/10/03 : macvim
@@ -921,7 +921,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.329 2022/06/14 13:45:43 czo Exp $
+        " $Id: .vimrc,v 1.330 2022/06/16 17:05:58 czo Exp $
         "
         if 1
             " modif Started: in File Created:

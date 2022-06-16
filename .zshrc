@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: lundi 13 juin 2022, 22:26
-# Edit Time: 133:54:54
+# Last Modified: jeudi 16 juin 2022, 18:33
+# Edit Time: 133:59:22
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.400 2022/06/13 23:30:09 czo Exp $
+# $Id: .zshrc,v 1.404 2022/06/16 16:35:48 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -443,14 +443,13 @@ case $PLATFORM in
         alias cp='\cp -i'
         alias mv='\mv -i'
         alias grep='\grep --color'
-        alias pgrep='\pgrep -af'
-
+        alias pg='\pgrep -fia'
+        alias pk='\pkill -fie'
         if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi
-
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'
         { \ls -l --time-style=long-iso >/dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color=auto -a'
         ;;
@@ -458,6 +457,8 @@ case $PLATFORM in
     FreeBSD)
         alias grep='\grep --color'
         alias ps='\ps -Awww'
+        alias pg='\pgrep -fil'
+        alias pk='\pkill -fil'
         { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
@@ -473,6 +474,8 @@ case $PLATFORM in
         export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
         alias grep='\grep --color'
         alias ps='\ps -Awww'
+        alias pg='\pgrep -fil'
+        alias pk='\pkill -fil'
         { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
@@ -487,6 +490,8 @@ case $PLATFORM in
         alias mv='\mv -i'
         alias grep='\grep --color'
         alias ps='\ps -aflW'
+        alias pg='\pgrep -fia'
+        alias pk='\pkill -fie'
         alias ls='\ls --time-style=long-iso --color=auto -a'
         ;;
 
