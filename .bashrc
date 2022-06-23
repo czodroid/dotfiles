@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: jeudi 16 juin 2022, 18:28
-# Edit Time: 109:15:58
+# Last Modified: mercredi 22 juin 2022, 10:37
+# Edit Time: 111:19:21
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.435 2022/06/16 16:35:48 czo Exp $
+# $Id: .bashrc,v 1.438 2022/06/22 08:47:32 czo Exp $
 
 #set -v
 #set -x
@@ -98,7 +98,7 @@ export PLATFORM
 
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
-#FIXME: typeset -U for bash
+#FIXME: zsh typeset -U
 export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
 
 # /usr/lib:
@@ -420,7 +420,7 @@ else
     export MYTMUXRC=""
 fi
 alias tmux="\tmux $MYTMUXRC"
-alias tmuxa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
+alias tmuxa="\tmux $MYTMUXRC attach -t 0"
 alias aa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
 
 alias screena='screen -d -R'

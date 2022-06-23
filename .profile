@@ -1,4 +1,3 @@
-#!/bin/sh
 #             ,,,
 #            (o o)
 ####=====oOO--(_)--OOO==============================================####
@@ -7,14 +6,14 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: jeudi 10 mars 2022, 17:13
-# Edit Time: 1:05:06
+# Last Modified: mercredi 22 juin 2022, 13:44
+# Edit Time: 1:07:32
 # Description:
 #    ~/.profile: executed by the command interpreter for login shells.
 #    This file is not read by bash if ~/.bash_profile or ~/.bash_login
 #    exists.
 #
-# $Id: .profile,v 1.25 2022/03/10 16:13:46 czo Exp $
+# $Id: .profile,v 1.28 2022/06/22 11:45:06 czo Exp $
 
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
@@ -51,5 +50,10 @@ if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
         . "$HOME/.bashrc"
     fi
+fi
+
+# set PATH so it includes user's private bin if it exists (bad habit from GEOSCOPE)
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
 fi
 

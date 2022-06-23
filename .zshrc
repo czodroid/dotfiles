@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 16 juin 2022, 18:33
-# Edit Time: 133:59:22
+# Last Modified: mercredi 22 juin 2022, 10:37
+# Edit Time: 134:02:52
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.404 2022/06/16 16:35:48 czo Exp $
+# $Id: .zshrc,v 1.407 2022/06/22 08:47:33 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -118,7 +118,7 @@ export PLATFORM
 
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
-#FIXME: typeset -U for bash
+#FIXME: zsh typeset -U
 export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
 
 # /usr/lib:
@@ -546,7 +546,7 @@ else
     export MYTMUXRC=""
 fi
 alias tmux="\tmux $MYTMUXRC"
-alias tmuxa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
+alias tmuxa="\tmux $MYTMUXRC attach -t 0"
 alias aa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
 
 alias screena='screen -d -R'
