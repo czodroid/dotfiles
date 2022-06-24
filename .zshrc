@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mercredi 22 juin 2022, 10:37
-# Edit Time: 134:02:52
+# Last Modified: vendredi 24 juin 2022, 16:43
+# Edit Time: 134:03:02
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.407 2022/06/22 08:47:33 czo Exp $
+# $Id: .zshrc,v 1.408 2022/06/24 14:43:19 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -744,6 +744,7 @@ alias RemeberThis_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_ba
 alias RemeberThis_macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
 alias RemeberThis_utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
 alias RemeberThis_whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
+alias RemeberThis_favicon_png2ico='convert -background transparent favicon.png -define icon:auto-resize=16,24,32,48,64,72,96,128 favicon.ico'
 alias RemeberThis_show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias RemeberThis_show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
 alias RemeberThis_mac_czo='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/"'
