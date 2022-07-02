@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: vendredi 24 juin 2022, 16:43
-# Edit Time: 134:03:02
+# Last Modified: samedi 02 juillet 2022, 19:31
+# Edit Time: 134:38:04
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.408 2022/06/24 14:43:19 czo Exp $
+# $Id: .zshrc,v 1.411 2022/07/02 17:31:53 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -123,12 +123,16 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/loca
 
 # /usr/lib:
 
-## config cpan perl libs not in distro
-#export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
-#export PERL_MB_OPT="--install_base $HOME/perl5";
-#export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
-#export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-gnu-thread-multi-64int:$HOME/perl5/lib/perl5";
-#export PATH="$HOME/perl5/bin:$PATH";
+## config cpanm perl libs not in distro
+#export PERL_LOCAL_LIB_ROOT="$HOME/.local/perl";
+#export PERL_MB_OPT="--install_base $HOME/.local/perl";
+#export PERL_MM_OPT="INSTALL_BASE=$HOME/.local/perl";
+#export PERL5LIB="$HOME/.local/perl/lib/perl5";
+#export PATH="$HOME/.local/perl/bin:$PATH";
+
+## config pip3 python libs not in distro
+#export PYTHONUSERBASE="$HOME/.local/python"
+#export PATH="$HOME/.local/python/bin:$PATH";
 
 ## config android
 if [ -d $HOME/Android/android-studio/bin ]; then
@@ -841,3 +845,4 @@ export -U PATH
 
 # zprof
 # EOF
+

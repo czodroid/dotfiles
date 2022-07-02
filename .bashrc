@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: vendredi 24 juin 2022, 15:52
-# Edit Time: 111:22:41
+# Last Modified: samedi 02 juillet 2022, 19:31
+# Edit Time: 111:35:00
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.439 2022/06/24 14:43:19 czo Exp $
+# $Id: .bashrc,v 1.442 2022/07/02 17:31:53 czo Exp $
 
 #set -v
 #set -x
@@ -103,12 +103,16 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/loca
 
 # /usr/lib:
 
-## config cpan perl libs not in distro
-#export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
-#export PERL_MB_OPT="--install_base $HOME/perl5";
-#export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
-#export PERL5LIB="$HOME/perl5/lib/perl5/i686-linux-gnu-thread-multi-64int:$HOME/perl5/lib/perl5";
-#export PATH="$HOME/perl5/bin:$PATH";
+## config cpanm perl libs not in distro
+#export PERL_LOCAL_LIB_ROOT="$HOME/.local/perl";
+#export PERL_MB_OPT="--install_base $HOME/.local/perl";
+#export PERL_MM_OPT="INSTALL_BASE=$HOME/.local/perl";
+#export PERL5LIB="$HOME/.local/perl/lib/perl5";
+#export PATH="$HOME/.local/perl/bin:$PATH";
+
+## config pip3 python libs not in distro
+#export PYTHONUSERBASE="$HOME/.local/python"
+#export PATH="$HOME/.local/python/bin:$PATH";
 
 ## config android
 if [ -d $HOME/Android/android-studio/bin ]; then
@@ -715,3 +719,4 @@ umask 022
 export PATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
 
 # EOF
+
