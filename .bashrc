@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: samedi 02 juillet 2022, 19:31
-# Edit Time: 111:35:00
+# Last Modified: dimanche 10 juillet 2022, 14:00
+# Edit Time: 111:35:50
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.442 2022/07/02 17:31:53 czo Exp $
+# $Id: .bashrc,v 1.443 2022/07/10 12:01:34 czo Exp $
 
 #set -v
 #set -x
@@ -549,6 +549,7 @@ alias gtu='git pull'
 alias gtd='git diff'
 alias gtc='git commit -a -mupdate ; git push'
 alias gts='git status'
+alias gta='git add .'
 alias gtf='git fetch; git diff master origin/master'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"

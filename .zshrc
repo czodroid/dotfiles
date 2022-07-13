@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: samedi 02 juillet 2022, 19:31
-# Edit Time: 134:38:04
+# Last Modified: dimanche 10 juillet 2022, 14:00
+# Edit Time: 134:38:21
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.411 2022/07/02 17:31:53 czo Exp $
+# $Id: .zshrc,v 1.412 2022/07/10 12:01:34 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -675,6 +675,7 @@ alias gtu='git pull'
 alias gtd='git diff'
 alias gtc='git commit -a -mupdate ; git push'
 alias gts='git status'
+alias gta='git add .'
 alias gtf='git fetch; git diff master origin/master'
 
 alias pkg_inst_debian="aptitude search '~i !~M' -F %p | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"

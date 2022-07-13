@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mercredi 22 juin 2022, 10:47
-# Edit Time: 30:31:48
+# Last Modified: dimanche 10 juillet 2022, 14:01
+# Edit Time: 30:32:15
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.95 2022/06/22 08:47:32 czo Exp $
+# $Id: .cshrc,v 1.96 2022/07/10 12:01:34 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -413,6 +413,7 @@ alias gtu 'git pull'
 alias gtd 'git diff'
 alias gtc 'git commit -a -mupdate ; git push'
 alias gts 'git status'
+alias gta 'git add .'
 alias gtf 'git fetch; git diff master origin/master'
 
 # missing LANG=C
