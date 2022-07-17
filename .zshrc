@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: dimanche 10 juillet 2022, 14:00
-# Edit Time: 134:38:21
+# Last Modified: dimanche 17 juillet 2022, 18:49
+# Edit Time: 134:38:51
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.412 2022/07/10 12:01:34 czo Exp $
+# $Id: .zshrc,v 1.413 2022/07/17 16:50:25 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -447,8 +447,13 @@ case $PLATFORM in
         alias cp='\cp -i'
         alias mv='\mv -i'
         alias grep='\grep --color'
-        alias pg='\pgrep -fia'
-        alias pk='\pkill -fie'
+        if \pgrep -fia 1 >/dev/null 2>&1; then
+            alias pg='\pgrep -fia'
+            alias pk='\pkill -fie'
+        else
+            alias pg='\pgrep -fl'
+            alias pk='\pkill -fl'
+        fi
         if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
@@ -486,6 +491,8 @@ case $PLATFORM in
     SunOS | Solaris)
         alias ps='\ps -ef'
         alias ls='\ls -a'
+        alias pg='\pgrep -fl'
+        alias pk='\pkill -fl'
         ;;
 
     Cygwin)

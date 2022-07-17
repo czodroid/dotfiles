@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 10 juillet 2022, 14:01
-# Edit Time: 30:32:15
+# Last Modified: dimanche 17 juillet 2022, 18:50
+# Edit Time: 30:32:45
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.96 2022/07/10 12:01:34 czo Exp $
+# $Id: .cshrc,v 1.97 2022/07/17 16:50:25 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -302,6 +302,8 @@ switch ($PLATFORM)
     case SunOS | Solaris:
         alias ps    '\ps -ef'
         alias ls    '\ls -a'
+        alias pg    '\pgrep -fl'
+        alias pk    '\pkill -fl'
         breaksw
 
     case Cygwin:

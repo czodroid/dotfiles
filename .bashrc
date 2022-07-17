@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 10 juillet 2022, 14:00
-# Edit Time: 111:35:50
+# Last Modified: dimanche 17 juillet 2022, 18:44
+# Edit Time: 112:28:40
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.443 2022/07/10 12:01:34 czo Exp $
+# $Id: .bashrc,v 1.444 2022/07/17 16:50:25 czo Exp $
 
 #set -v
 #set -x
@@ -321,8 +321,13 @@ case $PLATFORM in
         alias cp='\cp -i'
         alias mv='\mv -i'
         alias grep='\grep --color'
-        alias pg='\pgrep -fia'
-        alias pk='\pkill -fie'
+        if \pgrep -fia 1 >/dev/null 2>&1; then
+            alias pg='\pgrep -fia'
+            alias pk='\pkill -fie'
+        else
+            alias pg='\pgrep -fl'
+            alias pk='\pkill -fl'
+        fi
         if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
@@ -360,6 +365,8 @@ case $PLATFORM in
     SunOS | Solaris)
         alias ps='\ps -ef'
         alias ls='\ls -a'
+        alias pg='\pgrep -fl'
+        alias pk='\pkill -fl'
         ;;
 
     Cygwin)
