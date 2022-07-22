@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: dimanche 17 juillet 2022, 18:44
-# Edit Time: 112:28:40
+# Last Modified: vendredi 22 juillet 2022, 11:07
+# Edit Time: 112:30:36
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.444 2022/07/17 16:50:25 czo Exp $
+# $Id: .bashrc,v 1.445 2022/07/22 09:08:45 czo Exp $
 
 #set -v
 #set -x
@@ -446,7 +446,7 @@ n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir")"; fi; }
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
 
-# vieux truc 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
+alias chmod644='chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 

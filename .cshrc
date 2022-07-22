@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: dimanche 17 juillet 2022, 18:50
-# Edit Time: 30:32:45
+# Last Modified: vendredi 22 juillet 2022, 11:08
+# Edit Time: 30:33:27
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.97 2022/07/17 16:50:25 czo Exp $
+# $Id: .cshrc,v 1.98 2022/07/22 09:08:46 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -361,6 +361,7 @@ alias n        'ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
 alias wgetr    'wget -m -np -k -r'
 alias wgetp    'wget -m -np -k -l1'
 
+alias chmod644 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
 alias chmodr   'chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg   'chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 

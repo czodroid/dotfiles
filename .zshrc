@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: dimanche 17 juillet 2022, 18:49
-# Edit Time: 134:38:51
+# Last Modified: vendredi 22 juillet 2022, 11:07
+# Edit Time: 134:39:00
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.413 2022/07/17 16:50:25 czo Exp $
+# $Id: .zshrc,v 1.414 2022/07/22 09:08:46 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -572,7 +572,7 @@ n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir")"; fi; }
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
 
-# vieux truc 'chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
+alias chmod644='chmod -R 755 . ; find . -type f -print0 | xargs -0 chmod 644'
 alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
