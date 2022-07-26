@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: vendredi 22 juillet 2022, 11:07
-# Edit Time: 112:30:36
+# Last Modified: mardi 26 juillet 2022, 10:33
+# Edit Time: 112:37:38
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.445 2022/07/22 09:08:45 czo Exp $
+# $Id: .bashrc,v 1.447 2022/07/26 08:36:45 czo Exp $
 
 #set -v
 #set -x
@@ -393,6 +393,7 @@ alias g='grep -sri'
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llx='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -perm -1 -print | sort'
+alias lll='find . -type l  -printf "%p -> %l\n"'
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1" ; cd "$1"; }
 ff() { find . -iname "*$1*"; }
@@ -586,8 +587,8 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # archlinux
-alias PU='pacman -Syu && pacman -Scc && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
-alias PI='pacman -S'
+alias PU='pacman -Sy archlinux-keyring && pacman -Su && pacman -Scc && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias PI='pacman -Sy'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
 alias PL='pacman -Ql'

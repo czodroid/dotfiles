@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: vendredi 22 juillet 2022, 11:08
-# Edit Time: 30:33:27
+# Last Modified: mardi 26 juillet 2022, 10:34
+# Edit Time: 30:36:19
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.98 2022/07/22 09:08:46 czo Exp $
+# $Id: .cshrc,v 1.100 2022/07/26 08:36:45 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -329,6 +329,7 @@ alias g        'grep -si'
 alias llt      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llx      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -perm -1 -print | sort'
+alias lll      'find . -type l  -printf "%p -> %l\n"'
 alias md       '\mkdir -p'
 alias mdcd     '\mkdir -p "\!*" ; cd "\!*"'
 alias ff       'find . -iname "*\!**"'
@@ -444,8 +445,8 @@ alias YL  'rpm -ql'
 alias YF  'rpm -qf'
 
 # archlinux
-alias PU 'pacman -Syu && pacman -Scc'
-alias PI 'pacman -S'
+alias PU 'pacman -Sy archlinux-keyring && pacman -Su && pacman -Scc'
+alias PI 'pacman -Sy'
 alias PP 'pacman -Rs'
 alias PS 'pacman -Ss'
 alias PL 'pacman -Ql'
