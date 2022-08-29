@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 26 juillet 2022, 10:34
-# Edit Time: 30:36:19
+# Last Modified: mercredi 27 juillet 2022, 19:45
+# Edit Time: 30:37:54
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.100 2022/07/26 08:36:45 czo Exp $
+# $Id: .cshrc,v 1.101 2022/07/27 17:46:51 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -324,7 +324,8 @@ alias rule 'echo "....|....1....|....2....|....3....|....4....|....5....|....6..
 alias ll       'ls -l'
 alias lh       'ls -lh'
 alias l        'ls -alrt'
-alias g        'grep -si'
+alias g        'grep -sri'
+alias g_cs     'grep -sr'
 
 alias llt      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'

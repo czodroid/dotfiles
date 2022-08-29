@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mardi 26 juillet 2022, 10:33
-# Edit Time: 134:39:32
+# Last Modified: mercredi 27 juillet 2022, 19:43
+# Edit Time: 134:39:44
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.416 2022/07/26 08:36:46 czo Exp $
+# $Id: .zshrc,v 1.417 2022/07/27 17:46:51 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -515,6 +515,7 @@ alias ll='ls -l'
 alias lh='ls -lh'
 alias l='ls -alrt'
 alias g='grep -sri'
+alias g_cs='grep -sr'
 
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'

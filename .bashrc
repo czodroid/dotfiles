@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mardi 26 juillet 2022, 10:33
-# Edit Time: 112:37:38
+# Last Modified: mercredi 27 juillet 2022, 19:43
+# Edit Time: 112:38:46
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.447 2022/07/26 08:36:45 czo Exp $
+# $Id: .bashrc,v 1.448 2022/07/27 17:46:51 czo Exp $
 
 #set -v
 #set -x
@@ -389,6 +389,7 @@ alias ll='ls -l'
 alias lh='ls -lh'
 alias l='ls -alrt'
 alias g='grep -sri'
+alias g_cs='grep -sr'
 
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
