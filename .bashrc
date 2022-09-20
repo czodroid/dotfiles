@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: November 1998
-# Last Modified: mardi 20 septembre 2022, 22:36
-# Edit Time: 115:21:30
+# Last Modified: mercredi 21 septembre 2022, 01:19
+# Edit Time: 115:25:21
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -15,7 +15,7 @@
 #         rm ~/.bash_profile ~/.bash_login ~/.bash_history
 #         and put instead .profile
 #
-# $Id: .bashrc,v 1.449 2022/09/20 20:45:51 czo Exp $
+# $Id: .bashrc,v 1.450 2022/09/20 23:20:09 czo Exp $
 
 #set -v
 #set -x
@@ -455,6 +455,7 @@ alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 #alias tara='tar -czf'
 tara() { V="${1%/*}" ; tar -czf "${V#*/}.tgz" "$1"; }
 alias tarx='tar -xf'
+alias tart='tar -tvf'
 #alias tarxiso='cmake -E tar -xf'
 alias tarxiso='bsdtar -xf'
 

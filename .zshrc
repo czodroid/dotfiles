@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mardi 20 septembre 2022, 22:39
-# Edit Time: 134:41:11
+# Last Modified: mercredi 21 septembre 2022, 01:19
+# Edit Time: 134:41:38
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.418 2022/09/20 20:45:51 czo Exp $
+# $Id: .zshrc,v 1.419 2022/09/20 23:20:09 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -581,6 +581,7 @@ alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 #alias tara='tar -czf'
 tara() { V="${1%/*}" ; tar -czf "${V#*/}.tgz" "$1"; }
 alias tarx='tar -xf'
+alias tart='tar -tvf'
 #alias tarxiso='cmake -E tar -xf'
 alias tarxiso='bsdtar -xf'
 

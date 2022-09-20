@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mardi 20 septembre 2022, 22:43
-# Edit Time: 30:41:56
+# Last Modified: mercredi 21 septembre 2022, 01:19
+# Edit Time: 30:44:16
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.102 2022/09/20 20:45:51 czo Exp $
+# $Id: .cshrc,v 1.103 2022/09/20 23:20:09 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -347,7 +347,7 @@ if (-f "$HOME/.vimrc.czo") then
 else
     setenv MYVIMRC "$HOME/.vimrc"
 endif
- 
+
 alias more     'less'
 alias vim      "\vim  -u $MYVIMRC"
 alias nvim     "\nvim -u $MYVIMRC"
@@ -369,6 +369,7 @@ alias chmodg   'chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
 alias tara     'tar -czf'
 alias tarx     'tar -xf'
+alias tart     'tar -tvf'
 alias tarxiso  'bsdtar -xf'
 
 alias tsu      'su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
