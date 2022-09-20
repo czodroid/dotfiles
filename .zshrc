@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: mercredi 27 juillet 2022, 19:43
-# Edit Time: 134:39:44
+# Last Modified: mardi 20 septembre 2022, 22:39
+# Edit Time: 134:41:11
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.417 2022/07/27 17:46:51 czo Exp $
+# $Id: .zshrc,v 1.418 2022/09/20 20:45:51 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -579,66 +579,10 @@ alias chmodr='chmod -R a-st,u+rwX,g+rX-w,o+rX-w .'
 alias chmodg='chmod -R a-st,u+rwX,g+rwX,o+rX-w .'
 
 #alias tara='tar -czf'
-tara() {
-    if [ $# -ne 1 ]; then
-        echo "tara, create a TAR file compressed"
-        echo "Error: need a directory..."
-    else
-        DIR=$1
-        TAR=${DIR%/*}
-        TAR=${TAR#*/}.tgz
-        if [ ! -e "$TAR" ]; then
-            tar -czf ${TAR} ${DIR}
-        else
-            echo "$TAR exist's, please correct it..."
-        fi
-    fi
-}
-
-#alias tarx='tar -xf'
-tarx() {
-    if [ $# -ne 1 ]; then
-        echo "tarx, extract a TAR file into exdir"
-        echo "Error: need a tar file..."
-    else
-        TAR=$1
-        DIR=${TAR##*/}
-        DIR=${DIR%.*}
-        if [ -f "$TAR" ]; then
-            if [ ! -e "$DIR" ]; then
-                mkdir -p "$DIR"
-                tar -C "$DIR" -xf "$TAR"
-            else
-                echo "$DIR exist's, please correct it..."
-            fi
-        else
-            echo "$TAR doesn't exist..."
-        fi
-    fi
-}
-
-#alias tarxiso='cmake -E tar xf'
-#alias tarxiso='bsdtar -xf'
-tarxiso() {
-    if [ $# -ne 1 ]; then
-        echo "tarxiso, extract an ISO file into exdir"
-        echo "Error: need an iso file..."
-    else
-        ISO=$1
-        DIR=${ISO##*/}
-        DIR=${DIR%.*}
-        if [ -f "$ISO" ]; then
-            if [ ! -e "$DIR" ]; then
-                mkdir -p "$DIR"
-                bsdtar -C "$DIR" -xf "$ISO"
-            else
-                echo "$DIR exist's, please correct it..."
-            fi
-        else
-            echo "$ISO doesn't exist..."
-        fi
-    fi
-}
+tara() { V="${1%/*}" ; tar -czf "${V#*/}.tgz" "$1"; }
+alias tarx='tar -xf'
+#alias tarxiso='cmake -E tar -xf'
+alias tarxiso='bsdtar -xf'
 
 alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
@@ -740,7 +684,9 @@ alias xtc16='export TERM=xterm-16color ; echo TERM=$TERM'
 alias xtc256='export TERM=xterm-256color ; echo TERM=$TERM'
 
 alias console_color="printf '\e]P0282828\e]P1cc241d\e]P298971a\e]P3fe8019\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7'; clear"
-alias console_color_cursor="printf '\e]12;#98971a\a'"
+alias console_cursor_color="printf '\e]12;#98971a\a'"
+alias console_cursor_blinking_block="printf '\e[0 q'"
+
 alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n"; for i in $(seq 8 15); do printf "\x1b[48;5;${i}m  "; done; printf "\x1b[0m\n";'
 
 passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }

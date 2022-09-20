@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: jeudi 16 juin 2022, 19:01
-" Edit Time: 211:35:25
+" Last Modified: dimanche 18 septembre 2022, 17:17
+" Edit Time: 211:35:44
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.330 2022/06/16 17:05:58 czo Exp $
+" $Id: .vimrc,v 1.331 2022/09/18 16:11:27 czo Exp $
 
 if version >= 505
 
@@ -921,7 +921,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.330 2022/06/16 17:05:58 czo Exp $
+        " $Id: .vimrc,v 1.331 2022/09/18 16:11:27 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1686,19 +1686,6 @@ function! TemplateCzo (...)
                  \\<nl>
                  \\<nl>#use strict;
                  \\<nl>#use warnings;
-                 \\<nl>
-                 \\<nl>foreach (qx(zpool status)) {
-                 \\<nl>    if (m,^\\s*pool:\\s+(.*),) { $pool = $1; }
-                 \\<nl>    if (m,^\\s*scan:\\s+(.*),) { $scan = $1; $ok = 1; }
-                 \\<nl>    if ($ok) {
-                 \\<nl>        $ok = 0;
-                 \\<nl>        if ( $scan =~ 'scrub in progress\|resilver' ) {
-                 \\<nl>            $poollist{$pool} = 90;
-                 \\<nl>        } else {
-                 \\<nl>            $poollist{$pool} = 10;
-                 \\<nl>        }
-                 \\<nl>    }
-                 \\<nl>}
                  \\<nl>
                  \\<nl>foreach (qx(zpool status)) {
                  \\<nl>    if (m,^\\s*pool:\\s+(.*),) { $pool = $1; }

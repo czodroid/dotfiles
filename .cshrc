@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1993
-# Last Modified: mercredi 27 juillet 2022, 19:45
-# Edit Time: 30:37:54
+# Last Modified: mardi 20 septembre 2022, 22:43
+# Edit Time: 30:41:56
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -15,7 +15,7 @@
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
 #
-# $Id: .cshrc,v 1.101 2022/07/27 17:46:51 czo Exp $
+# $Id: .cshrc,v 1.102 2022/09/20 20:45:51 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -465,6 +465,10 @@ alias xts    'set term=screen ; echo term=$term'
 alias xtc    'set term=xterm-color ; echo term=$term'
 alias xtc16  'set term=xterm-16color ; echo term=$term'
 alias xtc256 'set term=xterm-256color ; echo term=$term'
+
+alias console_color                 "printf '\e]P0282828\e]P1cc241d\e]P298971a\e]P3fe8019\e]P4458588\e]P5b16286\e]P6689d6a\e]P7c9b788\e]P84a4239\e]P9fb4934\e]PAb8bb26\e]PBfabd2f\e]PC83a598\e]PDd3869b\e]PE8ec07c\e]PFfbf1c7'; clear"
+alias console_cursor_color          "printf '\e]12;#98971a\a'"
+alias console_cursor_blinking_block "printf '\e[0 q'"
 
 alias 16color '\
     foreach i ( 0 1 2 3 4 5 6 7 )\

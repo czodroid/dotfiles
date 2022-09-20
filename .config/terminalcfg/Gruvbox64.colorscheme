@@ -1,0 +1,78 @@
+# Filename: Gruvbox64.colorscheme
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: avr. 2013
+# Last Modified: mardi 20 septembre 2022, 17:43
+# Edit Time: 0:27:53
+# Description:
+#              gruvbox64's colors for qterminal
+#              in /usr/share/qtermwidget5/color-schemes
+#
+# $Id: Gruvbox64.colorscheme,v 1.2 2022/09/20 15:43:11 czo Exp $
+#
+
+[General]
+Description=Gruvbox
+Opacity=1
+Wallpaper=
+
+[Background]
+Color=#282828
+
+[BackgroundIntense]
+Color=#282828
+
+[Foreground]
+Color=#c9b788
+
+[ForegroundIntense]
+Color=#c9b788
+
+[Color0]
+Color=#282828
+
+[Color0Intense]
+Color=#4a4239
+
+[Color1]
+Color=#cc241d
+
+[Color1Intense]
+Color=#fb4934
+
+[Color2]
+Color=#98971a
+
+[Color2Intense]
+Color=#b8bb26
+
+[Color3]
+Color=#fe8019
+
+[Color3Intense]
+Color=#fabd2f
+
+[Color4]
+Color=#458588
+
+[Color4Intense]
+Color=#83a598
+
+[Color5]
+Color=#b16286
+
+[Color5Intense]
+Color=#d3869b
+
+[Color6]
+Color=#689d6a
+
+[Color6Intense]
+Color=#8ec07c
+
+[Color7]
+Color=#c9b788
+
+[Color7Intense]
+Color=#fbf1c7
+
