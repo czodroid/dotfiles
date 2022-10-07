@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 18 septembre 2022, 17:17
-" Edit Time: 211:35:44
+" Last Modified: vendredi 07 octobre 2022, 10:16
+" Edit Time: 211:40:01
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.331 2022/09/18 16:11:27 czo Exp $
+" $Id: .vimrc,v 1.333 2022/10/07 08:18:19 czo Exp $
 
 if version >= 505
 
@@ -921,7 +921,7 @@ function! TemplateTimeStamp ()
         " Edit Time: 188:01:29
         " Description:
         "
-        " $Id: .vimrc,v 1.331 2022/09/18 16:11:27 czo Exp $
+        " $Id: .vimrc,v 1.333 2022/10/07 08:18:19 czo Exp $
         "
         if 1
             " modif Started: in File Created:
@@ -1443,6 +1443,42 @@ function! TemplateCzo (...)
                  \\<nl>});
                  \\"
 
+            "## template.lua #########################################
+            catch /^lua$/
+               0put = \"
+                      \#! /usr/bin/env lua
+                 \\<nl>
+                 \\<nl>-- Filename: template.lua
+                 \\<nl>-- Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>-- License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>-- File Created: VIMEX{=strftime(\\"%b %Y\\")}
+                 \\<nl>-- Last Modified: vendredi 07 octobre 2022, 10:05
+                 \\<nl>-- Edit Time: 0:00:12
+                 \\<nl>-- Description:
+                 \\<nl>--
+                 \\<nl>-- $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>
+                 \\<nl>function cat(file, bufsize)
+                 \\<nl>    if not bufsize then bufsize = 8192 end
+                 \\<nl>    local f = io.open(file)
+                 \\<nl>    if not f then return false end
+                 \\<nl>    local buffer
+                 \\<nl>    for buffer in f:lines(bufsize) do
+                 \\<nl>        io.write(buffer)
+                 \\<nl>    end
+                 \\<nl>    io.close(f)
+                 \\<nl>    return true
+                 \\<nl>end
+                 \\<nl>
+                 \\<nl>if #arg == 0 then
+                 \\<nl>    arg[1] = \\"/dev/stdin\\"
+                 \\<nl>end
+                 \\<nl>
+                 \\<nl>for i, File in ipairs(arg) do
+                 \\<nl>    cat(File)
+                 \\<nl>end
+                 \\"
+
             "## template.make #########################################
             catch /^make$/
                0put = \"
@@ -1476,24 +1512,24 @@ function! TemplateCzo (...)
                  \\<nl>EXEC = go
                  \\<nl>
                  \\<nl>all: $(EXEC)
-                 \\<nl>	@echo \\"<- all done!\\"
+                 \\<nl> @echo \\"<- all done!\\"
                  \\<nl>
                  \\<nl>viewdeps: $(DEPS)
-                 \\<nl>	@echo $(DEPS)
+                 \\<nl> @echo $(DEPS)
                  \\<nl>
                  \\<nl>$(EXEC): $(OBJ)
-                 \\<nl>	$(CC) -o $@ $^ $(LIBS)
+                 \\<nl> $(CC) -o $@ $^ $(LIBS)
                  \\<nl>
                  \\<nl>%.o: %.c $(DEPS)
-                 \\<nl>	$(CC) -c -o $@ $< $(CFLAGS)
+                 \\<nl> $(CC) -c -o $@ $< $(CFLAGS)
                  \\<nl>
                  \\<nl>clean:
-                 \\<nl>	rm -f *.o
-                 \\<nl>	@echo \\"<- clean done!\\"
+                 \\<nl> rm -f *.o
+                 \\<nl> @echo \\"<- clean done!\\"
                  \\<nl>
                  \\<nl>realclean: clean
-                 \\<nl>	rm -f $(EXEC)
-                 \\<nl>	@echo \\"<- realclean done!\\"
+                 \\<nl> rm -f $(EXEC)
+                 \\<nl> @echo \\"<- realclean done!\\"
                  \\<nl>
                  \\<nl>fclean: realclean
                  \\<nl>
@@ -1678,8 +1714,8 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: samedi 12 février 2022, 11:23
-                 \\<nl># Edit Time: 0:00:09
+                 \\<nl># Last Modified: dimanche 18 septembre 2022, 17:16
+                 \\<nl># Edit Time: 0:00:25
                  \\<nl># Description:
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
