@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: jeudi 06 octobre 2022, 03:11
-# Edit Time: 134:42:01
+# Last Modified: dimanche 09 octobre 2022, 20:21
+# Edit Time: 134:42:14
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,7 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.420 2022/10/06 01:23:32 czo Exp $
+# $Id: .zshrc,v 1.421 2022/10/09 21:22:46 czo Exp $
 
 # zmodload zsh/zprof
 
@@ -693,7 +693,7 @@ alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf 
 passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
 passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
-sb() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -b 4096:6892 -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
+sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -b 4096:6892 -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
 alias RemeberThis_kfm='setxkbmap fr mac'

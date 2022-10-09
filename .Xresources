@@ -6,14 +6,14 @@
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
 ! File Created: mars 1996
-! Last Modified: lundi 21 février 2022, 18:51
-! Edit Time: 4:44:36
+! Last Modified: dimanche 09 octobre 2022, 21:23
+! Edit Time: 6:56:53
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources
 !
-! $Id: .Xresources,v 1.37 2022/02/21 18:56:05 czo Exp $
+! $Id: .Xresources,v 1.38 2022/10/09 21:22:45 czo Exp $
 
 Xft.dpi:        96
 Xft.antialias:  1
@@ -30,7 +30,7 @@ Xft.rgba:       none
 
 ! Xterm !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! my xterm terminfo is xterm-256color
-XTerm*vt100*geometry: 90x26
+XTerm*geometry: 90x26
 XTerm*termName: xterm-256color
 !en 1996
 !XTerm*boldFont: 7x13bold
@@ -42,22 +42,20 @@ XTerm*termName: xterm-256color
 XTerm*faceName: fixed:size=13
 ! i want bold font to be the same
 !XTerm*boldMode: off
-XTerm.vt100.allowBoldFonts: false
+XTerm*allowBoldFonts: false
 
-XTerm*SimpleMenu*font: fixed
+XTerm*SimpleMenu*font:       fixed
 XTerm*SimpleMenu*foreground: black
 XTerm*SimpleMenu*background: grey
 
-XTerm*scrollBar: false
-XTerm*saveLines: 99000
+XTerm*scrollBar:  false
+XTerm*saveLines:  99000
 XTerm*visualBell: false
 
 ! i want Alt-X to send ESC-x but I prefer correct input of é : false
 !XTerm*eightBitControl: false
-!XTerm*eightBitInput:   true
 !XTerm*eightBitOutput:  true
 !XTerm*utf8: 2
-!XTerm*eightBitInput:   false
 XTerm*eightBitInput:   true
 
 ! xterm will use the pseudo-terminal s sense of the stty erase value
@@ -66,14 +64,12 @@ XTerm*eightBitInput:   true
 !XTerm*backarrowKeyIsErase: true
 
 ! Blinking cursor
-!XTerm*cursorBlink:      off
-XTerm*cursorBlink:      on
-XTerm*cursorOnTime:     600
-XTerm*cursorOffTime:    600
+XTerm*cursorBlink:        on
+XTerm*cursorOnTime:       600
+XTerm*cursorOffTime:      600
 
-!XTerm*allowSendEvents: true
-XTerm*allowSendEvents: false
-XTerm*sessionMgt: false
+XTerm*allowSendEvents:    false
+XTerm*sessionMgt:         false
 
 ! Xkeysym to terminal string translation
 ! This way my term understand Shift-Left...
@@ -81,60 +77,58 @@ XTerm*sessionMgt: false
 ! and the ones I use...
 ! Ctrl <Btn1Down>  : insert-selection(PRIMARY, CUT_BUFFER0) \n\
 
-XTerm*vt100.Translations:       #override\n\
-  Shift Ctrl <KeyPress>V : insert-selection(PRIMARY, CUT_BUFFER0) \n\
-  Shift <KeyPress>Insert : insert-selection(PRIMARY, CUT_BUFFER0) \n\
-         Alt <KeyPress>v : insert-selection(PRIMARY, CUT_BUFFER0) \n
+XTerm*vt100.Translations: #override\n\
+  Shift Ctrl <KeyPress>V: insert-selection(PRIMARY, CUT_BUFFER0) \n\
+  Shift <KeyPress>Insert: insert-selection(PRIMARY, CUT_BUFFER0) \n\
+         Alt <KeyPress>v: insert-selection(PRIMARY, CUT_BUFFER0) \n
 
-! Shift <KeyPress> Right  : select-cursor-start() \n\
-! Shift <KeyPress> Left   : select-extend() \n\
-
-XTerm*vt100*colorMode: on
-XTerm*vt100*dynamicColors: on
-
-! Uncomment this use color for underline attribute
-XTerm*vt100*colorULMode: on
-!*VT100*underLine: off
-
-! Uncomment this to use color for the bold attribute
-XTerm*vt100*colorBDMode: on
+XTerm*colorMode:          on
+XTerm*dynamicColors:      on
+XTerm*colorBDMode:        on
+XTerm*colorBLMode:        on
+XTerm*colorULMode:        on
+XTerm*colorITMode:        on
 
 ! These are the GRUVBOX64 colors
 ! fg and bg colors
-XTerm*background:       #282828
-XTerm*foreground:       #c9b788
-XTerm*cursorColor:      #98971a
+XTerm*background:         #282828
+XTerm*foreground:         #c9b788
+XTerm*cursorColor:        #98971a
 ! Black + DarkGrey
-XTerm*vt100*color0:     #282828
-XTerm*vt100*color8:     #4a4239
+XTerm*color0:             #282828
+XTerm*color8:             #4a4239
 ! DarkRed + Red
-XTerm*vt100*color1:     #cc241d
-XTerm*vt100*color9:     #fb4934
+XTerm*color1:             #cc241d
+XTerm*color9:             #fb4934
 ! DarkGreen + Green
-XTerm*vt100*color2:     #98971a
-XTerm*vt100*color10:    #b8bb26
+XTerm*color2:             #98971a
+XTerm*color10:            #b8bb26
 ! DarkYellow + Yellow
-XTerm*vt100*color3:     #fe8019
-XTerm*vt100*color11:    #fabd2f
+XTerm*color3:             #fe8019
+XTerm*color11:            #fabd2f
 ! DarkBlue + Blue
-XTerm*vt100*color4:     #458588
-XTerm*vt100*color12:    #83a598
+XTerm*color4:             #458588
+XTerm*color12:            #83a598
 ! DarkMagenta + Magenta
-XTerm*vt100*color5:     #b16286
-XTerm*vt100*color13:    #d3869b
+XTerm*color5:             #b16286
+XTerm*color13:            #d3869b
 ! DarkCyan + Cyan
-XTerm*vt100*color6:     #689d6a
-XTerm*vt100*color14:    #8ec07c
+XTerm*color6:             #689d6a
+XTerm*color14:            #8ec07c
 ! LightGrey + White
-XTerm*vt100*color7:     #c9b788
-XTerm*vt100*color15:    #fbf1c7
-! Bold and Underline colors
-XTerm*vt100*colorBD:    #fe8019
-XTerm*vt100*colorUL:    #b16286
+XTerm*color7:             #c9b788
+XTerm*color15:            #fbf1c7
+
+! Bold, Underline, italic and strikethrough colors
+XTerm*colorBD:            #fe8019
+XTerm*colorBL:            #fabd2f
+XTerm*colorUL:            #b16286
+XTerm*colorIT:            #689d6a
+
 ! selection
-XTerm*vt100*highlightColorMode: true
-XTerm*vt100*highlightReverse:   false
-XTerm*vt100*highlightColor:     #458588
-XTerm*vt100*highlightTextColor: #fbf1c7
+XTerm*highlightColorMode: true
+XTerm*highlightReverse:   false
+XTerm*highlightColor:     #458588
+XTerm*highlightTextColor: #fbf1c7
 
 ! eof

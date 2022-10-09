@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: vendredi 07 octobre 2022, 10:16
-" Edit Time: 211:40:01
+" Last Modified: dimanche 09 octobre 2022, 23:25
+" Edit Time: 213:44:07
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.333 2022/10/07 08:18:19 czo Exp $
+" $Id: .vimrc,v 1.335 2022/10/09 21:25:43 czo Exp $
 
 if version >= 505
 
@@ -900,6 +900,10 @@ function! TemplateDate()
     return strftime("%A %d %B %Y, %H:%M")
 endfunction
 
+function! TemplateCopyrightDate()
+    return  '(C) ' . b:Template_Copyright_Year . ' ' . g:TemplateAuthor
+endfunction
+
 function! TemplateGetTime ()
     let b:Template_opentime=localtime()
 endfunction
@@ -911,18 +915,22 @@ function! TemplateTimeStamp ()
         let &report = 999999
         normal mwHmv
 
-        " This is the third time I did modified my headers
-        " Filename: .vimrc
-        " Copyright (C) 1995 Olivier Sirol
-        " License: GPL-2.0 (http://www.gnu.org/copyleft)
+        " This is the fourth time I did modified my headers,
+        " and this is for old scripts I may have...
+        " My headers are:
+        "
+        " Filename: a.sh
         " Author: Olivier Sirol <czo@free.fr>
-        " File Created: mai 1995
-        " Last Modified: jeudi 06 mai 2021, 19:55
-        " Edit Time: 188:01:29
+        " License: GPL-2.0 (http://www.gnu.org/copyleft)
+        " File Created: oct. 1992
+        " Last Modified: dimanche 09 octobre 2022, 21:58
+        " Edit Time: 11:03:26
         " Description:
         "
-        " $Id: .vimrc,v 1.333 2022/10/07 08:18:19 czo Exp $
+        " Copyright: (C) 1992-2022 Olivier Sirol <czo@free.fr>
         "
+        " $Id: .vimrc,v 1.335 2022/10/09 21:25:43 czo Exp $
+
         if 1
             " modif Started: in File Created:
             let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
@@ -957,6 +965,27 @@ function! TemplateTimeStamp ()
         endif
 
         " Normal changes in my header here:
+
+        " copy "File Created" year for Copyright
+        let pattern = '\(^.\=.\=.\=\s*File Created:\)\s*\(.*\)'
+        if FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            let Fyear = substitute(editline, '.*\([0-9][0-9][0-9][0-9]\).*', '\1', "")
+        else
+            let Fyear = '1992'
+        endif
+        let Lyear = strftime("%Y")
+        if (Lyear == Fyear)
+            let b:Template_Copyright_Year = Lyear
+        else
+            if ((Lyear - Fyear)==1)
+                let b:Template_Copyright_Year = Fyear . ',' . Lyear
+            else
+                let b:Template_Copyright_Year = Fyear . '-' . Lyear
+            endif
+        endif
+
         " substitute the file name
         let pattern = '\(^.\=.\=.\=\s*Filename:\).*'
         if FindStrInHeader(pattern)
@@ -967,6 +996,12 @@ function! TemplateTimeStamp ()
         let pattern = '\(^.\=.\=.\=\s*Last Modified:\).*'
         if FindStrInHeader(pattern)
             exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
+        endif
+
+        " substitute Copyright
+        let pattern = '\(^.\=.\=.\=\s*Copyright:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.TemplateCopyrightDate().'/e'
         endif
 
         " edit time
