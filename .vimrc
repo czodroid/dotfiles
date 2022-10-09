@@ -6,13 +6,15 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 09 octobre 2022, 23:25
-" Edit Time: 213:44:07
+" Last Modified: dimanche 09 octobre 2022, 23:33
+" Edit Time: 213:46:58
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" $Id: .vimrc,v 1.335 2022/10/09 21:25:43 czo Exp $
+" Copyright: (C) 1995-2022 Olivier Sirol <czo@free.fr>
+"
+" $Id: .vimrc,v 1.336 2022/10/09 21:36:06 czo Exp $
 
 if version >= 505
 
@@ -927,9 +929,9 @@ function! TemplateTimeStamp ()
         " Edit Time: 11:03:26
         " Description:
         "
-        " Copyright: (C) 1992-2022 Olivier Sirol <czo@free.fr>
+        " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
         "
-        " $Id: .vimrc,v 1.335 2022/10/09 21:25:43 czo Exp $
+        " $Id: .vimrc,v 1.336 2022/10/09 21:36:06 czo Exp $
 
         if 1
             " modif Started: in File Created:

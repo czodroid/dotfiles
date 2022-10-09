@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 1996
-# Last Modified: dimanche 09 octobre 2022, 20:21
-# Edit Time: 134:42:14
+# Last Modified: dimanche 09 octobre 2022, 23:32
+# Edit Time: 134:43:29
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -15,7 +15,9 @@
 #         This is Alex Fenyo, my guru, who made me discover this
 #         amazing shell in 1996... I am forever grateful to him.
 #
-# $Id: .zshrc,v 1.421 2022/10/09 21:22:46 czo Exp $
+# Copyright: (C) 1996-2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: .zshrc,v 1.422 2022/10/09 21:36:06 czo Exp $
 
 # zmodload zsh/zprof
 

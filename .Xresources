@@ -6,14 +6,16 @@
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
 ! File Created: mars 1996
-! Last Modified: dimanche 09 octobre 2022, 21:23
-! Edit Time: 6:56:53
+! Last Modified: dimanche 09 octobre 2022, 23:33
+! Edit Time: 6:58:56
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources
 !
-! $Id: .Xresources,v 1.38 2022/10/09 21:22:45 czo Exp $
+! Copyright: (C) 1996-2022 Olivier Sirol <czo@free.fr>
+!
+! $Id: .Xresources,v 1.39 2022/10/09 21:36:05 czo Exp $
 
 Xft.dpi:        96
 Xft.antialias:  1
