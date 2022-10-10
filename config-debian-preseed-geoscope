@@ -3,15 +3,12 @@
 # Filename: config-debian-preseed-geoscope
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 1999
-# Last Modified: samedi 21 mai 2022, 19:09
-# Edit Time: 8:20:32
+# File Created: 22 February 2021
+# Last Modified: Tuesday 11 October 2022, 01:48
+# Edit Time: 8:26:46
 # Description:
 #
-#               debian 10 preseed geoscope update
-#
-# config files:
-#  curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed-geoscope | sh
+#            debian 10 preseed geoscope update
 #
 # keyboard:
 #  apt-get install keyboard-configuration
@@ -28,7 +25,9 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-geoscope,v 1.23 2022/05/21 17:21:22 czo Exp $
+# Copyright: (C) 2021,2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: config-debian-preseed-geoscope,v 1.24 2022/10/10 23:53:10 czo Exp $
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 

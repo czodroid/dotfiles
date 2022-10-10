@@ -3,21 +3,21 @@
 # Filename: config-fast-ssh
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 1999
-# Last Modified: mardi 03 mai 2022, 12:22
-# Edit Time: 8:43:45
+# File Created: 12 May 1999
+# Last Modified: Tuesday 11 October 2022, 01:53
+# Edit Time: 8:54:52
 # Description:
 #
 #   configure ssh with my authorized_keys and config
-#
 #   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
-#
 #   also works in wget: wget -qO- https://pwet | bash
 #
-# $Id: config-fast-ssh,v 1.18 2022/05/03 10:23:09 czo Exp $
+# Copyright: (C) 1999-2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: config-fast-ssh,v 1.19 2022/10/10 23:53:11 czo Exp $
+
 
 # you must do a "cd" before running this script
-
 cp -rp .ssh .ssh_fast_$(date +%Y-%m-%d)_$$
 rm -fr .ssh
 mkdir .ssh
@@ -63,7 +63,7 @@ Host dalmore
 Host *+b
  VerifyHostKeyDNS no
  ProxyCommand ssh -p52022 root@lartha nc $(echo %h | sed 's/+.*//') %p
- 
+
 # geoscoperd
 Host *+g
  VerifyHostKeyDNS no

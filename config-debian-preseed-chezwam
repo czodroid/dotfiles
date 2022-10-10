@@ -3,15 +3,12 @@
 # Filename: config-debian-preseed-chezwam
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 1999
-# Last Modified: samedi 21 mai 2022, 19:08
-# Edit Time: 7:30:15
+# File Created: 12 April 2018
+# Last Modified: Tuesday 11 October 2022, 01:47
+# Edit Time: 7:35:59
 # Description:
 #
-#   debian 10 preseed update
-#
-#   config files:
-#    wget --no-check-certificate -qO- https://git.io/JkHdk | sh
+#            debian 10 preseed update
 #
 # keyboard:
 #  apt-get install keyboard-configuration
@@ -28,7 +25,9 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# $Id: config-debian-preseed-chezwam,v 1.18 2022/05/21 17:21:22 czo Exp $
+# Copyright: (C) 2018-2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: config-debian-preseed-chezwam,v 1.19 2022/10/10 23:53:10 czo Exp $
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
