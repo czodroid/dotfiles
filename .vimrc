@@ -6,15 +6,15 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: mai 1995
-" Last Modified: dimanche 09 octobre 2022, 23:33
-" Edit Time: 213:46:58
+" Last Modified: lundi 10 octobre 2022, 11:35
+" Edit Time: 225:24:26
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
 " Copyright: (C) 1995-2022 Olivier Sirol <czo@free.fr>
 "
-" $Id: .vimrc,v 1.336 2022/10/09 21:36:06 czo Exp $
+" $Id: .vimrc,v 1.337 2022/10/10 09:37:36 czo Exp $
 
 if version >= 505
 
@@ -897,9 +897,14 @@ endfunction
 
 
 function! TemplateDate()
+    let save_lang = v:lc_time
+    execute 'language time C'
+    " my date: between French and English
+    let LastModDate=strftime("%A, %d %B %Y, %H:%M")
     " create a RFC822-conformant date
-    " return strftime("%a, %d %b %Y %H:%M:%S %z")
-    return strftime("%A %d %B %Y, %H:%M")
+    "let LastModDate=strftime("%a, %d %b %Y %H:%M:%S %z")
+    execute 'language time ' . save_lang
+    return LastModDate
 endfunction
 
 function! TemplateCopyrightDate()
@@ -931,7 +936,7 @@ function! TemplateTimeStamp ()
         "
         " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
         "
-        " $Id: .vimrc,v 1.336 2022/10/09 21:36:06 czo Exp $
+        " $Id: .vimrc,v 1.337 2022/10/10 09:37:36 czo Exp $
 
         if 1
             " modif Started: in File Created:
@@ -978,7 +983,7 @@ function! TemplateTimeStamp ()
             let Fyear = '1992'
         endif
         let Lyear = strftime("%Y")
-        if (Lyear == Fyear)
+        if ((Lyear == Fyear) || (Lyear < Fyear))
             let b:Template_Copyright_Year = Lyear
         else
             if ((Lyear - Fyear)==1)
