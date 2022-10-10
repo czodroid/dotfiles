@@ -5,9 +5,9 @@
 ! Filename: .Xresources
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
-! File Created: mars 1996
-! Last Modified: dimanche 09 octobre 2022, 23:33
-! Edit Time: 6:58:56
+! File Created: 28 mars 1996
+! Last Modified: Monday 10 October 2022, 22:15
+! Edit Time: 7:07:24
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
@@ -15,7 +15,7 @@
 !
 ! Copyright: (C) 1996-2022 Olivier Sirol <czo@free.fr>
 !
-! $Id: .Xresources,v 1.39 2022/10/09 21:36:05 czo Exp $
+! $Id: .Xresources,v 1.40 2022/10/10 20:16:14 czo Exp $
 
 Xft.dpi:        96
 Xft.antialias:  1

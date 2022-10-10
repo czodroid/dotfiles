@@ -5,16 +5,16 @@
 " Filename: .vimrc
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
-" File Created: mai 1995
-" Last Modified: lundi 10 octobre 2022, 11:35
-" Edit Time: 225:24:26
+" File Created: 11 mai 1995
+" Last Modified: Monday 10 October 2022, 22:15
+" Edit Time: 225:54:50
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
 " Copyright: (C) 1995-2022 Olivier Sirol <czo@free.fr>
 "
-" $Id: .vimrc,v 1.337 2022/10/10 09:37:36 czo Exp $
+" $Id: .vimrc,v 1.342 2022/10/10 20:16:14 czo Exp $
 
 if version >= 505
 
@@ -63,7 +63,7 @@ set scrolloff=0
 set modeline
 set modelines=30
 
-set history=2000
+set history=5000
 set viminfo='100,\"1000,ra:,rb:,rz:,%
 
 " don't write on my embedded toy
@@ -164,10 +164,10 @@ endif
 
 " vt100
 if &term =~ '^vt100'
-    execute "set <S-Up>=\e[1;2A"
-    execute "set <S-Down>=\e[1;2B"
-    execute "set <S-Right>=\e[1;2C"
-    execute "set <S-Left>=\e[1;2D"
+    exec "set <S-Up>=\e[1;2A"
+    exec "set <S-Down>=\e[1;2B"
+    exec "set <S-Right>=\e[1;2C"
+    exec "set <S-Left>=\e[1;2D"
 endif
 
 if exists('+listchars')
@@ -260,7 +260,7 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 
 if version > 601
     " vim diff with wrap
-    autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
+    autocmd VimEnter * if &diff | exec 'windo set wrap' | endif
 endif
 
 if version > 604
@@ -321,43 +321,43 @@ iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire 
 command!  CzoEditorTabToSpaceAndTrailWhite call CzoEditorTabToSpaceAndTrailWhite ()
 function! CzoEditorTabToSpaceAndTrailWhite ()
     echom "Convert Tab to Space"
-    execute '%s/\t/    /gce'
+    exec '%s/\t/    /gce'
     echom "Trim Trailing Whitespace"
-    execute '%s/\s\+$//ce'
+    exec '%s/\s\+$//ce'
 endfunction
 
 command!  CzoTabToSpaces call CzoTabToSpaces ()
 function! CzoTabToSpaces ()
-    execute '%s/\t/    /gce'
+    exec '%s/\t/    /gce'
 endfunction
 
 command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
 function! CzoTrimTrailingWhitespace ()
-    " execute '%s/\s\+$//en'
-    " execute '%s/\s\+$//e'
-    execute '%s/\s\+$//ce'
+    " exec '%s/\s\+$//en'
+    " exec '%s/\s\+$//e'
+    exec '%s/\s\+$//ce'
  endfunction
 
 command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
 function! CzoRemoveEmptyLinesAndComment ()
-    " execute 'g/^\s*#/d'
-    " execute 'g/^\s*$/d'
-    execute 'g/\(^\s*#\)\|\(^\s*$\)/d'
+    " exec 'g/^\s*#/d'
+    " exec 'g/^\s*$/d'
+    exec 'g/\(^\s*#\)\|\(^\s*$\)/d'
 endfunction
 
 command!  CzoInvList call CzoInvList ()
 function! CzoInvList ()
-    execute 'set invlist'
+    exec 'set invlist'
  endfunction
 
 command!  CzoInvWrap call CzoInvWrap ()
 function! CzoInvWrap ()
-    execute 'set invwrap'
+    exec 'set invwrap'
  endfunction
 
 command!  CzoInvPaste call CzoInvPaste ()
 function! CzoInvPaste ()
-    execute 'set invpaste'
+    exec 'set invpaste'
  endfunction
 
 command!  CzoVisualClear call CzoVisualClear ()
@@ -826,7 +826,7 @@ endif
 
 ""source all func in ~/etc/vim/run/
 ""source $HOME/etc/vim/func/template.vim
-"execute substitute(glob("~/etc/vim/run/*.vim"), "^\\|\n", "&source ", "g")
+"exec substitute(glob("~/etc/vim/run/*.vim"), "^\\|\n", "&source ", "g")
 
 " ======================================================================
 " == template.vim ======================================================
@@ -887,7 +887,10 @@ function! TemplateMacro ()
         while FindStrInHeader(pattern)
             let editline = getline (".")
             let editline = substitute(editline, pattern, '\2', "")
+            let save_lang = v:lc_time
+            exec 'language time C'
             exec 's/'.pattern.'/\1'.escape(strftime(editline), '\').'\3/e'
+            exec 'language time ' . save_lang
         endw
 
         normal 1G'vzt`w
@@ -898,12 +901,12 @@ endfunction
 
 function! TemplateDate()
     let save_lang = v:lc_time
-    execute 'language time C'
+    exec 'language time C'
     " my date: between French and English
-    let LastModDate=strftime("%A, %d %B %Y, %H:%M")
+    let LastModDate=strftime("%A %d %B %Y, %H:%M")
     " create a RFC822-conformant date
     "let LastModDate=strftime("%a, %d %b %Y %H:%M:%S %z")
-    execute 'language time ' . save_lang
+    exec 'language time ' . save_lang
     return LastModDate
 endfunction
 
@@ -936,7 +939,7 @@ function! TemplateTimeStamp ()
         "
         " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
         "
-        " $Id: .vimrc,v 1.337 2022/10/10 09:37:36 czo Exp $
+        " $Id: .vimrc,v 1.342 2022/10/10 20:16:14 czo Exp $
 
         if 1
             " modif Started: in File Created:
@@ -1067,7 +1070,7 @@ function! TemplateCzo (...)
     "    let mytemplatefile = expand("$HOME/etc/vim/templates/template\." . xft)
     "    if filereadable(mytemplatefile)
     "        normal 1G
-    "        execute ":r " . mytemplatefile
+    "        exec ":r " . mytemplatefile
     "        1d
     "    endif
     "
@@ -1087,11 +1090,12 @@ function! TemplateCzo (...)
                  \\<nl> * Filename: template.c
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:11
-                 \\<nl> * Edit Time: 0:00:49
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl> * Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl> * Edit Time: 0:00:30
                  \\<nl> * Description:
                  \\<nl> *
+                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl> */
                  \\<nl>
                  \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
@@ -1127,10 +1131,13 @@ function! TemplateCzo (...)
                       \// Filename: template.cpp
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>// Last Modified: Wednesday 15 December 2021, 20:12
-                 \\<nl>// Edit Time: 0:01:02
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>// Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl>// Edit Time: 0:00:30
                  \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>
                  \\<nl>
                  \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
                  \\<nl>
@@ -1162,10 +1169,12 @@ function! TemplateCzo (...)
                  \\<nl> * Filename: template.css
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:12
-                 \\<nl> * Edit Time: 0:01:19
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl> * Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl> * Edit Time: 0:00:30
                  \\<nl> * Description:
+                 \\<nl> *
+                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl> *
                  \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl> */
@@ -1264,11 +1273,12 @@ function! TemplateCzo (...)
                  \\<nl> * Filename: template.h
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:12
-                 \\<nl> * Edit Time: 0:01:27
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl> * Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl> * Edit Time: 0:00:31
                  \\<nl> * Description:
                  \\<nl> *
+                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl> */
                  \\<nl>
                  \\<nl>#ifndef MY_HEADER_H
@@ -1290,10 +1300,13 @@ function! TemplateCzo (...)
                       \// Filename: template.hpp
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>// Last Modified: Saturday 13 November 2021, 18:16
-                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>// Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl>// Edit Time: 0:00:31
                  \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>
                  \\<nl>
                  \\<nl>#ifndef MY_HEADER_H
                  \\<nl>#define MY_HEADER_H
@@ -1315,9 +1328,10 @@ function! TemplateCzo (...)
                  \\<nl>Filename: template.html
                  \\<nl>Author: Olivier Sirol <czo@free.fr>
                  \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>Last Modified: Saturday 13 November 2021, 18:16
-                 \\<nl>Edit Time: 0:00:01
+                 \\<nl>File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl>Edit Time: 0:00:31
+                 \\<nl>Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>-->
                  \\<nl>
@@ -1369,10 +1383,12 @@ function! TemplateCzo (...)
                  \\<nl>// Filename: template.java
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>// Last Modified: Wednesday 15 December 2021, 20:12
-                 \\<nl>// Edit Time: 0:01:55
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>// Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl>// Edit Time: 0:00:30
                  \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>//
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
@@ -1425,10 +1441,12 @@ function! TemplateCzo (...)
                  \\<nl> * Filename: template.javascript
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl> * File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl> * Last Modified: Wednesday 15 December 2021, 20:13
-                 \\<nl> * Edit Time: 0:02:08
+                 \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl> * Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl> * Edit Time: 0:00:29
                  \\<nl> * Description:
+                 \\<nl> *
+                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl> *
                  \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl> */
@@ -1493,10 +1511,12 @@ function! TemplateCzo (...)
                  \\<nl>-- Filename: template.lua
                  \\<nl>-- Author: Olivier Sirol <czo@free.fr>
                  \\<nl>-- License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>-- File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>-- Last Modified: vendredi 07 octobre 2022, 10:05
-                 \\<nl>-- Edit Time: 0:00:12
+                 \\<nl>-- File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>-- Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl>-- Edit Time: 0:00:29
                  \\<nl>-- Description:
+                 \\<nl>--
+                 \\<nl>-- Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>--
                  \\<nl>-- $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
@@ -1527,9 +1547,9 @@ function! TemplateCzo (...)
                       \# Filename: template.make
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: Wednesday 15 December 2021, 20:13
-                 \\<nl># Edit Time: 0:02:20
+                 \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl># Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl># Edit Time: 0:00:29
                  \\<nl># Description:
                  \\<nl>#      Makefile:
                  \\<nl>#      $@ Le nom de la cible
@@ -1537,6 +1557,8 @@ function! TemplateCzo (...)
                  \\<nl>#      $^ La liste des dépendances
                  \\<nl>#      $? La liste des dépendances plus récentes que la cible
                  \\<nl>#      $* Le nom du fichier sans suffixe
+                 \\<nl>#
+                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
@@ -1554,24 +1576,24 @@ function! TemplateCzo (...)
                  \\<nl>EXEC = go
                  \\<nl>
                  \\<nl>all: $(EXEC)
-                 \\<nl> @echo \\"<- all done!\\"
+                 \\<nl>	@echo \\"<- all done!\\"
                  \\<nl>
                  \\<nl>viewdeps: $(DEPS)
-                 \\<nl> @echo $(DEPS)
+                 \\<nl>	@echo $(DEPS)
                  \\<nl>
                  \\<nl>$(EXEC): $(OBJ)
-                 \\<nl> $(CC) -o $@ $^ $(LIBS)
+                 \\<nl>	$(CC) -o $@ $^ $(LIBS)
                  \\<nl>
                  \\<nl>%.o: %.c $(DEPS)
-                 \\<nl> $(CC) -c -o $@ $< $(CFLAGS)
+                 \\<nl>	$(CC) -c -o $@ $< $(CFLAGS)
                  \\<nl>
                  \\<nl>clean:
-                 \\<nl> rm -f *.o
-                 \\<nl> @echo \\"<- clean done!\\"
+                 \\<nl>	rm -f *.o
+                 \\<nl>	@echo \\"<- clean done!\\"
                  \\<nl>
                  \\<nl>realclean: clean
-                 \\<nl> rm -f $(EXEC)
-                 \\<nl> @echo \\"<- realclean done!\\"
+                 \\<nl>	rm -f $(EXEC)
+                 \\<nl>	@echo \\"<- realclean done!\\"
                  \\<nl>
                  \\<nl>fclean: realclean
                  \\<nl>
@@ -1587,9 +1609,10 @@ function! TemplateCzo (...)
                  \\<nl>Filename: template.markdown
                  \\<nl>Author: Olivier Sirol <czo@free.fr>
                  \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>Last Modified: mercredi 27 avril 2022, 19:55
-                 \\<nl>Edit Time: 0:00:07
+                 \\<nl>File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl>Edit Time: 0:00:29
+                 \\<nl>Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>-->
                  \\<nl>
@@ -1755,10 +1778,12 @@ function! TemplateCzo (...)
                  \\<nl># Filename: template.perl
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: dimanche 18 septembre 2022, 17:16
-                 \\<nl># Edit Time: 0:00:25
+                 \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl># Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl># Edit Time: 0:00:29
                  \\<nl># Description:
+                 \\<nl>#
+                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
@@ -1811,10 +1836,12 @@ function! TemplateCzo (...)
                  \\<nl>// Filename: template.php
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>// File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl>// Last Modified: Saturday 13 November 2021, 18:17
-                 \\<nl>// Edit Time: 0:00:01
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>// Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl>// Edit Time: 0:00:29
                  \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>//
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
@@ -1831,10 +1858,12 @@ function! TemplateCzo (...)
                  \\<nl># Filename: template.python
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: samedi 12 février 2022, 11:31
-                 \\<nl># Edit Time: 0:00:16
+                 \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl># Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl># Edit Time: 0:00:29
                  \\<nl># Description:
+                 \\<nl>#
+                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
@@ -1856,10 +1885,12 @@ function! TemplateCzo (...)
                  \\<nl># Filename: template.sh
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl># File Created: VIMEX{=strftime(\\"%b %Y\\")}
-                 \\<nl># Last Modified: samedi 12 février 2022, 11:33
-                 \\<nl># Edit Time: 0:00:34
+                 \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl># Last Modified: Monday 10 October 2022, 21:48
+                 \\<nl># Edit Time: 0:00:29
                  \\<nl># Description:
+                 \\<nl>#
+                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
                  \\<nl>#
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
                  \\<nl>
@@ -1886,7 +1917,7 @@ function! TemplateCzo (...)
 
     " ------------- SearchThisThenDelete -------------
 
-    execute ':0'
+    exec ':0'
     call TemplateMacro ()
     call TemplateGetTime ()
     call TemplateTimeStamp ()
@@ -2008,7 +2039,7 @@ else
             let lnums[1] -= 1
         endwhile
         if lnums[0] <= lnums[1]
-            execute 'normal! 'lnums[0].'GV'.lnums[1].'G'
+            exec 'normal! 'lnums[0].'GV'.lnums[1].'G'
         endif
     endfunction
 

@@ -5,9 +5,9 @@
 # Filename: .cshrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 1993
-# Last Modified: dimanche 09 octobre 2022, 23:32
-# Edit Time: 30:50:18
+# File Created: 12 April 1993
+# Last Modified: Monday 10 October 2022, 22:15
+# Edit Time: 30:58:20
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -17,7 +17,7 @@
 #
 # Copyright: (C) 1993-2022 Olivier Sirol <czo@free.fr>
 #
-# $Id: .cshrc,v 1.105 2022/10/09 21:36:05 czo Exp $
+# $Id: .cshrc,v 1.106 2022/10/10 20:16:14 czo Exp $
 
 ##======= Csh Settings ==========================================##
 

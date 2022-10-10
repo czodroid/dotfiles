@@ -5,14 +5,17 @@
 # Filename: .inputrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 1996
-# Last Modified: samedi 29 janvier 2022, 01:02
-# Edit Time: 4:33:53
-# Description: ~/.inputrc
+# File Created: 12 April 2001
+# Last Modified: Monday 10 October 2022, 22:21
+# Edit Time: 4:36:51
+# Description: 
+#              inputrc config file
 #              See readline(3readline) and `info rluserman' 
 #              for more information.
 #
-# $Id: .inputrc,v 1.8 2022/01/29 00:03:04 czo Exp $
+# Copyright: (C) 2001-2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: .inputrc,v 1.9 2022/10/10 20:22:59 czo Exp $
 
 
 # Be 8 bit clean.

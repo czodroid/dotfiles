@@ -5,13 +5,15 @@
 # Filename: .gitconfig
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: mars 2018
-# Last Modified: dimanche 18 septembre 2022, 17:17
-# Edit Time: 3:01:35
+# File Created: 12 mars 2018
+# Last Modified: Monday 10 October 2022, 22:19
+# Edit Time: 3:03:00
 # Description:
 #                 git conf file
 #
-# $Id: .gitconfig,v 1.19 2022/09/18 15:17:13 czo Exp $
+# Copyright: (C) 2018-2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: .gitconfig,v 1.20 2022/10/10 20:22:59 czo Exp $
 
 [user]
     name     = czo

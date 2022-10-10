@@ -1,9 +1,9 @@
 # Filename: Brewfile
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: mars 2015
-# Last Modified: jeudi 31 mars 2022, 11:59
-# Edit Time: 1:15:58
+# File Created: 7 March 2015
+# Last Modified: Monday 10 October 2022, 22:25
+# Edit Time: 1:16:23
 # Description:
 #                   macos brew file
 #
@@ -16,7 +16,9 @@
 #   update:
 #       brew update && brew upgrade && brew cleanup
 #
-# $Id: Brewfile,v 1.7 2022/03/31 10:00:00 czo Exp $
+# Copyright: (C) 2015-2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: Brewfile,v 1.8 2022/10/10 20:25:53 czo Exp $
 
 tap "homebrew/bundle"
 tap "homebrew/cask"

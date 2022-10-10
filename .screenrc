@@ -5,13 +5,15 @@
 # Filename: .screenrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 2000
-# Last Modified: mardi 22 février 2022, 13:32
-# Edit Time: 39:20:32
+# File Created: 12 May 1997
+# Last Modified: Monday 10 October 2022, 22:22
+# Edit Time: 39:25:11
 # Description: 
 #                 screen conf file
 #
-# $Id: .screenrc,v 1.48 2022/02/22 12:32:39 czo Exp $
+# Copyright: (C) 1997-2022 Olivier Sirol <czo@free.fr>
+#
+# $Id: .screenrc,v 1.49 2022/10/10 20:22:59 czo Exp $
 
 # screen doesn't have xterm true color
 # put this in vim
