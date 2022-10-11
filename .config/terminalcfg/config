@@ -9,7 +9,7 @@
 #
 # Copyright: (C) 2013-2022 Olivier Sirol <czo@free.fr>
 #
-# $Id: config,v 1.6 2022/02/22 13:59:30 czo Exp $
+# $Id: config,v 1.7 2022/10/11 00:16:25 czo Exp $
 
 [global_config]
   title_transmit_fg_color = "#282828"

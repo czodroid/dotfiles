@@ -10,7 +10,7 @@
 #
 # Copyright: (C) 2021,2022 Olivier Sirol <czo@free.fr>
 #
-# $Id: Gruvbox64.colorscheme,v 1.2 2022/09/20 15:43:11 czo Exp $
+# $Id: Gruvbox64.colorscheme,v 1.3 2022/10/11 00:16:24 czo Exp $
 
 [General]
 Description=Gruvbox

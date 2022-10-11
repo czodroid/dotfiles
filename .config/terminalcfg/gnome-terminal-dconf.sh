@@ -11,7 +11,7 @@
 #
 # Copyright: (C) 2019-2022 Olivier Sirol <czo@free.fr>
 #
-# $Id: gnome-terminal-dconf.sh,v 1.3 2022/02/22 15:41:19 czo Exp $
+# $Id: gnome-terminal-dconf.sh,v 1.4 2022/10/11 00:16:25 czo Exp $
 
 dconf load / << 'EOF'
 
