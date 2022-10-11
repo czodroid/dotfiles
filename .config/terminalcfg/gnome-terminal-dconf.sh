@@ -3,17 +3,19 @@
 # Filename: gnome-terminal-dconf.sh
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: sept. 2020
-# Last Modified: mardi 22 février 2022, 16:37
-# Edit Time: 0:04:08
+# File Created: 11 September 2019
+# Last Modified: Tuesday 11 October 2022, 02:10
+# Edit Time: 0:18:59
 # Description:
+#               dconf for gnome terminal
+#
+# Copyright: (C) 2019-2022 Olivier Sirol <czo@free.fr>
 #
 # $Id: gnome-terminal-dconf.sh,v 1.3 2022/02/22 15:41:19 czo Exp $
-#
 
 dconf load / << 'EOF'
 
-#czo /* 2018/02/06 : Modified by Olivier Sirol <czo@free.fr> */ 
+#czo /* 2018/02/06 : Modified by Olivier Sirol <czo@free.fr> */
 #dconf dump / > /root/dconf.1
 
 [org/gnome/shell/extensions/system-monitor]
