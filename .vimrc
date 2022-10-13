@@ -6,23 +6,22 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 10 October 2022, 22:15
-" Edit Time: 225:54:50
+" Last Modified: Thursday 13 October 2022, 15:33
+" Edit Time: 228:01:24
+" Copyright: (C) 1995-2022 Olivier Sirol <czo@free.fr>
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" Copyright: (C) 1995-2022 Olivier Sirol <czo@free.fr>
-"
-" $Id: .vimrc,v 1.342 2022/10/10 20:16:14 czo Exp $
+" $Id: .vimrc,v 1.346 2022/10/13 13:33:42 czo Exp $
 
 if version >= 505
 
 " == Options ===========================================================
 
-" works in gnome-shell, kde, xfce, xterm, iTerm, mintty but not on apple
-" terminal which has no 24-bit colors
-if version >= 800 && has("termguicolors") && $TERM_PROGRAM !~ 'Apple_Terminal'
+" works in gnome-shell, kde, xfce, xterm, iTerm, mintty
+" but not on apple terminal which has no 24-bit colors
+if version >= 800 && has("termguicolors")
     set termguicolors
 else
     if has('nvim') && has("termguicolors")
@@ -128,7 +127,7 @@ set wildmenu
 set wildmode=longest,full
 if version > 604
     set wildoptions=tagfile
-    set tabpagemax=20
+    set tabpagemax=200
 endif
 
 
@@ -277,12 +276,16 @@ autocmd BufNewFile,BufRead *.h   set filetype=c
 autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 autocmd FileType perl      setlocal equalprg=perltidy\ -ce\ -l=0\ -st
-autocmd FileType xdefaults setlocal commentstring=!\ %s
 autocmd FileType json      setlocal commentstring=//\ %s
 autocmd FileType cpp       setlocal commentstring=//\ %s
 autocmd FileType php       setlocal commentstring=//\ %s
+autocmd FileType crontab   setlocal commentstring=#\ %s
 autocmd FileType cfg       setlocal commentstring=#\ %s
+autocmd FileType xdefaults setlocal commentstring=!\ %s
 autocmd FileType apache    setlocal commentstring=#\ %s
+
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh' | :call CzoTTW () | endif
+
 
 endif
 
@@ -320,29 +323,48 @@ iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire 
 
 command!  CzoEditorTabToSpaceAndTrailWhite call CzoEditorTabToSpaceAndTrailWhite ()
 function! CzoEditorTabToSpaceAndTrailWhite ()
+    let l = line(".")
+    let c = col(".")
     echom "Convert Tab to Space"
     exec '%s/\t/    /gce'
     echom "Trim Trailing Whitespace"
     exec '%s/\s\+$//ce'
+    call cursor(l, c)
 endfunction
 
 command!  CzoTabToSpaces call CzoTabToSpaces ()
 function! CzoTabToSpaces ()
+    let l = line(".")
+    let c = col(".")
     exec '%s/\t/    /gce'
+    call cursor(l, c)
 endfunction
 
 command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
 function! CzoTrimTrailingWhitespace ()
-    " exec '%s/\s\+$//en'
-    " exec '%s/\s\+$//e'
+    let l = line(".")
+    let c = col(".")
     exec '%s/\s\+$//ce'
+    call cursor(l, c)
+ endfunction
+
+" for autocmd
+command!  CzoTTW call CzoTTW ()
+function! CzoTTW ()
+    let l = line(".")
+    let c = col(".")
+    exec '%s/\s\+$//e'
+    call cursor(l, c)
  endfunction
 
 command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
 function! CzoRemoveEmptyLinesAndComment ()
+    let l = line(".")
+    let c = col(".")
     " exec 'g/^\s*#/d'
     " exec 'g/^\s*$/d'
     exec 'g/\(^\s*#\)\|\(^\s*$\)/d'
+    call cursor(l, c)
 endfunction
 
 command!  CzoInvList call CzoInvList ()
@@ -842,7 +864,6 @@ endif
 let TemplateMaxHeaderLines=30
 let TemplateAuthor="Olivier Sirol <czo@free.fr>"
 let TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
-"let TemplateLicense="GPL-2.0"
 
 command! -nargs=? Template call Template (<q-args>)
 command! TemplateMacro call TemplateMacro ()
@@ -939,7 +960,7 @@ function! TemplateTimeStamp ()
         "
         " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
         "
-        " $Id: .vimrc,v 1.342 2022/10/10 20:16:14 czo Exp $
+        " $Id: .vimrc,v 1.346 2022/10/13 13:33:42 czo Exp $
 
         if 1
             " modif Started: in File Created:
@@ -957,26 +978,28 @@ function! TemplateTimeStamp ()
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1Modified:\2/e'
             endif
-            " modif Copyright (C) in Author:
+            " modif Copyright in Copyright:
             let pattern = '\(^.\=.\=.\=\s*\)Copyright (C).*Olivier.Sirol.*'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1Author:/e'
+                exec 's/'.pattern.'/\1Copyright:/e'
             endif
-            " substitute Author
-            let pattern = '\(^.\=.\=.\=\s*Author:\).*'
-            if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
-            endif
-            " substitute License
-            let pattern = '\(^.\=.\=.\=\s*License:\).*'
-            if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
-            endif
+            " Author: is new !
         endif
 
         " Normal changes in my header here:
 
-        " copy "File Created" year for Copyright
+        " substitute Author
+        let pattern = '\(^.\=.\=.\=\s*Author:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
+        endif
+        " substitute License
+        let pattern = '\(^.\=.\=.\=\s*License:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
+        endif
+
+        " copy file's created year for Copyright
         let pattern = '\(^.\=.\=.\=\s*File Created:\)\s*\(.*\)'
         if FindStrInHeader(pattern)
             let editline = getline (".")
@@ -990,7 +1013,7 @@ function! TemplateTimeStamp ()
             let b:Template_Copyright_Year = Lyear
         else
             if ((Lyear - Fyear)==1)
-                let b:Template_Copyright_Year = Fyear . ',' . Lyear
+                let b:Template_Copyright_Year = Fyear . ', ' . Lyear
             else
                 let b:Template_Copyright_Year = Fyear . '-' . Lyear
             endif

@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Monday 10 October 2022, 22:15
-# Edit Time: 30:58:20
+# Last Modified: Wednesday 12 October 2022, 16:22
+# Edit Time: 30:58:58
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -17,7 +17,7 @@
 #
 # Copyright: (C) 1993-2022 Olivier Sirol <czo@free.fr>
 #
-# $Id: .cshrc,v 1.106 2022/10/10 20:16:14 czo Exp $
+# $Id: .cshrc,v 1.138 2022/10/12 14:23:28 czo Exp $
 
 ##======= Csh Settings ==========================================##
 
@@ -383,6 +383,9 @@ alias ifa      'ifconfig | grep "inet "'
 alias screena  'screen -d -R'
 alias tmuxa    'tmux attach -t 0'
 alias aa       'tmux attach -d || tmux new'
+# resets the terminal mouse when tmux crashes
+alias r        'tput rs2'
+
 
 alias mount_list    'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys     'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'

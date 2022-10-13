@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 10 October 2022, 22:13
-# Edit Time: 115:33:47
+# Last Modified: Wednesday 12 October 2022, 16:22
+# Edit Time: 115:34:47
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -17,7 +17,7 @@
 #
 # Copyright: (C) 1998-2022 Olivier Sirol <czo@free.fr>
 #
-# $Id: .bashrc,v 1.454 2022/10/10 20:16:14 czo Exp $
+# $Id: .bashrc,v 1.456 2022/10/12 14:23:28 czo Exp $
 
 #set -v
 #set -x
@@ -437,6 +437,8 @@ fi
 alias tmux="\tmux $MYTMUXRC"
 alias tmuxa="\tmux $MYTMUXRC attach -t 0"
 alias aa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
+# resets the terminal mouse when tmux crashes
+alias r='tput rs2'
 
 alias screena='screen -d -R'
 alias mc='\mc -b -u'
