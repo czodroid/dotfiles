@@ -4,14 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 September 2019
-# Last Modified: Tuesday 11 October 2022, 02:10
-# Edit Time: 0:18:59
+# Last Modified: Thursday 13 October 2022, 18:29
+# $Id: gnome-terminal-dconf.sh,v 1.5 2022/10/13 16:34:20 czo Exp $
+# Edit Time: 0:22:38
 # Description:
 #               dconf for gnome terminal
 #
 # Copyright: (C) 2019-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: gnome-terminal-dconf.sh,v 1.4 2022/10/11 00:16:25 czo Exp $
 
 dconf load / << 'EOF'
 

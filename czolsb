@@ -4,8 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Tuesday 11 October 2022, 01:40
-# Edit Time: 29:46:19
+# Last Modified: Thursday 13 October 2022, 18:13
+# $Id: czolsb,v 1.50 2022/10/13 16:13:50 czo Exp $
+# Edit Time: 29:48:58
 # Description:
 #
 #   /etc/czolsb > /etc/motd
@@ -21,8 +22,6 @@
 #   TODO: redo in perl!
 #
 # Copyright: (C) 2009-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: czolsb,v 1.49 2022/10/10 23:53:11 czo Exp $
 
 export LANG=C
 export PATH=$PATH:/sbin

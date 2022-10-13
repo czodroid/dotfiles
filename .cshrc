@@ -6,8 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 12 October 2022, 16:22
-# Edit Time: 30:58:58
+# Last Modified: Thursday 13 October 2022, 18:33
+# $Id: .cshrc,v 1.139 2022/10/13 16:34:20 czo Exp $
+# Edit Time: 31:03:06
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -16,8 +17,6 @@
 #         if all the alias are OK...
 #
 # Copyright: (C) 1993-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: .cshrc,v 1.138 2022/10/12 14:23:28 czo Exp $
 
 ##======= Csh Settings ==========================================##
 

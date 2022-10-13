@@ -4,8 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 February 2021
-# Last Modified: Tuesday 11 October 2022, 01:48
-# Edit Time: 8:26:46
+# Last Modified: Thursday 13 October 2022, 18:13
+# $Id: config-debian-preseed-geoscope,v 1.25 2022/10/13 16:13:50 czo Exp $
+# Edit Time: 8:29:02
 # Description:
 #
 #            debian 10 preseed geoscope update
@@ -25,9 +26,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# Copyright: (C) 2021,2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: config-debian-preseed-geoscope,v 1.24 2022/10/10 23:53:10 czo Exp $
+# Copyright: (C) 2021, 2022 Olivier Sirol <czo@free.fr>
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 

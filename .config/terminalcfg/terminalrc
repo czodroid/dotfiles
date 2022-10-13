@@ -1,14 +1,14 @@
+# Filename: terminalrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 13 November 2011
-# Last Modified: Tuesday 11 October 2022, 02:09
-# Edit Time: 0:33:10
+# Last Modified: Thursday 13 October 2022, 18:33
+# $Id: terminalrc,v 1.10 2022/10/13 16:34:20 czo Exp $
+# Edit Time: 0:35:23
 # Description:
 #               xfce terminal config
 #
 # Copyright: (C) 2011-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: terminalrc,v 1.9 2022/10/11 00:16:25 czo Exp $
 
 [Configuration]
 MiscAlwaysShowTabs=FALSE

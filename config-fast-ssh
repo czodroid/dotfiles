@@ -4,8 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Tuesday 11 October 2022, 01:53
-# Edit Time: 8:54:52
+# Last Modified: Thursday 13 October 2022, 18:11
+# $Id: config-fast-ssh,v 1.20 2022/10/13 16:13:50 czo Exp $
+# Edit Time: 8:55:31
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -13,8 +14,6 @@
 #   also works in wget: wget -qO- https://pwet | bash
 #
 # Copyright: (C) 1999-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: config-fast-ssh,v 1.19 2022/10/10 23:53:11 czo Exp $
 
 
 # you must do a "cd" before running this script

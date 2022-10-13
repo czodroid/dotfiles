@@ -2,14 +2,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 April 2013
-# Last Modified: Tuesday 11 October 2022, 02:02
-# Edit Time: 0:27:32
+# Last Modified: Thursday 13 October 2022, 18:33
+# $Id: config,v 1.8 2022/10/13 16:34:20 czo Exp $
+# Edit Time: 0:28:57
 # Description:
 #               terminator config
 #
 # Copyright: (C) 2013-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: config,v 1.7 2022/10/11 00:16:25 czo Exp $
 
 [global_config]
   title_transmit_fg_color = "#282828"

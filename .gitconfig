@@ -6,14 +6,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 mars 2018
-# Last Modified: Monday 10 October 2022, 22:19
-# Edit Time: 3:03:00
+# Last Modified: Thursday 13 October 2022, 18:23
+# $Id: .gitconfig,v 1.21 2022/10/13 16:34:20 czo Exp $
+# Edit Time: 3:12:14
 # Description:
 #                 git conf file
 #
 # Copyright: (C) 2018-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: .gitconfig,v 1.20 2022/10/10 20:22:59 czo Exp $
 
 [user]
     name     = czo
@@ -49,4 +48,4 @@
     pst = push --tags
 
 [pull]
-	ff = only
+    ff = only

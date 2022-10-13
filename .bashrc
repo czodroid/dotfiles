@@ -6,8 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 12 October 2022, 16:22
-# Edit Time: 115:34:47
+# Last Modified: Thursday 13 October 2022, 18:33
+# $Id: .bashrc,v 1.458 2022/10/13 16:34:20 czo Exp $
+# Edit Time: 115:36:51
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -16,8 +17,6 @@
 #         and put instead .profile
 #
 # Copyright: (C) 1998-2022 Olivier Sirol <czo@free.fr>
-#
-# $Id: .bashrc,v 1.456 2022/10/12 14:23:28 czo Exp $
 
 #set -v
 #set -x
