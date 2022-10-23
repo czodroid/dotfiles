@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: .bashrc,v 1.458 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 115:36:51
+# Last Modified: Sunday 23 October 2022, 12:07
+# $Id: .bashrc,v 1.463 2022/10/23 10:10:49 czo Exp $
+# Edit Time: 117:11:11
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -18,8 +18,12 @@
 #
 # Copyright: (C) 1998-2022 Olivier Sirol <czo@free.fr>
 
-#set -v
-#set -x
+
+##======= Debug ======================================================##
+
+# set -v
+# set -x
+#RTMStart=$(date +%s%N)
 
 ##======= Bash Settings ==============================================##
 
@@ -51,6 +55,8 @@ export TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 
 #BASHMISSING : REPORTTIME, complete alias, equal =foo
 # removed zsh preexec implementation of REPORTTIME, see rev 1.32
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG BashSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Platform ===================================================##
 
@@ -94,6 +100,8 @@ case $(uname 2>/dev/null) in
 esac
 
 export PLATFORM
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Paths ======================================================##
 
@@ -146,10 +154,12 @@ fi
 
 export PATH
 
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+
 ##======= Environment Variables ======================================##
 
 if [ -x "$(command -v getprop)" ]; then
-    HOSTNAME=$(getprop net.hostname 2>/dev/null)
+    HOSTNAME=$(getprop net.hostname android 2>/dev/null)
 elif [ -x "$(command -v hostname)" ]; then
     HOSTNAME=$(hostname 2>/dev/null)
 else
@@ -191,6 +201,8 @@ case $(domainname 2>/dev/null) in
 esac
 
 export HTML_TIDY=$HOME/.tidyrc
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Key bindings ===============================================##
 
@@ -274,6 +286,8 @@ if [ -n "$BASH_VERSION" ]; then
 
 fi
 
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+
 ##======= Completions ================================================##
 
 # enable programmable completion features (you don't need to enable
@@ -290,6 +304,8 @@ if [ -n "$BASH_VERSION" ]; then
         . /usr/local/share/bash-completion/bash_completion.sh
     fi
 fi
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Completions:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Aliases & Functions ========================================##
 
@@ -614,6 +630,8 @@ alias RemeberThis_xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias RemeberThis_mbk='set | grep "MBK\|RDS\|ELP" | sort'
 alias RemeberThis_fing='finger | sort | uniq -w 15'
 
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Alias:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+
 ##======= Main ======================================================##
 
 title() {
@@ -654,7 +672,9 @@ fi
 
 SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
 
-MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
+if [ -x "$(command -v tty)" ]; then
+    MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
+fi
 
 if [ -n "$BASH_VERSION" ]; then
     PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;97m\]>>\[\e[m\] '
@@ -677,6 +697,8 @@ umask 022
 
 #FIXME: zsh, export -U PATH
 export PATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 # EOF
 

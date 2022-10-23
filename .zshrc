@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: .zshrc,v 1.426 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 134:55:22
+# Last Modified: Sunday 23 October 2022, 12:16
+# $Id: .zshrc,v 1.429 2022/10/23 10:16:39 czo Exp $
+# Edit Time: 135:11:21
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -18,7 +18,12 @@
 #
 # Copyright: (C) 1996-2022 Olivier Sirol <czo@free.fr>
 
+##======= Debug ======================================================##
+
 # zmodload zsh/zprof
+# set -v
+# set -x
+#RTMStart=$(date +%s%N)
 
 ##======= Zsh Settings ===============================================##
 
@@ -72,6 +77,8 @@ WATCHFMT='%n %a %l from %m at %t.'
 
 export TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
 
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG ZshSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+
 ##======= Platform ===================================================##
 
 PLATFORM=Unknown
@@ -114,6 +121,8 @@ case $(uname 2>/dev/null) in
 esac
 
 export PLATFORM
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Paths ======================================================##
 
@@ -166,10 +175,12 @@ fi
 
 export -U PATH
 
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+
 ##======= Environment Variables ======================================##
 
 if [ -x "$(command -v getprop)" ]; then
-    HOSTNAME=$(getprop net.hostname 2>/dev/null)
+    HOSTNAME=$(getprop net.hostname android 2>/dev/null)
 elif [ -x "$(command -v hostname)" ]; then
     HOSTNAME=$(hostname 2>/dev/null)
 else
@@ -211,6 +222,8 @@ case $(domainname 2>/dev/null) in
 esac
 
 export HTML_TIDY=$HOME/.tidyrc
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Autoload functions =========================================##
 
@@ -396,6 +409,8 @@ for key     kcap   seq        mode   widget (
   bindkey "${terminfo[$kcap]-$seq}" key-$key
 }
 
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+
 ##======= Completions ================================================##
 
 autoload -Uz compinit
@@ -417,6 +432,8 @@ zstyle ':completion:*:descriptions' format $' %{\e[0;92m%}-- %d --%{\e[m%}'
 zstyle ':completion:*:messages'     format $' %{\e[0;93m%}-- %d --%{\e[m%}'
 zstyle ':completion:*:corrections'  format $' %{\e[0;91m%}-- %d (errors: %e) --%{\e[m%}'
 zstyle ':completion:*:warnings'     format $' %{\e[0;91m%}-- no matches for: %d --%{\e[m%}'
+
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Completions:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Aliases & Functions ========================================##
 
@@ -740,6 +757,8 @@ alias RemeberThis_xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias RemeberThis_mbk='set | grep "MBK\|RDS\|ELP" | sort'
 alias RemeberThis_fing='finger | sort | uniq -w 15'
 
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Alias:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+
 ##======= Main ======================================================##
 
 title() {
@@ -804,5 +823,6 @@ umask 022
 export -U PATH
 
 # zprof
-# EOF
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
+# EOF
