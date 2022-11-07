@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: .cshrc,v 1.139 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 31:03:06
+# Last Modified: Monday 07 November 2022, 14:11
+# $Id: .cshrc,v 1.140 2022/11/07 13:12:33 czo Exp $
+# Edit Time: 31:07:11
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -433,7 +433,7 @@ alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${H
 alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
-alias AU  'aptitude update && aptitude upgrade && aptitude clean  && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
+alias AU  'aptitude update && aptitude upgrade && aptitude clean && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
 alias AI  'aptitude install'
 alias AP  'aptitude purge'
 alias AS  'aptitude search'
@@ -442,7 +442,7 @@ alias AL  'dpkg -L'
 alias AF  'dpkg -S'
 
 # redhat, fedora
-alias YU  'yum update && yum clean all'
+alias YU  'yum update && yum clean all && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
 alias YI  'yum install'
 alias YP  'yum remove'
 alias YS  'yum list "*\!**"'
@@ -451,12 +451,18 @@ alias YL  'rpm -ql'
 alias YF  'rpm -qf'
 
 # archlinux
-alias PU 'pacman -Sy archlinux-keyring && pacman -Su && pacman -Scc'
-alias PI 'pacman -Sy'
-alias PP 'pacman -Rs'
-alias PS 'pacman -Ss'
-alias PL 'pacman -Ql'
-alias PF 'pacman -Qo'
+alias PU  'pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su && pacman --noconfirm -Scc && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
+alias PI  'pacman -Sy'
+alias PP  'pacman -Rs'
+alias PS  'pacman -Ss'
+alias PL  'pacman -Ql'
+alias PF  'pacman -Qo'
+
+# freebsd
+alias FU  'pkg update -y && pkg upgrade -y && pkg clean -y && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
+
+# brew macos
+alias BU  'brew update && brew upgrade && brew cleanup'
 
 # openwrt: opkg
 # suse: zypper

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 23 October 2022, 12:07
-# $Id: .bashrc,v 1.463 2022/10/23 10:10:49 czo Exp $
-# Edit Time: 117:11:11
+# Last Modified: Monday 07 November 2022, 13:59
+# $Id: .bashrc,v 1.464 2022/11/07 13:12:33 czo Exp $
+# Edit Time: 117:12:28
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -552,7 +552,7 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # archlinux
-alias PU='pacman -Sy archlinux-keyring && pacman -Su && pacman -Scc && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias PU='pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su && { yes | pacman -Scc; } && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias PI='pacman -Sy'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
