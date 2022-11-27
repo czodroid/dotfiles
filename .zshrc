@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 27 November 2022, 13:11
+# Last Modified: Sunday 27 November 2022, 13:21
 # $Id: .zshrc,v 1.434 2022/11/27 12:13:07 czo Exp $
-# Edit Time: 135:13:10
+# Edit Time: 135:13:28
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -624,11 +624,12 @@ alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool s
 
 ## My dotconfig files
 # curl -k
-# https://git.io/JU6cm
+# wget --no-check-certificate
+# config:  https://git.io/JU6cm
+# ssh:     https://git.io/JU6c2
+# preseed: http://git.io/JkHdk
 alias curl_config_fast_copy='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
-# https://git.io/JU6c2
 alias curl_config_fast_ssh='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
-# http://git.io/JkHdk
 alias wget_config_fast_all_woc='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
 alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
