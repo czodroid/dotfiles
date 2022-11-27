@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Monday 07 November 2022, 14:05
-# $Id: .zshrc,v 1.430 2022/11/07 13:12:33 czo Exp $
-# Edit Time: 135:11:34
+# Last Modified: Sunday 27 November 2022, 13:11
+# $Id: .zshrc,v 1.434 2022/11/27 12:13:07 czo Exp $
+# Edit Time: 135:13:10
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -146,21 +146,21 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/loca
 
 ## config android
 if [ -d $HOME/Android/android-studio/bin ]; then
-    # export PATH=$HOME/Android/Sdk/tools:${PATH}
-    # export PATH=$HOME/Android/Sdk/platform-tools:${PATH}
-    # export PATH=$HOME/Android/Sdk/ndk-bundle:${PATH}
-    export PATH=$HOME/Android/android-studio/bin:${PATH}
+    # export PATH=$HOME/Android/Sdk/tools:$PATH
+    # export PATH=$HOME/Android/Sdk/platform-tools:$PATH
+    # export PATH=$HOME/Android/Sdk/ndk-bundle:$PATH
+    export PATH=$HOME/Android/android-studio/bin:$PATH
 fi
 
 ## config openwrt
 if [ -d /rom/bin ]; then
-    export PATH=${PATH}:/rom/bin
+    export PATH=$PATH:/rom/bin
 fi
 
 ## config termux for android
 if [ -d /system/bin ]; then
     export TMPDIR=/data/local/tmp
-    export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:${PATH}
+    export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:$PATH
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 fi
 
@@ -514,7 +514,7 @@ case $PLATFORM in
         ;;
 
     Cygwin)
-        export DISPLAY=localhost:0
+        export DISPLAY=:0
         alias cp='\cp -i'
         alias mv='\mv -i'
         alias grep='\grep --color'
@@ -585,7 +585,9 @@ alias r='tput rs2'
 alias screena='screen -d -R'
 alias mc='\mc -b -u'
 #alias htop='\htop -C'
-\ncdu --graph-style hash --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --graph-style hash --color off'
+if [ -x "$(command -v ncdu)" ]; then
+    \ncdu --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --color off'
+fi
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
@@ -620,9 +622,14 @@ alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
 alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
 
-alias curl_config_fast_copy='curl -fsSL https://git.io/JU6cm | sh'
-alias curl_config_fast_ssh='curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all='wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
+## My dotconfig files
+# curl -k
+# https://git.io/JU6cm
+alias curl_config_fast_copy='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
+# https://git.io/JU6c2
+alias curl_config_fast_ssh='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
+# http://git.io/JkHdk
+alias wget_config_fast_all_woc='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
 alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
@@ -716,6 +723,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -b 4096:6892 -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
+alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
 alias RemeberThis_kfm='setxkbmap fr mac'
 alias RemeberThis_edl='export DISPLAY=localhost:0'
 alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"

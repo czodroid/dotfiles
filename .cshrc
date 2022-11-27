@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Monday 07 November 2022, 14:11
-# $Id: .cshrc,v 1.140 2022/11/07 13:12:33 czo Exp $
-# Edit Time: 31:07:11
+# Last Modified: Sunday 27 November 2022, 13:12
+# $Id: .cshrc,v 1.142 2022/11/27 12:13:07 czo Exp $
+# Edit Time: 31:08:03
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -308,7 +308,7 @@ switch ($PLATFORM)
         breaksw
 
     case Cygwin:
-        setenv DISPLAY localhost:0
+        setenv DISPLAY :0
         alias cp    '\cp -i'
         alias mv    '\mv -i'
         alias grep  '\grep --color'
@@ -394,9 +394,9 @@ alias rsync_normal  'rsync --delete -av'
 alias zpool_history 'zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
 alias lsblk         'lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
 
-alias curl_config_fast_copy 'curl -fsSL https://git.io/JU6cm | sh'
-alias curl_config_fast_ssh  'curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all  'wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
+alias curl_config_fast_copy     'curl -fsSL https://git.io/JU6cm | sh'
+alias curl_config_fast_ssh      'curl -fsSL https://git.io/JU6c2 | sh'
+alias wget_config_fast_all_woc  'wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
 
 alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d\ %H:%M`, do not reply" root'
 

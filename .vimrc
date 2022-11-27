@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 13 October 2022, 18:33
-" $Id: .vimrc,v 1.350 2022/10/13 16:34:20 czo Exp $
-" Edit Time: 228:14:58
+" Last Modified: Sunday 27 November 2022, 13:15
+" $Id: .vimrc,v 1.360 2022/11/27 12:15:53 czo Exp $
+" Edit Time: 230:20:01
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -82,15 +82,16 @@ set writebackup
 set hidden
 
 " inserting text
-set undolevels=99000
 "set insertmode
+
+" insert mode : Ctrl-K
 " 0 <BS> U = ☻
 "set digraph
+
+set undolevels=99000
 set nostartofline
 set backspace=indent,eol,start
 set whichwrap=<,>,[,]
-
-
 set expandtab
 set smarttab
 set softtabstop=4
@@ -284,7 +285,7 @@ autocmd FileType cfg       setlocal commentstring=#\ %s
 autocmd FileType xdefaults setlocal commentstring=!\ %s
 autocmd FileType apache    setlocal commentstring=#\ %s
 
-autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf' | :call CzoTTW () | endif
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults' | :call CzoTTW () | endif
 
 
 endif
@@ -399,6 +400,13 @@ command!  CzoMSwinEnable call CzoMSwinEnable ()
 function! CzoMSwinEnable ()
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
+        " but dont use Ctrl-A
+        "noremap  <C-A> <C-A>
+        "inoremap <C-A> <C-A>
+        noremap  <C-Y> <C-Y>
+        inoremap <C-Y> <C-Y>
+        noremap  <C-F> <C-F>
+        inoremap <C-F> <C-F>
     endif
 endfunction
 
@@ -459,53 +467,73 @@ else
 endif
 
 " always use Ctrl-Q instead of Ctrl-V
-noremap <C-Q> <C-V>
+noremap <C-Q>               <C-V>
+
+" scroll by one line
+map  <ScrollWheelUp>        <C-Y>
+imap <ScrollWheelUp>        <C-O><C-Y>
+map  <ScrollWheelDown>      <C-E>
+imap <ScrollWheelDown>      <C-O><C-E>
+
+" scroll by one page
+map  <S-ScrollWheelUp>      <C-B>
+imap <S-ScrollWheelUp>      <C-O><C-B>
+map  <S-ScrollWheelDown>    <C-F>
+imap <S-ScrollWheelDown>    <C-O><C-F>
+
+" scroll by one 1/2 page
+map  <C-ScrollWheelUp>      <C-U>
+imap <C-ScrollWheelUp>      <C-O><C-U>
+map  <C-ScrollWheelDown>    <C-D>
+imap <C-ScrollWheelDown>    <C-O><C-D>
+
+" shift
+vnoremap >          >gv
+vnoremap <          <gv
+
+" goto tags
+map  <C-PageUp>     <C-]>
+imap <C-PageUp>     <C-O><C-]>
+map  <C-PageDown>   <C-T>
+imap <C-PageDown>   <C-O><C-T>
+
+" goto diff
+nmap <M-Down>       ]c
+imap <M-Down>       <C-O>]c
+map  <M-Up>         [c
+imap <M-Up>         <C-O>[c
 
 " search hilited text
-vmap / y/<C-R>"<CR>
-vmap ? y?<C-R>"<CR>
+vmap /              y/<C-R>"<CR>
+vmap ?              y?<C-R>"<CR>
 
-vnoremap > >gv
-vnoremap < <gv
+" function
+nmap <F1>           :help <C-R>=expand('<cword>')<CR><CR>
+imap <F1>           <C-O>:help <C-R>=expand('<cword>')<CR><CR>
 
-"goto tags
-map  <C-PageUp> <C-]>
-imap <C-PageUp> <C-O><C-]>
-map  <C-PageDown> <C-T>
-imap <C-PageDown> <C-O><C-T>
+nmap <F2>           ]c
+imap <F2>           <C-O>]c
+map  <F3>           [c
+imap <F3>           <C-O>[c
 
-"goto diff
-nmap <M-Down> ]c
-imap <M-Down> <C-O>]c
-map  <M-Up> [c
-imap <M-Up> <C-O>[c
+map  <F4>           :N<CR>
+imap <F4>           <C-O>:N<CR>
+map  <F5>           :n<CR>
+imap <F5>           <C-O>:n<CR>
 
-nmap <F1> :help <C-R>=expand('<cword>')<CR><CR>
-imap <F1> <C-O>:help <C-R>=expand('<cword>')<CR><CR>
+map  <F6>           :make<CR>
+imap <F6>           <C-O>:make<CR>
 
-nmap <F2> ]c
-imap <F2> <C-O>]c
-map  <F3> [c
-imap <F3> <C-O>[c
-
-map  <F4> :N<CR>
-imap <F4> <C-O>:N<CR>
-map  <F5> :n<CR>
-imap <F5> <C-O>:n<CR>
-
-map  <F6> :make<CR>
-imap <F6> <C-O>:make<CR>
-
-map  <F7> :cp<CR>
-imap <F7> <C-O>:cp<CR>
-map  <F8> :cn<CR>
-imap <F8> <C-O>:cn<CR>
+map  <F7>           :cp<CR>
+imap <F7>           <C-O>:cp<CR>
+map  <F8>           :cn<CR>
+imap <F8>           <C-O>:cn<CR>
 
 "map  <F9> :!rm %<CR><CR>:q!<CR>
-map  <F9> :syn include syntax/css/vim-coloresque.vim<CR>
+map  <F9>           :syn include syntax/css/vim-coloresque.vim<CR>
 
-map  <F10> :q<CR>
-imap <F10> <C-O>:q<CR>
+map  <F10>          :q<CR>
+imap <F10>          <C-O>:q<CR>
 
 if version >= 600
     map  <leader>x :so ~/.vimrc<CR>
@@ -520,8 +548,8 @@ if version >= 600
     nmap <leader>uu :!perl -pe 's/(\w+)/\u$1/g'<CR>
     imap <leader>uu <C-O>:!perl -pe 's/(\w+)/\u$1/g'<CR>
 
-    map <leader>h2 yiw:let @/="<C-R>""<CR>:set hls<cr>map ,hh yiw:let @/="<C-R>""<CR>:set hls<cr>
-    map <leader>h1 yiw:let @/="\\<<C-R>"\\>"<CR>:set hls<CR>
+    map  <leader>h2 yiw:let @/="<C-R>""<CR>:set hls<cr>map ,hh yiw:let @/="<C-R>""<CR>:set hls<cr>
+    map  <leader>h1 yiw:let @/="\\<<C-R>"\\>"<CR>:set hls<CR>
 
     " decode/encode rot13 text
     vmap <leader>13 :!tr A-Za-z N-ZA-Mn-za-m
@@ -959,7 +987,7 @@ function! TemplateTimeStamp ()
         "
         " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
         "
-        " $Id: .vimrc,v 1.350 2022/10/13 16:34:20 czo Exp $
+        " $Id: .vimrc,v 1.360 2022/11/27 12:15:53 czo Exp $
 
         if 1
             " modif Started: in File Created:
@@ -1590,9 +1618,9 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl># Last Modified: Sunday 27 November 2022, 12:08
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:12
+                 \\<nl># Edit Time: 0:01:16
                  \\<nl># Description:
                  \\<nl>#      Makefile:
                  \\<nl>#      $@ Le nom de la cible
@@ -1617,24 +1645,24 @@ function! TemplateCzo (...)
                  \\<nl>EXEC = go
                  \\<nl>
                  \\<nl>all: $(EXEC)
-                 \\<nl>	@echo \\"<- all done!\\"
+                 \\<nl>\<tab>@echo \\"<- all done!\\"
                  \\<nl>
                  \\<nl>viewdeps: $(DEPS)
-                 \\<nl>	@echo $(DEPS)
+                 \\<nl>\<tab>@echo $(DEPS)
                  \\<nl>
                  \\<nl>$(EXEC): $(OBJ)
-                 \\<nl>	$(CC) -o $@ $^ $(LIBS)
+                 \\<nl>\<tab>$(CC) -o $@ $^ $(LIBS)
                  \\<nl>
                  \\<nl>%.o: %.c $(DEPS)
-                 \\<nl>	$(CC) -c -o $@ $< $(CFLAGS)
+                 \\<nl>\<tab>$(CC) -c -o $@ $< $(CFLAGS)
                  \\<nl>
                  \\<nl>clean:
-                 \\<nl>	rm -f *.o
-                 \\<nl>	@echo \\"<- clean done!\\"
+                 \\<nl>\<tab>rm -f *.o
+                 \\<nl>\<tab>@echo \\"<- clean done!\\"
                  \\<nl>
                  \\<nl>realclean: clean
-                 \\<nl>	rm -f $(EXEC)
-                 \\<nl>	@echo \\"<- realclean done!\\"
+                 \\<nl>\<tab>rm -f $(EXEC)
+                 \\<nl>\<tab>@echo \\"<- realclean done!\\"
                  \\<nl>
                  \\<nl>fclean: realclean
                  \\<nl>
@@ -2083,10 +2111,11 @@ else
     endfunction
 
     command! -range -bar Commentary call Commentary_go(<line1>,<line2>)
-    xnoremap <silent> <C-J>   :Commentary<CR>
-    nnoremap <silent> <C-J>   :Commentary<CR>
 
-    " c'est nouveau, pour l'instant, je ne comprend rien à ça....
+    " remove or add a comment with 'C-_' or 'Ctrl-Shift-/' (French kbd)
+    " or 'Ctrl-Shift-=' (US kbd) (any key near backspace and right shift)
+    map  <C-_>      :Commentary<CR>
+    imap <C-_>      <C-O>:Commentary<CR>
 
     " command! -range -bar Commentary call s:go(<line1>,<line2>)
     " xnoremap <expr>   <Plug>Commentary     <SID>go()
