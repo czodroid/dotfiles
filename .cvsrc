@@ -2,9 +2,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: August 1998
-# Last Modified: Sunday 27 November 2022, 18:09
-# $Id: .cvsrc,v 1.7 2022/11/27 17:10:39 czo Exp $
-# Edit Time: 4:01:55
+# Last Modified: Sunday 27 November 2022, 18:16
+# $Id: .cvsrc,v 1.8 2022/11/27 17:16:31 czo Exp $
+# Edit Time: 4:03:46
 # Description:
 #                Congig file for cvs
 #
@@ -14,5 +14,7 @@ cvs -q -z6
 co -P
 log -N
 diff -u -N
+rdiff -u
 update -d -P
+release -d
 
