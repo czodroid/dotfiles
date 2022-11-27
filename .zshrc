@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 27 November 2022, 13:21
-# $Id: .zshrc,v 1.434 2022/11/27 12:13:07 czo Exp $
-# Edit Time: 135:13:28
+# Last Modified: Sunday 27 November 2022, 17:29
+# $Id: .zshrc,v 1.436 2022/11/27 17:10:39 czo Exp $
+# Edit Time: 135:21:48
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -129,7 +129,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); e
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
 #FIXME: zsh typeset -U
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH"
 
 # /usr/lib:
 
@@ -145,11 +145,11 @@ export PATH=$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/loca
 #export PATH="$HOME/.local/python/bin:$PATH";
 
 ## config android
-if [ -d $HOME/Android/android-studio/bin ]; then
-    # export PATH=$HOME/Android/Sdk/tools:$PATH
-    # export PATH=$HOME/Android/Sdk/platform-tools:$PATH
-    # export PATH=$HOME/Android/Sdk/ndk-bundle:$PATH
-    export PATH=$HOME/Android/android-studio/bin:$PATH
+if [ -d "$HOME/Android/android-studio/bin" ]; then
+    # export PATH="$HOME/Android/Sdk/tools:$PATH"
+    # export PATH="$HOME/Android/Sdk/platform-tools:$PATH"
+    # export PATH="$HOME/Android/Sdk/ndk-bundle:$PATH"
+    export PATH="$HOME/Android/android-studio/bin:$PATH"
 fi
 
 ## config openwrt
@@ -203,8 +203,6 @@ export PERLDOC_PAGER='less -R'
 export SYSTEMD_PAGER=cat
 export APT_LISTCHANGES_FRONTEND=none
 
-export PGPPATH=$HOME/.gnupg
-
 export RSYNC_RSH=ssh
 export EDITOR=vim
 export CVSEDITOR=vim
@@ -221,6 +219,7 @@ case $(domainname 2>/dev/null) in
     *) export PRINTER=BW-Dressing ;;
 esac
 
+export PGPPATH=$HOME/.gnupg
 export HTML_TIDY=$HOME/.tidyrc
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
@@ -556,10 +555,10 @@ alias rm._='find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -
 [ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 [ -x "$(command -v less)" ] || alias more=less
 
-if [ -f "$HOME/.vimrc.czo" ]; then
-    export MYVIMRC="-u $HOME/.vimrc.czo"
-elif [ -f "$HOME/.vimrc" ]; then
-    export MYVIMRC="-u $HOME/.vimrc"
+if [ -f ~/.vimrc.czo ]; then
+    export MYVIMRC="-u ~/.vimrc.czo"
+elif [ -f ~/.vimrc ]; then
+    export MYVIMRC="-u ~/.vimrc"
 else
     export MYVIMRC=""
 fi
@@ -569,10 +568,10 @@ fi
 alias nvim="\nvim $MYVIMRC"
 alias ne='\emacs -nw'
 
-if [ -f "$HOME/.tmux.conf.czo" ]; then
-    export MYTMUXRC="-f $HOME/.tmux.conf.czo"
-elif [ -f "$HOME/.tmux.conf" ]; then
-    export MYTMUXRC="-f $HOME/.tmux.conf"
+if [ -f ~/.tmux.conf.czo ]; then
+    export MYTMUXRC="-f ~/.tmux.conf.czo"
+elif [ -f ~/.tmux.conf ]; then
+    export MYTMUXRC="-f ~/.tmux.conf"
 else
     export MYTMUXRC=""
 fi
@@ -591,7 +590,7 @@ fi
 
 psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
-n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat "$HOME/.ncd_sdir")"; fi; }
+n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat ~/.ncd_sdir)"; fi; }
 
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
@@ -648,7 +647,7 @@ alias tree-cvs='tree -adn | grep -v CVS'
 alias dft='df -hPT'
 
 alias cvu='cd ~/etc ; cvs up ; cd -'
-alias cvd='cd ~/etc ; cvs diff ; cd -'
+alias cvd='cd ~/etc ; cvs diff | colordiff ; cd -'
 alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
@@ -721,7 +720,7 @@ alias 16color='for i in $(seq 0 7); do printf "\x1b[48;5;${i}m  "; done; printf 
 passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} split(//,$ARGV[0])))."\n"' $1; }
 passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
-sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -b 4096:6892 -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
+sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
 alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
@@ -835,3 +834,4 @@ export -U PATH
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 # EOF
+

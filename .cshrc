@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Sunday 27 November 2022, 13:12
-# $Id: .cshrc,v 1.142 2022/11/27 12:13:07 czo Exp $
-# Edit Time: 31:08:03
+# Last Modified: Sunday 27 November 2022, 17:30
+# $Id: .cshrc,v 1.144 2022/11/27 17:10:39 czo Exp $
+# Edit Time: 31:08:41
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -143,8 +143,6 @@ setenv PAGER         less
 setenv PERLDOC_PAGER 'less -R'
 setenv SYSTEMD_PAGER cat
 
-setenv PGPPATH $HOME/.gnugp
-
 setenv RSYNC_RSH ssh
 setenv EDITOR vim
 setenv CVSEDITOR vim
@@ -152,6 +150,7 @@ setenv CVSIGNORE .DS_Store
 setenv CVSROOT czo@dalmorechezwam:/tank/data/czo/.cvsroot
 
 setenv PRINTER BW-Dressing
+setenv PGPPATH $HOME/.gnugp
 setenv HTML_TIDY $HOME/.tidyrc
 
 ##======= Key bindings ============================================##
@@ -416,7 +415,7 @@ alias tree-cvs 'tree -adn | grep -v CVS'
 alias dft      'df -hPT'
 
 alias cvu 'cd ~/etc ; cvs up ; cd -'
-alias cvd 'cd ~/etc ; cvs diff ; cd -'
+alias cvd 'cd ~/etc ; cvs diff | colordiff ; cd -'
 alias cvc 'cd ~/etc ; cvs ci -mupdate ; cd -'
 
 alias gtu 'git pull'
