@@ -1,10 +1,14 @@
+#             ,,,
+#            (o o)
+####=====oOO--(_)--OOO==============================================####
+#
 # Filename: .cvsrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: August 1998
-# Last Modified: Sunday 27 November 2022, 18:16
-# $Id: .cvsrc,v 1.8 2022/11/27 17:16:31 czo Exp $
-# Edit Time: 4:03:46
+# Last Modified: Tuesday 29 November 2022, 12:43
+# $Id: .cvsrc,v 1.9 2022/11/29 11:43:59 czo Exp $
+# Edit Time: 4:04:30
 # Description:
 #                Congig file for cvs
 #

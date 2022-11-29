@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 27 November 2022, 17:28
-# $Id: .bashrc,v 1.470 2022/11/27 17:10:39 czo Exp $
-# Edit Time: 118:16:34
+# Last Modified: Tuesday 29 November 2022, 12:40
+# $Id: .bashrc,v 1.471 2022/11/29 11:43:59 czo Exp $
+# Edit Time: 118:22:11
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -32,7 +32,7 @@
 
 export TMPDIR=${TMPDIR-/tmp}
 
-export HISTFILE=${TMPDIR}/.sh_history
+export HISTFILE=$TMPDIR/.sh_history
 
 if [ -n "$BASH_VERSION" ]; then
     #busybox ash bug when defining HISTFILE...
@@ -133,21 +133,21 @@ fi
 
 ## config openwrt
 if [ -d /rom/bin ]; then
-    export PATH=$PATH:/rom/bin
+    export PATH="$PATH:/rom/bin"
 fi
 
 ## config termux for android
 if [ -d /system/bin ]; then
     export TMPDIR=/data/local/tmp
-    export PATH=/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:$PATH
+    export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:$PATH"
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 fi
 
 ## config SWARM
-#export PATH=/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$PATH
+#export PATH="/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$PATH"
 
 # there was a time when I needed it, but I can't remember anymore...
-#typeset -U MANPATH=$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH
+#typeset -U MANPATH="$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH"
 #export MANPATH
 
 # export LD_RUN_PATH=/users/soft5/gnu/bazar/archi/Linux/lib/wxgtk/lib
@@ -198,8 +198,8 @@ case $(domainname 2>/dev/null) in
     *) export PRINTER=BW-Dressing ;;
 esac
 
-export PGPPATH=$HOME/.gnupg
-export HTML_TIDY=$HOME/.tidyrc
+export PGPPATH=~/.gnupg
+export HTML_TIDY=~/.tidyrc
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
@@ -369,7 +369,7 @@ case $PLATFORM in
         export DISPLAY=:0
         export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/Contents/Home
         ## config macos brew
-        export PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH
+        export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH"
         alias grep='\grep --color'
         alias ps='\ps -Awww'
         alias pg='\pgrep -fil'
