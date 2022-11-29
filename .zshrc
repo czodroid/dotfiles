@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 29 November 2022, 12:40
-# $Id: .zshrc,v 1.437 2022/11/29 11:43:59 czo Exp $
-# Edit Time: 135:25:21
+# Last Modified: Tuesday 29 November 2022, 13:10
+# $Id: .zshrc,v 1.438 2022/11/29 12:13:02 czo Exp $
+# Edit Time: 135:25:36
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -219,8 +219,8 @@ case $(domainname 2>/dev/null) in
     *) export PRINTER=BW-Dressing ;;
 esac
 
-export PGPPATH=~/.gnupg
-export HTML_TIDY=~/.tidyrc
+export PGPPATH="$HOME/.gnupg"
+export HTML_TIDY="$HOME/.tidyrc"
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 

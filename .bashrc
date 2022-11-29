@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 29 November 2022, 12:40
-# $Id: .bashrc,v 1.471 2022/11/29 11:43:59 czo Exp $
-# Edit Time: 118:22:11
+# Last Modified: Tuesday 29 November 2022, 13:10
+# $Id: .bashrc,v 1.472 2022/11/29 12:13:02 czo Exp $
+# Edit Time: 118:25:42
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -198,8 +198,8 @@ case $(domainname 2>/dev/null) in
     *) export PRINTER=BW-Dressing ;;
 esac
 
-export PGPPATH=~/.gnupg
-export HTML_TIDY=~/.tidyrc
+export PGPPATH="$HOME/.gnupg"
+export HTML_TIDY="$HOME/.tidyrc"
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
@@ -703,7 +703,7 @@ fi
 umask 022
 
 #FIXME: zsh, export -U PATH
-export PATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
+export PATH=$(echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
