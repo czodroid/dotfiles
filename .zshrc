@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 29 November 2022, 13:10
-# $Id: .zshrc,v 1.438 2022/11/29 12:13:02 czo Exp $
-# Edit Time: 135:25:36
+# Last Modified: Tuesday 29 November 2022, 13:27
+# $Id: .zshrc,v 1.439 2022/11/29 12:43:39 czo Exp $
+# Edit Time: 135:26:17
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -807,7 +807,7 @@ if [[ -x /usr/lib/command-not-found ]]; then
 fi
 
 # busybox has no cksum on openWRT!
-if [ -x "$(command -v cksum)" ]; then
+if [ -x "$(command -v cksum)" -a -x "$(command -v awk)" ]; then
     # hash for colors
     USER_PROMPT_COLOR=$( printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
     HOST_PROMPT_COLOR=$( printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 29 November 2022, 13:10
-# $Id: .bashrc,v 1.472 2022/11/29 12:13:02 czo Exp $
-# Edit Time: 118:25:42
+# Last Modified: Tuesday 29 November 2022, 13:22
+# $Id: .bashrc,v 1.473 2022/11/29 12:43:38 czo Exp $
+# Edit Time: 118:31:24
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -668,7 +668,7 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # busybox has no cksum on openWRT!
-if [ -x "$(command -v cksum)" ]; then
+if [ -x "$(command -v cksum)" -a -x "$(command -v awk)" ]; then
     # hash for colors
     USER_PROMPT_COLOR=$( printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
     HOST_PROMPT_COLOR=$( printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
@@ -703,7 +703,9 @@ fi
 umask 022
 
 #FIXME: zsh, export -U PATH
-export PATH=$(echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
+if [ -x "$(command -v awk)" ]; then
+    export PATH=$(echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
+fi
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
