@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 30 November 2022, 13:16
-# $Id: .cshrc,v 1.145 2022/11/30 12:16:19 czo Exp $
-# Edit Time: 31:08:53
+# Last Modified: Wednesday 30 November 2022, 13:23
+# $Id: .cshrc,v 1.146 2022/11/30 12:23:55 czo Exp $
+# Edit Time: 31:09:07
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -458,7 +458,7 @@ alias PL  'pacman -Ql'
 alias PF  'pacman -Qo'
 
 # freebsd
-alias FU  'pkg update -f && pkg upgrade -y && pkg clean -y && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
+alias FU  'pkg update && pkg upgrade && pkg clean && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
 
 # brew macos
 alias BU  'brew update && brew upgrade && brew cleanup'
