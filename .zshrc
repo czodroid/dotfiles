@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 30 November 2022, 09:20
-# $Id: .zshrc,v 1.440 2022/11/30 08:21:24 czo Exp $
-# Edit Time: 135:26:34
+# Last Modified: Wednesday 30 November 2022, 13:14
+# $Id: .zshrc,v 1.442 2022/11/30 12:14:40 czo Exp $
+# Edit Time: 135:27:02
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -694,7 +694,7 @@ alias PL='pacman -Ql'
 alias PF='pacman -Qo'
 
 # freebsd
-alias FU='pkg update -y && pkg upgrade -y && pkg clean -y && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias FU='pkg update -f && pkg upgrade -y && pkg clean -y && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # brew macos
 alias BU='brew update && brew upgrade && brew cleanup'

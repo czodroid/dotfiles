@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 30 November 2022, 09:20
-# $Id: .bashrc,v 1.474 2022/11/30 08:21:24 czo Exp $
-# Edit Time: 118:31:33
+# Last Modified: Wednesday 30 November 2022, 13:14
+# $Id: .bashrc,v 1.476 2022/11/30 12:14:40 czo Exp $
+# Edit Time: 118:32:13
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -566,7 +566,7 @@ alias PL='pacman -Ql'
 alias PF='pacman -Qo'
 
 # freebsd
-alias FU='pkg update -y && pkg upgrade -y && pkg clean -y && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias FU='pkg update -f && pkg upgrade -y && pkg clean -y && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # brew macos
 alias BU='brew update && brew upgrade && brew cleanup'
