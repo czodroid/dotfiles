@@ -6,9 +6,9 @@
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
 ! File Created: 28 mars 1996
-! Last Modified: Sunday 27 November 2022, 13:15
-! $Id: .Xresources,v 1.45 2022/11/27 12:15:53 czo Exp $
-! Edit Time: 7:19:12
+! Last Modified: Wednesday 30 November 2022, 09:18
+! $Id: .Xresources,v 1.47 2022/11/30 08:19:21 czo Exp $
+! Edit Time: 7:22:30
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
@@ -49,18 +49,13 @@ XTerm*SimpleMenu*font:       fixed
 XTerm*SimpleMenu*foreground: black
 XTerm*SimpleMenu*background: grey
 
-! Cygwin X
-XTerm*toolBar:        false
-xterm*allowColorOps:  false
-xterm*allowFontOps:   false
-XTerm*allowTcapOps:   false
-xterm*allowTitleOps:  false
-xterm*allowWindowOps: false
-
-
 XTerm*scrollBar:  false
 XTerm*saveLines:  99000
 XTerm*visualBell: false
+
+! Cygwin X
+XTerm*toolBar:        false
+XTerm*allowTcapOps:   false
 
 ! i want Alt-X to send ESC-x but I prefer correct input of é : false
 !XTerm*eightBitControl: false

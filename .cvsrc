@@ -6,11 +6,11 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: August 1998
-# Last Modified: Tuesday 29 November 2022, 12:43
-# $Id: .cvsrc,v 1.9 2022/11/29 11:43:59 czo Exp $
-# Edit Time: 4:04:30
+# Last Modified: Wednesday 30 November 2022, 09:22
+# $Id: .cvsrc,v 1.11 2022/11/30 08:23:20 czo Exp $
+# Edit Time: 2:05:19
 # Description:
-#                Congig file for cvs
+#                 cvs conf file
 #
 # Copyright: (C) 1998-2022 Olivier Sirol <czo@free.fr>
 #
