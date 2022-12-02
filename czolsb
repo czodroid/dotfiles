@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Thursday 01 December 2022, 12:08
-# $Id: czolsb,v 1.52 2022/12/01 11:08:38 czo Exp $
-# Edit Time: 40:41:38
+# Last Modified: Friday 02 December 2022, 17:27
+# $Id: czolsb,v 1.55 2022/12/02 16:27:10 czo Exp $
+# Edit Time: 41:00:09
 # Description:
 #
 #   /etc/czolsb > /etc/motd
@@ -37,7 +37,8 @@ CKNAME=$(uname -r)
 OSN=$(uname)
 
 case "$OSN" in
-Linux | CYGWIN*)
+Linux | Android | CYGWIN*)
+    OSNAME=$(uname -o)
     if [ "$OSN" = "Linux" ]; then
         if [ ! -x "$(command -v lsb_release)" ]; then
             if [ -f /etc/os-release ]; then
@@ -45,9 +46,9 @@ Linux | CYGWIN*)
                 . /etc/os-release
             else
                 # echo "-> nothing found"
-                PRETTY_NAME="Unknown"
-                ID="Unknown"
-                VERSION_ID="Unknown"
+                PRETTY_NAME="Linux"
+                ID="N/A"
+                VERSION_ID="N/A"
             fi
         else
             # echo "-> found lsb_release"
@@ -69,6 +70,10 @@ Linux | CYGWIN*)
 
     else
         PRETTY_NAME="Cygwin ($OSN)"
+    fi
+
+    if [ "$OSNAME" = "Android" ]; then
+        PRETTY_NAME="Linux (Android)"
     fi
 
     CRELEASE=$(echo "${PRETTY_NAME}" | perl -pe 's/  */ /g' | perl -pe 's/"//g')
