@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 27 November 2022, 13:15
-" $Id: .vimrc,v 1.360 2022/11/27 12:15:53 czo Exp $
-" Edit Time: 230:20:01
+" Last Modified: Sunday 04 December 2022, 09:58
+" $Id: .vimrc,v 1.362 2022/12/04 08:58:11 czo Exp $
+" Edit Time: 230:27:23
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -276,7 +276,6 @@ autocmd BufNewFile,BufRead *.ino set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
 autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
-autocmd FileType perl      setlocal equalprg=perltidy\ -ce\ -l=0\ -st
 autocmd FileType json      setlocal commentstring=//\ %s
 autocmd FileType cpp       setlocal commentstring=//\ %s
 autocmd FileType php       setlocal commentstring=//\ %s
@@ -284,6 +283,7 @@ autocmd FileType crontab   setlocal commentstring=#\ %s
 autocmd FileType cfg       setlocal commentstring=#\ %s
 autocmd FileType xdefaults setlocal commentstring=!\ %s
 autocmd FileType apache    setlocal commentstring=#\ %s
+autocmd FileType perl      setlocal equalprg=perltidy\ -ce\ -l=0\ -st
 
 autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults' | :call CzoTTW () | endif
 
@@ -987,7 +987,7 @@ function! TemplateTimeStamp ()
         "
         " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
         "
-        " $Id: .vimrc,v 1.360 2022/11/27 12:15:53 czo Exp $
+        " $Id: .vimrc,v 1.362 2022/12/04 08:58:11 czo Exp $
 
         if 1
             " modif Started: in File Created:

@@ -1,12 +1,12 @@
-#! /usr/bin/env bash
+#! /usr/bin/env perl
 #
 # Filename: czolsb
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Friday 02 December 2022, 17:27
-# $Id: czolsb,v 1.55 2022/12/02 16:27:10 czo Exp $
-# Edit Time: 41:00:09
+# Last Modified: Sunday 04 December 2022, 18:57
+# $Id: czolsb,v 1.58 2022/12/04 17:57:16 czo Exp $
+# Edit Time: 51:57:31
 # Description:
 #
 #   /etc/czolsb > /etc/motd
@@ -19,124 +19,267 @@
 #   /etc/cron.d/czo-motd-czolsb:
 #   @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
 #
-#   TODO: redo in perl!
-#
 # Copyright: (C) 2009-2022 Olivier Sirol <czo@free.fr>
 
-export LANG=C
-export PATH=$PATH:/sbin
+# use strict;
+# use warnings;
 
-{ [ -x "$(command -v hostname)" ] && export HOSTNAME=$(hostname 2>/dev/null); } || export HOSTNAME=$(uname -n 2>/dev/null)
-export HOSTNAME=$(echo "$HOSTNAME" | perl -pe 's/\..*//')
+$release_file        = '/etc/os-release';
+$debian_version_file = '/etc/debian_version';
+$lsb_czo_file        = '/etc/lsb-czo-updatedate';
 
-WELCOME=$(perl -e '$H="Welcome on " . $ENV{HOSTNAME}; print map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } $H;')
+$ENV{LC_ALL} = "C";
+$ENV{PATH}   = "$ENV{PATH}:/sbin";
+$debug       = 0;
 
-CCNAME=$(uname -m)
-CKNAME=$(uname -r)
+##=======================================================
+## print debug
 
-OSN=$(uname)
+sub printd {
+    warn(@_) if $debug;
+}
 
-case "$OSN" in
-Linux | Android | CYGWIN*)
-    OSNAME=$(uname -o)
-    if [ "$OSN" = "Linux" ]; then
-        if [ ! -x "$(command -v lsb_release)" ]; then
-            if [ -f /etc/os-release ]; then
-                # echo "-> found os-release"
-                . /etc/os-release
-            else
-                # echo "-> nothing found"
-                PRETTY_NAME="Linux"
-                ID="N/A"
-                VERSION_ID="N/A"
-            fi
-        else
-            # echo "-> found lsb_release"
-            PRETTY_NAME=$(lsb_release -sd)
-            ID=$(lsb_release -si)
-            VERSION_ID=$(lsb_release -sr)
-        fi
+sub printv {
+    while ( $s = shift ) {
+        if ($debug) { warn( $s . ": '" . $$s . "'\n" ); }
+    }
+}
 
-        # debian 10 : no more dot release cf /etc/debian_version
-        if [ "$ID" = "debian" ] || [ "$ID" = "Debian" ] || [ "$ID" = "Raspbian" ]; then
-            if [ $(echo "$VERSION_ID" | perl -pe 's/\..*//') -ge 10 ]; then
-                # echo "-> found debian >= 10"
-                if [ -f /etc/debian_version ]; then
-                    PRETTY_NAME=$(echo "$PRETTY_NAME" | perl -pe "s/$VERSION_ID/$(cat /etc/debian_version)/")
-                    VERSION_ID=$(cat /etc/debian_version)
-                fi
-            fi
-        fi
+##=======================================================
+## get the first line of a shell command
 
-    else
-        PRETTY_NAME="Cygwin ($OSN)"
-    fi
+sub qxc {
+    my $s;
+    ($s) = qx(@_);
+    chomp($s);
+    return $s;
+}
 
-    if [ "$OSNAME" = "Android" ]; then
-        PRETTY_NAME="Linux (Android)"
-    fi
+##=======================================================
+## main
 
-    CRELEASE=$(echo "${PRETTY_NAME}" | perl -pe 's/  */ /g' | perl -pe 's/"//g')
+$HOSTNAME = qxc('hostname 2>/dev/null');
+if ( !defined($HOSTNAME) ) {
+    $HOSTNAME = qxc('uname -n');
+}
+$HOSTNAME =~ s/\..*//;
 
-    CNBCORE=$(perl -e '@procn=grep(/^processor[\t ]*:/, qx"cat /proc/cpuinfo"); $procn=@procn; print $procn;')
-    CCOREMODEL=$(perl -e '($A1,$A2,$A3,$A4)= (qx"cat /proc/cpuinfo" =~ /^((model name)|(cpu model))[\t ]*: (.*)/m); $A4=~s/  */ /g; print $A4;')
-    CMEM=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^MemTotal:\s*(.*) kB/); $mem=$mem/1024/1024; printf("%.1fGB RAM",$mem);')
-    CSWAP=$(perl -e '($mem)= (qx"cat /proc/meminfo" =~ /^SwapTotal:\s*(.*) kB/m); if ($mem eq 0) { printf("no swap"); } else { $mem=$mem/1024/1024; printf("%.1fGB SWAP",$mem); }')
+$CCNAME = qxc('uname -m');
+$CKNAME = qxc('uname -r');
+$OSN    = qxc('uname');
 
-    ;;
+##printv(qw(CCNAME CKNAME OSN));
 
-FreeBSD | OpenBSD | NetBSD | Darwin)
-    # poorly tested
-    ID=$OSN
-    VERSION_ID=$(echo "${CKNAME}" | perl -pe 's/-.*//g')
-    CRELEASE="$ID $VERSION_ID"
-    CNBCORE=$(sysctl -n hw.ncpu)
+# Linux | Android | Cygwin
+if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
+    $OSNAME = qxc('uname -o');
+    if ( $OSN =~ /^Linux/ ) {
+        if ( system('lsb_release >/dev/null 2>&1') != 0 ) {
+            if ( -r $release_file ) {
+                printd "-> reading $release_file\n";
+                if ( open( FILE, "<$release_file" ) ) {
+                    while (<FILE>) {
+                        chomp $_;
+                        if ( $_ =~ m/["]?([^="]+)["]?=["]?([^"]+)["]?/ ) {
+                            ##printd "'$1':        '$2'\n";
+                            ${$1} = $2;
+                        }
+                    }
+                    close FILE;
+                }
+            } else {
+                printd "-> nothing found\n";
+                $PRETTY_NAME = "Linux";
+                $ID          = "n/a";
+                $VERSION_ID  = "n/a";
+            }
+        } else {
+            printd "-> found lsb_release\n";
+            $PRETTY_NAME = qxc('lsb_release -sd');
+            $ID          = qxc('lsb_release -si');
+            $VERSION_ID  = qxc('lsb_release -sr');
+        }
+
+        if ( $ID =~ /debian/i || $ID =~ /raspbian/i ) {
+            if ( $VERSION_ID >= 10 ) {
+                printd "-> debian >= 10: no more dot release, but keeping it\n";
+                if ( -r $debian_version_file ) {
+                    if ( open( FILE, "<$debian_version_file" ) ) {
+                        ($vid) = <FILE>;
+                        chomp $vid;
+                        $PRETTY_NAME =~ s/$VERSION_ID/$vid/;
+                        $VERSION_ID = $vid;
+                        close FILE;
+                    }
+                }
+            }
+        }
+        if ( $OSNAME =~ /Android/i ) {
+            $PRETTY_NAME = "Linux (Android)";
+        }
+
+    } else {
+        $PRETTY_NAME = "Cygwin ($OSN)";
+        $ID          = "Cygwin";
+        $VERSION_ID  = $OSN;
+        $VERSION_ID =~ s/^.*-//;
+    }
+
+    $CRELEASE = $PRETTY_NAME;
+    $CRELEASE =~ s/  */ /g;
+    $CRELEASE =~ s/"//g;
+
+    $CNBCORE = 0;
+    if ( open( FILE, "</proc/cpuinfo" ) ) {
+        while (<FILE>) {
+            chomp $_;
+            if ( $_ =~ /^((model name)|(cpu model))[\t ]*: (.*)/ ) {
+                $CNBCORE += 1;
+                $CCOREMODEL = $4;
+                $CCOREMODEL =~ s/  */ /g;
+                printv(qw(CCOREMODEL CNBCORE));
+            }
+        }
+        close FILE;
+    }
+
+    if ( open( FILE, "</proc/meminfo" ) ) {
+        while (<FILE>) {
+            chomp $_;
+            if ( $_ =~ /^MemTotal:\s*(.*) kB/ ) {
+                $CMEM = $1;
+                printv(qw(CMEM));
+                $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 );
+            }
+            if ( $_ =~ /^SwapTotal:\s*(.*) kB/ ) {
+                $CSWAP = $1;
+                printv(qw(CSWAP));
+                if ( $CSWAP eq 0 ) {
+                    $CSWAP = "no swap";
+                } else {
+                    $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+                }
+            }
+        }
+        close FILE;
+    }
+
+}
+
+# FreeBSD | OpenBSD | NetBSD | Darwin
+elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
+    ## poorly tested
+    $ID         = $OSN;
+    $VERSION_ID = $CKNAME;
+    $VERSION_ID =~ s/-.*//g;
+    $CRELEASE = "$ID $VERSION_ID";
+    $CNBCORE  = qxc('sysctl -n hw.ncpu');
 
     # FreeBSD | OpenBSD
-    CCOREMODEL=$(sysctl -n hw.model)
+    if ( $OSN =~ /^FreeBSD|^OpenBSD/ ) {
+        $CCOREMODEL = qxc('sysctl -n hw.model');
+    }
 
-    CMEM=$(perl -e '($mem)=qx"sysctl -n hw.physmem"; $mem=$mem/1024/1024/1024; printf("%.1fGB RAM",$mem);')
-    CSWAP=$(perl -e '($mem)=(qx"swapctl -sk" =~ /^total:\s*(.*) .*/mi); if ($mem eq 0) { printf("no swap"); } else { $mem=$mem/1024/1024; printf("%.1fGB SWAP",$mem); }')
+    # NetBSD
+    if ( $OSN =~ /^NetBSD/ ) {
+        $CCOREMODEL = qxc('sysctl -n machdep.cpu_brand');
+    }
 
-    if [ "$OSN" = "NetBSD" ]; then
-        CCOREMODEL=$(sysctl -n machdep.cpu_brand)
-    fi
+    if ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD/ ) {
+        $CMEM = qxc('sysctl -n hw.physmem');
+        printv(qw(CMEM));
+        $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 / 1024 );
 
-    if [ "$OSN" = "Darwin" ]; then
-        CCOREMODEL=$(sysctl -n machdep.cpu.brand_string)
-        CMEM=$(perl -e '($mem)=qx"sysctl -n hw.memsize"; $mem=$mem/1024/1024/1024; printf("%.1fGB RAM",$mem);')
-        CSWAP=$(perl -e '($mem)=(qx"sysctl -n vm.swapusage" =~ /^total = ([^M]*)M .*/mi); $mem=$mem/1; if ($mem eq 0) { printf("no swap"); } else { $mem=$mem/1024; printf("%.1fGB SWAP",$mem); }')
-    fi
+        ($CSWAP) = ( qx'swapctl -sk' =~ /^total:\s*([^\s]*) .*/i );
+        printv(qw(CSWAP));
+        if ( $CSWAP eq 0 ) {
+            $CSWAP = "no swap";
+        } else {
+            $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+        }
+    }
 
-    ;;
+    if ( $OSN =~ /^Darwin/ ) {
+        $CCOREMODEL = qxc('sysctl -n machdep.cpu.brand_string');
 
-SunOS)
-    # poorly tested
-    ID=$OSN
-    VERSION_ID=$(echo "${CKNAME}" | perl -pe 's/-.*//g')
-    CRELEASE="$ID $VERSION_ID"
+        $CMEM = qxc('sysctl -n hw.memsize');
+        printv(qw(CMEM));
+        $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 / 1024 );
 
-    CNBCORE=$(kstat cpu_info | grep -w core_id | wc -l | perl -pe 's/^\s+//g')
-    CCOREMODEL=$(perl -e '($cmd)=(qx"kstat -m cpu_info"  =~ /^\s+brand\s+(.*)/m); print($cmd);')
+        ($CSWAP) = ( qx'sysctl -n vm.swapusage' =~ /^total = ([^M]*)M .*/ );
+        printv(qw(CSWAP));
+        if ( $CSWAP =~ '0.00' ) {
+            $CSWAP = "no swap";
+        } else {
+            $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 );
+        }
+    }
+    printv(qw(CCOREMODEL CNBCORE));
 
-    #Memory size: 1024 Megabytes
-    CMEM=$(perl -e '($mem)=(qx"prtconf"  =~ /^Memory size: ([0-9]+) Megabytes/m); $mem=$mem/1024; printf("%.1fGB RAM",$mem);')
-    #total: 175380k bytes allocated + 33604k reserved = 208984k used, 1160364k available
-    CSWAP=$(perl -e '($mem)=(qx"swap -s" =~ /^total:\s*.*, ([0-9]+)k available/mi); if ($mem eq 0) { printf("no swap"); } else { $mem=$mem/1024/1024; printf("%.1fGB SWAP",$mem); }')
+}
 
-    ;;
+# SunOS
+elsif ( $OSN =~ /^SunOS/ ) {
+    ## poorly tested
+    printd "-> ^SunOS\n";
+    $ID         = $OSN;
+    $VERSION_ID = $CKNAME;
+    $VERSION_ID =~ s/-.*//g;
+    $CRELEASE = "$ID $VERSION_ID";
 
-esac
+    ($CCOREMODEL) = qx'kstat -m cpu_info' =~ /^\s+brand\s+(.*)/m;
+    $CNBCORE = grep( /\score_id\s/, qx'kstat cpu_info' );
+    printv(qw(CCOREMODEL CNBCORE));
 
-CCOREMODEL=$(echo "${CCOREMODEL}" | perl -pe 's/\(TM\)|\(R\)//gi' | perl -pe 's/ +$//g')
-if [ -f /etc/lsb-czo-updatedate ]; then
-    DTAG=$(cat /etc/lsb-czo-updatedate | perl -pe 's/-//g')
-    CTAG=$(echo "${ID}_${VERSION_ID}-$(uname -m)-czo-${DTAG}" | perl -pe 's/(.*)/\L\1/')
-else
-    CTAG='???'
-fi
+    # Memory size: 1024 Megabytes
+    ($CMEM) = ( qx'prtconf' =~ /^Memory size: ([0-9]+) Megabytes/m );
+    printv(qw(CMEM));
+    $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 );
 
-cat <<EOF
+    # total: 163480k bytes allocated + 16100k reserved = 179580k used, 1013712k available
+    ($CSWAP) = ( qx'swap -s' =~ /^total:.*, ([0-9]+)k available/mi );
+    printv(qw(CSWAP));
+    if ( $CSWAP eq 0 ) {
+        $CSWAP = "no swap";
+    } else {
+        $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+    }
+
+} else {
+    $ID         = $OSN;
+    $VERSION_ID = $CKNAME;
+    $VERSION_ID =~ s/-.*//g;
+    $CRELEASE   = "$ID $VERSION_ID";
+    $CNBCORE    = 'n/a';
+    $CCOREMODEL = 'n/a';
+    $CMEM       = 'n/a';
+    $CSWAP      = 'n/a';
+    $CTAG       = 'n/a';
+}
+
+# Result
+$CCOREMODEL =~ s/\(TM\)|\(R\)//gi;
+$CCOREMODEL =~ s/ +$//g;
+
+if ( -r $lsb_czo_file ) {
+    if ( open( FILE, "<$lsb_czo_file" ) ) {
+        ($DTAG) = <FILE>;
+        chomp $DTAG;
+        $DTAG =~ s/-//g;
+        ## centos_6.5-x86_64-czo-20140410
+        $CTAG = $ID . "_" . $VERSION_ID . "-" . $CCNAME . "-czo-" . $DTAG;
+        close FILE;
+    }
+} else {
+    $CTAG = $ID . "_" . $VERSION_ID . "-" . $CCNAME . "-czo-???";
+}
+$CTAG =~ s/(.*)/\L$1/;
+
+# printv(qw (HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CMEM CSWAP CTAG));
+
+($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
+
+print <<OVER
               ,,,
              (o o)
 ####=====oOO==(_)==OOO==============================================####
@@ -149,4 +292,6 @@ $WELCOME
 
 ####================================================================####
 
-EOF
+OVER
+
+__END__
