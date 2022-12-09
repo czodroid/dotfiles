@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 04 December 2022, 09:58
-" $Id: .vimrc,v 1.362 2022/12/04 08:58:11 czo Exp $
-" Edit Time: 230:27:23
+" Last Modified: Friday 09 December 2022, 18:21
+" $Id: .vimrc,v 1.363 2022/12/09 17:21:25 czo Exp $
+" Edit Time: 230:27:35
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -987,7 +987,7 @@ function! TemplateTimeStamp ()
         "
         " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
         "
-        " $Id: .vimrc,v 1.362 2022/12/04 08:58:11 czo Exp $
+        " $Id: .vimrc,v 1.363 2022/12/09 17:21:25 czo Exp $
 
         if 1
             " modif Started: in File Created:
@@ -1218,19 +1218,19 @@ function! TemplateCzo (...)
                       \# Filename: template.crontab
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl># Last Modified: Wednesday 07 December 2022, 12:40
                  \\<nl># vim: set filetype=crontab:
                  \\<nl># Description: crontab .crontab.user@hostname
                  \\<nl>
                  \\<nl>#
                  \\<nl># minute (0-59)
                  \\<nl># \|   hour (0-23)
-                 \\<nl># \|   \|    day of the month (1-31)
-                 \\<nl># \|   \|    \|   month of the year (1-12)
-                 \\<nl># \|   \|    \|   \|   day of the week (0-6 with 0=Sun)
-                 \\<nl># \|   \|    \|   \|   \|    commands
-                 \\<nl># \|   \|    \|   \|   \|    \|
-                 \\<nl>1     1    15  *   *    SUJ=\\"Crontab reminder for `id -un`@`hostname`\\" ; ( echo $SUJ ; date ; uname -a ; crontab -l ) \| mail -s \\"$SUJ\\" root > /dev/null
+                 \\<nl># \|   \|   day of the month (1-31)
+                 \\<nl># \|   \|   \|   month of the year (1-12)
+                 \\<nl># \|   \|   \|   \|   day of the week (0-6 with 0=Sun)
+                 \\<nl># \|   \|   \|   \|   \|   commands
+                 \\<nl># \|   \|   \|   \|   \|   \|
+                 \\<nl>1     1   15  *   *   SUJ=\\"Crontab reminder for `id -un`@`hostname`\\" ; ( echo $SUJ ; date ; uname -a ; crontab -l ) \| mail -s \\"$SUJ\\" root > /dev/null
                  \\<nl>
                  \\"
 
