@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Sunday 04 December 2022, 18:57
-# $Id: czolsb,v 1.58 2022/12/04 17:57:16 czo Exp $
-# Edit Time: 51:57:31
+# Last Modified: Saturday 10 December 2022, 17:17
+# $Id: czolsb,v 1.60 2022/12/10 16:23:44 czo Exp $
+# Edit Time: 56:54:26
 # Description:
 #
 #   /etc/czolsb > /etc/motd
@@ -58,11 +58,13 @@ sub qxc {
 ##=======================================================
 ## main
 
-$HOSTNAME = qxc('hostname 2>/dev/null');
+$HOSTNAME = $ENV{HOSTNAME};
+if ( !defined($HOSTNAME) ) {
+    $HOSTNAME = qxc('hostname 2>/dev/null');
+}
 if ( !defined($HOSTNAME) ) {
     $HOSTNAME = qxc('uname -n');
 }
-$HOSTNAME =~ s/\..*//;
 
 $CCNAME = qxc('uname -m');
 $CKNAME = qxc('uname -r');
@@ -114,20 +116,12 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
                 }
             }
         }
-        if ( $OSNAME =~ /Android/i ) {
-            $PRETTY_NAME = "Linux (Android)";
-        }
-
     } else {
         $PRETTY_NAME = "Cygwin ($OSN)";
         $ID          = "Cygwin";
         $VERSION_ID  = $OSN;
         $VERSION_ID =~ s/^.*-//;
     }
-
-    $CRELEASE = $PRETTY_NAME;
-    $CRELEASE =~ s/  */ /g;
-    $CRELEASE =~ s/"//g;
 
     $CNBCORE = 0;
     if ( open( FILE, "</proc/cpuinfo" ) ) {
@@ -163,6 +157,21 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
         }
         close FILE;
     }
+
+    if ( $OSNAME =~ /Android/i ) {
+        ## $HOSTNAME = qxc('getprop net.hostname');
+        $ID          = $OSNAME;
+        $VERSION_ID  = qxc('getprop ro.build.version.release');
+        $PRETTY_NAME = "Linux ($ID $VERSION_ID)";
+        ## 5.10.101-android12-9-00017-ge660be55c683-ab9041535
+        ##$CKNAME=~ s/-.*$//;
+        ($CNBCORE)    = qx'lscpu' =~ /^CPU\(s\):\s+(.*)/m;
+        ($CCOREMODEL) = qx'lscpu' =~ /^\s*Model name:\s+(.*)/m;
+    }
+
+    $CRELEASE = $PRETTY_NAME;
+    $CRELEASE =~ s/  */ /g;
+    $CRELEASE =~ s/"//g;
 
 }
 
@@ -200,6 +209,8 @@ elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
     }
 
     if ( $OSN =~ /^Darwin/ ) {
+        $VERSION_ID = qxc('sysctl -n kern.osproductversion');
+        $CRELEASE   = "$ID $VERSION_ID";
         $CCOREMODEL = qxc('sysctl -n machdep.cpu.brand_string');
 
         $CMEM = qxc('sysctl -n hw.memsize');
@@ -222,10 +233,17 @@ elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
 elsif ( $OSN =~ /^SunOS/ ) {
     ## poorly tested
     printd "-> ^SunOS\n";
-    $ID         = $OSN;
+    $ID = $OSN;
+    if ( $CKNAME =~ /^5./ ) {
+        $ID = 'Solaris';
+    } else {
+        $ID = 'SunOS';
+    }
     $VERSION_ID = $CKNAME;
     $VERSION_ID =~ s/-.*//g;
     $CRELEASE = "$ID $VERSION_ID";
+
+    $CKNAME = qxc('uname -v');
 
     ($CCOREMODEL) = qx'kstat -m cpu_info' =~ /^\s+brand\s+(.*)/m;
     $CNBCORE = grep( /\score_id\s/, qx'kstat cpu_info' );
@@ -276,7 +294,7 @@ if ( -r $lsb_czo_file ) {
 $CTAG =~ s/(.*)/\L$1/;
 
 # printv(qw (HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CMEM CSWAP CTAG));
-
+$HOSTNAME =~ s/\..*//;
 ($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
 
 print <<OVER

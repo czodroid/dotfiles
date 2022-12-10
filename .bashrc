@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 30 November 2022, 13:23
-# $Id: .bashrc,v 1.477 2022/11/30 12:23:55 czo Exp $
-# Edit Time: 118:32:35
+# Last Modified: Saturday 10 December 2022, 16:11
+# $Id: .bashrc,v 1.478 2022/12/10 16:23:44 czo Exp $
+# Edit Time: 118:42:00
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -60,8 +60,6 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG BashSettings:"; RTMStop=$(date +%s%N
 
 ##======= Platform ===================================================##
 
-PLATFORM=Unknown
-
 case $(uname 2>/dev/null) in
 
     Linux)
@@ -81,21 +79,14 @@ case $(uname 2>/dev/null) in
         esac
         ;;
 
-    FreeBSD) PLATFORM=FreeBSD ;;
+    CYGWIN*)
+        PLATFORM=Cygwin ;;
 
-    OpenBSD) PLATFORM=OpenBSD ;;
-
-    NetBSD)  PLATFORM=NetBSD ;;
-
-    HP-UX)   PLATFORM=HPUX ;;
-
-    OSF1)    PLATFORM=OSF ;;
-
-    CYGWIN*) PLATFORM=Cygwin ;;
-
-    Darwin)  PLATFORM=Darwin ;;
-
-    *)       PLATFORM=Unknown ;;
+    # FreeBSD | OpenBSD | NetBSD | HP-UX | OSF1 | Darwin
+    *)
+        PLATFORM=$(uname 2>/dev/null)
+        [ -z "$PLATFORM" ] && PLATFORM=Unknown
+        ;;
 
 esac
 

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 30 November 2022, 13:23
-# $Id: .cshrc,v 1.146 2022/11/30 12:23:55 czo Exp $
-# Edit Time: 31:09:07
+# Last Modified: Saturday 10 December 2022, 16:31
+# $Id: .cshrc,v 1.147 2022/12/10 16:23:44 czo Exp $
+# Edit Time: 31:20:31
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -83,36 +83,14 @@ case SunOS:
     endif
     breaksw
 
-case FreeBSD:
-    setenv PLATFORM FreeBSD
-    breaksw
-
-case OpenBSD:
-    setenv PLATFORM OpenBSD
-    breaksw
-
-case NetBSD:
-    setenv PLATFORM NetBSD
-    breaksw
-
-case HP-UX:
-    setenv PLATFORM HPUX
-    breaksw
-
-case OSF1:
-    setenv PLATFORM OSF
-    breaksw
-
 case CYGWIN*:
     setenv PLATFORM Cygwin
     breaksw
 
-case Darwin:
-    setenv PLATFORM Darwin
-    breaksw
-
+# FreeBSD | OpenBSD | NetBSD | HP-UX | OSF1 | Darwin
 default:
-    setenv PLATFORM Unknown
+    setenv PLATFORM `uname`
+    if ( "$PLATFORM" == "" ) setenv PLATFORM Unknown
     breaksw
 
 endsw

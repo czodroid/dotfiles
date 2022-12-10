@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 30 November 2022, 13:23
-# $Id: .zshrc,v 1.443 2022/11/30 12:23:55 czo Exp $
-# Edit Time: 135:27:25
+# Last Modified: Saturday 10 December 2022, 16:12
+# $Id: .zshrc,v 1.444 2022/12/10 16:23:44 czo Exp $
+# Edit Time: 135:28:55
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -102,21 +102,14 @@ case $(uname 2>/dev/null) in
         esac
         ;;
 
-    FreeBSD) PLATFORM=FreeBSD ;;
+    CYGWIN*)
+        PLATFORM=Cygwin ;;
 
-    OpenBSD) PLATFORM=OpenBSD ;;
-
-    NetBSD)  PLATFORM=NetBSD ;;
-
-    HP-UX)   PLATFORM=HPUX ;;
-
-    OSF1)    PLATFORM=OSF ;;
-
-    CYGWIN*) PLATFORM=Cygwin ;;
-
-    Darwin)  PLATFORM=Darwin ;;
-
-    *)       PLATFORM=Unknown ;;
+    # FreeBSD | OpenBSD | NetBSD | HP-UX | OSF1 | Darwin
+    *)
+        PLATFORM=$(uname 2>/dev/null)
+        [ -z "$PLATFORM" ] && PLATFORM=Unknown
+        ;;
 
 esac
 
