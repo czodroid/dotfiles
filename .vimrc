@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 11 December 2022, 20:05
-" $Id: .vimrc,v 1.369 2022/12/11 19:05:33 czo Exp $
-" Edit Time: 231:06:25
+" Last Modified: Sunday 11 December 2022, 20:25
+" $Id: .vimrc,v 1.370 2022/12/11 19:25:51 czo Exp $
+" Edit Time: 231:09:50
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -982,7 +982,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.369 2022/12/11 19:05:33 czo Exp $
+        " $Id: .vimrc,v 1.370 2022/12/11 19:25:51 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -1103,7 +1103,7 @@ function! TemplateTimeStamp ()
             call histdel("search",-1)
         endif
 
-        " not needed, to verify...
+        " not needed ?
         "let @/ = histget("search",-1)
         normal 1G'vzt`w
         let &report = save_report
