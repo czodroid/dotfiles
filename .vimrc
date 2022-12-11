@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 10 December 2022, 18:01
-" $Id: .vimrc,v 1.364 2022/12/10 17:01:51 czo Exp $
-" Edit Time: 230:49:10
+" Last Modified: Sunday 11 December 2022, 20:05
+" $Id: .vimrc,v 1.369 2022/12/11 19:05:33 czo Exp $
+" Edit Time: 231:06:25
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -936,9 +936,9 @@ function! TemplateMacro ()
             let editline = getline (".")
             let editline = substitute(editline, pattern, '\2', "")
             let save_lang = v:lc_time
-            exec 'language time C'
+            silent! exec 'language time C'
             exec 's/'.pattern.'/\1'.escape(strftime(editline), '\').'\3/e'
-            exec 'language time ' . save_lang
+            silent! exec 'language time ' . save_lang
         endw
 
         normal 1G'vzt`w
@@ -949,12 +949,12 @@ endfunction
 
 function! TemplateDate()
     let save_lang = v:lc_time
-    exec 'language time C'
+    silent! exec 'language time C'
     " my date: between French and English
     let LastModDate=strftime("%A %d %B %Y, %H:%M")
     " create a RFC822-conformant date
     "let LastModDate=strftime("%a, %d %b %Y %H:%M:%S %z")
-    exec 'language time ' . save_lang
+    silent! exec 'language time ' . save_lang
     return LastModDate
 endfunction
 
@@ -982,7 +982,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.364 2022/12/10 17:01:51 czo Exp $
+        " $Id: .vimrc,v 1.369 2022/12/11 19:05:33 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -993,74 +993,57 @@ function! TemplateTimeStamp ()
             let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1File Created:\2/e'
+                call histdel("search",-1)
             endif
             " modif Started: in File Created:
             let pattern = '\(^.\=.\=.\=\s*\)Created:\(.*\)'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1File Created:\2/e'
+                call histdel("search",-1)
             endif
             " modif Last Change: in Last Modified:
             let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1Modified:\2/e'
+                call histdel("search",-1)
             endif
             " modif Copyright in Copyright:
             let pattern = '\(^.\=.\=.\=\s*\)Copyright (C).*Olivier.Sirol.*'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1Copyright:/e'
+                call histdel("search",-1)
             endif
             " Author: is new !
         endif
 
         " Normal changes in my header here:
 
-        " substitute Author
-        let pattern = '\(^.\=.\=.\=\s*Author:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
-        endif
-        " substitute License
-        let pattern = '\(^.\=.\=.\=\s*License:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
-        endif
-
-        " copy file's created year for Copyright
-        let pattern = '\(^.\=.\=.\=\s*File Created:\)\s*\(.*\)'
-        if FindStrInHeader(pattern)
-            let editline = getline (".")
-            let editline = substitute(editline, pattern, '\2', "")
-            let Fyear = substitute(editline, '.*\([0-9][0-9][0-9][0-9]\).*', '\1', "")
-        else
-            let Fyear = '1992'
-        endif
-        let Lyear = strftime("%Y")
-        if ((Lyear == Fyear) || (Lyear < Fyear))
-            let b:Template_Copyright_Year = Lyear
-        else
-            if ((Lyear - Fyear)==1)
-                let b:Template_Copyright_Year = Fyear . ', ' . Lyear
-            else
-                let b:Template_Copyright_Year = Fyear . '-' . Lyear
-            endif
-        endif
-
         " substitute the file name
         let pattern = '\(^.\=.\=.\=\s*Filename:\).*'
         if FindStrInHeader(pattern)
             exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '\').'/e'
+            call histdel("search",-1)
+        endif
+
+        " substitute Author
+        let pattern = '\(^.\=.\=.\=\s*Author:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
+            call histdel("search",-1)
+        endif
+
+        " substitute License
+        let pattern = '\(^.\=.\=.\=\s*License:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
+            call histdel("search",-1)
         endif
 
         " time stamp
         let pattern = '\(^.\=.\=.\=\s*Last Modified:\).*'
         if FindStrInHeader(pattern)
             exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
-        endif
-
-        " substitute Copyright
-        let pattern = '\(^.\=.\=.\=\s*Copyright:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.TemplateCopyrightDate().'/e'
+            call histdel("search",-1)
         endif
 
         " edit time
@@ -1089,9 +1072,39 @@ function! TemplateTimeStamp ()
             endif
 
             exec 's/'.pattern.'/\1 '.edithour.':'.editmin.':'.editsec.'/e'
+            call histdel("search",-1)
             let  b:Template_opentime=localtime()
         endif
 
+        " copy file's created year for Copyright
+        let pattern = '\(^.\=.\=.\=\s*File Created:\)\s*\(.*\)'
+        if FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            let Fyear = substitute(editline, '.*\([0-9][0-9][0-9][0-9]\).*', '\1', "")
+        else
+            let Fyear = '1992'
+        endif
+        let Lyear = strftime("%Y")
+        if ((Lyear == Fyear) || (Lyear < Fyear))
+            let b:Template_Copyright_Year = Lyear
+        else
+            if ((Lyear - Fyear)==1)
+                let b:Template_Copyright_Year = Fyear . ', ' . Lyear
+            else
+                let b:Template_Copyright_Year = Fyear . '-' . Lyear
+            endif
+        endif
+
+        " substitute Copyright
+        let pattern = '\(^.\=.\=.\=\s*Copyright:\).*'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1 '.TemplateCopyrightDate().'/e'
+            call histdel("search",-1)
+        endif
+
+        " not needed, to verify...
+        "let @/ = histget("search",-1)
         normal 1G'vzt`w
         let &report = save_report
     endif
