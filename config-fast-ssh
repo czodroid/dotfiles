@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Thursday 13 October 2022, 18:11
-# $Id: config-fast-ssh,v 1.20 2022/10/13 16:13:50 czo Exp $
-# Edit Time: 8:55:31
+# Last Modified: Tuesday 13 December 2022, 20:40
+# $Id: config-fast-ssh,v 1.22 2022/12/13 19:40:24 czo Exp $
+# Edit Time: 8:57:09
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -35,26 +35,15 @@ cat << 'EOF' >> .ssh/config
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
-# Last Modified: mercredi 05 janvier 2022, 15:20
+# Last Modified: Saturday 10 December 2022, 14:58
+# $Id: config-fast-ssh,v 1.22 2022/12/13 19:40:24 czo Exp $
+# Edit Time: 13:13:42
 # Description:
 #   ssh settings
 #    ssh -J, ssh -W, ssh -tt
 #    ProxyCommand,  ProxyJump
 #
-
-## VSCODE
-
-Host ananas
- Hostname ananas
- ForwardAgent yes
-
-Host bruichladdich
- Hostname bruichladdich
- ForwardAgent yes
-
-Host dalmore
- Hostname dalmore
- ForwardAgent yes
+# Copyright: (C) 2000-2022 Olivier Sirol <czo@free.fr>
 
 ## PROXIES
 
@@ -107,19 +96,35 @@ Host smv-pdu*
 
 ## CHEZWAM
 
+Host czophone10 czo-taba matphone
+ Port 8022
+
 # Host test* debian* ubuntu* centos* fedora* arch* freebsd*
 #  StrictHostKeyChecking no
 
 Host centos5 debian4 solaris10 opensolaris
  KexAlgorithms diffie-hellman-group1-sha1
 
-Host fedora5 fedora1
+Host fedora5 fedora1 redhat8 redhat72
  Ciphers aes256-cbc
  KexAlgorithms diffie-hellman-group1-sha1
 
 Host freebsd5
  HostKeyAlgorithms ssh-dss
  KexAlgorithms diffie-hellman-group1-sha1
+
+# vscode
+Host ananas
+ Hostname ananas
+ ForwardAgent yes
+
+Host bruichladdich
+ Hostname bruichladdich
+ ForwardAgent yes
+
+Host dalmore
+ Hostname dalmore
+ ForwardAgent yes
 
 ## DHCP
 Host chezwam-* magdhcp-*
