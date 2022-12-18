@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: .profile,v 1.30 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 1:13:19
+# Last Modified: Thursday 15 December 2022, 18:30
+# $Id: .profile,v 1.31 2022/12/15 19:05:11 czo Exp $
+# Edit Time: 1:14:30
 # Description:
 #    ~/.profile: executed by the command interpreter for login shells.
 #    This file is not read by bash if ~/.bash_profile or ~/.bash_login
@@ -58,3 +58,4 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# mesg n 2> /dev/null || true

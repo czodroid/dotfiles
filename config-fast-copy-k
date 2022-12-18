@@ -1,12 +1,12 @@
 #!/bin/sh
 #
-# Filename: config-fast-copy
+# Filename: config-fast-copy-k
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
 # Last Modified: Sunday 18 December 2022, 12:05
-# $Id: config-fast-copy,v 1.30 2022/12/18 11:07:22 czo Exp $
-# Edit Time: 5:13:46
+# $Id: config-fast-copy-k,v 1.1 2022/12/18 11:07:35 czo Exp $
+# Edit Time: 5:14:26
 # Description:
 #
 #   copy my config files
@@ -30,10 +30,10 @@ chmod 700 .config/mc
 for f in .Xresources .bashrc .cshrc .cvsrc .gitconfig .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
 do
   echo "   <- $f"
-  curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -o $f
+  curl -kfsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -o $f
 done
 
-echo "   <- $f"
-curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/czolsb -o /etc/czolsb
+echo "   <- czolsb"
+curl -kfsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/czolsb -o /etc/czolsb
 chmod 755 /etc/czolsb
 
