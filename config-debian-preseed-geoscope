@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 February 2021
-# Last Modified: Thursday 13 October 2022, 18:13
-# $Id: config-debian-preseed-geoscope,v 1.25 2022/10/13 16:13:50 czo Exp $
-# Edit Time: 8:29:02
+# Last Modified: Sunday 18 December 2022, 17:09
+# $Id: config-debian-preseed-geoscope,v 1.26 2022/12/18 16:10:05 czo Exp $
+# Edit Time: 8:29:59
 # Description:
 #
 #            debian 10 preseed geoscope update
@@ -127,6 +127,15 @@ cat << 'EOF' > /etc/cron.d/czo-email-at-reboot
 @reboot      root   SUJ="[GSADM] REBOOT `hostname` at `date`" ; ( echo $SUJ ; date ; uname -a ) | mail -s "$SUJ" root > /dev/null
 EOF
 chmod 644 /etc/cron.d/czo-email-at-reboot
+
+# cron czo-motd-czolsb
+cat << 'EOF' > /etc/cron.d/czo-motd-czolsb
+# Filename: czo-email-at-reboot
+# 2022/05/21 : Modified by Olivier Sirol <czo@free.fr>
+
+@reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
+EOF
+chmod 644 /etc/cron.d/czo-motd-czolsb
 
 
 echo "##== config files  ==================================================##"
