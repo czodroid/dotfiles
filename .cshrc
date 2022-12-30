@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 14 December 2022, 09:24
-# $Id: .cshrc,v 1.148 2022/12/14 08:24:27 czo Exp $
-# Edit Time: 31:20:52
+# Last Modified: Friday 30 December 2022, 08:35
+# $Id: .cshrc,v 1.149 2022/12/30 07:36:20 czo Exp $
+# Edit Time: 31:21:27
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -402,12 +402,6 @@ alias gtc 'git commit -a -mupdate ; git push'
 alias gts 'git status'
 alias gta 'git add .'
 alias gtf 'git fetch; git diff master origin/master'
-
-# missing LANG=C
-alias pkg_inst_debian "aptitude search '~i !~M' -F %p | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
-alias pkg_inst_debian2 "dpkg-query -W --showformat='"\$"{Package}\n' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
-alias pkg_inst_redhat "rpm -qa --qf '%{NAME}\n' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
-alias pkg_inst_arch "pacman -Qe | awk '{print \$1}' | env LANG=C sort > pkg_inst_${HOSTNAME}_`date +%Y%m%d`.txt"
 
 # debian, ubuntu
 alias AU  'aptitude update && aptitude upgrade && aptitude clean && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'

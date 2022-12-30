@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 14 December 2022, 09:31
-# $Id: .zshrc,v 1.446 2022/12/14 08:31:21 czo Exp $
-# Edit Time: 135:30:46
+# Last Modified: Friday 30 December 2022, 08:35
+# $Id: .zshrc,v 1.447 2022/12/30 07:36:20 czo Exp $
+# Edit Time: 135:31:05
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -652,10 +652,17 @@ alias gts='git status'
 alias gta='git add .'
 alias gtf='git fetch; git diff master origin/master'
 
-alias pkg_inst_debian="aptitude search '~i !~M' -F %p | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_debian2="dpkg-query -W --showformat='"\$"{Package}\n' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_redhat="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
-alias pkg_inst_arch="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_inst_${HOSTNAME}_$(date +%Y%m%d).txt"
+# aptitude search '~i !~M' -F %p
+alias pkg_debian_purge_removed="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
+alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_debian_size="dpkg-query -Wf '\${Installed-Size} \${Package} (\${version})\n' | LANG=C sort -rn > pkg_size_${HOSTNAME}_$(date +%Y%m%d).txt"
+
+# dnf history userinstalled
+alias pkg_redhat_list="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_redhat_size="rpm -qa --qf '%{SIZE} %{NAME} (%{VERSION})\n' | LANG=C sort -rn > pkg_size_${HOSTNAME}_$(date +%Y%m%d).txt"
+
+alias pkg_arch_list="pacman -Qe | awk '{print \$1}' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_arch_size="expac -H B '%m %n (%v)' | LANG=C sort -rn > pkg_size_${HOSTNAME}_$(date +%Y%m%d).txt"
 
 # debian, ubuntu
 alias AU='aptitude update && aptitude upgrade && aptitude clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
