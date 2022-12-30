@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Friday 30 December 2022, 08:35
-# $Id: .zshrc,v 1.447 2022/12/30 07:36:20 czo Exp $
-# Edit Time: 135:31:05
+# Last Modified: Friday 30 December 2022, 09:36
+# $Id: .zshrc,v 1.448 2022/12/30 08:36:48 czo Exp $
+# Edit Time: 135:31:47
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -652,12 +652,11 @@ alias gts='git status'
 alias gta='git add .'
 alias gtf='git fetch; git diff master origin/master'
 
-# aptitude search '~i !~M' -F %p
-alias pkg_debian_purge_removed="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
-alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
+#alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
+alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_size="dpkg-query -Wf '\${Installed-Size} \${Package} (\${version})\n' | LANG=C sort -rn > pkg_size_${HOSTNAME}_$(date +%Y%m%d).txt"
 
-# dnf history userinstalled
+# dnf repoquery --userinstalled
 alias pkg_redhat_list="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_redhat_size="rpm -qa --qf '%{SIZE} %{NAME} (%{VERSION})\n' | LANG=C sort -rn > pkg_size_${HOSTNAME}_$(date +%Y%m%d).txt"
 
@@ -723,6 +722,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
+alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
 alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
 alias RemeberThis_kfm='setxkbmap fr mac'
 alias RemeberThis_edl='export DISPLAY=localhost:0'
