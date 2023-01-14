@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 12 January 2023, 13:06
-# $Id: .zshrc,v 1.452 2023/01/12 17:42:24 czo Exp $
-# Edit Time: 135:45:19
+# Last Modified: Saturday 14 January 2023, 19:22
+# $Id: .zshrc,v 1.453 2023/01/14 18:24:09 czo Exp $
+# Edit Time: 135:37:03
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -332,6 +332,74 @@ bindkey "\M-h"     backward-delete-word
 
 bindkey "\e\e"     kill-buffer
 bindkey "\em"      copy-prev-shell-word
+
+
+# copied from Zsh zle shift selection
+# https://stackoverflow.com/questions/5407916/zsh-zle-shift-selection/12193631
+
+r-delregion() {
+  if ((REGION_ACTIVE)); then
+    zle kill-region
+  else
+    local widget_name=$1
+    shift
+    zle $widget_name -- $@
+  fi
+}
+
+r-deselect() {
+  ((REGION_ACTIVE = 0))
+  local widget_name=$1
+  shift
+  zle $widget_name -- $@
+}
+
+r-select() {
+  ((REGION_ACTIVE)) || zle set-mark-command
+  local widget_name=$1
+  shift
+  zle $widget_name -- $@
+}
+
+for key     kcap   seq        mode   widget (
+    sleft   kLFT   $'\e[1;2D' select   backward-char
+    sright  kRIT   $'\e[1;2C' select   forward-char
+    sup     kri    $'\e[1;2A' select   history-beginning-search-backward
+    sdown   kind   $'\e[1;2B' select   history-beginning-search-forward
+
+    send    kEND   $'\E[1;2F' select   end-of-line
+    send2   x      $'\E[4;2~' select   end-of-line
+
+    shome   kHOM   $'\E[1;2H' select   beginning-of-line
+    shome2  x      $'\E[1;2~' select   beginning-of-line
+
+    left    kcub1  $'\EOD'    deselect backward-char
+    right   kcuf1  $'\EOC'    deselect forward-char
+
+    end     kend   $'\EOF'    deselect end-of-line
+    end2    x      $'\E4~'    deselect end-of-line
+
+    home    khome  $'\EOH'    deselect beginning-of-line
+    home2   x      $'\E1~'    deselect beginning-of-line
+
+    csleft  x      $'\E[1;6D' select   backward-word
+    csright x      $'\E[1;6C' select   forward-word
+    csend   x      $'\E[1;6F' select   end-of-line
+    cshome  x      $'\E[1;6H' select   beginning-of-line
+
+    cleft   x      $'\E[1;5D' deselect backward-word
+    cright  x      $'\E[1;5C' deselect forward-word
+
+    del     kdch1   $'\E[3~'  delregion delete-char
+    bs      x       $'^?'     delregion backward-delete-char
+
+  ) {
+  eval "key-$key() {
+    r-$mode $widget \$@
+  }"
+  zle -N key-$key
+  bindkey "${terminfo[$kcap]-$seq}" key-$key
+}
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
@@ -658,6 +726,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
+alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
 alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
 alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
 alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --make-rslave --rbind /\$p \$LIVE_BOOT/chroot/\$p ; done"

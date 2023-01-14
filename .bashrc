@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Thursday 12 January 2023, 18:54
-# $Id: .bashrc,v 1.492 2023/01/12 17:54:17 czo Exp $
-# Edit Time: 123:40:51
+# Last Modified: Saturday 14 January 2023, 19:22
+# $Id: .bashrc,v 1.493 2023/01/14 18:24:08 czo Exp $
+# Edit Time: 123:41:47
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -597,6 +597,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
+alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
 alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
 alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
 alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --make-rslave --rbind /\$p \$LIVE_BOOT/chroot/\$p ; done"
