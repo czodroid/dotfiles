@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 09 January 2023, 12:06
-# $Id: .bashrc,v 1.489 2023/01/09 11:06:57 czo Exp $
-# Edit Time: 123:22:24
+# Last Modified: Thursday 12 January 2023, 18:54
+# $Id: .bashrc,v 1.492 2023/01/12 17:54:17 czo Exp $
+# Edit Time: 123:40:51
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -40,7 +40,7 @@ if [ -n "$BASH_VERSION" ]; then
     # olivier, repasse a zsh ...
     export HISTFILESIZE=55000
     export HISTSIZE=44000
-    export HISTCONTROL=erasedups
+    export HISTCONTROL=ignorespace:erasedups
     #export HISTTIMEFORMAT='%F %T '
 
     # avoid overwriting history
@@ -284,8 +284,10 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N)
 # sources /etc/bash.bashrc).
 
 if [ -n "$BASH_VERSION" ]; then
-    #linux, but not on idefix (debian 5)
-    if [ -f /etc/bash_completion ]; then
+    #linux
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
         . /etc/bash_completion
     fi
     #freebsd
@@ -595,6 +597,8 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
+alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
+alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
 alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --make-rslave --rbind /\$p \$LIVE_BOOT/chroot/\$p ; done"
 alias RemeberThis_chroot_umount="umount -lf \$LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}"
 alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
@@ -700,7 +704,7 @@ fi
 # limit -s
 # ulimit unlimited
 
-# busybox has no stty on openWRT!
+# Disable Ctrl-S / Ctrl-Q
 [ -x "$(command -v stty)" ] && stty -ixon
 
 umask 022
