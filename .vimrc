@@ -6,14 +6,14 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 11 December 2022, 20:25
-" $Id: .vimrc,v 1.370 2022/12/11 19:25:51 czo Exp $
-" Edit Time: 231:09:50
+" Last Modified: Tuesday 24 January 2023, 19:43
+" $Id: .vimrc,v 1.371 2023/01/24 18:44:00 czo Exp $
+" Edit Time: 231:18:10
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" Copyright: (C) 1995-2022 Olivier Sirol <czo@free.fr>
+" Copyright: (C) 1995-2023 Olivier Sirol <czo@free.fr>
 
 if version >= 505
 
@@ -21,7 +21,7 @@ if version >= 505
 
 " works in gnome-shell, kde, xfce, xterm, iTerm, mintty
 " but not on apple terminal which has no 24-bit colors
-if version >= 800 && has("termguicolors")
+if version >= 801 && has("termguicolors")
     set termguicolors
 else
     if has('nvim') && has("termguicolors")
@@ -148,17 +148,14 @@ set ttyfast
 if has('nvim')
     set guicursor+=a:blinkon1
 else
-    if &term =~ '^xterm'
-        if version > 604
-            " color: \e]12;#b8bb26\x7
-            " NORMAL mode
-            let &t_EI .= "\e[ q"
-            " INSERT mode
-            let &t_SI .= "\e[5 q"
-        endif
-        if version > 704
-            let &t_SR .= "\e[3 q"
-        endif
+    if &term =~ '^xterm' && version > 704
+        " color: \e]12;#b8bb26\x7
+        " NORMAL mode
+        let &t_EI .= "\e[ q"
+        " INSERT mode
+        let &t_SI .= "\e[5 q"
+        " INSERT mode
+        let &t_SR .= "\e[3 q"
     endif
 endif
 
@@ -982,7 +979,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.370 2022/12/11 19:25:51 czo Exp $
+        " $Id: .vimrc,v 1.371 2023/01/24 18:44:00 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
