@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 14 January 2023, 19:22
-# $Id: .bashrc,v 1.493 2023/01/14 18:24:08 czo Exp $
-# Edit Time: 123:41:47
+# Last Modified: Thursday 26 January 2023, 12:40
+# $Id: .bashrc,v 1.494 2023/01/26 11:42:32 czo Exp $
+# Edit Time: 123:45:16
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -481,7 +481,7 @@ alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
 
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
-alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
@@ -649,6 +649,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Alias:"; RTMStop=$(date +%s%N); echo
 
 ##======= Main ======================================================##
 
+# Terminal title
 title() {
     case "$TERM" in
         xterm* | rxvt*)
@@ -661,11 +662,11 @@ title() {
     esac
 }
 
-# precmd Executed before each prompt.
 precmd() {
     title "${SHELLNAME} ${PWD} (${USER}@${HOSTNAME})"
 }
 
+# precmd Executed before each prompt.
 PROMPT_COMMAND="precmd"
 # run once for non bash shells
 precmd

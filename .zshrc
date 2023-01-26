@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 14 January 2023, 19:22
-# $Id: .zshrc,v 1.453 2023/01/14 18:24:09 czo Exp $
-# Edit Time: 135:37:03
+# Last Modified: Thursday 26 January 2023, 12:48
+# $Id: .zshrc,v 1.457 2023/01/26 11:48:07 czo Exp $
+# Edit Time: 135:49:19
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -28,25 +28,24 @@
 ##======= Zsh Settings ===============================================##
 
 setopt ALWAYS_TO_END          # On completion go to end of word
-setopt NO_AUTO_CD             # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
-setopt NO_BG_NICE             # (!*)Background jobs at lower priority
-#setopt CD_SILENT              # Never print the working directory
-setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
+#setopt CD_SILENT              # Never print the working directory (new zsh version...)
 setopt COMBINING_CHARS        # Displays combining characters correctly
-#setopt COMPLETE_IN_WORD       # Completion works inside words
-setopt COMPLETE_IN_WORD       # Completion works inside words
-setopt EXTENDED_GLOB          # See globbing section above
+#setopt COMPLETE_IN_WORD       # Completion works inside words (doesnt work: scp root@myhost-M:/foo)
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt GLOB_DOTS              # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
-setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
 setopt INTERACTIVE_COMMENTS   # Dash on interactive line for comment
 setopt INTERACTIVE            # Shell is interactive
 setopt LONG_LIST_JOBS         # More verbose listing of jobs
 setopt MONITOR                # Shell has job control enabled
+setopt NO_AUTO_CD             # Directory as command does cd
+setopt NO_BG_NICE             # (!*)Background jobs at lower priority
+setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
+setopt NO_EXTENDED_GLOB       # See globbing section above
+setopt NO_GLOB_DOTS           # Patterns may match leading dots
+setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
 setopt PROMPT_SUBST           # $ expansion etc. in prompts
 setopt PUSHD_IGNORE_DUPS      # Don’t push dir multiply on stack
 setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
@@ -410,6 +409,7 @@ compinit
 #compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
 #compinit -C
 
+zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' accept-exact-dirs true
 zstyle ':completion:*' use-cache on
@@ -610,7 +610,7 @@ alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
 
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
-alias rsync_sys='echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
@@ -778,6 +778,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Alias:"; RTMStop=$(date +%s%N); echo
 
 ##======= Main ======================================================##
 
+# Terminal title
 title() {
     case "$TERM" in
         xterm* | rxvt*)
@@ -790,7 +791,6 @@ title() {
     esac
 }
 
-# precmd Executed before each prompt.
 precmd() {
     title "${SHELLNAME} ${PWD} (${USER}@${HOSTNAME})"
 }

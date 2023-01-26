@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 24 January 2023, 19:43
-" $Id: .vimrc,v 1.371 2023/01/24 18:44:00 czo Exp $
-" Edit Time: 231:18:10
+" Last Modified: Thursday 26 January 2023, 11:38
+" $Id: .vimrc,v 1.372 2023/01/26 10:41:18 czo Exp $
+" Edit Time: 231:18:49
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -979,7 +979,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.371 2023/01/24 18:44:00 czo Exp $
+        " $Id: .vimrc,v 1.372 2023/01/26 10:41:18 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
