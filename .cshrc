@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Sunday 08 January 2023, 19:16
-# $Id: .cshrc,v 1.150 2023/01/08 18:22:33 czo Exp $
-# Edit Time: 31:22:24
+# Last Modified: Friday 27 January 2023, 17:51
+# $Id: .cshrc,v 1.151 2023/01/27 17:25:03 czo Exp $
+# Edit Time: 31:24:00
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -409,7 +409,7 @@ alias AU  'aptitude update && aptitude upgrade && aptitude clean && echo `date +
 alias AI  'aptitude install'
 alias AP  'aptitude purge'
 alias AS  'aptitude search'
-alias ASS 'apt-cache search'
+alias AW  'aptitude show'
 alias AL  'dpkg -L'
 alias AF  'dpkg -S'
 

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Thursday 26 January 2023, 12:40
-# $Id: .bashrc,v 1.494 2023/01/26 11:42:32 czo Exp $
-# Edit Time: 123:45:16
+# Last Modified: Friday 27 January 2023, 18:24
+# $Id: .bashrc,v 1.496 2023/01/27 17:25:03 czo Exp $
+# Edit Time: 124:37:54
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -524,6 +524,7 @@ alias gtc='git commit -a -mupdate ; git push'
 alias gts='git status'
 alias gta='git add .'
 alias gtf='git fetch; git diff master origin/master'
+alias gtp='git gc'
 
 #alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
@@ -540,13 +541,15 @@ alias pkg_arch_size="expac -H B '%m %n (%v)' | LANG=C sort -rn > pkg_size_${HOST
 
 # debian, ubuntu
 alias AU='aptitude update && aptitude upgrade && aptitude clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
-alias AUU='apt update && apt upgrade && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias AI='aptitude install'
-alias AII='apt install'
 alias AP='aptitude purge'
-alias APP='apt purge'
 alias AS='aptitude search'
-alias ASS='apt search'
+alias AW='aptitude show'
+alias AUU='apt update && apt upgrade && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias AII='apt-get install'
+alias APP='apt-get remove --purge'
+alias ASS='apt-cache search -n'
+alias AWW='apt-cache show'
 alias AL='dpkg -L'
 alias AF='dpkg -S'
 
@@ -556,6 +559,7 @@ alias YI='yum install'
 alias YP='yum remove'
 YS() { yum list "*$1*"; }
 alias YSS='yum search'
+alias YW='rpm -qi'
 alias YL='rpm -ql'
 alias YF='rpm -qf'
 
@@ -564,6 +568,7 @@ alias PU='pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su && 
 alias PI='pacman -Sy'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
+alias PW='pacman -Qi'
 alias PL='pacman -Ql'
 alias PF='pacman -Qo'
 
