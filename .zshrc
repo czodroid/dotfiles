@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 29 January 2023, 22:39
-# $Id: .zshrc,v 1.460 2023/01/29 21:39:59 czo Exp $
-# Edit Time: 135:51:35
+# Last Modified: Sunday 29 January 2023, 22:55
+# $Id: .zshrc,v 1.461 2023/01/29 21:55:58 czo Exp $
+# Edit Time: 135:52:44
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -731,7 +731,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
-alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | awk '/^blob/ {print substr($0,6)}' | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
+alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
 alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
 alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
 alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'

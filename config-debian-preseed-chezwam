@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Thursday 13 October 2022, 18:12
-# $Id: config-debian-preseed-chezwam,v 1.20 2022/10/13 16:13:50 czo Exp $
-# Edit Time: 7:38:01
+# Last Modified: Saturday 28 January 2023, 14:18
+# $Id: config-debian-preseed-chezwam,v 1.21 2023/01/28 13:20:48 czo Exp $
+# Edit Time: 7:38:33
 # Description:
 #
 #            debian 10 preseed update
@@ -26,7 +26,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# Copyright: (C) 2018-2022 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2018-2023 Olivier Sirol <czo@free.fr>
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -131,8 +131,6 @@ chmod 644 /etc/cron.d/czo-email-at-reboot
 # cron czo-motd-czolsb
 cat << 'EOF' > /etc/cron.d/czo-motd-czolsb
 # Filename: czo-email-at-reboot
-# 2022/05/21 : Modified by Olivier Sirol <czo@free.fr>
-
 @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
 EOF
 chmod 644 /etc/cron.d/czo-motd-czolsb
