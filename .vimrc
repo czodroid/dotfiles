@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 26 January 2023, 11:38
-" $Id: .vimrc,v 1.372 2023/01/26 10:41:18 czo Exp $
-" Edit Time: 231:18:49
+" Last Modified: Wednesday 01 February 2023, 10:21
+" $Id: .vimrc,v 1.373 2023/02/01 09:26:18 czo Exp $
+" Edit Time: 231:36:20
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -389,8 +389,8 @@ endfunction
 command!  CzoVisualGrey call CzoVisualGrey ()
 function! CzoVisualGrey ()
     hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-    hi Search        guifg=#503825 guibg=#3c3836 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
-    hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+    hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+    hi IncSearch     guifg=#596B63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endfunction
 
 command!  CzoMSwinEnable call CzoMSwinEnable ()
@@ -692,8 +692,8 @@ hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ct
 
 if &t_Co < 16
 hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-hi Search        guifg=#503825 guibg=#3c3836 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
-hi IncSearch     guifg=#596B63 guibg=#3c3836 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+hi IncSearch     guifg=#596B63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endif
 
 hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
@@ -979,7 +979,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.372 2023/01/26 10:41:18 czo Exp $
+        " $Id: .vimrc,v 1.373 2023/02/01 09:26:18 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
