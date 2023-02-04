@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 29 January 2023, 22:51
-# $Id: .bashrc,v 1.498 2023/01/29 21:55:57 czo Exp $
-# Edit Time: 124:39:50
+# Last Modified: Saturday 04 February 2023, 11:53
+# $Id: .bashrc,v 1.499 2023/02/04 11:06:48 czo Exp $
+# Edit Time: 124:47:53
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -398,6 +398,8 @@ alias lh='ls -lh'
 alias l='ls -alrt'
 alias g='grep -sri'
 alias g_cs='grep -sr'
+alias gl='\ls -1rt * | xargs grep -si --color'
+alias gl_cs='\ls -1rt * | xargs grep -s --color'
 alias ..='cd ..'
 
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
@@ -550,6 +552,7 @@ alias AII='apt-get install'
 alias APP='apt-get remove --purge'
 alias ASS='apt-cache search -n'
 alias AWW='apt-cache show'
+alias ALL='apt-file list'
 alias AL='dpkg -L'
 alias AF='dpkg -S'
 

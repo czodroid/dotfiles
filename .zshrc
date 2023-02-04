@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 29 January 2023, 22:55
-# $Id: .zshrc,v 1.461 2023/01/29 21:55:58 czo Exp $
-# Edit Time: 135:52:44
+# Last Modified: Saturday 04 February 2023, 12:39
+# $Id: .zshrc,v 1.462 2023/02/04 12:09:05 czo Exp $
+# Edit Time: 135:53:03
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -527,6 +527,8 @@ alias lh='ls -lh'
 alias l='ls -alrt'
 alias g='grep -sri'
 alias g_cs='grep -sr'
+alias gl='\ls -1rt * | xargs grep -si --color'
+alias gl_cs='\ls -1rt * | xargs grep -s --color'
 alias ..='cd ..'
 
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
@@ -679,6 +681,7 @@ alias AII='apt-get install'
 alias APP='apt-get remove --purge'
 alias ASS='apt-cache search -n'
 alias AWW='apt-cache show'
+alias ALL='apt-file list'
 alias AL='dpkg -L'
 alias AF='dpkg -S'
 
