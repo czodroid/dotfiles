@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 04 February 2023, 11:53
-# $Id: .bashrc,v 1.499 2023/02/04 11:06:48 czo Exp $
-# Edit Time: 124:47:53
+# Last Modified: Sunday 05 February 2023, 12:50
+# $Id: .bashrc,v 1.500 2023/02/05 12:00:56 czo Exp $
+# Edit Time: 124:48:09
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -47,7 +47,7 @@ if [ -n "$BASH_VERSION" ]; then
     #shopt -s histappend
     shopt -u autocd
     shopt -s checkwinsize
-    shopt -u dotglob
+    shopt -s dotglob
     shopt -s globstar
 fi
 

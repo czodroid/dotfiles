@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 04 February 2023, 12:39
-# $Id: .zshrc,v 1.462 2023/02/04 12:09:05 czo Exp $
-# Edit Time: 135:53:03
+# Last Modified: Sunday 05 February 2023, 13:00
+# $Id: .zshrc,v 1.463 2023/02/05 12:00:56 czo Exp $
+# Edit Time: 135:56:48
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -28,24 +28,24 @@
 ##======= Zsh Settings ===============================================##
 
 setopt ALWAYS_TO_END          # On completion go to end of word
+setopt NO_AUTO_CD             # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
+setopt NO_BG_NICE             # (!*)Background jobs at lower priority
 #setopt CD_SILENT              # Never print the working directory (new zsh version...)
+setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
 setopt COMBINING_CHARS        # Displays combining characters correctly
 #setopt COMPLETE_IN_WORD       # Completion works inside words (doesnt work: scp root@myhost-M:/foo)
+setopt NO_EXTENDED_GLOB       # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
+setopt GLOB_DOTS              # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
+setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
 setopt INTERACTIVE_COMMENTS   # Dash on interactive line for comment
 setopt INTERACTIVE            # Shell is interactive
 setopt LONG_LIST_JOBS         # More verbose listing of jobs
 setopt MONITOR                # Shell has job control enabled
-setopt NO_AUTO_CD             # Directory as command does cd
-setopt NO_BG_NICE             # (!*)Background jobs at lower priority
-setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
-setopt NO_EXTENDED_GLOB       # See globbing section above
-setopt NO_GLOB_DOTS           # Patterns may match leading dots
-setopt NO_HUP                 # (!*)Send SIGHUP to proceses on exit
 setopt PROMPT_SUBST           # $ expansion etc. in prompts
 setopt PUSHD_IGNORE_DUPS      # Don’t push dir multiply on stack
 setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
