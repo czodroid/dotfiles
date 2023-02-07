@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 05 February 2023, 13:00
-# $Id: .zshrc,v 1.463 2023/02/05 12:00:56 czo Exp $
-# Edit Time: 135:56:48
+# Last Modified: Tuesday 07 February 2023, 20:25
+# $Id: .zshrc,v 1.465 2023/02/07 19:25:56 czo Exp $
+# Edit Time: 135:57:25
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -37,7 +37,7 @@ setopt COMBINING_CHARS        # Displays combining characters correctly
 #setopt COMPLETE_IN_WORD       # Completion works inside words (doesnt work: scp root@myhost-M:/foo)
 setopt NO_EXTENDED_GLOB       # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt GLOB_DOTS              # Patterns may match leading dots
+setopt NO_GLOB_DOTS           # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
