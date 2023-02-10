@@ -4,19 +4,20 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Tuesday 13 December 2022, 20:40
-# $Id: config-fast-ssh,v 1.22 2022/12/13 19:40:24 czo Exp $
-# Edit Time: 8:57:09
+# Last Modified: Friday 10 February 2023, 14:15
+# $Id: config-fast-ssh,v 1.23 2023/02/10 13:15:50 czo Exp $
+# Edit Time: 9:12:22
 # Description:
 #
 #   configure ssh with my authorized_keys and config
 #   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
 #   also works in wget: wget -qO- https://pwet | bash
 #
-# Copyright: (C) 1999-2022 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1999-2023 Olivier Sirol <czo@free.fr>
 
+## This script works in '.'. So in current directory!!!!
+## You must do a "cd" before running this script to modify your own ssh configuration.
 
-# you must do a "cd" before running this script
 cp -rp .ssh .ssh_fast_$(date +%Y-%m-%d)_$$
 rm -fr .ssh
 mkdir .ssh
@@ -28,7 +29,7 @@ ssh-keygen -t rsa -b 4096 -N "" -f .ssh/id_rsa
 #ssh-keygen -p -f id_rsa
 
 # new comment:
-#ssh-keygen -c -f id_rsa
+#ssh-keygen -c -C 'czo@lagavulin' -f .ssh/id_rsa
 
 cat << 'EOF' >> .ssh/config
 # Filename: config
@@ -36,7 +37,7 @@ cat << 'EOF' >> .ssh/config
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
 # Last Modified: Saturday 10 December 2022, 14:58
-# $Id: config-fast-ssh,v 1.22 2022/12/13 19:40:24 czo Exp $
+# $Id: config-fast-ssh,v 1.23 2023/02/10 13:15:50 czo Exp $
 # Edit Time: 13:13:42
 # Description:
 #   ssh settings
