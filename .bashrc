@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 06 February 2023, 09:52
-# $Id: .bashrc,v 1.501 2023/02/07 19:07:08 czo Exp $
-# Edit Time: 124:48:21
+# Last Modified: Sunday 12 February 2023, 18:24
+# $Id: .bashrc,v 1.502 2023/02/12 17:25:07 czo Exp $
+# Edit Time: 124:48:33
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -579,7 +579,7 @@ alias PF='pacman -Qo'
 alias FU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # brew macos
-alias BU='brew update && brew upgrade && brew cleanup'
+alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # openwrt: opkg
 # suse: zypper

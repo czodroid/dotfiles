@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 01 February 2023, 10:21
-" $Id: .vimrc,v 1.373 2023/02/01 09:26:18 czo Exp $
-" Edit Time: 231:36:20
+" Last Modified: Sunday 12 February 2023, 19:00
+" $Id: .vimrc,v 1.376 2023/02/12 18:00:38 czo Exp $
+" Edit Time: 231:39:59
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -131,9 +131,13 @@ if version > 604
     set tabpagemax=200
 endif
 
-
+# bug MacVim ?
 if !has('nvim')
-    set ttymouse=xterm2
+    if version >= 802
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    endif
 endif
 
 if version >= 701
@@ -979,7 +983,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.373 2023/02/01 09:26:18 czo Exp $
+        " $Id: .vimrc,v 1.376 2023/02/12 18:00:38 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
