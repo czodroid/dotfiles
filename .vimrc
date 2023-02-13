@@ -7,7 +7,7 @@
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
 " Last Modified: Sunday 12 February 2023, 19:00
-" $Id: .vimrc,v 1.376 2023/02/12 18:00:38 czo Exp $
+" $Id: .vimrc,v 1.377 2023/02/13 08:43:50 czo Exp $
 " Edit Time: 231:39:59
 " Description:
 "              my vim config file
@@ -131,7 +131,7 @@ if version > 604
     set tabpagemax=200
 endif
 
-# bug MacVim ?
+" bug MacVim ?
 if !has('nvim')
     if version >= 802
         set ttymouse=sgr
@@ -983,7 +983,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.376 2023/02/12 18:00:38 czo Exp $
+        " $Id: .vimrc,v 1.377 2023/02/13 08:43:50 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
