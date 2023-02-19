@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 13 February 2023, 12:03
-" $Id: .vimrc,v 1.378 2023/02/13 11:03:54 czo Exp $
-" Edit Time: 231:40:35
+" Last Modified: Wednesday 15 February 2023, 15:56
+" $Id: .vimrc,v 1.379 2023/02/15 14:57:25 czo Exp $
+" Edit Time: 231:43:02
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -275,15 +275,16 @@ endif
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
 autocmd BufNewFile,BufRead *.h++ set filetype=cpp
-autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
-autocmd FileType json      setlocal commentstring=//\ %s
-autocmd FileType cpp       setlocal commentstring=//\ %s
-autocmd FileType php       setlocal commentstring=//\ %s
-autocmd FileType crontab   setlocal commentstring=#\ %s
-autocmd FileType cfg       setlocal commentstring=#\ %s
-autocmd FileType xdefaults setlocal commentstring=!\ %s
-autocmd FileType apache    setlocal commentstring=#\ %s
-autocmd FileType perl      setlocal equalprg=perltidy\ -ce\ -l=0\ -st
+autocmd Filetype json       let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
+autocmd FileType perl       setlocal equalprg=perltidy\ -ce\ -l=0\ -st
+autocmd FileType apache     setlocal commentstring=#\ %s
+autocmd FileType cfg        setlocal commentstring=#\ %s
+autocmd FileType cpp        setlocal commentstring=//\ %s
+autocmd FileType crontab    setlocal commentstring=#\ %s
+autocmd FileType debsources setlocal commentstring=#\ %s
+autocmd FileType json       setlocal commentstring=//\ %s
+autocmd FileType php        setlocal commentstring=//\ %s
+autocmd FileType xdefaults  setlocal commentstring=!\ %s
 
 autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults' | :call CzoTTW () | endif
 
@@ -982,7 +983,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.378 2023/02/13 11:03:54 czo Exp $
+        " $Id: .vimrc,v 1.379 2023/02/15 14:57:25 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
