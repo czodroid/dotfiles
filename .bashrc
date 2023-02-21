@@ -7,7 +7,7 @@
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
 # Last Modified: Tuesday 21 February 2023, 18:32
-# $Id: .bashrc,v 1.502 2023/02/12 17:25:07 czo Exp $
+# $Id: .bashrc,v 1.503 2023/02/21 17:41:03 czo Exp $
 # Edit Time: 125:58:47
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.

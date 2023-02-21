@@ -7,7 +7,7 @@
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
 # Last Modified: Tuesday 21 February 2023, 18:33
-# $Id: .zshrc,v 1.466 2023/02/12 17:25:07 czo Exp $
+# $Id: .zshrc,v 1.467 2023/02/21 17:41:03 czo Exp $
 # Edit Time: 135:57:57
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
