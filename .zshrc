@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 12 February 2023, 18:23
+# Last Modified: Tuesday 21 February 2023, 18:33
 # $Id: .zshrc,v 1.466 2023/02/12 17:25:07 czo Exp $
-# Edit Time: 135:57:47
+# Edit Time: 135:57:57
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -601,7 +601,8 @@ tara() { V="${1%/*}" ; tar -czf "${V#*/}.tgz" "$1"; }
 alias tarx='tar -xf'
 alias tart='tar -tvf'
 #alias tarxiso='cmake -E tar -xf'
-alias tarxiso='bsdtar -xf'
+#alias tarxiso='bsdtar -xf'
+tarxiso() { V="${1%.*}" ; mkdir "$V" && bsdtar -C "$V" -xf "$1"; }
 
 alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 

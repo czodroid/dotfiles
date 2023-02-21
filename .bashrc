@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 12 February 2023, 18:24
+# Last Modified: Tuesday 21 February 2023, 18:32
 # $Id: .bashrc,v 1.502 2023/02/12 17:25:07 czo Exp $
-# Edit Time: 124:48:33
+# Edit Time: 125:58:47
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -472,7 +472,8 @@ tara() { V="${1%/*}" ; tar -czf "${V#*/}.tgz" "$1"; }
 alias tarx='tar -xf'
 alias tart='tar -tvf'
 #alias tarxiso='cmake -E tar -xf'
-alias tarxiso='bsdtar -xf'
+#alias tarxiso='bsdtar -xf'
+tarxiso() { V="${1%.*}" ; mkdir "$V" && bsdtar -C "$V" -xf "$1"; }
 
 alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
