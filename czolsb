@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Saturday 10 December 2022, 17:17
-# $Id: czolsb,v 1.60 2022/12/10 16:23:44 czo Exp $
-# Edit Time: 56:54:26
+# Last Modified: Thursday 23 February 2023, 17:50
+# $Id: czolsb,v 1.61 2023/02/23 16:51:30 czo Exp $
+# Edit Time: 56:55:21
 # Description:
 #
 #   /etc/czolsb > /etc/motd
@@ -19,7 +19,7 @@
 #   /etc/cron.d/czo-motd-czolsb:
 #   @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
 #
-# Copyright: (C) 2009-2022 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2009-2023 Olivier Sirol <czo@free.fr>
 
 # use strict;
 # use warnings;
@@ -297,7 +297,7 @@ $CTAG =~ s/(.*)/\L$1/;
 $HOSTNAME =~ s/\..*//;
 ($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
 
-print <<OVER
+print <<HEREDOC
               ,,,
              (o o)
 ####=====oOO==(_)==OOO==============================================####
@@ -310,6 +310,6 @@ $WELCOME
 
 ####================================================================####
 
-OVER
+HEREDOC
 
 __END__
