@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 15 February 2023, 15:56
-" $Id: .vimrc,v 1.379 2023/02/15 14:57:25 czo Exp $
-" Edit Time: 231:43:02
+" Last Modified: Wednesday 15 March 2023, 09:26
+" $Id: .vimrc,v 1.380 2023/03/15 08:27:46 czo Exp $
+" Edit Time: 231:48:48
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -530,11 +530,11 @@ imap <F7>           <C-O>:cp<CR>
 map  <F8>           :cn<CR>
 imap <F8>           <C-O>:cn<CR>
 
-"map  <F9> :!rm %<CR><CR>:q!<CR>
-map  <F9>           :syn include syntax/css/vim-coloresque.vim<CR>
+map  <F9>           :x<CR>
+imap <F9>           <C-O>:x<CR>
 
-map  <F10>          :q<CR>
-imap <F10>          <C-O>:q<CR>
+map  <F10>          :q!<CR>
+imap <F10>          <C-O>:q!<CR>
 
 if version >= 600
     map  <leader>x :so ~/.vimrc<CR>
@@ -983,7 +983,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.379 2023/02/15 14:57:25 czo Exp $
+        " $Id: .vimrc,v 1.380 2023/03/15 08:27:46 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
