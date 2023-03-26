@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 15 March 2023, 09:26
-" $Id: .vimrc,v 1.380 2023/03/15 08:27:46 czo Exp $
-" Edit Time: 231:48:48
+" Last Modified: Saturday 25 March 2023, 12:09
+" $Id: .vimrc,v 1.381 2023/03/25 11:10:16 czo Exp $
+" Edit Time: 231:50:37
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -983,7 +983,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.380 2023/03/15 08:27:46 czo Exp $
+        " $Id: .vimrc,v 1.381 2023/03/25 11:10:16 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -2154,6 +2154,7 @@ else
 " ======================================================================
 " == Plugins ===========================================================
 
+  " if 1: Reload .vimrc and :PlugInstall to install plugins.
   if 0
     " Install vim-plug if not found
     if empty(glob('~/.vim/autoload/plug.vim'))
@@ -2171,7 +2172,6 @@ else
     Plug 'godlygeek/tabular'
     Plug 'kevinoid/vim-jsonc'
     call plug#end()
-    " Then reload .vimrc and :PlugInstall to install plugins.
   endif
 " end Plugins ==========================================================
 
