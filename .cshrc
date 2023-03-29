@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Friday 27 January 2023, 17:51
-# $Id: .cshrc,v 1.151 2023/01/27 17:25:03 czo Exp $
-# Edit Time: 31:24:00
+# Last Modified: Wednesday 29 March 2023, 10:34
+# $Id: .cshrc,v 1.152 2023/03/29 08:34:22 czo Exp $
+# Edit Time: 31:30:19
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -110,7 +110,7 @@ if ( ! $?USER )     setenv USER     `id -nu`
 
 if ($?tcsh) then
 # GNU ls, line < 1024 char
-setenv LS_COLORS 'no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:ex=97:*.7z=91:*.bz2=91:*.bz=91:*.cpio=91:*.deb=91:*.gz=91:*.jar=91:*.rar=91:*.rpm=91:*.tar=91:*.tgz=91:*.xz=91:*.z=91:*.Z=91:*.zip=91:*.bmp=95:*.gif=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xpm=95:*.avi=35:*.flv=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.ogm=35:*.ogv=35:*.ogx=35:*.webm=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mp3=36:*.ogg=36:*.opus=36:*.wav=36:*.css=92:*.doc=92:*.docx=92:*.htm=92:*.html=92:*.json=92:*.latex=92:*.log=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.tex=92:*.txt=92:*.xls=92:*.xlsx=92:*.xml=92:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.csh=93:*.cxx=93:*.f90=93:*.f=93:*.F=93:*.go=93:*.h=93:*.hh=93:*.hpp=93:*.hs=93:*.java=93:*.js=93:*.lua=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.sh=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93:'
+setenv LS_COLORS 'no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:ex=97:*.7z=91:*.bz2=91:*.bz=91:*.cpio=91:*.deb=91:*.gz=91:*.jar=91:*.rar=91:*.rpm=91:*.tar=91:*.tgz=91:*.xz=91:*.z=91:*.Z=91:*.zip=91:*.bmp=95:*.gif=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xpm=95:*.avi=35:*.flv=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.ogm=35:*.ogv=35:*.ogx=35:*.webm=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mp3=36:*.ogg=36:*.opus=36:*.wav=36:*.css=92:*.doc=92:*.docx=92:*.htm=92:*.html=92:*.json=92:*.latex=92:*.log=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.tex=92:*.txt=92:*.xls=92:*.xlsx=92:*.xml=92:*.c=93:*.C=93:*.cc=93:*.cpp=93:*.csh=93:*.cxx=93:*.f90=93:*.f=93:*.F=93:*.go=93:*.h=93:*.hh=93:*.hpp=93:*.hs=93:*.ino=93:*.java=93:*.js=93:*.lua=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.sh=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93:'
 endif
 
 # BSD ls
