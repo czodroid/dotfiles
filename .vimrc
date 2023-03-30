@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 25 March 2023, 12:09
-" $Id: .vimrc,v 1.381 2023/03/25 11:10:16 czo Exp $
-" Edit Time: 231:50:37
+" Last Modified: Wednesday 29 March 2023, 17:45
+" $Id: .vimrc,v 1.383 2023/03/29 15:58:30 czo Exp $
+" Edit Time: 232:08:39
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -92,12 +92,12 @@ set undolevels=99000
 set nostartofline
 set backspace=indent,eol,start
 set whichwrap=<,>,[,]
+set tabstop=8
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 set smarttab
-set softtabstop=4
-set tabstop=4
-set shiftwidth=4
-set shiftround
+"set shiftround
 
 set guioptions=egmrL
 
@@ -983,7 +983,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.381 2023/03/25 11:10:16 czo Exp $
+        " $Id: .vimrc,v 1.383 2023/03/29 15:58:30 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
