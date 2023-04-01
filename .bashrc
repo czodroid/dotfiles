@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 29 March 2023, 10:35
-# $Id: .bashrc,v 1.506 2023/03/29 08:35:31 czo Exp $
-# Edit Time: 126:04:08
+# Last Modified: Friday 31 March 2023, 19:00
+# $Id: .bashrc,v 1.507 2023/03/31 17:01:19 czo Exp $
+# Edit Time: 126:04:31
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -583,7 +583,7 @@ alias FU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias WU='choco upgrade all -y ; cyg-get.bat -upgrade all ; echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias WU='choco upgrade all -y && cyg-get.bat /upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # openwrt: opkg
 # suse: zypper

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 29 March 2023, 10:35
-# $Id: .zshrc,v 1.470 2023/03/29 08:35:31 czo Exp $
-# Edit Time: 135:59:14
+# Last Modified: Saturday 01 April 2023, 07:55
+# $Id: .zshrc,v 1.472 2023/04/01 05:55:59 czo Exp $
+# Edit Time: 135:59:46
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -31,7 +31,7 @@ setopt ALWAYS_TO_END          # On completion go to end of word
 setopt NO_AUTO_CD             # Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
 setopt NO_BG_NICE             # (!*)Background jobs at lower priority
-#setopt CD_SILENT              # Never print the working directory (new zsh version...)
+setopt CD_SILENT              # Never print the working directory (new zsh version...)
 setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
 setopt COMBINING_CHARS        # Displays combining characters correctly
 #setopt COMPLETE_IN_WORD       # Completion works inside words (doesnt work: scp root@myhost-M:/foo)
@@ -712,7 +712,7 @@ alias FU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias WU='choco upgrade all -y ; cyg-get.bat -upgrade all ; echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias WU='choco upgrade all -y && cyg-get.bat /upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # openwrt: opkg
 # suse: zypper
