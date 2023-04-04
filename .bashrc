@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 31 March 2023, 19:00
-# $Id: .bashrc,v 1.507 2023/03/31 17:01:19 czo Exp $
-# Edit Time: 126:04:31
+# Last Modified: Tuesday 04 April 2023, 19:00
+# $Id: .bashrc,v 1.509 2023/04/04 17:08:11 czo Exp $
+# Edit Time: 126:05:46
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -169,6 +169,7 @@ export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
 export PAGER=less
+export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'
 export SYSTEMD_PAGER=cat
 export APT_LISTCHANGES_FRONTEND=none

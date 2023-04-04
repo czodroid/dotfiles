@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 01 April 2023, 07:55
-# $Id: .zshrc,v 1.472 2023/04/01 05:55:59 czo Exp $
-# Edit Time: 135:59:46
+# Last Modified: Tuesday 04 April 2023, 19:00
+# $Id: .zshrc,v 1.474 2023/04/04 17:08:11 czo Exp $
+# Edit Time: 136:01:48
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -191,6 +191,7 @@ export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
 export PAGER=less
+export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'
 export SYSTEMD_PAGER=cat
 export APT_LISTCHANGES_FRONTEND=none
