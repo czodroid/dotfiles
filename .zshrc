@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 04 April 2023, 19:00
-# $Id: .zshrc,v 1.474 2023/04/04 17:08:11 czo Exp $
-# Edit Time: 136:01:48
+# Last Modified: Tuesday 04 April 2023, 20:17
+# $Id: .zshrc,v 1.475 2023/04/04 18:18:05 czo Exp $
+# Edit Time: 136:02:07
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -713,7 +713,7 @@ alias FU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias WU='choco upgrade all -y && cyg-get.bat /upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias WU='choco upgrade all -y && cyg-get.bat -upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # openwrt: opkg
 # suse: zypper
