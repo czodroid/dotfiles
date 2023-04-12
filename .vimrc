@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 29 March 2023, 17:45
-" $Id: .vimrc,v 1.383 2023/03/29 15:58:30 czo Exp $
-" Edit Time: 232:08:39
+" Last Modified: Sunday 09 April 2023, 20:35
+" $Id: .vimrc,v 1.395 2023/04/09 18:35:40 czo Exp $
+" Edit Time: 233:57:27
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -303,14 +303,15 @@ iab _ffn  <C-R>=expand("%:p")<cr>
 iab _home <C-R>=$HOME<cr>
 iab _vim  <C-R>=$VIMRUNTIME<cr>
 iab _date <C-R>=strftime("%Y-%m-%d")<cr>
-iab _ma # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
-iab _mc # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
-iab _mi # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
+iab _ma   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
+iab _mc   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
+iab _mi   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
+iab _git  "<C-R>=expand("$")<cr>Id: <C-R>=expand("%:t")<cr> 1.42 <C-R>=strftime("%Y/%m/%d %T")<cr> czo Git $"
 
-iab _abc abcdefghijklmnopqrstuvwxyz
-iab _ABC ABCDEFGHIJKLMNOPQRSTUVWXYZ
-iab _123 1234567890
-iab _rul ....\|....1....\|....2....\|....3....\|....4....\|....5....\|....6....\|....7....\|....8....\|....9
+iab _abc   abcdefghijklmnopqrstuvwxyz
+iab _ABC   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+iab _123   12345678911234567892123456789
+iab _rul   ....\|....1....\|....2....\|....3....\|....4....\|....5....\|....6....\|....7....\|....8....\|....9
 
 iab _www   http://www-asim.lip6.fr/~czo/
 iab _ftp   ftp://ftp-asim.lip6.fr/
@@ -959,6 +960,15 @@ function! TemplateDate()
     return LastModDate
 endfunction
 
+function! TemplateGitId()
+    let save_lang = v:lc_time
+    silent! exec 'language time C'
+    let GitId=escape(strftime("%Y/%m/%d %T"), '/')
+    let GitId= expand("%:t") . ',v 1.42 ' . GitId
+    silent! exec 'language time ' . save_lang
+    return GitId
+endfunction
+
 function! TemplateCopyrightDate()
     return  '(C) ' . b:Template_Copyright_Year . ' ' . g:TemplateAuthor
 endfunction
@@ -983,7 +993,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.383 2023/03/29 15:58:30 czo Exp $
+        " $Id: .vimrc,v 1.395 2023/04/09 18:35:40 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -1018,6 +1028,13 @@ function! TemplateTimeStamp ()
         endif
 
         " Normal changes in my header here:
+
+        " substitute CVS $ Id:$ because now, I use Git...
+        let pattern = '\(.*"$I'.'d: \).*\( czo Git $".*\)'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1'.TemplateGitId().'\2\3/e'
+            call histdel("search",-1)
+        endif
 
         " substitute the file name
         let pattern = '\(^.\=.\=.\=\s*Filename:\).*'

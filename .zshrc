@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 04 April 2023, 20:17
-# $Id: .zshrc,v 1.475 2023/04/04 18:18:05 czo Exp $
-# Edit Time: 136:02:07
+# Last Modified: Sunday 09 April 2023, 20:20
+# $Id: .zshrc,v 1.477 2023/04/09 18:21:01 czo Exp $
+# Edit Time: 136:05:37
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -37,7 +37,7 @@ setopt COMBINING_CHARS        # Displays combining characters correctly
 #setopt COMPLETE_IN_WORD       # Completion works inside words (doesnt work: scp root@myhost-M:/foo)
 setopt NO_EXTENDED_GLOB       # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt NO_GLOB_DOTS           # Patterns may match leading dots
+setopt GLOB_DOTS           # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
@@ -651,13 +651,15 @@ alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
 
-alias gtu='git pull'
-alias gtd='git diff'
-alias gtc='git commit -a -mupdate ; git push'
-alias gts='git status'
-alias gta='git add .'
-alias gtf='git fetch; git diff master origin/master'
-alias gtp='git gc'
+alias  gtu='git pull'
+alias  gtp='git push'
+alias  gtd='git diff'
+alias  gtc='git commit -a'
+alias gtcc='git commit -a -mupdate ; git push'
+alias  gts='git status'
+alias  gta='git add .'
+alias  gtf='git fetch; git diff master origin/master'
+alias gtgc='git gc'
 
 #alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"

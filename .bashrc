@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 04 April 2023, 20:18
-# $Id: .bashrc,v 1.510 2023/04/04 18:18:05 czo Exp $
-# Edit Time: 126:06:00
+# Last Modified: Sunday 09 April 2023, 20:20
+# $Id: .bashrc,v 1.512 2023/04/09 18:21:01 czo Exp $
+# Edit Time: 126:07:20
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -47,7 +47,7 @@ if [ -n "$BASH_VERSION" ]; then
     #shopt -s histappend
     shopt -u autocd
     shopt -s checkwinsize
-    shopt -u dotglob
+    shopt -s dotglob
     shopt -s globstar
 fi
 
@@ -522,13 +522,15 @@ alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
 
-alias gtu='git pull'
-alias gtd='git diff'
-alias gtc='git commit -a -mupdate ; git push'
-alias gts='git status'
-alias gta='git add .'
-alias gtf='git fetch; git diff master origin/master'
-alias gtp='git gc'
+alias  gtu='git pull'
+alias  gtp='git push'
+alias  gtd='git diff'
+alias  gtc='git commit -a'
+alias gtcc='git commit -a -mupdate ; git push'
+alias  gts='git status'
+alias  gta='git add .'
+alias  gtf='git fetch; git diff master origin/master'
+alias gtgc='git gc'
 
 #alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
