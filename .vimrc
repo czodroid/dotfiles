@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 09 April 2023, 20:35
-" $Id: .vimrc,v 1.395 2023/04/09 18:35:40 czo Exp $
-" Edit Time: 233:57:27
+" Last Modified: Wednesday 12 April 2023, 17:54
+" $Id: .vimrc,v 1.396 2023/04/12 16:05:31 czo Exp $
+" Edit Time: 234:41:07
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -890,7 +890,7 @@ endif
 "set verbose=9
 "autocmd!
 
-let TemplateMaxHeaderLines=30
+let TemplateMaxHeaderLines=50
 let TemplateAuthor="Olivier Sirol <czo@free.fr>"
 let TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
 
@@ -969,6 +969,14 @@ function! TemplateGitId()
     return GitId
 endfunction
 
+function! TemplateGitDate()
+    let save_lang = v:lc_time
+    silent! exec 'language time C'
+    let GitDate=strftime("%Y-%m-%d %H:%M")
+    silent! exec 'language time ' . save_lang
+    return GitDate
+endfunction
+
 function! TemplateCopyrightDate()
     return  '(C) ' . b:Template_Copyright_Year . ' ' . g:TemplateAuthor
 endfunction
@@ -993,7 +1001,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.395 2023/04/09 18:35:40 czo Exp $
+        " $Id: .vimrc,v 1.396 2023/04/12 16:05:31 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -1030,9 +1038,16 @@ function! TemplateTimeStamp ()
         " Normal changes in my header here:
 
         " substitute CVS $ Id:$ because now, I use Git...
-        let pattern = '\(.*"$I'.'d: \).*\( czo Git $".*\)'
+        let pattern = '\(.*$I'.'d: \).*\( czo Git $.*\)'
         if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1'.TemplateGitId().'\2\3/e'
+            exec 's/'.pattern.'/\1'.TemplateGitId().'\2/e'
+            call histdel("search",-1)
+        endif
+
+        " substitute CVS $ Date:$ in fact $ CzoDate:$...
+        let pattern = '\(.*$Czo'.'Date: \)[0-9 -:\/]\+$\(.*\)'
+        if FindStrInHeader(pattern)
+            exec 's/'.pattern.'/\1'.TemplateGitDate().' $\2/e'
             call histdel("search",-1)
         endif
 
