@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Thursday 23 February 2023, 17:50
-# $Id: czolsb,v 1.61 2023/02/23 16:51:30 czo Exp $
-# Edit Time: 56:55:21
+# Last Modified: Wednesday 17 May 2023, 19:11
+# $Id: czolsb,v 1.64 2023/05/17 17:14:53 czo Exp $
+# Edit Time: 57:56:27
 # Description:
 #
 #   /etc/czolsb > /etc/motd
@@ -53,6 +53,33 @@ sub qxc {
     ($s) = qx(@_);
     chomp($s);
     return $s;
+}
+
+##=======================================================
+## kilo
+
+sub kilo {
+    ($SizeInByte) = @_;
+
+    $SizeInKilo = sprintf( "%.0f", $SizeInByte / 1024.0 );
+    $SizeInMeg  = sprintf( "%.0f", $SizeInByte / 1024.0 / 1024 );
+    $SizeInGig  = sprintf( "%.1f", $SizeInByte / 1024.0 / 1024 / 1024 );
+    $SizeInTB   = sprintf( "%.1f", $SizeInByte / 1024.0 / 1024 / 1024 / 1024 );
+
+    if ( $SizeInKilo < 1000 ) {
+        $kilo = $SizeInKilo . "KB";
+    } else {
+        if ( $SizeInMeg < 1000 ) {
+            $kilo = $SizeInMeg . "MB";
+        } else {
+            if ( $SizeInGig < 1000 ) {
+                $kilo = $SizeInGig . "GB";
+            } else {
+                $kilo = $SizeInTB . "TB";
+            }
+        }
+    }
+    return $kilo;
 }
 
 ##=======================================================
@@ -123,6 +150,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
         $VERSION_ID =~ s/^.*-//;
     }
 
+    ## CPU
     $CNBCORE = 0;
     if ( open( FILE, "</proc/cpuinfo" ) ) {
         while (<FILE>) {
@@ -137,13 +165,36 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
         close FILE;
     }
 
+    if ( $CNBCORE == 0 ) {
+        if ( open( FILE, "</proc/cpuinfo" ) ) {
+            while (<FILE>) {
+                chomp $_;
+                if ( $_ =~ /^Processor[\t ]*: (.*)/ ) {
+                    $CNBCORE += 1;
+                    $CCOREMODEL = $1;
+                    $CCOREMODEL =~ s/  */ /g;
+                    printv(qw(CCOREMODEL CNBCORE));
+                }
+            }
+            close FILE;
+        }
+    }
+
+    if ( !defined($CCOREMODEL) ) {
+        $CNBCORE    = '???';
+        $CCOREMODEL = '???';
+    }
+
+    ## Memory
     if ( open( FILE, "</proc/meminfo" ) ) {
         while (<FILE>) {
             chomp $_;
             if ( $_ =~ /^MemTotal:\s*(.*) kB/ ) {
                 $CMEM = $1;
                 printv(qw(CMEM));
-                $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 );
+                ## in KB
+                ## $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 );
+                $CMEM = kilo( $CMEM * 1024 ) . ' RAM';
             }
             if ( $_ =~ /^SwapTotal:\s*(.*) kB/ ) {
                 $CSWAP = $1;
@@ -151,7 +202,9 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
                 if ( $CSWAP eq 0 ) {
                     $CSWAP = "no swap";
                 } else {
-                    $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+                    ## in KB
+                    ## $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+                    $CSWAP = kilo( $CSWAP * 1024 ) . ' SWAP';
                 }
             }
         }
@@ -177,7 +230,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
 
 # FreeBSD | OpenBSD | NetBSD | Darwin
 elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
-    ## poorly tested
+
     $ID         = $OSN;
     $VERSION_ID = $CKNAME;
     $VERSION_ID =~ s/-.*//g;
@@ -194,17 +247,22 @@ elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
         $CCOREMODEL = qxc('sysctl -n machdep.cpu_brand');
     }
 
+    ## Memory
     if ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD/ ) {
         $CMEM = qxc('sysctl -n hw.physmem');
         printv(qw(CMEM));
-        $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 / 1024 );
+        ## in B
+        ## $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 / 1024 );
+        $CMEM = kilo($CMEM) . ' RAM';
 
         ($CSWAP) = ( qx'swapctl -sk' =~ /^total:\s*([^\s]*) .*/i );
         printv(qw(CSWAP));
         if ( $CSWAP eq 0 ) {
             $CSWAP = "no swap";
         } else {
-            $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+            ## in KB
+            ## $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+            $CSWAP = kilo( $CSWAP * 1024 ) . ' SWAP';
         }
     }
 
@@ -213,16 +271,21 @@ elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
         $CRELEASE   = "$ID $VERSION_ID";
         $CCOREMODEL = qxc('sysctl -n machdep.cpu.brand_string');
 
+        ## Memory
         $CMEM = qxc('sysctl -n hw.memsize');
         printv(qw(CMEM));
-        $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 / 1024 );
+        ## in B
+        ## $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 / 1024 / 1024 );
+        $CMEM = kilo($CMEM) . ' RAM';
 
         ($CSWAP) = ( qx'sysctl -n vm.swapusage' =~ /^total = ([^M]*)M .*/ );
         printv(qw(CSWAP));
         if ( $CSWAP =~ '0.00' ) {
             $CSWAP = "no swap";
         } else {
-            $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 );
+            ## in MB
+            ## $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 );
+            $CSWAP = kilo( $CSWAP * 1024 * 1024 ) . ' SWAP';
         }
     }
     printv(qw(CCOREMODEL CNBCORE));
@@ -249,10 +312,12 @@ elsif ( $OSN =~ /^SunOS/ ) {
     $CNBCORE = grep( /\score_id\s/, qx'kstat cpu_info' );
     printv(qw(CCOREMODEL CNBCORE));
 
-    # Memory size: 1024 Megabytes
+    ## Memory
     ($CMEM) = ( qx'prtconf' =~ /^Memory size: ([0-9]+) Megabytes/m );
     printv(qw(CMEM));
-    $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 );
+    ## in MB
+    ## $CMEM = sprintf( "%.1fGB RAM", $CMEM / 1024 );
+    $CMEM = kilo( $CMEM * 1024 * 1024 ) . ' RAM';
 
     # total: 163480k bytes allocated + 16100k reserved = 179580k used, 1013712k available
     ($CSWAP) = ( qx'swap -s' =~ /^total:.*, ([0-9]+)k available/mi );
@@ -260,7 +325,9 @@ elsif ( $OSN =~ /^SunOS/ ) {
     if ( $CSWAP eq 0 ) {
         $CSWAP = "no swap";
     } else {
-        $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+        ## in KB
+        ## $CSWAP = sprintf( "%.1fGB SWAP", $CSWAP / 1024 / 1024 );
+        $CSWAP = kilo( $CSWAP * 1024 ) . ' SWAP';
     }
 
 } else {
@@ -291,10 +358,10 @@ if ( -r $lsb_czo_file ) {
 } else {
     $CTAG = $ID . "_" . $VERSION_ID . "-" . $CCNAME . "-czo-???";
 }
-$CTAG =~ s/(.*)/\L$1/;
+$CTAG     =~ s/(.*)/\L$1/;
+$HOSTNAME =~ s/\..*//;
 
 # printv(qw (HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CMEM CSWAP CTAG));
-$HOSTNAME =~ s/\..*//;
 ($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
 
 print <<HEREDOC
