@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 29 March 2023, 10:34
-# $Id: .cshrc,v 1.152 2023/03/29 08:34:22 czo Exp $
-# Edit Time: 31:30:19
+# Last Modified: Saturday 27 May 2023, 07:49
+# $Id: .cshrc,v 1.153 2023/05/27 05:49:55 czo Exp $
+# Edit Time: 31:30:48
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -381,7 +381,7 @@ alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d
 alias passwd_md5     'openssl passwd -1 '
 alias passwd_sha512  'openssl passwd -6 '
 alias ssha           'eval `ssh-agent -c`; ssh-add; echo; echo "To add another identity:"; echo "ssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
-alias dig_lartha     'curl http://lartha:/hosts.html'
+alias dig_lartha     'curl -sk http://lartha:/hosts.html'
 alias tmate_ssh      'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
