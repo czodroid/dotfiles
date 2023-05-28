@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 28 May 2023, 13:35
-" $Id: .vimrc,v 1.398 2023/05/28 11:41:35 czo Exp $
-" Edit Time: 235:14:20
+" Last Modified: Sunday 28 May 2023, 17:39
+" $Id: .vimrc,v 1.399 2023/05/28 15:40:16 czo Exp $
+" Edit Time: 236:06:06
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1001,7 +1001,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.398 2023/05/28 11:41:35 czo Exp $
+        " $Id: .vimrc,v 1.399 2023/05/28 15:40:16 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -2206,12 +2206,17 @@ else
     call plug#end()
   endif
 
-  " Neoformat options
-  " C/C++ in ~/.clang-format
-  " perl in ~/.perltidyrc
+  """ Neoformat options
+  "" perl in config ~/.perltidyrc
+  " let g:neoformat_perl_perltidy = {
+  "       \ 'exe': 'perltidy',
+  "       \ 'args': ['-q', '-ce', '-l=0', '-st'],
+  "       \ 'stdin': 1,
+  "       \ }
+  "" sh: shfmt
   let g:shfmt_opt="-ci"
-  " but html/css/js: 'prettier --config ~/.prettierrc' doesnt work!
-  let g:neoformat_try_formatprg = 1
+  "" html/css/js: prettier config in ~/.prettierrc
+  "" C/C++/java: config in ~/.clang-format
 
 " end Plugins ==========================================================
 
