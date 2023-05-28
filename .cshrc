@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Saturday 27 May 2023, 07:49
-# $Id: .cshrc,v 1.153 2023/05/27 05:49:55 czo Exp $
-# Edit Time: 31:30:48
+# Last Modified: Saturday 27 May 2023, 10:22
+# $Id: .cshrc,v 1.155 2023/05/27 08:22:13 czo Exp $
+# Edit Time: 31:32:01
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc

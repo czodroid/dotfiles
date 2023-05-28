@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 12 April 2023, 18:11
-" $Id: .vimrc,v 1.397 2023/04/12 16:11:11 czo Exp $
-" Edit Time: 234:41:42
+" Last Modified: Sunday 28 May 2023, 13:35
+" $Id: .vimrc,v 1.398 2023/05/28 11:41:35 czo Exp $
+" Edit Time: 235:14:20
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1001,7 +1001,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.397 2023/04/12 16:11:11 czo Exp $
+        " $Id: .vimrc,v 1.398 2023/05/28 11:41:35 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -2205,6 +2205,14 @@ else
     Plug 'kevinoid/vim-jsonc'
     call plug#end()
   endif
+
+  " Neoformat options
+  " C/C++ in ~/.clang-format
+  " perl in ~/.perltidyrc
+  let g:shfmt_opt="-ci"
+  " but html/css/js: 'prettier --config ~/.prettierrc' doesnt work!
+  let g:neoformat_try_formatprg = 1
+
 " end Plugins ==========================================================
 
 endif

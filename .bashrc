@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 27 May 2023, 07:48
-# $Id: .bashrc,v 1.513 2023/05/27 05:49:55 czo Exp $
-# Edit Time: 126:07:50
+# Last Modified: Saturday 27 May 2023, 10:21
+# $Id: .bashrc,v 1.515 2023/05/27 08:22:13 czo Exp $
+# Edit Time: 126:10:11
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -101,7 +101,8 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); e
 #FIXME: zsh typeset -U
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH"
 
-# /usr/lib:
+# $HOME/node_modules/.bin: needed for prettier, link in $HOME/.local/bin
+# /usr/lib: needed 20 years ago...
 
 ## config cpanm perl libs not in distro
 #export PERL_LOCAL_LIB_ROOT="$HOME/.local/perl";
