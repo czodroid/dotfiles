@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 27 May 2023, 10:21
-# $Id: .bashrc,v 1.515 2023/05/27 08:22:13 czo Exp $
-# Edit Time: 126:10:11
+# Last Modified: Tuesday 30 May 2023, 20:19
+# $Id: .bashrc,v 1.516 2023/05/30 18:40:46 czo Exp $
+# Edit Time: 126:29:42
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -513,6 +513,9 @@ alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDI
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
 # but on FreeBSD you must have gnu-sed, so perl is best!
 remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts; }
+
+# \xterm -geometry 90x26 -tn xterm-256color -bg "#2E3436" -fg grey -fa "fixed:size=13"
+alias xterm='\xterm -xrm "XTerm*geometry:90x26" -xrm "XTerm*termName:xterm-256color" -xrm "XTerm*faceName:fixed:size=13" -xrm "XTerm*allowBoldFonts:false" -xrm "XTerm*SimpleMenu*font:fixed" -xrm "XTerm*SimpleMenu*foreground:black" -xrm "XTerm*SimpleMenu*background:grey" -xrm "XTerm*scrollBar:false" -xrm "XTerm*saveLines:99000" -xrm "XTerm*visualBell:false" -xrm "XTerm*toolBar:false" -xrm "XTerm*allowTcapOps:false" -xrm "XTerm*eightBitInput:true" -xrm "XTerm*cursorBlink:on" -xrm "XTerm*cursorOnTime:600" -xrm "XTerm*cursorOffTime:600" -xrm "XTerm*allowSendEvents:false" -xrm "XTerm*sessionMgt:false" -xrm "XTerm*vt100.Translations:#override \n Shift Ctrl <KeyPress>V:insert-selection(PRIMARY, CUT_BUFFER0) \n Shift <KeyPress>Insert:insert-selection(PRIMARY, CUT_BUFFER0) \n Alt <KeyPress>v:insert-selection(PRIMARY, CUT_BUFFER0) \n" -xrm "XTerm*colorMode:on" -xrm "XTerm*dynamicColors:on" -xrm "XTerm*colorBDMode:on" -xrm "XTerm*colorBLMode:on" -xrm "XTerm*colorULMode:on" -xrm "XTerm*colorITMode:on" -xrm "XTerm*background:#282828" -xrm "XTerm*foreground:#c9b788" -xrm "XTerm*cursorColor:#98971a" -xrm "XTerm*color0:#282828" -xrm "XTerm*color8:#4a4239" -xrm "XTerm*color1:#cc241d" -xrm "XTerm*color9:#fb4934" -xrm "XTerm*color2:#98971a" -xrm "XTerm*color10:#b8bb26" -xrm "XTerm*color3:#fe8019" -xrm "XTerm*color11:#fabd2f" -xrm "XTerm*color4:#458588" -xrm "XTerm*color12:#83a598" -xrm "XTerm*color5:#b16286" -xrm "XTerm*color13:#d3869b" -xrm "XTerm*color6:#689d6a" -xrm "XTerm*color14:#8ec07c" -xrm "XTerm*color7:#c9b788" -xrm "XTerm*color15:#fbf1c7" -xrm "XTerm*colorBD:#fe8019" -xrm "XTerm*colorBL:#fabd2f" -xrm "XTerm*colorUL:#b16286" -xrm "XTerm*colorIT:#689d6a" -xrm "XTerm*highlightColorMode:true" -xrm "XTerm*highlightReverse:false" -xrm "XTerm*highlightColor:#458588" -xrm "XTerm*highlightTextColor:#fbf1c7"'
 
 alias tree-cvs='tree -adn | grep -v CVS'
 alias dft='df -hPT'
