@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 31 May 2023, 11:09
-# $Id: .zshrc,v 1.482 2023/05/31 09:10:14 czo Exp $
-# Edit Time: 136:08:45
+# Last Modified: Saturday 10 June 2023, 20:54
+# $Id: .zshrc,v 1.483 2023/06/10 18:54:48 czo Exp $
+# Edit Time: 136:08:53
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -199,6 +199,7 @@ export APT_LISTCHANGES_FRONTEND=none
 
 export RSYNC_RSH=ssh
 export EDITOR=vim
+export CVS_RSH=ssh
 export CVSEDITOR=vim
 export CVSIGNORE=.DS_Store
 

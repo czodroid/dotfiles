@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 31 May 2023, 11:09
-# $Id: .bashrc,v 1.517 2023/05/31 09:10:14 czo Exp $
-# Edit Time: 126:29:50
+# Last Modified: Saturday 10 June 2023, 20:53
+# $Id: .bashrc,v 1.518 2023/06/10 18:54:48 czo Exp $
+# Edit Time: 126:30:34
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -177,6 +177,7 @@ export APT_LISTCHANGES_FRONTEND=none
 
 export RSYNC_RSH=ssh
 export EDITOR=vim
+export CVS_RSH=ssh
 export CVSEDITOR=vim
 export CVSIGNORE=.DS_Store
 
