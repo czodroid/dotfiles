@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 10 June 2023, 20:53
-# $Id: .bashrc,v 1.518 2023/06/10 18:54:48 czo Exp $
-# Edit Time: 126:30:34
+# Last Modified: Thursday 15 June 2023, 21:46
+# $Id: .bashrc,v 1.519 2023/06/16 08:31:30 czo Exp $
+# Edit Time: 126:32:19
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -345,7 +345,7 @@ case $PLATFORM in
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'
-        { \ls -l --time-style=long-iso >/dev/null 2>&1 && alias ls='\ls --time-style=long-iso --color=auto -a'; } || alias ls='\ls --color=auto -a'
+        { \ls -l --group-directories-first --time-style=long-iso >/dev/null 2>&1 && alias ls='LC_COLLATE=C \ls --group-directories-first --time-style=long-iso --color=auto -a'; } || alias ls='LC_COLLATE=C \ls --color=auto -a'
         ;;
 
     FreeBSD)

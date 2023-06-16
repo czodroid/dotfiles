@@ -6,15 +6,18 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2001
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: .inputrc,v 1.10 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 4:42:41
+# Last Modified: Friday 16 June 2023, 08:25
+# $Id: .inputrc,v 1.12 2023/06/16 08:31:30 czo Exp $
+# Edit Time: 4:53:05
 # Description:
 #              inputrc config file
-#              See readline(3readline) and `info rluserman'
-#              for more information.
+#              See `man readline` and `info rluserman'
 #
-# Copyright: (C) 2001-2022 Olivier Sirol <czo@free.fr>
+#              [bash 5.2 (2023-06-15)]:
+#              Need to keep .inputrc for LS_COLORS colors to be correct
+#              even if it's on .bashrc
+#
+# Copyright: (C) 2001-2023 Olivier Sirol <czo@free.fr>
 
 
 # Be 8 bit clean.
@@ -70,6 +73,11 @@ set visible-stats on
 "\e[OB":    history-search-forward
 "\e[1;5B":  history-search-forward
 
+# "\C-p":     previous-history
+# "\C-n":     next-history
+"\C-p":     history-search-backward
+"\C-n":     history-search-forward
+
 "\C-p":     previous-history
 "\C-n":     next-history
 
@@ -80,6 +88,5 @@ set visible-stats on
 "\M-h":     shell-backward-kill-word
 
 "\e\e":     kill-whole-line
-
 "\em":      "\C-w\C-y\C-y"
 
