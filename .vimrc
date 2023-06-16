@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 28 May 2023, 17:39
-" $Id: .vimrc,v 1.399 2023/05/28 15:40:16 czo Exp $
-" Edit Time: 236:06:06
+" Last Modified: Friday 16 June 2023, 19:25
+" $Id: .vimrc,v 1.400 2023/06/16 17:26:15 czo Exp $
+" Edit Time: 236:09:33
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1001,7 +1001,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.399 2023/05/28 15:40:16 czo Exp $
+        " $Id: .vimrc,v 1.400 2023/06/16 17:26:15 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -1170,7 +1170,7 @@ function! TemplateCzo (...)
     "    endif
     "
     " run this:
-    " :r !cd ~/etc/vim/templates ; ./template
+    " :r !cd ~/etc/vim-templates ; ./template
     " after delting this
     " ------------- SearchThisThenDelete -------------
 
@@ -1663,18 +1663,19 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Sunday 27 November 2022, 12:08
+                 \\<nl># Last Modified: Friday 16 June 2023, 19:22
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:01:16
+                 \\<nl># Edit Time: 0:00:25
                  \\<nl># Description:
-                 \\<nl>#      Makefile:
-                 \\<nl>#      $@ Le nom de la cible
-                 \\<nl>#      $< Le nom de la première dépendance
-                 \\<nl>#      $^ La liste des dépendances
-                 \\<nl>#      $? La liste des dépendances plus récentes que la cible
-                 \\<nl>#      $* Le nom du fichier sans suffixe
+                 \\<nl>#               Makefile for this project
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>#      $@ Target name
+                 \\<nl>#      $< Name of the first dependency
+                 \\<nl>#      $^ List of dependencies
+                 \\<nl>#      $? List of dependencies newer than the target
+                 \\<nl>#      $* Target name without suffix
+                 \\<nl>#
+                 \\<nl># Copyright: (C) 2023 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>CC = gcc
                  \\<nl>CFLAGS = -Wall -Wextra -Wpedantic
@@ -1993,34 +1994,52 @@ function! TemplateCzo (...)
             "## template.sh #########################################
             catch /^sh$/
                0put = \"
-                      \#! /usr/bin/env sh
+                      \#! /usr/bin/env bash
                  \\<nl>#
                  \\<nl># Filename: template.sh
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl># Last Modified: Friday 16 June 2023, 19:22
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:12
+                 \\<nl># Edit Time: 0:00:16
                  \\<nl># Description:
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2023 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>if [ \\"$#\\" -ne 1 ]; then
-                 \\<nl>    echo \\"ERROR : please specify a message...\\"
-                 \\<nl>    echo \\"Usage : $0 'a message text'\\"
+                 \\<nl>    echo \\"ERROR : please specify a device, e.g.: /dev/sdb\\"
+                 \\<nl>    echo \\"Usage : $0 device\\"
+                 \\<nl>    echo \\"Just print, not doing it!\\"
                  \\<nl>    exit 42
                  \\<nl>fi
                  \\<nl>
-                 \\<nl>(
-                 \\<nl>gdbus call --session   \\
-                 \\<nl>   --dest org.freedesktop.Notifications \\
-                 \\<nl>   --object-path /org/freedesktop/Notifications \\
-                 \\<nl>   --method org.freedesktop.Notifications.Notify \\
-                 \\<nl>   'notify-send' '42' 'utilities-terminal' 'notify-send!' \\
-                 \\<nl>   \\"$1\\" \\
-                 \\<nl>   '[]' '{}' '5000'
-                 \\<nl>) > /dev/null 2>&1
+                 \\<nl>echo
+                 \\<nl>echo \\"-> mkparted, run this as root!:\\"
+                 \\<nl>echo \\"===============================\\"
+                 \\<nl>echo
+                 \\<nl>
+                 \\<nl>USB_NAME=RESCUE
+                 \\<nl>DEV_TO_FORMAT=$1
+                 \\<nl>cat << EOF
+                 \\<nl>mkdir -p /mnt/$USB_NAME
+                 \\<nl>umount ${DEV_TO_FORMAT}1
+                 \\<nl>wipefs ${DEV_TO_FORMAT} -a
+                 \\<nl>parted -s -a optimal ${DEV_TO_FORMAT} mklabel msdos
+                 \\<nl>parted -s -a optimal ${DEV_TO_FORMAT} unit MB mkpart primary fat32 -- 1 -1
+                 \\<nl>parted -s ${DEV_TO_FORMAT} set 1 boot on
+                 \\<nl>mkfs.fat -F32 -n $USB_NAME ${DEV_TO_FORMAT}1
+                 \\<nl>mount ${DEV_TO_FORMAT}1 /mnt/$USB_NAME
+                 \\<nl>mkdir -p /mnt/$USB_NAME/boot/syslinux
+                 \\<nl>echo 'This flash drive is mine, please email me at czo@free.fr, thank you!' > /mnt/$USB_NAME/README
+                 \\<nl>./syslinux --directory /boot/syslinux/ --install ${DEV_TO_FORMAT}1
+                 \\<nl>umount ${DEV_TO_FORMAT}1
+                 \\<nl>dd if=./mbr.bin of=${DEV_TO_FORMAT}
+                 \\<nl>sync
+                 \\<nl>
+                 \\<nl>EOF
+                 \\<nl>
+                 \\<nl>
                  \\"
 
             catch /.*/

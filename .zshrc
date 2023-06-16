@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Friday 16 June 2023, 10:30
-# $Id: .zshrc,v 1.484 2023/06/16 08:31:30 czo Exp $
-# Edit Time: 136:09:10
+# Last Modified: Friday 16 June 2023, 19:24
+# $Id: .zshrc,v 1.485 2023/06/16 17:26:15 czo Exp $
+# Edit Time: 136:09:41
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -474,7 +474,7 @@ case $PLATFORM in
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'
-        { \ls -l --group-directories-first --time-style=long-iso >/dev/null 2>&1 && alias ls='LC_COLLATE=C \ls --group-directories-first --time-style=long-iso --color=auto -a'; } || alias ls='LC_COLLATE=C \ls --color=auto -a'
+        { \ls -l --time-style=long-iso >/dev/null 2>&1 && alias ls='LC_COLLATE=C \ls --time-style=long-iso --color=auto -a'; } || alias ls='LC_COLLATE=C \ls --color=auto -a'
         ;;
 
     FreeBSD)
