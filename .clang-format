@@ -1,0 +1,22 @@
+# Filename: .clang-format
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 04 December 2017
+# Last Modified: Saturday 01 July 2023, 15:41
+# $Id: .clang-format,v 1.7 2023/07/01 13:42:36 czo Exp $
+# Edit Time: 0:44:18
+# Description:
+#           C/C++/java beautifier and cleaner
+#           aptitude install clang-format
+#
+# Copyright: (C) 2017-2023 Olivier Sirol <czo@free.fr>
+
+BasedOnStyle: LLVM
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
+AllowShortIfStatementsOnASingleLine: true
+ColumnLimit: 0
+#ColumnLimit: 80
+#ColumnLimit: 90
+#ColumnLimit: 132

@@ -1,0 +1,18 @@
+# Filename: .pep8
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 12 December 2017
+# Last Modified: Saturday 01 July 2023, 15:41
+# $Id: .pep8,v 1.4 2023/07/01 13:42:36 czo Exp $
+# Edit Time: 0:54:25
+# Description:
+#           Python beautifier and cleaner
+#           aptitude install python3-autopep8
+#
+# Copyright: (C) 2017-2023 Olivier Sirol <czo@free.fr>
+
+[pep8]
+#ignore = E302
+#max-line-length = 132
+max-line-length = 250
+

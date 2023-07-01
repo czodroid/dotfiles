@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 16 June 2023, 19:25
-" $Id: .vimrc,v 1.400 2023/06/16 17:26:15 czo Exp $
-" Edit Time: 236:09:33
+" Last Modified: Saturday 01 July 2023, 15:37
+" $Id: .vimrc,v 1.404 2023/07/01 13:38:10 czo Exp $
+" Edit Time: 237:56:44
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -277,11 +277,13 @@ autocmd BufNewFile,BufRead *.h   set filetype=c
 autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd Filetype json       let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 autocmd FileType perl       setlocal equalprg=perltidy\ -ce\ -l=0\ -st
+
 autocmd FileType apache     setlocal commentstring=#\ %s
 autocmd FileType cfg        setlocal commentstring=#\ %s
-autocmd FileType cpp        setlocal commentstring=//\ %s
 autocmd FileType crontab    setlocal commentstring=#\ %s
+autocmd FileType exports    setlocal commentstring=#\ %s
 autocmd FileType debsources setlocal commentstring=#\ %s
+autocmd FileType cpp        setlocal commentstring=//\ %s
 autocmd FileType json       setlocal commentstring=//\ %s
 autocmd FileType php        setlocal commentstring=//\ %s
 autocmd FileType xdefaults  setlocal commentstring=!\ %s
@@ -324,8 +326,8 @@ iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire 
 
 " == Command ===========================================================
 
-command!  CzoEditorTabToSpaceAndTrailWhite call CzoEditorTabToSpaceAndTrailWhite ()
-function! CzoEditorTabToSpaceAndTrailWhite ()
+command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
+function! CzoATabToSpaceAndTrailWhite ()
     let l = line(".")
     let c = col(".")
     echom "Convert Tab to Space"
@@ -333,6 +335,25 @@ function! CzoEditorTabToSpaceAndTrailWhite ()
     echom "Trim Trailing Whitespace"
     exec '%s/\s\+$//ce'
     call cursor(l, c)
+endfunction
+
+command!  CzoDiffWithSaved call CzoDiffWithSaved ()
+function! CzoDiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+
+command!  CzoDiffWithCvsCO call CzoDiffWithCvsCO ()
+function! CzoDiffWithCvsCO()
+  let filetype=&ft
+  diffthis
+  vnew | r !cvs up -pr BASE #
+  1,6d
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 
 command!  CzoTabToSpaces call CzoTabToSpaces ()
@@ -1001,7 +1022,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.400 2023/06/16 17:26:15 czo Exp $
+        " $Id: .vimrc,v 1.404 2023/07/01 13:38:10 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -2225,17 +2246,28 @@ else
     call plug#end()
   endif
 
-  """ Neoformat options
-  "" perl in config ~/.perltidyrc
-  " let g:neoformat_perl_perltidy = {
-  "       \ 'exe': 'perltidy',
-  "       \ 'args': ['-q', '-ce', '-l=0', '-st'],
-  "       \ 'stdin': 1,
-  "       \ }
-  "" sh: shfmt
-  let g:shfmt_opt="-ci"
-  "" html/css/js: prettier config in ~/.prettierrc
-  "" C/C++/java: config in ~/.clang-format
+  "" Neoformat options
+  " On debian 12:
+  " aptitude install perltidy clang-format python3-autopep8 shfmt
+  " npm install --save-dev --save-exact prettier
+  " npm install --global prettier
+  "
+  " perl in config ~/.perltidyrc
+  let g:neoformat_perl_perltidy = {
+        \ 'exe': 'perltidy',
+        \ 'args': ['-q', '-ce', '-l=0', '-st'],
+        \ 'stdin': 1,
+        \ }
+  " python3: config in ~/.config/pep8
+  let g:neoformat_python_autopep8 = {
+        \ 'exe': 'autopep8',
+        \ 'args': ['-','--max-line-length 250'],
+        \ 'stdin': 1,
+        \ }
+  " sh: shfmt
+  let g:shfmt_opt="-i 4 -ci"
+  " html/css/js/ts/json: prettier config in ~/.prettierrc
+  " C/C++/java: config in ~/.clang-format
 
 " end Plugins ==========================================================
 

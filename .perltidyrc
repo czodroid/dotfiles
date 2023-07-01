@@ -1,0 +1,17 @@
+# Filename: .perltidyrc
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 04 Mai 2016
+# Last Modified: Saturday 01 July 2023, 15:41
+# $Id: .perltidyrc,v 1.4 2023/07/01 13:42:36 czo Exp $
+# Edit Time: 0:11:28
+# Description:
+#           Perl beautifier and cleaner
+#           aptitude install perltidy
+#
+# Copyright: (C) 2016-2023 Olivier Sirol <czo@free.fr>
+
+-ce
+-l=0
+-st
+

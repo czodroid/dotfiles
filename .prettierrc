@@ -1,0 +1,24 @@
+# Filename: .prettierrc
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 04 Jan 2019
+# Last Modified: Saturday 01 July 2023, 15:41
+# $Id: .prettierrc,v 1.5 2023/07/01 13:42:36 czo Exp $
+# Edit Time: 1:18:06
+# vim: set filetype=config:
+# Description:
+#           html/css/js/ts/json beautifier and cleaner
+#           npm install --save-dev --save-exact prettier
+#           npm install --global prettier
+#
+# Copyright: (C) 2019-2023 Olivier Sirol <czo@free.fr>
+#
+endOfLine: lf
+#printWidth: 250
+printWidth: 132
+#printWidth: 80
+tabWidth: 2
+useTabs: false
+trailingComma: "es5"
+semi: true
+singleQuote: true
