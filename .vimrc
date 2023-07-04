@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 01 July 2023, 15:37
-" $Id: .vimrc,v 1.404 2023/07/01 13:38:10 czo Exp $
-" Edit Time: 237:56:44
+" Last Modified: Monday 03 July 2023, 07:09
+" $Id: .vimrc,v 1.405 2023/07/03 05:10:02 czo Exp $
+" Edit Time: 237:59:43
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -344,16 +344,18 @@ function! CzoDiffWithSaved()
   vnew | r # | normal! 1Gdd
   diffthis
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  exe "windo set wrap"
 endfunction
 
-command!  CzoDiffWithCvsCO call CzoDiffWithCvsCO ()
-function! CzoDiffWithCvsCO()
+command!  CzoDiffWithCvs call CzoDiffWithCvs ()
+function! CzoDiffWithCvs()
   let filetype=&ft
   diffthis
   vnew | r !cvs up -pr BASE #
   1,6d
   diffthis
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  exe "windo set wrap"
 endfunction
 
 command!  CzoTabToSpaces call CzoTabToSpaces ()
@@ -1022,7 +1024,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.404 2023/07/01 13:38:10 czo Exp $
+        " $Id: .vimrc,v 1.405 2023/07/03 05:10:02 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -2265,7 +2267,7 @@ else
         \ 'stdin': 1,
         \ }
   " sh: shfmt
-  let g:shfmt_opt="-i 4 -ci"
+  let g:shfmt_opt="-i 4 -ci -ln=posix"
   " html/css/js/ts/json: prettier config in ~/.prettierrc
   " C/C++/java: config in ~/.clang-format
 

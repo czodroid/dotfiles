@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Saturday 01 July 2023, 22:44
-# $Id: config-fast-copy,v 1.32 2023/07/01 20:45:36 czo Exp $
-# Edit Time: 5:19:36
+# Last Modified: Tuesday 04 July 2023, 22:24
+# $Id: config-fast-copy,v 1.33 2023/07/04 20:25:32 czo Exp $
+# Edit Time: 5:20:19
 # Description:
 #
 #   copy my config files
@@ -27,7 +27,7 @@ mkdir -p  .config/htop
 mkdir -p  .config/mc
 chmod 700 .config/mc
 
-for f in .Xresources .bashrc .cshrc .cvsrc .gitconfig .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc .clang-format .perltidyrc .pep8 .prettierrc .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
+for f in .Xresources .bashrc .cshrc .cvsrc .gitconfig .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
 do
   echo "   <- $f"
   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -o $f
