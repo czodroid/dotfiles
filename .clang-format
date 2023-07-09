@@ -1,15 +1,15 @@
 # Filename: .clang-format
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: 04 December 2017
-# Last Modified: Saturday 01 July 2023, 15:41
-# $Id: .clang-format,v 1.7 2023/07/01 13:42:36 czo Exp $
-# Edit Time: 0:44:18
+# File Created: 04 December 2018
+# Last Modified: Sunday 09 July 2023, 16:15
+# $Id: .clang-format,v 1.9 2023/07/09 14:16:56 czo Exp $
+# Edit Time: 0:58:53
 # Description:
-#           C/C++/java beautifier and cleaner
+#           C/C++/java beautifier / formatter
 #           aptitude install clang-format
 #
-# Copyright: (C) 2017-2023 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2018-2023 Olivier Sirol <czo@free.fr>
 
 BasedOnStyle: LLVM
 UseTab: Never

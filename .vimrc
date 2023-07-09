@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 03 July 2023, 07:09
-" $Id: .vimrc,v 1.405 2023/07/03 05:10:02 czo Exp $
-" Edit Time: 237:59:43
+" Last Modified: Sunday 09 July 2023, 16:20
+" $Id: .vimrc,v 1.409 2023/07/09 14:20:56 czo Exp $
+" Edit Time: 238:05:51
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1024,7 +1024,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.405 2023/07/03 05:10:02 czo Exp $
+        " $Id: .vimrc,v 1.409 2023/07/09 14:20:56 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -2251,8 +2251,8 @@ else
   "" Neoformat options
   " On debian 12:
   " aptitude install perltidy clang-format python3-autopep8 shfmt
-  " npm install --save-dev --save-exact prettier
-  " npm install --global prettier
+  " npm install -g prettier
+  " pear install PHP_CodeSniffer
   "
   " perl in config ~/.perltidyrc
   let g:neoformat_perl_perltidy = {
@@ -2260,14 +2260,10 @@ else
         \ 'args': ['-q', '-ce', '-l=0', '-st'],
         \ 'stdin': 1,
         \ }
-  " python3: config in ~/.config/pep8
-  let g:neoformat_python_autopep8 = {
-        \ 'exe': 'autopep8',
-        \ 'args': ['-','--max-line-length 250'],
-        \ 'stdin': 1,
-        \ }
   " sh: shfmt
-  let g:shfmt_opt="-i 4 -ci -ln=posix"
+  let g:shfmt_opt="-i 4 -ci"
+  " python3: config in ~/.pep8
+  " php: config in ~/.phpcs.xml
   " html/css/js/ts/json: prettier config in ~/.prettierrc
   " C/C++/java: config in ~/.clang-format
 

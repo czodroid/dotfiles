@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+Filename: .phpcs.xml
+Author: Olivier Sirol <czo@free.fr>
+License: GPL-2.0 (http://www.gnu.org/copyleft)
+File Created: 09 July 2019
+Last Modified: Sunday 09 July 2023, 16:22
+$Id: .phpcs.xml,v 1.2 2023/07/09 14:22:37 czo Exp $
+Edit Time: 0:15:45
+Description:
+            PHP beautifier / formatter
+            aptitude install php-pear
+            pear install PHP_CodeSniffer
+
+Copyright: (C) 2019-2023 Olivier Sirol <czo@free.fr>
+-->
+<ruleset name="PHP_CodeSniffer">
+  <description>PHP_CodeSniffer configuration</description>
+  <rule ref="PSR12">
+    <exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+    <exclude name="PSR12.Operators.OperatorSpacing"/>
+  </rule>
+</ruleset>

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 04 July 2023, 22:20
-# $Id: .zshrc,v 1.487 2023/07/04 20:21:15 czo Exp $
-# Edit Time: 136:10:35
+# Last Modified: Saturday 08 July 2023, 18:35
+# $Id: .zshrc,v 1.488 2023/07/08 16:37:02 czo Exp $
+# Edit Time: 136:11:02
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -706,7 +706,7 @@ alias YF='rpm -qf'
 
 # archlinux
 alias PU='pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su && { yes | pacman -Scc; } && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
-alias PI='pacman -Sy'
+alias PI='pacman -Sy --needed'
 alias PP='pacman -Rs'
 alias PS='pacman -Ss'
 alias PW='pacman -Qi'
