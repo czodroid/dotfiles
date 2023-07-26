@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 08 July 2023, 18:34
-# $Id: .bashrc,v 1.524 2023/07/08 16:37:02 czo Exp $
-# Edit Time: 126:36:58
+# Last Modified: Wednesday 26 July 2023, 20:40
+# $Id: .bashrc,v 1.525 2023/07/26 18:40:57 czo Exp $
+# Edit Time: 126:40:04
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -486,6 +486,8 @@ alias ipl='echo $(wget -q -O- http://czo.free.fr/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
 
+alias lsusb_tree='lsusb -tv'
+
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
@@ -617,6 +619,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
+alias RemeberThis_serial_connect='picocom -e z -b 115200 /dev/ttyUSB0'
 alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; sync; rm /zero.dat'
 alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
 alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'

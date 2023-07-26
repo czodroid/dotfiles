@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Saturday 27 May 2023, 10:22
-# $Id: .cshrc,v 1.155 2023/05/27 08:22:13 czo Exp $
-# Edit Time: 31:32:01
+# Last Modified: Wednesday 26 July 2023, 20:43
+# $Id: .cshrc,v 1.156 2023/07/26 18:43:46 czo Exp $
+# Edit Time: 31:34:10
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -363,6 +363,8 @@ alias aa       'tmux attach -d || tmux new'
 # resets the terminal mouse when tmux crashes
 alias r        'tput rs2'
 
+
+alias lsusb_tree    'lsusb -t -v'
 
 alias mount_list    'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys     'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'

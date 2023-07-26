@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 08 July 2023, 18:35
-# $Id: .zshrc,v 1.488 2023/07/08 16:37:02 czo Exp $
-# Edit Time: 136:11:02
+# Last Modified: Wednesday 26 July 2023, 20:40
+# $Id: .zshrc,v 1.490 2023/07/26 18:40:57 czo Exp $
+# Edit Time: 136:13:14
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -37,7 +37,7 @@ setopt COMBINING_CHARS        # Displays combining characters correctly
 #setopt COMPLETE_IN_WORD       # Completion works inside words (doesnt work: scp root@myhost-M:/foo)
 setopt NO_EXTENDED_GLOB       # See globbing section above
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt GLOB_DOTS           # Patterns may match leading dots
+setopt GLOB_DOTS              # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
@@ -615,6 +615,8 @@ alias ipl='echo $(wget -q -O- http://czo.free.fr/ip.php)'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
 
+alias lsusb_tree='lsusb -tv'
+
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
@@ -746,6 +748,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## VERY OLD FASHIONED
+alias RemeberThis_serial_connect='picocom -e z -b 115200 /dev/ttyUSB0'
 alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; sync; rm /zero.dat'
 alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
 alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
