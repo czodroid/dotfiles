@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 09 July 2023, 16:20
-" $Id: .vimrc,v 1.409 2023/07/09 14:20:56 czo Exp $
-" Edit Time: 238:05:51
+" Last Modified: Thursday 24 August 2023, 19:42
+" $Id: .vimrc,v 1.410 2023/08/27 08:16:46 czo Exp $
+" Edit Time: 238:07:13
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1024,7 +1024,7 @@ function! TemplateTimeStamp ()
         " License: GPL-2.0 (http://www.gnu.org/copyleft)
         " File Created: oct. 1992
         " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.409 2023/07/09 14:20:56 czo Exp $
+        " $Id: .vimrc,v 1.410 2023/08/27 08:16:46 czo Exp $
         " Edit Time: 11:03:26
         " Description:
         "
@@ -1047,12 +1047,6 @@ function! TemplateTimeStamp ()
             let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1Modified:\2/e'
-                call histdel("search",-1)
-            endif
-            " modif Copyright in Copyright:
-            let pattern = '\(^.\=.\=.\=\s*\)Copyright (C).*Olivier.Sirol.*'
-            if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1Copyright:/e'
                 call histdel("search",-1)
             endif
             " Author: is new !
