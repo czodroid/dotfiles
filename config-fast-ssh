@@ -4,14 +4,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Friday 10 February 2023, 14:18
-# $Id: config-fast-ssh,v 1.24 2023/02/10 13:18:42 czo Exp $
-# Edit Time: 9:14:01
+# Last Modified: Wednesday 30 August 2023, 21:30
+# $Id: config-fast-ssh,v 1.25 2023/08/30 19:32:24 czo Exp $
+# Edit Time: 9:17:01
 # Description:
 #
 #   configure ssh with my authorized_keys and config
-#   curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | bash
-#   also works in wget: wget -qO- https://pwet | bash
+#    curl -fsSL https://gitlab.com/czo/dotfiles/raw/master/config-fast-ssh | sh
+#    curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh
+#
+#   also works in wget: wget -qO- https://pwet | sh
 #
 #   You must do a "cd" before running this script to modify your own ssh configuration.
 #
@@ -39,7 +41,7 @@ cat << 'EOF' >> .ssh/config
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
 # Last Modified: Saturday 10 December 2022, 14:58
-# $Id: config-fast-ssh,v 1.24 2023/02/10 13:18:42 czo Exp $
+# $Id: config-fast-ssh,v 1.25 2023/08/30 19:32:24 czo Exp $
 # Edit Time: 13:13:42
 # Description:
 #   ssh settings
