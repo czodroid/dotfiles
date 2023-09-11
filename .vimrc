@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 24 August 2023, 19:42
-" $Id: .vimrc,v 1.410 2023/08/27 08:16:46 czo Exp $
-" Edit Time: 238:07:13
+" Last Modified: Monday 11 September 2023, 17:21
+" $Id: .vimrc,v 1.411 2023/09/11 15:25:24 czo Exp $
+" Edit Time: 238:39:29
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -256,7 +256,7 @@ if has("autocmd")
 autocmd!
 
 " pos on the last edit line
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exec "normal g'\"" | endif
 
 if version > 601
     " vim diff with wrap
@@ -343,8 +343,8 @@ function! CzoDiffWithSaved()
   diffthis
   vnew | r # | normal! 1Gdd
   diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-  exe "windo set wrap"
+  exec "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  exec "windo set wrap"
 endfunction
 
 command!  CzoDiffWithCvs call CzoDiffWithCvs ()
@@ -354,8 +354,8 @@ function! CzoDiffWithCvs()
   vnew | r !cvs up -pr BASE #
   1,6d
   diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-  exe "windo set wrap"
+  exec "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  exec "windo set wrap"
 endfunction
 
 command!  CzoTabToSpaces call CzoTabToSpaces ()
@@ -372,7 +372,7 @@ function! CzoTrimTrailingWhitespace ()
     let c = col(".")
     exec '%s/\s\+$//ce'
     call cursor(l, c)
- endfunction
+endfunction
 
 " for autocmd
 function! CzoTTW ()
@@ -380,32 +380,39 @@ function! CzoTTW ()
     let c = col(".")
     exec '%s/\s\+$//e'
     call cursor(l, c)
- endfunction
+endfunction
 
 command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
 function! CzoRemoveEmptyLinesAndComment ()
     let l = line(".")
     let c = col(".")
-    " exec 'g/^\s*#/d'
-    " exec 'g/^\s*$/d'
     exec 'g/\(^\s*#\)\|\(^\s*$\)/d'
     call cursor(l, c)
 endfunction
 
 command!  CzoInvList call CzoInvList ()
 function! CzoInvList ()
-    exec 'set invlist'
- endfunction
+    set invlist
+endfunction
 
 command!  CzoInvWrap call CzoInvWrap ()
 function! CzoInvWrap ()
-    exec 'set invwrap'
- endfunction
+    set invwrap
+endfunction
 
 command!  CzoInvPaste call CzoInvPaste ()
 function! CzoInvPaste ()
-    exec 'set invpaste'
- endfunction
+    set invpaste
+endfunction
+
+command!  CzoInvTemplate call CzoInvTemplate ()
+function! CzoInvTemplate ()
+    if g:DoCzoTemplate
+        let g:DoCzoTemplate=0
+    else
+        let g:DoCzoTemplate=1
+    endif
+endfunction
 
 command!  CzoVisualClear call CzoVisualClear ()
 function! CzoVisualClear ()
@@ -913,9 +920,10 @@ endif
 "set verbose=9
 "autocmd!
 
-let TemplateMaxHeaderLines=50
-let TemplateAuthor="Olivier Sirol <czo@free.fr>"
-let TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
+let g:TemplateMaxHeaderLines=50
+let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
+let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
+let g:DoCzoTemplate=1
 
 command! -nargs=? Template call Template (<q-args>)
 command! TemplateMacro call TemplateMacro ()
@@ -1010,153 +1018,155 @@ endfunction
 
 function! TemplateTimeStamp ()
 
-    if &modified == 1
-        let save_report = &report
-        let &report = 999999
-        normal mwHmv
+    if g:DoCzoTemplate
+        if &modified == 1
+            let save_report = &report
+            let &report = 999999
+            normal mwHmv
 
-        " This is the fourth time I did modified my headers,
-        " and this is for old scripts I may have...
-        " My headers are:
-        "
-        " Filename: a.sh
-        " Author: Olivier Sirol <czo@free.fr>
-        " License: GPL-2.0 (http://www.gnu.org/copyleft)
-        " File Created: oct. 1992
-        " Last Modified: dimanche 09 octobre 2022, 21:58
-        " $Id: .vimrc,v 1.410 2023/08/27 08:16:46 czo Exp $
-        " Edit Time: 11:03:26
-        " Description:
-        "
-        " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
+            " This is the fourth time I did modified my headers,
+            " and this is for old scripts I may have...
+            " My headers are:
+            "
+            " Filename: a.sh
+            " Author: Olivier Sirol <czo@free.fr>
+            " License: GPL-2.0 (http://www.gnu.org/copyleft)
+            " File Created: oct. 1992
+            " Last Modified: dimanche 09 octobre 2022, 21:58
+            " $Id: .vimrc,v 1.411 2023/09/11 15:25:24 czo Exp $
+            " Edit Time: 11:03:26
+            " Description:
+            "
+            " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
 
-        if 1
-            " modif Started: in File Created:
-            let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
+            if 1
+                " modif Started: in File Created:
+                let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
+                if FindStrInHeader(pattern)
+                    exec 's/'.pattern.'/\1File Created:\2/e'
+                    call histdel("search",-1)
+                endif
+                " modif Started: in File Created:
+                let pattern = '\(^.\=.\=.\=\s*\)Created:\(.*\)'
+                if FindStrInHeader(pattern)
+                    exec 's/'.pattern.'/\1File Created:\2/e'
+                    call histdel("search",-1)
+                endif
+                " modif Last Change: in Last Modified:
+                let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
+                if FindStrInHeader(pattern)
+                    exec 's/'.pattern.'/\1Modified:\2/e'
+                    call histdel("search",-1)
+                endif
+                " Author: is new !
+            endif
+
+            " Normal changes in my header here:
+
+            " substitute CVS $ Id:$ because now, I use Git...
+            let pattern = '\(.*$I'.'d: \).*\( czo Git $.*\)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1File Created:\2/e'
+                exec 's/'.pattern.'/\1'.TemplateGitId().'\2/e'
                 call histdel("search",-1)
             endif
-            " modif Started: in File Created:
-            let pattern = '\(^.\=.\=.\=\s*\)Created:\(.*\)'
+
+            " substitute CVS $ Date:$ in fact $ CzoDate:$...
+            let pattern = '\(.*$Czo'.'Date: \)[0-9 -:\/]\+ $\(.*\)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1File Created:\2/e'
+                exec 's/'.pattern.'/\1'.TemplateGitDate().' $\2/e'
                 call histdel("search",-1)
             endif
-            " modif Last Change: in Last Modified:
-            let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
+
+            " substitute the file name
+            let pattern = '\(^.\=.\=.\=\s*Filename:\).*'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1Modified:\2/e'
+                exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '\').'/e'
                 call histdel("search",-1)
             endif
-            " Author: is new !
-        endif
 
-        " Normal changes in my header here:
-
-        " substitute CVS $ Id:$ because now, I use Git...
-        let pattern = '\(.*$I'.'d: \).*\( czo Git $.*\)'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1'.TemplateGitId().'\2/e'
-            call histdel("search",-1)
-        endif
-
-        " substitute CVS $ Date:$ in fact $ CzoDate:$...
-        let pattern = '\(.*$Czo'.'Date: \)[0-9 -:\/]\+ $\(.*\)'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1'.TemplateGitDate().' $\2/e'
-            call histdel("search",-1)
-        endif
-
-        " substitute the file name
-        let pattern = '\(^.\=.\=.\=\s*Filename:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '\').'/e'
-            call histdel("search",-1)
-        endif
-
-        " substitute Author
-        let pattern = '\(^.\=.\=.\=\s*Author:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
-            call histdel("search",-1)
-        endif
-
-        " substitute License
-        let pattern = '\(^.\=.\=.\=\s*License:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
-            call histdel("search",-1)
-        endif
-
-        " time stamp
-        let pattern = '\(^.\=.\=.\=\s*Last Modified:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
-            call histdel("search",-1)
-        endif
-
-        " edit time
-        let pattern = '\(^.\=.\=.\=\s*Edit Time:\)\s*\([0-9]*:[0-9]*:[0-9]*\).*'
-        if FindStrInHeader(pattern)
-            let editline = getline (".")
-            let editline = substitute(editline, pattern, '\2', "")
-            let hour = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\1', "")
-            let min  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\2', "")
-            let sec  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\3', "")
-
-            " strip leading zero (!=octal)
-            let min  = substitute(min, '^0', "", "")
-            let sec  = substitute(sec, '^0', "", "")
-
-            let totaltime = (localtime() - b:Template_opentime) + ( hour * 60 * 60) + (min * 60) + sec
-            let edithour = totaltime / 60 / 60
-            let editmin  = (totaltime / 60) % 60
-            let editsec  = totaltime % 60
-
-            if (strlen(editmin)<2)
-                let editmin="0".editmin
-            endif
-            if (strlen(editsec)<2)
-                let editsec="0".editsec
+            " substitute Author
+            let pattern = '\(^.\=.\=.\=\s*Author:\).*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
+                call histdel("search",-1)
             endif
 
-            exec 's/'.pattern.'/\1 '.edithour.':'.editmin.':'.editsec.'/e'
-            call histdel("search",-1)
-            let  b:Template_opentime=localtime()
-        endif
+            " substitute License
+            let pattern = '\(^.\=.\=.\=\s*License:\).*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
+                call histdel("search",-1)
+            endif
 
-        " copy file's created year for Copyright
-        let pattern = '\(^.\=.\=.\=\s*File Created:\)\s*\(.*\)'
-        if FindStrInHeader(pattern)
-            let editline = getline (".")
-            let editline = substitute(editline, pattern, '\2', "")
-            let Fyear = substitute(editline, '.*\([0-9][0-9][0-9][0-9]\).*', '\1', "")
-        else
-            let Fyear = '1992'
-        endif
-        let Lyear = strftime("%Y")
-        if ((Lyear == Fyear) || (Lyear < Fyear))
-            let b:Template_Copyright_Year = Lyear
-        else
-            if ((Lyear - Fyear)==1)
-                let b:Template_Copyright_Year = Fyear . ', ' . Lyear
+            " time stamp
+            let pattern = '\(^.\=.\=.\=\s*Last Modified:\).*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
+                call histdel("search",-1)
+            endif
+
+            " edit time
+            let pattern = '\(^.\=.\=.\=\s*Edit Time:\)\s*\([0-9]*:[0-9]*:[0-9]*\).*'
+            if FindStrInHeader(pattern)
+                let editline = getline (".")
+                let editline = substitute(editline, pattern, '\2', "")
+                let hour = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\1', "")
+                let min  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\2', "")
+                let sec  = substitute(editline, '\([0-9]*\):\([0-9]*\):\([0-9]*\).*', '\3', "")
+
+                " strip leading zero (!=octal)
+                let min  = substitute(min, '^0', "", "")
+                let sec  = substitute(sec, '^0', "", "")
+
+                let totaltime = (localtime() - b:Template_opentime) + ( hour * 60 * 60) + (min * 60) + sec
+                let edithour = totaltime / 60 / 60
+                let editmin  = (totaltime / 60) % 60
+                let editsec  = totaltime % 60
+
+                if (strlen(editmin)<2)
+                    let editmin="0".editmin
+                endif
+                if (strlen(editsec)<2)
+                    let editsec="0".editsec
+                endif
+
+                exec 's/'.pattern.'/\1 '.edithour.':'.editmin.':'.editsec.'/e'
+                call histdel("search",-1)
+                let  b:Template_opentime=localtime()
+            endif
+
+            " copy file's created year for Copyright
+            let pattern = '\(^.\=.\=.\=\s*File Created:\)\s*\(.*\)'
+            if FindStrInHeader(pattern)
+                let editline = getline (".")
+                let editline = substitute(editline, pattern, '\2', "")
+                let Fyear = substitute(editline, '.*\([0-9][0-9][0-9][0-9]\).*', '\1', "")
             else
-                let b:Template_Copyright_Year = Fyear . '-' . Lyear
+                let Fyear = '1992'
             endif
-        endif
+            let Lyear = strftime("%Y")
+            if ((Lyear == Fyear) || (Lyear < Fyear))
+                let b:Template_Copyright_Year = Lyear
+            else
+                if ((Lyear - Fyear)==1)
+                    let b:Template_Copyright_Year = Fyear . ', ' . Lyear
+                else
+                    let b:Template_Copyright_Year = Fyear . '-' . Lyear
+                endif
+            endif
 
-        " substitute Copyright
-        let pattern = '\(^.\=.\=.\=\s*Copyright:\).*'
-        if FindStrInHeader(pattern)
-            exec 's/'.pattern.'/\1 '.TemplateCopyrightDate().'/e'
-            call histdel("search",-1)
-        endif
+            " substitute Copyright
+            let pattern = '\(^.\=.\=.\=\s*Copyright:\).*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 '.TemplateCopyrightDate().'/e'
+                call histdel("search",-1)
+            endif
 
-        " not needed ?
-        "let @/ = histget("search",-1)
-        normal 1G'vzt`w
-        let &report = save_report
+            " not needed ?
+            "let @/ = histget("search",-1)
+            normal 1G'vzt`w
+            let &report = save_report
+        endif
     endif
 
 endfunction
