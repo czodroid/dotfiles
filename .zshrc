@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 26 July 2023, 20:40
-# $Id: .zshrc,v 1.490 2023/07/26 18:40:57 czo Exp $
-# Edit Time: 136:13:14
+# Last Modified: Sunday 08 October 2023, 19:58
+# $Id: .zshrc,v 1.492 2023/10/08 18:00:56 czo Exp $
+# Edit Time: 136:15:37
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -442,7 +442,7 @@ alias eq='whence -p'
 
 alias st='source ~/.zshrc'
 alias hi='fc -l 1'
-alias h='fc -l 1 | grep'
+alias h='fc -l 1 | sed "s/^[0-9]\+\s\+//" | grep'
 
 alias history_load='fc -R'
 alias history_save='fc -AI'
@@ -665,6 +665,7 @@ alias  gtc='git commit -a'
 alias gtcc='git commit -a -mupdate ; git push'
 alias  gts='git status'
 alias  gta='git add .'
+alias  gtb='git branch'
 alias  gtf='git fetch; git diff master origin/master'
 alias gtgc='git gc'
 
@@ -722,7 +723,7 @@ alias FU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias WU='choco upgrade all -y && cyg-get.bat -upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias CU='choco upgrade all -y && cyg-get.bat -upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # openwrt: opkg
 # suse: zypper

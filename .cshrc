@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 26 July 2023, 20:43
-# $Id: .cshrc,v 1.156 2023/07/26 18:43:46 czo Exp $
-# Edit Time: 31:34:10
+# Last Modified: Sunday 08 October 2023, 20:00
+# $Id: .cshrc,v 1.158 2023/10/08 18:00:56 czo Exp $
+# Edit Time: 31:44:04
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -27,7 +27,7 @@ endif
 
 set histfile = ~/.history
 set histdup  = erase
-set history  = ( 10000 "%h %D/%W/%Y %P\t%R\n" )
+set history  = ( 11000 "%h\t%R\n" )
 set savehist = (  9000  merge )
 
 set autorehash
@@ -239,7 +239,7 @@ alias a     'where'
 
 alias st    'source ~/.cshrc'
 alias hi    'history'
-alias h     'history | grep'
+alias h     'history | sed "s/^\s*[0-9]\+\s\+//" | grep'
 
 alias history_load 'history -L -M'
 alias history_hsave 'history -S -M'
@@ -404,6 +404,7 @@ alias gtd 'git diff'
 alias gtc 'git commit -a -mupdate ; git push'
 alias gts 'git status'
 alias gta 'git add .'
+alias gtb 'git branch'
 alias gtf 'git fetch; git diff master origin/master'
 
 # debian, ubuntu
@@ -438,9 +439,11 @@ alias FU  'pkg update && pkg upgrade && pkg clean && echo `date +%Y-%m-%d` > /et
 # brew macos
 alias BU  'brew update && brew upgrade && brew cleanup'
 
+# choco windows
+alias CU  'choco upgrade all -y && cyg-get.bat -upgrade all'
+
 # openwrt: opkg
 # suse: zypper
-# freebsd: pkg
 # netbsd: pkgin
 
 alias sun    'set term=sun-cmd ; echo term=$term'
