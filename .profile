@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Sunday 28 May 2023, 18:42
-# $Id: .profile,v 1.34 2023/05/28 16:48:32 czo Exp $
-# Edit Time: 1:16:30
+# Last Modified: Saturday 14 October 2023, 02:39
+# $Id: .profile,v 1.35 2023/10/14 00:53:39 czo Exp $
+# Edit Time: 1:27:37
 # Description:
 #    ~/.profile: executed by the command interpreter for login shells.
 #    This file is not read by bash if ~/.bash_profile or ~/.bash_login
@@ -31,15 +31,17 @@ fi
 # export $(dbus-launch)
 #fi
 
-SHELLNAME=`echo $0 | sed 's,.*/,,' | sed 's,^-,,'`
+SHELLNAME=$(echo $0 | sed 's,.*/,,' | sed 's,^-,,')
 
-# if running ash
-if [ "$SHELLNAME" = "ash" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-    fi
-fi
+# if running sh
+case "$SHELLNAME" in
+    sh | ash | dash)
+        # include .bashrc if it exists
+        if [ -f "$HOME/.bashrc" ]; then
+            . "$HOME/.bashrc"
+        fi
+        ;;
+esac
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then

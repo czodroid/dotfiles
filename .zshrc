@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 08 October 2023, 19:58
-# $Id: .zshrc,v 1.492 2023/10/08 18:00:56 czo Exp $
-# Edit Time: 136:15:37
+# Last Modified: Saturday 14 October 2023, 02:50
+# $Id: .zshrc,v 1.498 2023/10/14 00:53:39 czo Exp $
+# Edit Time: 136:57:19
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -281,7 +281,7 @@ zle -N history-beginning-search-forward-end czo-history-search-end
 bindkey -e
 
 # Czo defines
-bindkey -s "\C-xr"  "^Qsource ~/.zshrc^M"
+bindkey -s "\C-xr"  "^Q. ~/.zshrc^M"
 bindkey -s "\C-xx"  "^Qbindkey^M"
 
 bindkey "\e[Z"     reverse-menu-complete
@@ -334,6 +334,8 @@ bindkey "\M-h"     backward-delete-word
 
 bindkey "\e\e"     kill-buffer
 bindkey "\em"      copy-prev-shell-word
+
+bindkey "\C-z"     undo
 
 
 # copied from Zsh zle shift selection
@@ -440,7 +442,8 @@ alias t='whence -ca'
 alias a='whence -ca'
 alias eq='whence -p'
 
-alias st='source ~/.zshrc'
+alias st='. ~/.zshrc'
+[ -f ~/.zshrc.czo ] && alias st=". ~/.zshrc.czo"
 alias hi='fc -l 1'
 alias h='fc -l 1 | sed "s/^[0-9]\+\s\+//" | grep'
 
@@ -851,9 +854,36 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
+# GIT
+__git_ps1() { true ;}
+# # $(__git_ps1 \'(%s)\')
+# if [ -f /etc/bash_completion.d/git-prompt ]; then
+#     export GIT_PS1_SHOWUPSTREAM=1       # (<, >, =)
+#     export GIT_PS1_SHOWDIRTYSTATE=1     # (*)
+#     export GIT_PS1_SHOWUNTRACKEDFILES=1 # (%)
+#     export GIT_PS1_SHOWSTASHSTATE=1     # ($)
+#     export GIT_PS1_DESCRIBE_STYLE=branch
+#     . /etc/bash_completion.d/git-prompt
+# fi
+
+# if [ -f ~/.oh-my-zsh/lib/git.zsh ]; then
+#     ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+#     ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+#     ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+#     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+#     . ~/.oh-my-zsh/lib/git.zsh
+# fi
+
+# parse_git_dirty() { [[ $(git status --porcelain 2> /dev/null) ]] && echo "*"; }
+# parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"; }
+
+if [ -x "$(command -v git)" ]; then
+    __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+fi
+
 SHELLNAME='zsh'
 
-PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;33m%}$(__git_ps1 \'(%s)\')%{\e[0;97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited

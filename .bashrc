@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 08 October 2023, 20:00
-# $Id: .bashrc,v 1.527 2023/10/08 18:00:56 czo Exp $
-# Edit Time: 126:41:19
+# Last Modified: Saturday 14 October 2023, 02:40
+# $Id: .bashrc,v 1.533 2023/10/14 00:53:39 czo Exp $
+# Edit Time: 129:27:13
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -224,7 +224,7 @@ if [ -n "$BASH_VERSION" ]; then
     #bind 'set menu-complete-display-prefix on'
 
     # Czo defines pour mon mac et pc
-    bind -x '"\C-xr": "source ~/.bashrc"'
+    bind -x '"\C-xr": ". ~/.bashrc"'
     bind '"\C-xx": dump-functions'
 
     bind '"\e[C":     forward-char'
@@ -276,6 +276,10 @@ if [ -n "$BASH_VERSION" ]; then
     bind '"\e\e":     kill-whole-line'
     bind '"\em":      "\C-w\C-y\C-y"'
 
+    # doesnt work in readline
+    #bind '"\C-z":     undo'
+    # for US keybord : undo is ctrl-=
+    # for FR keybord : undo is ctrl-shift-/
 fi
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
@@ -310,8 +314,8 @@ alias t='type -a'
 alias a='type -a'
 alias eq='type -P'
 
-alias st="source ~/.bashrc"
-[ -f ~/.bashrc.czo ] && alias st="source ~/.bashrc.czo"
+alias st=". ~/.bashrc"
+[ -f ~/.bashrc.czo ] && alias st=". ~/.bashrc.czo"
 alias hi='fc -l -9111000'
 alias h='fc -l -9111000 | sed "s/^ *[0-9]\+ \+//" | grep'
 
@@ -712,22 +716,40 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
-SHELLNAME=$(echo $0 | sed -e 's,.*/,,' -e 's,^-,,' 2>/dev/null)
+# GIT
+__git_ps1() { true ;}
+# # $(__git_ps1 \'(%s)\')
+# if [ -f /etc/bash_completion.d/git-prompt ]; then
+#     export GIT_PS1_SHOWUPSTREAM=1       # (<, >, =)
+#     export GIT_PS1_SHOWDIRTYSTATE=1     # (*)
+#     export GIT_PS1_SHOWUNTRACKEDFILES=1 # (%)
+#     export GIT_PS1_SHOWSTASHSTATE=1     # ($)
+#     export GIT_PS1_DESCRIBE_STYLE=branch
+#     . /etc/bash_completion.d/git-prompt
+# fi
+# parse_git_dirty() { [[ $(git status --porcelain 2> /dev/null) ]] && echo "*"; }
+# parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"; }
+
+if [ -x "$(command -v git)" ]; then
+    __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+fi
+
+SHELLNAME=$(echo $0 | sed 's,.*/,,' | sed 's,^-,,')
 
 if [ -x "$(command -v tty)" ]; then
     MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
 fi
 
 if [ -n "$BASH_VERSION" ]; then
-    PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;97m\]>>\[\e[m\] '
+    PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;33m\]$(__git_ps1 "(%s)")\[\e[0;97m\]>>\[\e[m\] '
 else
-    PS1=$'\e[m\n\e[0;97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - \e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?]\e[m\n\e[0;9${USER_PROMPT_COLOR}m${USER}\e[0;97m@\e[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}\e[0;97m:\e[0;96m$PWD\e[m\n\e[0;97m>>\e[m '
+    # old sh/ash/dash .shrc .shinit ($' works in sh android but not in sh freebsd)
+    PS1='[m
+[0;97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
+[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;96m$PWD[m
+[0;33m$(__git_ps1 "(%s)")[0;97m>>[m '
 fi
-# old sh/ash/dash .shrc .shinit ($' works in sh android but not in sh freebsd)
-# PS1='
-# [${PLATFORM}/${SHELLNAME}] - $(date +.%Y%m%d_%Hh%M) - ${TERM}:${MYTTY}:sh${SHLVL} - [$?]
-# ${USER}@${HOSTNAME}:$PWD
-# >> '
+
 
 # limit -s
 # ulimit unlimited
