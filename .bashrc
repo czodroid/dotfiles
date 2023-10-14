@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 14 October 2023, 02:40
-# $Id: .bashrc,v 1.533 2023/10/14 00:53:39 czo Exp $
-# Edit Time: 129:27:13
+# Last Modified: Saturday 14 October 2023, 12:21
+# $Id: .bashrc,v 1.534 2023/10/14 10:22:19 czo Exp $
+# Edit Time: 129:28:37
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible

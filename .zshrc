@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 14 October 2023, 02:50
-# $Id: .zshrc,v 1.498 2023/10/14 00:53:39 czo Exp $
-# Edit Time: 136:57:19
+# Last Modified: Saturday 14 October 2023, 12:21
+# $Id: .zshrc,v 1.499 2023/10/14 10:22:19 czo Exp $
+# Edit Time: 137:00:18
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -410,8 +410,8 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N)
 ##======= Completions ================================================##
 
 autoload -Uz compinit
-compinit
-#compinit -d ${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}
+#compinit
+compinit -d "${HOME}/.zcompdump-${HOSTNAME}-${ZSH_VERSION}"
 #compinit -C
 
 zstyle ':completion:*' completer _expand _complete _ignored
