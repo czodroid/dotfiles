@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 14 October 2023, 12:21
-# $Id: .zshrc,v 1.499 2023/10/14 10:22:19 czo Exp $
-# Edit Time: 137:00:18
+# Last Modified: Friday 20 October 2023, 10:49
+# $Id: .zshrc,v 1.500 2023/10/20 08:50:20 czo Exp $
+# Edit Time: 137:02:47
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -647,7 +647,7 @@ ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
 # but on FreeBSD you must have gnu-sed, so perl is best!
-remove_known_hosts_line() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts; }
+sed_k() { perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts; }
 
 # \xterm -geometry 90x26 -tn xterm-256color -bg "#282828" -fg "#c9b788" -fa "fixed:size=13"
 alias xterm='\xterm -xrm "XTerm*geometry:90x26" -xrm "XTerm*termName:xterm-256color" -xrm "XTerm*faceName:fixed:size=13" -xrm "XTerm*allowBoldFonts:false" -xrm "XTerm*SimpleMenu*font:fixed" -xrm "XTerm*SimpleMenu*foreground:black" -xrm "XTerm*SimpleMenu*background:grey" -xrm "XTerm*scrollBar:false" -xrm "XTerm*saveLines:99000" -xrm "XTerm*visualBell:false" -xrm "XTerm*toolBar:false" -xrm "XTerm*allowTcapOps:false" -xrm "XTerm*eightBitInput:true" -xrm "XTerm*cursorBlink:on" -xrm "XTerm*cursorOnTime:600" -xrm "XTerm*cursorOffTime:600" -xrm "XTerm*allowSendEvents:false" -xrm "XTerm*sessionMgt:false" -xrm "XTerm*vt100.Translations:#override \n Shift Ctrl <KeyPress>V:insert-selection(PRIMARY, CUT_BUFFER0) \n Shift <KeyPress>Insert:insert-selection(PRIMARY, CUT_BUFFER0) \n Alt <KeyPress>v:insert-selection(PRIMARY, CUT_BUFFER0) \n" -xrm "XTerm*colorMode:on" -xrm "XTerm*dynamicColors:on" -xrm "XTerm*colorBDMode:on" -xrm "XTerm*colorBLMode:on" -xrm "XTerm*colorULMode:on" -xrm "XTerm*colorITMode:on" -xrm "XTerm*background:#282828" -xrm "XTerm*foreground:#c9b788" -xrm "XTerm*cursorColor:#98971a" -xrm "XTerm*color0:#282828" -xrm "XTerm*color8:#4a4239" -xrm "XTerm*color1:#cc241d" -xrm "XTerm*color9:#fb4934" -xrm "XTerm*color2:#98971a" -xrm "XTerm*color10:#b8bb26" -xrm "XTerm*color3:#fe8019" -xrm "XTerm*color11:#fabd2f" -xrm "XTerm*color4:#458588" -xrm "XTerm*color12:#83a598" -xrm "XTerm*color5:#b16286" -xrm "XTerm*color13:#d3869b" -xrm "XTerm*color6:#689d6a" -xrm "XTerm*color14:#8ec07c" -xrm "XTerm*color7:#c9b788" -xrm "XTerm*color15:#fbf1c7" -xrm "XTerm*colorBD:#fe8019" -xrm "XTerm*colorBL:#fabd2f" -xrm "XTerm*colorUL:#b16286" -xrm "XTerm*colorIT:#689d6a" -xrm "XTerm*highlightColorMode:true" -xrm "XTerm*highlightReverse:false" -xrm "XTerm*highlightColor:#458588" -xrm "XTerm*highlightTextColor:#fbf1c7"'
@@ -856,7 +856,6 @@ fi
 
 # GIT
 __git_ps1() { true ;}
-# # $(__git_ps1 \'(%s)\')
 # if [ -f /etc/bash_completion.d/git-prompt ]; then
 #     export GIT_PS1_SHOWUPSTREAM=1       # (<, >, =)
 #     export GIT_PS1_SHOWDIRTYSTATE=1     # (*)
@@ -865,7 +864,7 @@ __git_ps1() { true ;}
 #     export GIT_PS1_DESCRIBE_STYLE=branch
 #     . /etc/bash_completion.d/git-prompt
 # fi
-
+#
 # if [ -f ~/.oh-my-zsh/lib/git.zsh ]; then
 #     ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
 #     ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
@@ -873,7 +872,7 @@ __git_ps1() { true ;}
 #     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 #     . ~/.oh-my-zsh/lib/git.zsh
 # fi
-
+#
 # parse_git_dirty() { [[ $(git status --porcelain 2> /dev/null) ]] && echo "*"; }
 # parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"; }
 
@@ -883,7 +882,7 @@ fi
 
 SHELLNAME='zsh'
 
-PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;33m%}$(__git_ps1 \'(%s)\')%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;33m%}$(__git_ps1 "(%s)")%{\e[0;97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited

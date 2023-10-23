@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 14 October 2023, 15:43
-" $Id: .vimrc,v 1.413 2023/10/14 13:43:20 czo Exp $
-" Edit Time: 238:42:10
+" Last Modified: Sunday 15 October 2023, 19:09
+" $Id: .vimrc,v 1.418 2023/10/15 17:10:06 czo Exp $
+" Edit Time: 239:24:01
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -222,29 +222,23 @@ endif
 " == GUI Mode ==========================================================
 
 if has("gui_running")
-"set noguipty
-set winaltkeys=no
-set guioptions-=T
-set mousehide
+    "set noguipty
+    set winaltkeys=no
+    set guioptions-=T
+    set mousehide
 
-"gui fonts on win, osx, linux
-  if has("gui_gtk2") || has("gui_gtk3")
-    " Linux GUI
-    set guifont=Monospace\ 13
-    "set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
-  elseif has("x11")
-    " Linux X11
-    set guifont=10x20
-  elseif has("gui_win32")
-    " Win32/64 GVim
-    set guifont=Consolas:h13
-    "set guifont=Andale_Mono:h13
-  elseif has("gui_macvim")
-    " MacVim
-    set guifont=SourceCodeProForPowerline-Light:h18,Monaco:h18
-  else
-    echoe "Unknown GUI system!!!"
-  endif
+    " gui fonts on linux, win, osx (set guifont=<TAB>)
+    if has("gui_gtk")
+        " Linux GUI
+        set guifont=Monospace\ 13
+        "set guifont=Source\ Code\ Pro\ for\ Powerline\ 13
+    elseif has("gui_win32")
+        " Win32/64 GVim
+        set guifont=Source_Code_Pro_for_Powerline:h13,Consolas:h13,Andale_Mono:h13
+    elseif has("gui_macvim")
+        " MacVim
+        set guifont=SourceCodeProForPowerline-Regular:h17,Monaco:h17
+    endif
 
 endif
 
@@ -1033,7 +1027,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.413 2023/10/14 13:43:20 czo Exp $
+            " $Id: .vimrc,v 1.418 2023/10/15 17:10:06 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
