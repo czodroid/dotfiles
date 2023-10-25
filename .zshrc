@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 25 October 2023, 13:09
+# Last Modified: Wednesday 25 October 2023, 13:36
 # $Id: .zshrc,v 1.502 2023/10/25 11:10:57 czo Exp $
-# Edit Time: 137:08:09
+# Edit Time: 137:08:18
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -637,7 +637,7 @@ alias curl_config_fast_copy='curl -fsSL https://raw.githubusercontent.com/czodro
 alias curl_config_fast_ssh='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
 alias wget_config_fast_all_woc='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
-alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. roBot, I dont want to bother you.\nI always check /var/log/mail.log or\njournalctl -u postfix@-.service\nto identify any bugs.\n") | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
+alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. roBot, I dont want to bother you.\nI always check /var/log/mail.log or\njournalctl -u postfix@-.service\nto identify any bugs.\n\n/etc/aliases:\n" ; cat /etc/aliases ; printf "\n~/.forward\n" ; cat ~/.forward) 2>&1 | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
