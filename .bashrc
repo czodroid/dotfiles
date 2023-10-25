@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 25 October 2023, 13:44
-# $Id: .bashrc,v 1.537 2023/10/25 11:10:57 czo Exp $
-# Edit Time: 131:01:52
+# Last Modified: Wednesday 25 October 2023, 13:56
+# $Id: .bashrc,v 1.538 2023/10/25 13:18:40 czo Exp $
+# Edit Time: 131:02:38
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -509,7 +509,7 @@ alias curl_config_fast_copy='curl -fsSL https://raw.githubusercontent.com/czodro
 alias curl_config_fast_ssh='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
 alias wget_config_fast_all_woc='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
-alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. roBot, I dont want to bother you. I always check /var/log/mail.log or\njournalctl -u postfix@-.service to identify any bugs.\n\n/etc/aliases:\n" ; cat /etc/aliases ; printf "\n$HOME/.forward:\n" ; cat $HOME/.forward) 2>&1 | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
+alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. roBot, I dont want to bother you. I always check\n/var/log/mail.log or journalctl -u postfix@-.service to identify\nany bugs.\n\n/etc/aliases:\n" ; cat /etc/aliases ; printf "\n$HOME/.forward:\n" ; cat $HOME/.forward) 2>&1 | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
