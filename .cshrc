@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Sunday 08 October 2023, 20:00
-# $Id: .cshrc,v 1.158 2023/10/08 18:00:56 czo Exp $
-# Edit Time: 31:44:04
+# Last Modified: Tuesday 24 October 2023, 19:05
+# $Id: .cshrc,v 1.159 2023/10/25 11:10:57 czo Exp $
+# Edit Time: 31:44:35
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -388,7 +388,7 @@ alias tmate_ssh      'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${
 
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
 # but on FreeBSD you must have gnu-sed, so perl is best!
-alias remove_known_hosts_line 'perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts'
+alias sed_k 'perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts'
 # escape quotes '
 alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#|^\s*$/'\'
 

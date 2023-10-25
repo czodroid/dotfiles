@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 20 October 2023, 10:49
-# $Id: .bashrc,v 1.535 2023/10/20 08:50:20 czo Exp $
-# Edit Time: 130:39:07
+# Last Modified: Wednesday 25 October 2023, 13:09
+# $Id: .bashrc,v 1.537 2023/10/25 11:10:57 czo Exp $
+# Edit Time: 130:59:26
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -422,7 +422,7 @@ alias rmf='rm -fr'
 alias rmemptyf='find . -empty -type f -print -exec rm {} \;'
 alias rmemptyd='find . -empty -type d -print -exec rm -fr {} \;'
 alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
-alias rm._='find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable"  \) -type f -print -exec rm -f {} \;'
+alias rm._='find . \( -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable"  \) -type f -print -exec rm -f {} \;'
 
 #command -v foo >/dev/null 2>&1
 #[ -x "$(command -v foo)" ]
@@ -509,7 +509,7 @@ alias curl_config_fast_copy='curl -fsSL https://raw.githubusercontent.com/czodro
 alias curl_config_fast_ssh='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
 alias wget_config_fast_all_woc='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
-alias mail_test_root='date | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
+alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. roBot, I dont want to bother you.\nI always check /var/log/mail.log or\njournalctl -u postfix@-.service\nto identify any bugs.\n") | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
