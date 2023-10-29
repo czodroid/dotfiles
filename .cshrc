@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Tuesday 24 October 2023, 19:05
-# $Id: .cshrc,v 1.159 2023/10/25 11:10:57 czo Exp $
-# Edit Time: 31:44:35
+# Last Modified: Sunday 29 October 2023, 19:52
+# $Id: .cshrc,v 1.160 2023/10/29 18:54:31 czo Exp $
+# Edit Time: 31:49:31
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -374,9 +374,9 @@ alias rsync_normal  'rsync --delete -av'
 alias zpool_history 'zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
 alias lsblk         'lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
 
-alias curl_config_fast_copy     'curl -fsSL https://git.io/JU6cm | sh'
-alias curl_config_fast_ssh      'curl -fsSL https://git.io/JU6c2 | sh'
-alias wget_config_fast_all_woc  'wget --no-check-certificate -qO- http://git.io/JkHdk | sh'
+alias FC            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
+alias FS            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
+alias FW            'wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
 alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d\ %H:%M`, do not reply" root'
 
@@ -434,7 +434,7 @@ alias PL  'pacman -Ql'
 alias PF  'pacman -Qo'
 
 # freebsd
-alias FU  'pkg update && pkg upgrade && pkg clean && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
+alias KU  'pkg update && pkg upgrade && pkg clean && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
 
 # brew macos
 alias BU  'brew update && brew upgrade && brew cleanup'

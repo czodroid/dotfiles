@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 29 October 2023, 19:36
-# $Id: .zshrc,v 1.508 2023/10/29 18:36:59 czo Exp $
-# Edit Time: 137:09:42
+# Last Modified: Sunday 29 October 2023, 19:46
+# $Id: .zshrc,v 1.509 2023/10/29 18:54:31 czo Exp $
+# Edit Time: 137:10:04
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -633,9 +633,9 @@ alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool s
 # config:  https://git.io/JU6cm
 # ssh:     https://git.io/JU6c2
 # preseed: http://git.io/JkHdk
-alias curl_config_fast_copy='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
-alias curl_config_fast_ssh='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
-alias wget_config_fast_all_woc='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
+alias FC='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
+alias FS='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
+alias FW='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
 alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. roBot, I dont want to bother you. I always check\n/var/log/mail.log or journalctl -u postfix@-.service to identify\nany bugs.\n" ; printf "\n/etc/mailname:\n" ; cat /etc/mailname ; printf "\n/etc/aliases:\n" ; cat /etc/aliases ; printf "\n/etc/mail.rc:\n" ; cat /etc/mail.rc ; printf "\n$HOME/.forward:\n" ; cat $HOME/.forward ; printf "\n$HOME/.mailrc:\n" ; cat $HOME/.mailrc ; ) 2>&1 | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
@@ -720,7 +720,7 @@ alias PL='pacman -Ql'
 alias PF='pacman -Qo'
 
 # freebsd
-alias FU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias KU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # brew macos
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
