@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 26 October 2023, 20:33
-# $Id: .zshrc,v 1.506 2023/10/26 18:33:30 czo Exp $
-# Edit Time: 137:09:17
+# Last Modified: Sunday 29 October 2023, 19:21
+# $Id: .zshrc,v 1.507 2023/10/29 18:26:18 czo Exp $
+# Edit Time: 137:09:35
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -468,8 +468,8 @@ case $PLATFORM in
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
         else
-            alias pg='\pgrep -fl'
-            alias pk='\pkill -fl'
+            alias pg='\pgrep -f'
+            alias pk='\pkill -f'
         fi
         if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
