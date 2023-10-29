@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 29 October 2023, 19:21
-# $Id: .bashrc,v 1.542 2023/10/29 18:26:18 czo Exp $
-# Edit Time: 131:16:32
+# Last Modified: Sunday 29 October 2023, 19:36
+# $Id: .bashrc,v 1.543 2023/10/29 18:36:59 czo Exp $
+# Edit Time: 131:16:47
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -340,7 +340,7 @@ case $PLATFORM in
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
         else
-            alias pg='\pgrep -f'
+            alias pg='\pgrep -fl'
             alias pk='\pkill -f'
         fi
         if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
