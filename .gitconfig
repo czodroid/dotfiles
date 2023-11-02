@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 mars 2011
-# Last Modified: Friday 07 April 2023, 15:52
-# $Id: .gitconfig,v 1.25 2023/04/08 08:17:59 czo Exp $
-# Edit Time: 4:18:54
+# Last Modified: Wednesday 01 November 2023, 22:03
+# $Id: .gitconfig,v 1.26 2023/11/02 10:42:13 czo Exp $
+# Edit Time: 5:55:43
 # Description:
 #                 git conf file
 #
@@ -25,8 +25,8 @@
 [core]
     pager = cat
 
-[pull]
-    ff = only
+; [pull]
+;     ff = only
 
 [diff]
     tool = vimdiff
@@ -38,6 +38,7 @@
     cmd = vim -d \"$REMOTE\" \"$LOCAL\"
 
 [alias]
+    b   = branch
     c1  = clone --depth 1
     co  = checkout
     ci  = commit
@@ -47,13 +48,7 @@
     fo  = fetch origin
     fu  = fetch upstream
     l   = log --oneline
-    lg  = log --oneline --graph --decorate
+    ll  = log --pretty=format:'%h %ad %d %s (%an)' --date=format-local:'%Y-%m-%d %H:%M:%S'
+    lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
     pst = push --tags
-
-;[filter "czorcs"]
-    ; clean  = perl -pe \"s/\\$Id[^\\$]*\\$/\\$Id\\$/\"
-    ; smudge = perl -pe \"s/\\$Id[^\\$]*$/$Id: .gitconfig,v 1.25 2023/04/08 08:17:59 czo Exp $/\"
-
-    ; clean = perl -pe \"s/\\\\\\$Id: .gitconfig,v 1.25 2023/04/08 08:17:59 czo Exp $]*\\\\\\$/\\\\\\$Id: .gitconfig,v 1.25 2023/04/08 08:17:59 czo Exp $/\"
-    ; smudge = perl -pe \"s/\\\\\\$Id: .gitconfig,v 1.25 2023/04/08 08:17:59 czo Exp $]*\\\\\\$/\\\\\\$Id: .gitconfig,v 1.25 2023/04/08 08:17:59 czo Exp $Id: .gitconfig,v 1.25 2023/04/08 08:17:59 czo Exp $\" %f' > /tmp/gi`\\\\\\$/\"
 
