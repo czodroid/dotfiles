@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 mars 2011
-# Last Modified: Wednesday 01 November 2023, 22:03
-# $Id: .gitconfig,v 1.26 2023/11/02 10:42:13 czo Exp $
-# Edit Time: 5:55:43
+# Last Modified: Saturday 11 November 2023, 20:17
+# $Id: .gitconfig,v 1.27 2023/11/11 19:19:50 czo Exp $
+# Edit Time: 6:03:28
 # Description:
 #                 git conf file
 #
@@ -49,6 +49,6 @@
     fu  = fetch upstream
     l   = log --oneline
     ll  = log --pretty=format:'%h %ad %d %s (%an)' --date=format-local:'%Y-%m-%d %H:%M:%S'
-    lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+    lg  = log --graph --pretty=format:'%C(red)%h%Creset - %C(cyan)%ad%Creset -%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset%n' --date=format-local:'%Y-%m-%d %H:%M:%S'
     pst = push --tags
 

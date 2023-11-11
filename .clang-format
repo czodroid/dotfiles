@@ -2,9 +2,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 04 December 2018
-# Last Modified: Sunday 09 July 2023, 16:15
-# $Id: .clang-format,v 1.9 2023/07/09 14:16:56 czo Exp $
-# Edit Time: 0:58:53
+# Last Modified: Saturday 04 November 2023, 13:07
+# $Id: .clang-format,v 1.11 2023/11/04 12:07:50 czo Exp $
+# Edit Time: 19:46:28
 # Description:
 #           C/C++/java beautifier / formatter
 #           aptitude install clang-format
@@ -13,10 +13,12 @@
 
 BasedOnStyle: LLVM
 UseTab: Never
+# IndentWidth: 2
 IndentWidth: 4
 TabWidth: 4
-AllowShortIfStatementsOnASingleLine: true
 ColumnLimit: 0
-#ColumnLimit: 80
-#ColumnLimit: 90
-#ColumnLimit: 132
+# ColumnLimit: 80
+# ColumnLimit: 90
+# ColumnLimit: 132
+AllowShortIfStatementsOnASingleLine: true
+# SortIncludes: false
