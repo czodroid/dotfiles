@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 29 October 2023, 19:45
-# $Id: .bashrc,v 1.544 2023/10/29 18:54:31 czo Exp $
-# Edit Time: 131:22:56
+# Last Modified: Wednesday 15 November 2023, 02:00
+# $Id: .bashrc,v 1.546 2023/11/15 01:01:42 czo Exp $
+# Edit Time: 131:28:07
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -367,7 +367,7 @@ case $PLATFORM in
 
     Darwin)
         export DISPLAY=:0
-        export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/Contents/Home
+        export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
         ## config macos brew
         export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH"
         alias grep='\grep --color'
@@ -421,8 +421,7 @@ ff_cs() { find . -name "*$1*"; }
 alias rmf='rm -fr'
 alias rmemptyf='find . -empty -type f -print -exec rm {} \;'
 alias rmemptyd='find . -empty -type d -print -exec rm -fr {} \;'
-alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
-alias rm._='find . \( -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable"  \) -type f -print -exec rm -f {} \;'
+alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
 
 #command -v foo >/dev/null 2>&1
 #[ -x "$(command -v foo)" ]

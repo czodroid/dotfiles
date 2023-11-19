@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 15 October 2023, 19:09
-" $Id: .vimrc,v 1.418 2023/10/15 17:10:06 czo Exp $
-" Edit Time: 239:24:01
+" Last Modified: Wednesday 15 November 2023, 20:47
+" $Id: .vimrc,v 1.419 2023/11/19 05:59:15 czo Exp $
+" Edit Time: 239:29:26
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -524,10 +524,10 @@ map  <C-PageDown>   <C-T>
 imap <C-PageDown>   <C-O><C-T>
 
 " goto diff
-nmap <M-Down>       ]c
-imap <M-Down>       <C-O>]c
-map  <M-Up>         [c
-imap <M-Up>         <C-O>[c
+nmap <C-Down>       ]c
+imap <C-Down>       <C-O>]c
+map  <C-Up>         [c
+imap <C-Up>         <C-O>[c
 
 " search hilited text
 vmap /              y/<C-R>"<CR>
@@ -1027,7 +1027,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.418 2023/10/15 17:10:06 czo Exp $
+            " $Id: .vimrc,v 1.419 2023/11/19 05:59:15 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Sunday 29 October 2023, 19:52
-# $Id: .cshrc,v 1.160 2023/10/29 18:54:31 czo Exp $
-# Edit Time: 31:49:31
+# Last Modified: Monday 13 November 2023, 18:00
+# $Id: .cshrc,v 1.161 2023/11/13 17:01:02 czo Exp $
+# Edit Time: 31:50:14
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -318,8 +318,7 @@ alias ff_cs    'find . -name "*\!**"'
 alias rmf      'rm -fr'
 alias rmemptyf 'find . -empty -type f -print -exec rm {} \;'
 alias rmemptyd 'find . -empty -type d -print -exec rm -fr {} \;'
-alias rmbak    'find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname "*.swp" -o -iname "*~" -o -iname ".*~" \) -type f -print -exec rm -f {} \;'
-alias rm._     'find . \( -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable"  \) -type f -print -exec rm -f {} \;'
+alias rmbak    'find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
 
 if (-f "$HOME/.vimrc.czo") then
     setenv MYVIMRC "$HOME/.vimrc.czo"
