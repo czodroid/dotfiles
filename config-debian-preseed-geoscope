@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 February 2021
-# Last Modified: Sunday 18 December 2022, 17:09
-# $Id: config-debian-preseed-geoscope,v 1.26 2022/12/18 16:10:05 czo Exp $
-# Edit Time: 8:29:59
+# Last Modified: Monday 20 November 2023, 21:23
+# $Id: config-debian-preseed-geoscope,v 1.28 2023/11/20 20:24:16 czo Exp $
+# Edit Time: 8:33:57
 # Description:
 #
 #            debian 10 preseed geoscope update
@@ -26,7 +26,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# Copyright: (C) 2021, 2022 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2021-2023 Olivier Sirol <czo@free.fr>
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -136,6 +136,13 @@ cat << 'EOF' > /etc/cron.d/czo-motd-czolsb
 @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
 EOF
 chmod 644 /etc/cron.d/czo-motd-czolsb
+
+echo "##== Email         ==================================================##"
+## pb postfix
+#mkfifo /var/spool/postfix/public/pickup
+
+perl -i -pe 's,^alias root.*\n,,' /etc/mail.rc
+echo "alias root geoscope-alert@ipgp.fr" >> /etc/mail.rc
 
 
 echo "##== config files  ==================================================##"

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 15 November 2023, 02:00
-# $Id: .bashrc,v 1.546 2023/11/15 01:01:42 czo Exp $
-# Edit Time: 131:28:07
+# Last Modified: Sunday 19 November 2023, 16:58
+# $Id: .bashrc,v 1.547 2023/11/19 15:59:18 czo Exp $
+# Edit Time: 132:01:10
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -702,7 +702,11 @@ precmd
 
 # like zsh preexec : it works in bash 5 !!!
 if [ -n "$BASH_VERSION" ]; then
-    PS0='$(title "$(history 1  2>/dev/null | sed "s/^ *[0-9]\+ \+//" 2>/dev/null) (${USER}@${HOSTNAME})")'
+    # history 1 | sed "s/^\s*[0-9]\+\s\+//" # works in GNU, but doesnt on BSD
+    # history 1 | awk "{sub(/^\s*[0-9]+\s+/,\"\") ; print}" # works in GNU, but doesnt on BSD
+    # history 1 | perl -pe "s/^\s*[0-9]+\s+//" # but maybe perl is not installed - but I love perl!
+    # history 1 | awk "{sub(/^[ \t]*[0-9]+[ \t]+/,\"\") ; print}" # good on awk bsd and gnu!!!!!
+    PS0='$(title "$(history 1 2>/dev/null | awk "{sub(/^[ \t]*[0-9]+[ \t]+/,\"\") ; print}" 2>/dev/null) (${USER}@${HOSTNAME})")'
 fi
 
 # busybox has no cksum on openWRT!
