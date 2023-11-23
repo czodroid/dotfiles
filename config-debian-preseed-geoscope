@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 February 2021
-# Last Modified: Thursday 23 November 2023, 11:35
-# $Id: config-debian-preseed-geoscope,v 1.31 2023/11/23 10:35:36 czo Exp $
-# Edit Time: 10:31:59
+# Last Modified: Thursday 23 November 2023, 20:11
+# $Id: config-debian-preseed-geoscope,v 1.33 2023/11/23 19:12:18 czo Exp $
+# Edit Time: 10:47:46
 # Description:
 #
 #            debian 10 preseed geoscope update
@@ -39,7 +39,8 @@ export DEBIAN_FRONTEND=noninteractive
 echo $(date +%Y-%m-%d) > /etc/lsb-czo-installdate
 echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate
 
-# echo "##== apt sources/update  =============================================##"
+# echo "##====================================================================##"
+# echo "-> apt sources/update"
 
 # echo "postfix postfix/main_mailer_type select Satellite system
 # postfix postfix/root_address string geoscope-alert@ipgp.fr
@@ -55,40 +56,44 @@ echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate
 # apt-get $QUIET dist-upgrade
 # apt-get $QUIET clean
 
-# apt-get $QUIET install aptitude debconf-utils lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc nmap tcpdump wget curl lftp rcs cvs git ctags recode iperf libnet-xmpp-perl moreutils p7zip zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool dnsutils debootstrap munin-node cu picocom bc perltidy tidy bsdtar hexcurse net-tools telnet tree postfix mailutils autofs nfs-client ntp qemu-guest-agent
-
-echo "##== change config  ==================================================##"
+# apt-get $QUIET install aptitude debconf-utils debootstrap lsb-release bash bash-completion ssh rsync vim-athena xsel xclip xauth ncdu htop iftop iotop iptraf mc screen tmux tmate zsh zsh-doc perl-doc nmap tcpdump wget curl lftp rcs cvs git git-restore-mtime exuberant-ctags sqlite3 hexcurse colordiff perltidy picocom bc command-not-found recode iperf libnet-xmpp-perl libpar-packer-perl libterm-readline-gnu-perl moreutils p7zip p7zip-full zstd mlocate sysstat strace parted gpart gdisk kpartx ethtool telnet tree ntpdate dnsutils munin-node autofs nfs-client postfix bsd-mailx libarchive-tools qemu-guest-agent
 
 
-#==============================================
-# sshd
+echo "##====================================================================##"
+echo "-> sshd"
+
 perl -i -pe 's,^#?PermitRootLogin.*,PermitRootLogin yes,' /etc/ssh/sshd_config
 systemctl restart sshd
 
 
-#==============================================
-# dpkg-reconfigure tzdata
+echo "##====================================================================##"
+echo "-> dpkg-reconfigure tzdata"
+
 ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
 #ln -fs /usr/share/zoneinfo/Europe/Paris /etc/localtime
 dpkg-reconfigure -f noninteractive tzdata
 
 
-#==============================================
-# dpkg-reconfigure locales
+echo "##====================================================================##"
+echo "-> dpkg-reconfigure locales"
+
 perl -i -pe 's,# en_US.UTF-8 UTF-8,en_US.UTF-8 UTF-8,' /etc/locale.gen
 perl -i -pe 's,# fr_FR.UTF-8 UTF-8,fr_FR.UTF-8 UTF-8,' /etc/locale.gen
 update-locale LANG=en_US.UTF-8
 locale-gen
 
 
-#==============================================
-# autofs
+echo "##====================================================================##"
+echo "-> autofs"
+
 perl -i -pe 's,^#/net\s*-hosts.*,/net    -hosts,' /etc/auto.master
 systemctl restart autofs
 
 
-#==============================================
-# NTP ntpq -p
+echo "##====================================================================##"
+echo "-> NTP"
+# timesyncd in >= 10
+
 cat << 'EOF' > /etc/ntp.conf
 # /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 # czo, 2010-03-04
@@ -124,9 +129,9 @@ systemctl restart ntp
 ntpq -p
 
 
-#==============================================
-## timesyncd que dans 10, dans 9 ntp ?
-## timedatectl show-timesync --all
+echo "##====================================================================##"
+echo "-> timesyncd"
+## ntp in debian 9
 
 #cp /etc/systemd/timesyncd.conf /etc/systemd/timesyncd.conf.czorig
 cat << 'EOF' > /etc/systemd/timesyncd.conf
@@ -142,13 +147,13 @@ NTP=10.0.21.15 10.0.21.16 10.0.21.17
 FallbackNTPServers=0.fr.pool.ntp.org 0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org
 
 EOF
-
 systemctl restart systemd-timesyncd.service
 timedatectl show-timesync --all
 
 
-#==============================================
-# munin IPGP
+echo "##====================================================================##"
+echo "-> munin IPGP"
+
 perl -i -pe 's,^host_name localhost.localdomain,#host_name localhost.localdomain,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^10\\.2\\.5\\.10\$\n,,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^10\\.1\\.6\\.16\$\n,,' /etc/munin/munin-node.conf
@@ -156,8 +161,9 @@ perl -i -pe 's,^allow \^127\\.0\\.0\\.1.*,allow \^127\\.0\\.0\\.1\$\nallow \^10\
 service munin-node restart
 
 
-#==============================================
-# cron czo-email-at-reboot
+echo "##====================================================================##"
+echo "-> cron czo-email-at-reboot"
+
 cat << 'EOF' > /etc/cron.d/czo-email-at-reboot
 # Filename: czo-email-at-reboot
 # 2011/09/10 : Modified by Olivier Sirol <czo@ipgp.fr>
@@ -167,8 +173,9 @@ EOF
 chmod 644 /etc/cron.d/czo-email-at-reboot
 
 
-#==============================================
-# cron czo-motd-czolsb
+echo "##====================================================================##"
+echo "-> cron czo-motd-czolsb"
+
 cat << 'EOF' > /etc/cron.d/czo-motd-czolsb
 # Filename: czo-email-at-reboot
 @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
@@ -176,16 +183,23 @@ EOF
 chmod 644 /etc/cron.d/czo-motd-czolsb
 
 
+echo "##====================================================================##"
+echo "-> fixup postfix"
 
-echo "##== Email         ==================================================##"
-## pb postfix
+## pb postfix in debian10?
 mkfifo /var/spool/postfix/public/pickup
 
+
+echo "##====================================================================##"
+echo "-> bsd-mailx aliases"
+
+## mailutils don't aliases root in debian12... so bsd-mailx >= debian12
 perl -i -pe 's,^alias root.*\n,,' /etc/mail.rc
 echo "alias root geoscope-alert@ipgp.fr" >> /etc/mail.rc
 
 
-echo "##== config files  ==================================================##"
+echo "##====================================================================##"
+echo "-> config files"
 cd /root
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
 
@@ -258,10 +272,14 @@ EOF
 chmod 600 .ssh/config
 chmod 600 .ssh/authorized_keys
 
-echo "##== motd ===========================================================##"
+
+echo "##====================================================================##"
+echo "-> motd"
 /etc/czolsb > /etc/motd
 
-echo "##== end! ===========================================================##"
+
+echo "##====================================================================##"
+echo "<- end!"
 echo
 echo "Log file in:"
 echo "$LOGFILE"
