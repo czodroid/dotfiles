@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Monday 20 November 2023, 21:35
-# $Id: config-debian-preseed-chezwam,v 1.24 2023/11/20 20:39:49 czo Exp $
-# Edit Time: 7:51:44
+# Last Modified: Thursday 23 November 2023, 11:33
+# $Id: config-debian-preseed-chezwam,v 1.25 2023/11/23 10:35:36 czo Exp $
+# Edit Time: 7:54:19
 # Description:
 #
 #            debian 10 preseed update
@@ -120,14 +120,13 @@ server 192.168.11.1
 # pool 3.debian.pool.ntp.org iburst
 
 EOF
-/etc/init.d/ntp restart
+systemctl restart ntp
+ntpq -p
 
 
 #==============================================
 ## timesyncd que dans 10, dans 9 ntp ?
 ## timedatectl show-timesync --all
-
-echo "-> timesyncd.conf"
 
 #cp /etc/systemd/timesyncd.conf /etc/systemd/timesyncd.conf.czorig
 cat << 'EOF' > /etc/systemd/timesyncd.conf
@@ -144,7 +143,6 @@ FallbackNTPServers=0.fr.pool.ntp.org 0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.or
 
 EOF
 
-echo "-> timedatectl"
 systemctl restart systemd-timesyncd.service
 timedatectl show-timesync --all
 
@@ -181,7 +179,7 @@ chmod 644 /etc/cron.d/czo-motd-czolsb
 
 echo "##== Email         ==================================================##"
 ## pb postfix
-#mkfifo /var/spool/postfix/public/pickup
+mkfifo /var/spool/postfix/public/pickup
 
 perl -i -pe 's,^alias root.*\n,,' /etc/mail.rc
 echo "alias root root+$HOSTNAME@czo.wf" >> /etc/mail.rc
