@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Thursday 23 November 2023, 20:07
-# $Id: config-debian-preseed-chezwam,v 1.27 2023/11/23 19:12:18 czo Exp $
-# Edit Time: 8:30:57
+# Last Modified: Friday 24 November 2023, 16:38
+# $Id: config-debian-preseed-chezwam,v 1.28 2023/11/24 15:48:53 czo Exp $
+# Edit Time: 8:49:23
 # Description:
 #
 #            debian 10 preseed update
@@ -163,11 +163,13 @@ service  munin-node restart
 
 echo "##====================================================================##"
 echo "-> cron czo-email-at-reboot"
+# GPADM:  geomag/paleomag admin
+# ADMIN:  ChezWam admin
+# GSADM:  geoscope admin
+# SMVADM: svm admin
 
 cat << 'EOF' > /etc/cron.d/czo-email-at-reboot
 # Filename: czo-email-at-reboot
-# 2011/09/10 : Modified by Olivier Sirol <czo@free.fr>
-
 @reboot      root   SUJ="[ADMIN] REBOOT `hostname` at `date`" ; ( echo $SUJ ; date ; uname -a ) | mail -s "$SUJ" root > /dev/null
 EOF
 chmod 644 /etc/cron.d/czo-email-at-reboot
