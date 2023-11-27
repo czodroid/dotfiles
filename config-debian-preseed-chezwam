@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Monday 27 November 2023, 14:47
-# $Id: config-debian-preseed-chezwam,v 1.29 2023/11/27 13:48:31 czo Exp $
-# Edit Time: 8:51:01
+# Last Modified: Monday 27 November 2023, 17:25
+# $Id: config-debian-preseed-chezwam,v 1.30 2023/11/27 16:26:54 czo Exp $
+# Edit Time: 8:53:34
 # Description:
 #
 #            debian 10 preseed update
@@ -152,7 +152,7 @@ timedatectl show-timesync --all
 
 
 echo "##====================================================================##"
-echo "-> munin CHEZWAM"
+echo "-> munin"
 
 perl -i -pe 's,^host_name localhost.localdomain,#host_name localhost.localdomain,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^192\\.168\\.11\\.28\$\n,,' /etc/munin/munin-node.conf
@@ -206,6 +206,11 @@ HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 perl -i -pe 's,^alias root.*\n,,' /etc/mail.rc
 echo "alias root root+$HOSTNAME@czo.wf" >> /etc/mail.rc
 
+
+echo "##====================================================================##"
+echo "-> serial enabled"
+systemctl enable serial-getty@ttyS0.service
+systemctl start serial-getty@ttyS0.service
 
 echo "##====================================================================##"
 echo "-> config files"
