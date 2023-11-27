@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Friday 24 November 2023, 16:38
-# $Id: config-debian-preseed-chezwam,v 1.28 2023/11/24 15:48:53 czo Exp $
-# Edit Time: 8:49:23
+# Last Modified: Monday 27 November 2023, 14:47
+# $Id: config-debian-preseed-chezwam,v 1.29 2023/11/27 13:48:31 czo Exp $
+# Edit Time: 8:51:01
 # Description:
 #
 #            debian 10 preseed update
@@ -194,6 +194,13 @@ mkfifo /var/spool/postfix/public/pickup
 
 echo "##====================================================================##"
 echo "-> bsd-mailx aliases"
+
+if [ -x "$(command -v hostname)" ]; then
+    HOSTNAME=$(hostname 2>/dev/null)
+else
+    HOSTNAME=$(uname -n 2>/dev/null)
+fi
+HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 ## mailutils don't aliases root in debian12... so bsd-mailx >= debian12
 perl -i -pe 's,^alias root.*\n,,' /etc/mail.rc
