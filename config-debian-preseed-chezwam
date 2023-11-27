@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Monday 27 November 2023, 17:25
-# $Id: config-debian-preseed-chezwam,v 1.30 2023/11/27 16:26:54 czo Exp $
-# Edit Time: 8:53:34
+# Last Modified: Monday 27 November 2023, 20:20
+# $Id: config-debian-preseed-chezwam,v 1.31 2023/11/27 19:21:31 czo Exp $
+# Edit Time: 8:55:48
 # Description:
 #
 #            debian 10 preseed update
@@ -208,12 +208,16 @@ echo "alias root root+$HOSTNAME@czo.wf" >> /etc/mail.rc
 
 
 echo "##====================================================================##"
-echo "-> serial enabled"
+echo "-> systemctl enable/disable"
+
+systemctl disable openipmi.service
 systemctl enable serial-getty@ttyS0.service
 systemctl start serial-getty@ttyS0.service
 
+
 echo "##====================================================================##"
 echo "-> config files"
+
 cd /root
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh
 curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh
@@ -221,6 +225,7 @@ curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fas
 
 echo "##====================================================================##"
 echo "-> motd"
+
 /etc/czolsb > /etc/motd
 
 
