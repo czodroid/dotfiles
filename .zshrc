@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 15 November 2023, 01:49
-# $Id: .zshrc,v 1.511 2023/11/15 01:01:42 czo Exp $
-# Edit Time: 137:10:34
+# Last Modified: Saturday 02 December 2023, 17:51
+# $Id: .zshrc,v 1.512 2023/11/30 16:41:25 czo Exp $
+# Edit Time: 137:10:55
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -103,6 +103,9 @@ case $(uname 2>/dev/null) in
 
     CYGWIN*)
         PLATFORM=Cygwin ;;
+
+    MINGW64*)
+        PLATFORM=Mingw ;;
 
     # FreeBSD | OpenBSD | NetBSD | HP-UX | OSF1 | Darwin
     *)
@@ -512,7 +515,7 @@ case $PLATFORM in
         alias pk='\pkill -fl'
         ;;
 
-    Cygwin)
+    Cygwin | Mingw)
         export DISPLAY=:0
         alias cp='\cp -i'
         alias mv='\mv -i'

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 19 November 2023, 16:58
-# $Id: .bashrc,v 1.547 2023/11/19 15:59:18 czo Exp $
-# Edit Time: 132:01:10
+# Last Modified: Saturday 02 December 2023, 17:50
+# $Id: .bashrc,v 1.548 2023/11/30 16:41:25 czo Exp $
+# Edit Time: 132:02:19
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -81,6 +81,9 @@ case $(uname 2>/dev/null) in
 
     CYGWIN*)
         PLATFORM=Cygwin ;;
+
+    MINGW64*)
+        PLATFORM=Mingw ;;
 
     # FreeBSD | OpenBSD | NetBSD | HP-UX | OSF1 | Darwin
     *)
@@ -384,7 +387,7 @@ case $PLATFORM in
         alias pk='\pkill -fl'
         ;;
 
-    Cygwin)
+    Cygwin | Mingw)
         export DISPLAY=:0
         alias cp='\cp -i'
         alias mv='\mv -i'

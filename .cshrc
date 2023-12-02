@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Monday 13 November 2023, 18:00
-# $Id: .cshrc,v 1.161 2023/11/13 17:01:02 czo Exp $
-# Edit Time: 31:50:14
+# Last Modified: Saturday 02 December 2023, 17:51
+# $Id: .cshrc,v 1.162 2023/11/30 16:41:25 czo Exp $
+# Edit Time: 31:51:27
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -85,6 +85,10 @@ case SunOS:
 
 case CYGWIN*:
     setenv PLATFORM Cygwin
+    breaksw
+
+case MINGW64*:
+    setenv PLATFORM Mingw
     breaksw
 
 # FreeBSD | OpenBSD | NetBSD | HP-UX | OSF1 | Darwin
@@ -284,7 +288,7 @@ switch ($PLATFORM)
         alias pk    '\pkill -fl'
         breaksw
 
-    case Cygwin:
+    case Cygwin | Mingw:
         setenv DISPLAY :0
         alias cp    '\cp -i'
         alias mv    '\mv -i'
