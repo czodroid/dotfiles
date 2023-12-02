@@ -7,7 +7,7 @@
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
 # Last Modified: Saturday 02 December 2023, 17:51
-# $Id: .cshrc,v 1.162 2023/11/30 16:41:25 czo Exp $
+# $Id: .cshrc,v 1.163 2023/12/02 16:55:29 czo Exp $
 # Edit Time: 31:51:27
 # Description:
 #         ~/.cshrc config file for csh or tcsh
