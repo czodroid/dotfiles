@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 15 November 2023, 20:47
-" $Id: .vimrc,v 1.419 2023/11/19 05:59:15 czo Exp $
-" Edit Time: 239:29:26
+" Last Modified: Wednesday 06 December 2023, 22:39
+" $Id: .vimrc,v 1.421 2023/12/06 21:41:17 czo Exp $
+" Edit Time: 239:35:57
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -65,13 +65,15 @@ set modelines=30
 set history=5000
 set viminfo='100,\"1000,ra:,rb:,rz:,%
 
-" don't write on my embedded toy
-if $PLATFORM == "Linux_mips"
- set backupdir=/tmp,.
- set directory=/tmp,.
- if !has('nvim')
-    set viminfofile=/tmp/viminfo
- endif
+" don't write on my embedded toy, perfect for owrt, ok for android
+if $PLATFORM == "Linux_mips" || $PLATFORM == "Linux_arm"
+    if isdirectory("/tmp")
+        set backupdir=/tmp,.
+        set directory=/tmp,.
+        if !has('nvim')
+            set viminfofile=/tmp/.viminfo
+        endif
+    endif
 endif
 
 set nobackup
@@ -436,6 +438,32 @@ function! CzoMSwinEnable ()
     endif
 endfunction
 
+command!  CzoMSwinNoX11 call CzoMSwinNoX11 ()
+function! CzoMSwinNoX11 ()
+    if filereadable(expand("$VIMRUNTIME/mswin.vim"))
+        so $VIMRUNTIME/mswin.vim
+        " but dont use Ctrl-A
+        "noremap  <C-A> <C-A>
+        "inoremap <C-A> <C-A>
+        noremap  <C-Y> <C-Y>
+        inoremap <C-Y> <C-Y>
+        noremap  <C-F> <C-F>
+        inoremap <C-F> <C-F>
+
+        " Sort of for noX11
+        vnoremap <C-X>      x
+        vnoremap <S-Del>    x
+        vnoremap <C-C>      y
+        vnoremap <C-Insert> y
+        map <C-V>           gP
+        inoremap <C-V>      <C-O>gP
+        map <S-Insert>      gP
+        inoremap <S-Insert> <C-O>gP
+        cmap <C-V>          <C-R>"
+        cmap <S-Insert>     <C-R>"
+    endif
+endfunction
+
 command!  CzoMSwinDisable call CzoMSwinDisable ()
 function! CzoMSwinDisable ()
     if !has("unix")
@@ -489,7 +517,7 @@ if has('clipboard')
 else
     "Please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
     echoe "NO SYSTEM CLIPBOARD: n/vim is compiled without clipboard or works without X11!!!"
-    call CzoMSwinDisable()
+    call CzoMSwinNoX11()
 endif
 
 " always use Ctrl-Q instead of Ctrl-V
@@ -1027,7 +1055,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.419 2023/11/19 05:59:15 czo Exp $
+            " $Id: .vimrc,v 1.421 2023/12/06 21:41:17 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

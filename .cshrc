@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Saturday 02 December 2023, 17:51
-# $Id: .cshrc,v 1.163 2023/12/02 16:55:29 czo Exp $
-# Edit Time: 31:51:27
+# Last Modified: Wednesday 06 December 2023, 22:50
+# $Id: .cshrc,v 1.164 2023/12/06 21:51:11 czo Exp $
+# Edit Time: 31:52:07
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -243,7 +243,7 @@ alias a     'where'
 
 alias st    'source ~/.cshrc'
 alias hi    'history'
-alias h     'history | sed "s/^\s*[0-9]\+\s\+//" | grep'
+alias h     'history | sed "s/^[ \t]*[0-9]\+[ \t]\+//" | grep'
 
 alias history_load 'history -L -M'
 alias history_hsave 'history -S -M'

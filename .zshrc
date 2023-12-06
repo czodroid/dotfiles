@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 02 December 2023, 17:51
-# $Id: .zshrc,v 1.513 2023/12/02 16:55:29 czo Exp $
-# Edit Time: 137:10:55
+# Last Modified: Wednesday 06 December 2023, 22:48
+# $Id: .zshrc,v 1.516 2023/12/06 21:51:11 czo Exp $
+# Edit Time: 137:14:27
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -448,7 +448,7 @@ alias eq='whence -p'
 alias st='. ~/.zshrc'
 [ -f ~/.zshrc.czo ] && alias st=". ~/.zshrc.czo"
 alias hi='fc -l 1'
-alias h='fc -l 1 | sed "s/^[0-9]\+\s\+//" | grep'
+alias h='fc -l 1 | sed "s/^[ \t]*[0-9]\+[ \t]\+//" | grep'
 
 alias history_load='fc -R'
 alias history_save='fc -AI'
@@ -758,6 +758,8 @@ alias RemeberThis_serial_connect='picocom -e z -b 115200 /dev/ttyUSB0'
 alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; sync; rm /zero.dat'
 alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
 alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
+alias RemeberThis_ssh-copy-id_openssh='cat ~/.ssh/id_rsa.pub | ssh root@debian10 "cat - >> .ssh/authorized_keys"'
+alias RemeberThis_ssh-copy-id_owrt='cat ~/.ssh/id_rsa.pub | ssh root@sw-marion "cat - >> /etc/dropbear/authorized_keys"'
 alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
 alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
 alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --make-rslave --rbind /\$p \$LIVE_BOOT/chroot/\$p ; done"
