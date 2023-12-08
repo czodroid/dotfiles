@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Saturday 14 October 2023, 12:20
-# $Id: .profile,v 1.36 2023/10/14 10:22:19 czo Exp $
-# Edit Time: 1:28:31
+# Last Modified: Friday 08 December 2023, 15:49
+# $Id: .profile,v 1.37 2023/12/08 14:53:23 czo Exp $
+# Edit Time: 1:30:29
 # Description:
 #    ~/.profile: executed by the command interpreter for login shells.
 #    This file is not read by bash if ~/.bash_profile or ~/.bash_login
@@ -56,13 +56,15 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
+# GEOSCOPE / SMV bad habit
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-
-# set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
+fi
+if [ -d "/opt/seiscomp/bin" ] ; then
+    PATH="$PATH:/opt/seiscomp/bin"
 fi
 
 # startx

@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 07 December 2023, 22:31
-" $Id: .vimrc,v 1.425 2023/12/07 21:31:36 czo Exp $
-" Edit Time: 240:19:11
+" Last Modified: Friday 08 December 2023, 15:37
+" $Id: .vimrc,v 1.438 2023/12/08 14:40:54 czo Exp $
+" Edit Time: 241:22:21
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -65,14 +65,12 @@ set modelines=30
 set history=5000
 set viminfo='100,\"1000,ra:,rb:,rz:,%
 
-" don't write on my embedded toy, perfect for owrt, ok for android
+" don't write on my embedded toy, perfect for owrt, android
 if $PLATFORM == "Linux_mips" || $PLATFORM == "Linux_arm"
     if isdirectory("/tmp")
         set backupdir=/tmp,.
         set directory=/tmp,.
-        if !has('nvim')
-            set viminfofile=/tmp/.viminfo
-        endif
+        set viminfo+=n/tmp/.viminfo
     endif
 endif
 
@@ -284,7 +282,7 @@ autocmd FileType json       setlocal commentstring=//\ %s
 autocmd FileType php        setlocal commentstring=//\ %s
 autocmd FileType xdefaults  setlocal commentstring=!\ %s
 
-autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults' | :call CzoTTW () | endif
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults|vim' | :call CzoTTW () | endif
 
 
 endif
@@ -436,15 +434,9 @@ function! CzoMSwinEnable ()
         noremap     <C-F>   <C-F>
         inoremap    <C-F>   <C-F>
     else
-        echo "NO $VIMRUNTIME/mswin.vim"
+        echo "WARNING: no $VIMRUNTIME/mswin.vim..."
         behave mswin
         " Sort of for noX11
-        noremap     <C-S>       :update<CR>
-        vnoremap    <C-S>       <C-C>:update<CR>
-        inoremap    <C-S>       <Esc>:update<CR>gi
-        noremap     <C-Z>       u
-        inoremap    <C-Z>       <C-O>u
-        vnoremap    <BS>        d
         vnoremap    <C-X>       "+x
         vnoremap    <S-Del>     "+x
         vnoremap    <C-C>       "+y
@@ -470,17 +462,11 @@ function! CzoMSwinNoX11 ()
         noremap     <C-F>   <C-F>
         inoremap    <C-F>   <C-F>
     else
-        echo "NO $VIMRUNTIME/mswin.vim"
+        echo "WARNING: no $VIMRUNTIME/mswin.vim..."
         behave mswin
     endif
 
     " Sort of for noX11
-    noremap     <C-S>       :update<CR>
-    vnoremap    <C-S>       <C-C>:update<CR>
-    inoremap    <C-S>       <Esc>:update<CR>gi
-    noremap     <C-Z>       u
-    inoremap    <C-Z>       <C-O>u
-    vnoremap    <BS>        d
     vnoremap    <C-X>       x
     vnoremap    <S-Del>     x
     vnoremap    <C-C>       y
@@ -541,16 +527,27 @@ endfunction
 "
 " https://github.com/kana/vim-fakeclip
 
-if has('clipboard')
-    call CzoMSwinEnable()
+if version >= 700
+    if has('clipboard')
+        call CzoMSwinEnable()
+    else
+        " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
+        echon "WARNING: vim is compiled without system clipboard or works without X11!!!"
+        call CzoMSwinNoX11()
+    endif
 else
-    "Please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
-    echon "NO SYSTEM CLIPBOARD: n/vim is compiled without clipboard or works without X11!!!"
-    call CzoMSwinNoX11()
+    echon "WARNING: too old version of vim, behave xterm..."
 endif
 
+" keyboard
+noremap     <C-S>       :update<CR>
+vnoremap    <C-S>       <C-C>:update<CR>
+inoremap    <C-S>       <Esc>:update<CR>gi
+noremap     <C-Z>       u
+inoremap    <C-Z>       <C-O>u
+vnoremap    <BS>        d
 " always use Ctrl-Q instead of Ctrl-V
-noremap <C-Q>               <C-V>
+noremap     <C-Q>       <C-V>
 
 " scroll by one line
 map  <ScrollWheelUp>        <C-Y>
@@ -640,6 +637,9 @@ if version >= 600
     " remove "control-m"s - for those mails sent from DOS:
     cmap <leader>rcm %s/<C-M>//g
 endif
+" end MAPpings
+
+
 
 " == Color theme =======================================================
 
@@ -951,21 +951,19 @@ endif
 endif
 
 endif
+" end Color theme
 
 
-" ======================================================================
-" == Source external files =============================================
-
-""source all func in ~/etc/vim/run/
-""source $HOME/etc/vim/func/template.vim
-"exec substitute(glob("~/etc/vim/run/*.vim"), "^\\|\n", "&source ", "g")
-
-" ======================================================================
 " == template.vim ======================================================
 
 " VIm Template
 " Based on Header.vim by Johannes Zellner
 " http://www.zellner.org/vim/functions/Header.vim)
+"
+"" old time:
+""source all func in ~/etc/vim/run/
+""source $HOME/etc/vim/func/template.vim
+"exec substitute(glob("~/etc/vim/run/*.vim"), "^\\|\n", "&source ", "g")
 "
 "debug
 "set verbose=9
@@ -1084,7 +1082,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.425 2023/12/07 21:31:36 czo Exp $
+            " $Id: .vimrc,v 1.438 2023/12/08 14:40:54 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -2146,21 +2144,15 @@ function! Template (...)
     call call(function("TemplateCzo"), a:000)
     set modified
 endfunction
-" end template.vim =====================================================
 
 endif
-" The end! =============================================================
+" end template.vim
 
-
-" ======================================================================
-" == Don't load Commentary nor Plugins if version < 700 ================
+" == commentary.vim ====================================================
 
 if version < 700
   finish
 else
-
-" ======================================================================
-" == commentary.vim ====================================================
 
 " Maintainer:   Tim Pope <http://tpo.pe/>
 " Version:      1.3
@@ -2277,11 +2269,17 @@ else
     "   endif
     "   nmap gcu <Plug>Commentary<Plug>Commentary
     " endif
-" end commentary.vim ===================================================
+
+endif
+" end commentary.vim
 
 
-" ======================================================================
 " == Plugins ===========================================================
+
+" Don't load Plugins if version < 703
+if version < 703
+  finish
+else
 
   " if 1: Reload .vimrc and :PlugInstall to install plugins.
   if 0
@@ -2322,9 +2320,6 @@ else
   " html/css/js/ts/json: prettier config in ~/.prettierrc
   " C/C++/java: config in ~/.clang-format
 
-" end Plugins ==========================================================
-
 endif
-" The end, really ! ====================================================
-
+" end Plugins
 
