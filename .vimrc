@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 08 December 2023, 15:37
-" $Id: .vimrc,v 1.438 2023/12/08 14:40:54 czo Exp $
-" Edit Time: 241:22:21
+" Last Modified: Friday 08 December 2023, 18:54
+" $Id: .vimrc,v 1.440 2023/12/08 17:55:19 czo Exp $
+" Edit Time: 241:35:43
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -548,6 +548,9 @@ inoremap    <C-Z>       <C-O>u
 vnoremap    <BS>        d
 " always use Ctrl-Q instead of Ctrl-V
 noremap     <C-Q>       <C-V>
+" quit: Ctrl-Space
+map         <C-@>       :qa!<CR>
+imap        <C-@>       <C-O>:qa!<CR>
 
 " scroll by one line
 map  <ScrollWheelUp>        <C-Y>
@@ -601,19 +604,19 @@ imap <F4>           <C-O>:N<CR>
 map  <F5>           :n<CR>
 imap <F5>           <C-O>:n<CR>
 
-map  <F6>           :make<CR>
-imap <F6>           <C-O>:make<CR>
+map  <F6>           :cp<CR>
+imap <F6>           <C-O>:cp<CR>
+map  <F7>           :cn<CR>
+imap <F7>           <C-O>:cn<CR>
 
-map  <F7>           :cp<CR>
-imap <F7>           <C-O>:cp<CR>
-map  <F8>           :cn<CR>
-imap <F8>           <C-O>:cn<CR>
+map  <F8>           :so ~/.vimrc<CR>
+imap <F8>           <C-O>:so ~/.vimrc<CR>
 
-map  <F9>           :x<CR>
-imap <F9>           <C-O>:x<CR>
+map  <F9>           :make<CR>
+imap <F9>           <C-O>:make<CR>
 
-map  <F10>          :q!<CR>
-imap <F10>          <C-O>:q!<CR>
+map  <F10>          :qa!<CR>
+imap <F10>          <C-O>:qa!<CR>
 
 if version >= 600
     map  <leader>x :so ~/.vimrc<CR>
@@ -1082,7 +1085,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.438 2023/12/08 14:40:54 czo Exp $
+            " $Id: .vimrc,v 1.440 2023/12/08 17:55:19 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

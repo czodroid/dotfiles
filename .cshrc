@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 06 December 2023, 22:50
-# $Id: .cshrc,v 1.164 2023/12/06 21:51:11 czo Exp $
-# Edit Time: 31:52:07
+# Last Modified: Friday 08 December 2023, 20:06
+# $Id: .cshrc,v 1.165 2023/12/08 19:08:37 czo Exp $
+# Edit Time: 31:53:44
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -325,14 +325,10 @@ alias rmemptyd 'find . -empty -type d -print -exec rm -fr {} \;'
 alias rmbak    'find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
 
 if (-f "$HOME/.vimrc.czo") then
-    setenv MYVIMRC "$HOME/.vimrc.czo"
-else
-    setenv MYVIMRC "$HOME/.vimrc"
+    setenv VIMINIT "source $HOME/.vimrc.czo"
 endif
 
 alias more     'less'
-alias vim      "\vim  -u $MYVIMRC"
-alias nvim     "\nvim -u $MYVIMRC"
 alias ne       '\emacs -nw'
 
 alias mc       '\mc -b -u'

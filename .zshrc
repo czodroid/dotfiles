@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 06 December 2023, 22:48
-# $Id: .zshrc,v 1.516 2023/12/06 21:51:11 czo Exp $
-# Edit Time: 137:14:27
+# Last Modified: Friday 08 December 2023, 20:04
+# $Id: .zshrc,v 1.517 2023/12/08 19:08:37 czo Exp $
+# Edit Time: 137:14:44
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -561,16 +561,12 @@ alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname
 [ -x "$(command -v less)" ] || alias more=less
 
 if [ -f ~/.vimrc.czo ]; then
-    export MYVIMRC="-u ~/.vimrc.czo"
-elif [ -f ~/.vimrc ]; then
-    export MYVIMRC="-u ~/.vimrc"
-else
-    export MYVIMRC=""
+    export VIMINIT="source $HOME/.vimrc.czo"
 fi
-[ -x "$(command -v nvim)" ] && alias vim="\nvim $MYVIMRC"
-[ -x "$(command -v vim)"  ] && alias vim="\vim  $MYVIMRC"
-[ -x "$(command -v vimx)" ] && alias vim="\vimx $MYVIMRC"
-alias nvim="\nvim $MYVIMRC"
+[ -x "$(command -v nvim)" ] && alias vim="\nvim"
+[ -x "$(command -v vim)"  ] && alias vim="\vim"
+[ -x "$(command -v vimx)" ] && alias vim="\vimx"
+
 alias ne='\emacs -nw'
 
 if [ -f ~/.tmux.conf.czo ]; then

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 06 December 2023, 22:47
-# $Id: .bashrc,v 1.552 2023/12/06 21:51:11 czo Exp $
-# Edit Time: 132:11:22
+# Last Modified: Friday 08 December 2023, 20:00
+# $Id: .bashrc,v 1.553 2023/12/08 19:08:37 czo Exp $
+# Edit Time: 132:22:19
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -433,16 +433,12 @@ alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname
 [ -x "$(command -v less)" ] || alias more=less
 
 if [ -f ~/.vimrc.czo ]; then
-    export MYVIMRC="-u ~/.vimrc.czo"
-elif [ -f ~/.vimrc ]; then
-    export MYVIMRC="-u ~/.vimrc"
-else
-    export MYVIMRC=""
+    export VIMINIT="source $HOME/.vimrc.czo"
 fi
-[ -x "$(command -v nvim)" ] && alias vim="\nvim $MYVIMRC"
-[ -x "$(command -v vim)"  ] && alias vim="\vim  $MYVIMRC"
-[ -x "$(command -v vimx)" ] && alias vim="\vimx $MYVIMRC"
-alias nvim="\nvim $MYVIMRC"
+[ -x "$(command -v nvim)" ] && alias vim="\nvim"
+[ -x "$(command -v vim)"  ] && alias vim="\vim"
+[ -x "$(command -v vimx)" ] && alias vim="\vimx"
+
 alias ne='\emacs -nw'
 
 if [ -f ~/.tmux.conf.czo ]; then
