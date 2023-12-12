@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 08 December 2023, 18:54
-" $Id: .vimrc,v 1.440 2023/12/08 17:55:19 czo Exp $
-" Edit Time: 241:35:43
+" Last Modified: Tuesday 12 December 2023, 19:54
+" $Id: .vimrc,v 1.448 2023/12/12 18:54:56 czo Exp $
+" Edit Time: 242:27:55
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -65,7 +65,7 @@ set modelines=30
 set history=5000
 set viminfo='100,\"1000,ra:,rb:,rz:,%
 
-" don't write on my embedded toy, perfect for owrt, android
+" don't write on my embedded toy, perfect for owrt
 if $PLATFORM == "Linux_mips" || $PLATFORM == "Linux_arm"
     if isdirectory("/tmp")
         set backupdir=/tmp,.
@@ -84,7 +84,7 @@ set hidden
 " inserting text
 "set insertmode
 
-" insert mode : Ctrl-K
+" insert mode : Ctrl-K + Ctrl D (Ctrl-K + Ctrl-K for quit)
 " 0 <BS> U = ☻
 "set digraph
 
@@ -163,7 +163,7 @@ else
 endif
 
 " vt100
-if &term =~ '^vt100'
+if &term =~ '^vt100' || version < 700
     exec "set <S-Up>=\e[1;2A"
     exec "set <S-Down>=\e[1;2B"
     exec "set <S-Right>=\e[1;2C"
@@ -282,7 +282,7 @@ autocmd FileType json       setlocal commentstring=//\ %s
 autocmd FileType php        setlocal commentstring=//\ %s
 autocmd FileType xdefaults  setlocal commentstring=!\ %s
 
-autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults|vim' | :call CzoTTW () | endif
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults\|vim' | :call CzoTTW () | endif
 
 
 endif
@@ -382,6 +382,11 @@ function! CzoRemoveEmptyLinesAndComment ()
     let c = col(".")
     exec 'g/\(^\s*#\)\|\(^\s*$\)/d'
     call cursor(l, c)
+endfunction
+
+command!  CzoInvFold call CzoInvFold ()
+function! CzoInvFold ()
+    set invfoldenable
 endfunction
 
 command!  CzoInvList call CzoInvList ()
@@ -527,7 +532,7 @@ endfunction
 "
 " https://github.com/kana/vim-fakeclip
 
-if version >= 700
+if version >= 601
     if has('clipboard')
         call CzoMSwinEnable()
     else
@@ -548,9 +553,13 @@ inoremap    <C-Z>       <C-O>u
 vnoremap    <BS>        d
 " always use Ctrl-Q instead of Ctrl-V
 noremap     <C-Q>       <C-V>
-" quit: Ctrl-Space
-map         <C-@>       :qa!<CR>
-imap        <C-@>       <C-O>:qa!<CR>
+
+" digraph
+inoremap    <C-K><C-D>      <C-K>
+" quit
+map         <C-K><C-K>      :qa!<CR>
+imap        <C-K><C-K>      <C-O>:qa!<CR>
+cmap        <C-K><C-K>      <C-C><C-O>:qa!<CR>
 
 " scroll by one line
 map  <ScrollWheelUp>        <C-Y>
@@ -1085,7 +1094,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.440 2023/12/08 17:55:19 czo Exp $
+            " $Id: .vimrc,v 1.448 2023/12/12 18:54:56 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 08 December 2023, 20:00
-# $Id: .bashrc,v 1.553 2023/12/08 19:08:37 czo Exp $
-# Edit Time: 132:22:19
+# Last Modified: Tuesday 12 December 2023, 19:51
+# $Id: .bashrc,v 1.556 2023/12/12 18:52:04 czo Exp $
+# Edit Time: 133:00:50
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -59,6 +59,8 @@ export TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG BashSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Platform ===================================================##
+
+PLATFORM=Unknown
 
 case $(uname 2>/dev/null) in
 
@@ -432,25 +434,18 @@ alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname
 [ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 [ -x "$(command -v less)" ] || alias more=less
 
-if [ -f ~/.vimrc.czo ]; then
-    export VIMINIT="source $HOME/.vimrc.czo"
-fi
+[ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
 [ -x "$(command -v nvim)" ] && alias vim="\nvim"
 [ -x "$(command -v vim)"  ] && alias vim="\vim"
 [ -x "$(command -v vimx)" ] && alias vim="\vimx"
 
 alias ne='\emacs -nw'
 
-if [ -f ~/.tmux.conf.czo ]; then
-    export MYTMUXRC="-f ~/.tmux.conf.czo"
-elif [ -f ~/.tmux.conf ]; then
-    export MYTMUXRC="-f ~/.tmux.conf"
-else
-    export MYTMUXRC=""
-fi
+[ -f ~/.tmux.conf.czo ] && export MYTMUXRC="-f ~/.tmux.conf.czo"
 alias tmux="\tmux $MYTMUXRC"
 alias tmuxa="\tmux $MYTMUXRC attach -t 0"
 alias aa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
+
 # resets the terminal mouse when tmux crashes
 alias r='tput rs2'
 
@@ -580,6 +575,15 @@ alias YW='rpm -qi'
 alias YL='rpm -ql'
 alias YF='rpm -qf'
 
+# openwrt: opkg
+alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in /tmp/opkg.list"'
+alias OI='opkg install'
+alias OP='opkg remove'
+OS() { grep $1 /tmp/opkg.list ;}
+alias OW='opkg info'
+alias OL='opkg files'
+alias OF='opkg search'
+
 # archlinux
 alias PU='pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su && { yes | pacman -Scc; } && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias PI='pacman -Sy --needed'
@@ -598,7 +602,6 @@ alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date
 # choco windows
 alias CU='choco upgrade all -y && cyg-get.bat -upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
-# openwrt: opkg
 # suse: zypper
 # netbsd: pkgin
 

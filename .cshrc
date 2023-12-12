@@ -6,15 +6,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Friday 08 December 2023, 20:06
-# $Id: .cshrc,v 1.165 2023/12/08 19:08:37 czo Exp $
-# Edit Time: 31:53:44
+# Last Modified: Tuesday 12 December 2023, 20:06
+# $Id: .cshrc,v 1.166 2023/12/12 19:06:13 czo Exp $
+# Edit Time: 32:00:16
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
-#         with my .bashrc 20 years later!!!
+#         30 years later!!!
 #         but be careful, I don't use it, and I don't know
 #         if all the alias are OK...
+#         keep this for fun!
 #
 # Copyright: (C) 1993-2023 Olivier Sirol <czo@free.fr>
 
@@ -387,7 +388,7 @@ alias tmate_ssh      'tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${
 
 # sed -i 173d ~/.ssh/known_hosts is working under linux,
 # but on FreeBSD you must have gnu-sed, so perl is best!
-alias sed_k 'perl -ni -e "print unless $. == $1 " ~/.ssh/known_hosts'
+alias sed_k 'perl -ni -e "print unless $. == \!*" ~/.ssh/known_hosts'
 # escape quotes '
 alias remove_empty_line_and_slash_and_print 'perl -n -e '\''print unless m/^\s*#|^\s*$/'\'
 
@@ -424,6 +425,15 @@ alias YSS 'yum search'
 alias YL  'rpm -ql'
 alias YF  'rpm -qf'
 
+# openwrt: opkg
+alias OU  'opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in /tmp/opkg.list"'
+alias OI  'opkg install'
+alias OP  'opkg remove'
+alias OS  'grep \!* /tmp/opkg.list'
+alias OW  'opkg info'
+alias OL  'opkg files'
+alias OF  'opkg search'
+
 # archlinux
 alias PU  'pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su && pacman --noconfirm -Scc && echo `date +%Y-%m-%d` > /etc/lsb-czo-updatedate'
 alias PI  'pacman -Sy'
@@ -441,7 +451,6 @@ alias BU  'brew update && brew upgrade && brew cleanup'
 # choco windows
 alias CU  'choco upgrade all -y && cyg-get.bat -upgrade all'
 
-# openwrt: opkg
 # suse: zypper
 # netbsd: pkgin
 
