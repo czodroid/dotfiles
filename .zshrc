@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 12 December 2023, 19:51
-# $Id: .zshrc,v 1.520 2023/12/12 18:52:04 czo Exp $
-# Edit Time: 137:18:12
+# Last Modified: Friday 15 December 2023, 12:57
+# $Id: .zshrc,v 1.521 2023/12/15 11:58:53 czo Exp $
+# Edit Time: 137:18:31
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -616,7 +616,6 @@ alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/with
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
-alias zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
 
 ## My dotconfig files
 # curl -k
@@ -750,7 +749,10 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
-## VERY OLD FASHIONED
+## OLD and RemeberThis_
+alias RemeberThis_zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
+alias RemeberThis_zfs_destroy='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_2023-10" | cut -f 1); do echo $snapshot ; zfs destroy -d $snapshot; done'
+alias RemeberThis_zfs_rename='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_" | grep -- "-90d" | cut -f 1); do echo $snapshot ; zfs rename $snapshot $(echo $snapshot | perl -pe "s/-90d/-60d/"); done'
 alias RemeberThis_serial_connect='picocom -e z -b 115200 /dev/ttyUSB0'
 alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; sync; rm /zero.dat'
 alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'

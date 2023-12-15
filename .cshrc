@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Tuesday 12 December 2023, 20:06
-# $Id: .cshrc,v 1.166 2023/12/12 19:06:13 czo Exp $
-# Edit Time: 32:00:16
+# Last Modified: Friday 15 December 2023, 12:58
+# $Id: .cshrc,v 1.167 2023/12/15 11:58:53 czo Exp $
+# Edit Time: 32:00:34
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -371,7 +371,6 @@ alias rsync_sys     'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull ave
 alias rsync_full    'rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat     'rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal  'rsync --delete -av'
-alias zpool_history 'zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive"'
 alias lsblk         'lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
 
 alias FC            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'

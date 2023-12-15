@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 12 December 2023, 19:54
-" $Id: .vimrc,v 1.448 2023/12/12 18:54:56 czo Exp $
-" Edit Time: 242:27:55
+" Last Modified: Friday 15 December 2023, 08:04
+" $Id: .vimrc,v 1.449 2023/12/15 07:06:13 czo Exp $
+" Edit Time: 242:28:26
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -66,7 +66,7 @@ set history=5000
 set viminfo='100,\"1000,ra:,rb:,rz:,%
 
 " don't write on my embedded toy, perfect for owrt
-if $PLATFORM == "Linux_mips" || $PLATFORM == "Linux_arm"
+if $PLATFORM == "Linux_mips"
     if isdirectory("/tmp")
         set backupdir=/tmp,.
         set directory=/tmp,.
@@ -1094,7 +1094,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.448 2023/12/12 18:54:56 czo Exp $
+            " $Id: .vimrc,v 1.449 2023/12/15 07:06:13 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
