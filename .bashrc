@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 15 December 2023, 12:57
-# $Id: .bashrc,v 1.557 2023/12/15 11:58:52 czo Exp $
-# Edit Time: 133:08:27
+# Last Modified: Sunday 17 December 2023, 15:13
+# $Id: .bashrc,v 1.558 2023/12/17 14:22:39 czo Exp $
+# Edit Time: 133:08:46
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -532,7 +532,7 @@ alias  gtc='git commit -a'
 alias gtcc='git commit -a -mupdate ; git push'
 alias  gts='git status'
 alias  gta='git add .'
-alias  gtb='git branch'
+alias  gtb='git branch -a'
 alias  gtf='git fetch; git diff master origin/master'
 alias gtgc='git gc'
 

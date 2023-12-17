@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Friday 15 December 2023, 12:57
-# $Id: .zshrc,v 1.521 2023/12/15 11:58:53 czo Exp $
-# Edit Time: 137:18:31
+# Last Modified: Sunday 17 December 2023, 15:22
+# $Id: .zshrc,v 1.522 2023/12/17 14:22:39 czo Exp $
+# Edit Time: 137:18:48
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -658,7 +658,7 @@ alias  gtc='git commit -a'
 alias gtcc='git commit -a -mupdate ; git push'
 alias  gts='git status'
 alias  gta='git add .'
-alias  gtb='git branch'
+alias  gtb='git branch -a'
 alias  gtf='git fetch; git diff master origin/master'
 alias gtgc='git gc'
 
