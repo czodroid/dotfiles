@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Monday 18 December 2023, 19:34
-# $Id: .zshrc,v 1.523 2023/12/19 18:10:31 czo Exp $
-# Edit Time: 137:20:30
+# Last Modified: Saturday 30 December 2023, 22:35
+# $Id: .zshrc,v 1.525 2023/12/30 21:44:41 czo Exp $
+# Edit Time: 137:33:56
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -748,8 +748,12 @@ passwd_simple_encrypt() { perl -e 'print unpack("H*",  join("", map {$_^"*"} spl
 passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$ARGV[0])))."\n"' $1; }
 
 sq() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -o pulse -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
+sqm() { SB=`perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME` ; echo $SB ; $SB & }
 
 ## OLD and RemeberThis_
+alias RemeberThis_GoPro_fps='ffmpeg -i test-59.94fps.mp4 -r 29.97 out.mp4'
+alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file $PWD/$f"; done) -c copy output.mp4'
+alias RemeberThis_iMovie_fps2997='export FPS=29.97 ; ffmpeg -f lavfi -i testsrc=duration=10:size=1920x1080:rate=$FPS -vf "drawtext=text=%{n}:fontsize=72:r=$FPS:x=(w-tw)/2: y=h-(2*lh):fontcolor=white:box=1:boxcolor=0x00000099" -pix_fmt yuv420p test-${FPS}fps.mp4'
 alias RemeberThis_zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive\|zfs rollback\|zfs rename\|zfs load-key"'
 alias RemeberThis_zfs_destroy='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_2023-10" | cut -f 1); do echo $snapshot ; zfs destroy -d $snapshot; done'
 alias RemeberThis_zfs_rename='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_" | grep -- "-90d" | cut -f 1); do echo $snapshot ; zfs rename $snapshot $(echo $snapshot | perl -pe "s/-90d/-60d/"); done'
