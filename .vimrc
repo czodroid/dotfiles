@@ -6,14 +6,14 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 15 December 2023, 08:04
-" $Id: .vimrc,v 1.449 2023/12/15 07:06:13 czo Exp $
-" Edit Time: 242:28:26
+" Last Modified: Wednesday 10 January 2024, 15:46
+" $Id: .vimrc,v 1.450 2024/01/10 14:46:17 czo Exp $
+" Edit Time: 242:31:59
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
 "
-" Copyright: (C) 1995-2023 Olivier Sirol <czo@free.fr>
+" Copyright: (C) 1995-2024 Olivier Sirol <czo@free.fr>
 
 if version >= 505
 
@@ -486,9 +486,6 @@ endfunction
 
 command!  CzoMSwinDisable call CzoMSwinDisable ()
 function! CzoMSwinDisable ()
-    if !has("unix")
-        set guioptions+=a
-    endif
     behave xterm
 endfunction
 
@@ -542,6 +539,7 @@ if version >= 601
     endif
 else
     echon "WARNING: too old version of vim, behave xterm..."
+    call CzoMSwinDisable()
 endif
 
 " keyboard
@@ -1094,7 +1092,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.449 2023/12/15 07:06:13 czo Exp $
+            " $Id: .vimrc,v 1.450 2024/01/10 14:46:17 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
