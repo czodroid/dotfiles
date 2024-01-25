@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 13 January 2024, 19:10
-# $Id: .zshrc,v 1.533 2024/01/13 18:10:18 czo Exp $
-# Edit Time: 137:42:31
+# Last Modified: Friday 19 January 2024, 17:23
+# $Id: .zshrc,v 1.535 2024/01/19 16:24:07 czo Exp $
+# Edit Time: 137:42:55
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -561,10 +561,11 @@ alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname
 [ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 [ -x "$(command -v less)" ] || alias more=less
 
+[ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
 [ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
 [ -x "$(command -v nvim)" ] && alias vim="\nvim"
-[ -x "$(command -v vim)"  ] && alias vim="\vim"
 [ -x "$(command -v vimx)" ] && alias vim="\vimx"
+[ -x "$(command -v vim)"  ] && alias vim="\vim"
 
 alias ne='\emacs -nw'
 
