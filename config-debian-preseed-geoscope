@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Monday 27 November 2023, 20:21
-# $Id: config-debian-preseed-geoscope,v 1.36 2023/11/27 19:21:31 czo Exp $
-# Edit Time: 10:53:04
+# Last Modified: Thursday 08 February 2024, 11:32
+# $Id: config-debian-preseed-geoscope,v 1.37 2024/02/08 10:38:14 czo Exp $
+# Edit Time: 10:55:02
 # Description:
 #
 #            debian 10 preseed geoscope update
@@ -26,7 +26,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# Copyright: (C) 2018-2023 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2018-2024 Olivier Sirol <czo@free.fr>
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -157,7 +157,7 @@ echo "-> munin"
 perl -i -pe 's,^host_name localhost.localdomain,#host_name localhost.localdomain,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^10\\.2\\.5\\.10\$\n,,' /etc/munin/munin-node.conf
 perl -i -pe 's,^allow \^10\\.1\\.6\\.16\$\n,,' /etc/munin/munin-node.conf
-perl -i -pe 's,^allow \^127\\.0\\.0\\.1.*,allow \^127\\.0\\.0\\.1\$\nallow \^10\\.1\\.6\\.16\$,' /etc/munin/munin-node.conf
+perl -i -pe 's,^allow \^127\\.0\\.0\\.1.*,allow \^127\\.0\\.0\\.1\$\nallow \^10\\.2\\.5\\.10\$\nallow \^10\\.1\\.6\\.16\$,' /etc/munin/munin-node.conf
 service munin-node restart
 
 
@@ -275,6 +275,9 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCpuVrKcw0PcSUnOIBz+yaSVObq3oroyFeL1luCgHhH
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+vY2dC8ux0l7UbaSiVsczs32VXgPEIRKRxfuy0H8ircz9kyR6qB0BNs0OvNIbZCoY7tphOorppf7hZ2DsxrD3Tlo7g/vB5cxq3tmWcCmvUikatVsf2w65bMtOLCqZEVmRjFY/dCPph0GsX45RmqX3dxHkm8mRTXjlgu1yjC/cDMoGDBfDA88zWjpLEvraRyWjnQAkwkp50tnmAreyDL5M4T9cJ/OfTRxcGJuOqdFDze/gwmzocgyo0VyfA629+sZPLntY/AvhjM+98QwJKeNr2SLaCChJpqIgt8n8NNKO6LZf7NUztu0oqOx92eADbOdhhq9lPlKd7yJ1foLNYDCgN+DtVYxXChH+L7z2VID8VW0m02uwfkWvGhKPua8D0DeH6HF0NL58dumAf8oYmrlacLWNmiGjmWYrdzMc720VPQuXkSjuuhLwPvnMi9KZ+uEEvjDsxshBvU64IaZh7HwvtkdXIMCPnq++t35kcWG6qngG9fzsERYeCSFm8gRwjMnoGpN5K8O8ZbXJvkfBjiXL2luPceAbmgtlR20DZCX3oxqQ6x3CspwbGZRxE3vEDHIQuUBec1tvB0qPCPOky5UzSoXi3AV35XnMrUWm8kKzrFXerjUUnSs8HosRXkVDoTa737SY55ihSdtJHtqNZhFqYz2asgiY7F1p8eNGtmdHjQ== lecocq@ipgp.fr
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1pgf7e+gh3Ywe1rxOSqnyaq1sQBnSgRFsiZaAWjovBTK1JltKgzmDY6ipNj/6zv106mugogrIlE1BrWDtqahfMdEkahquBBeSCnRJgm3FcD31UWctwBMdaRRrgJU1oFkzx5ECu9vqokCBFnIEF6UZb4spJ9PEjJEnyFJ6t8lvSoVeQ42iW6Og/5B/6f2O60XEMcqo1reRGEAV+znkYC42kS9ZsgZCIznram28RKmN+k5T0vN849kXBQCnMrCOm031IUNsiQbLkUKgEhbiRbaUB4S5sAtnEpVtqILcVCy0CyfPLhspUzN+b74u/bZfay2S3yoGBMqeIw8fN1nY20XSz8TqcuDNtLGHmICyRxnNiV08Y6fhya6ajIjl1nVxCkoo0g7/RkDdqr7YGUdc+HiVY36hqtaFDTWIHT1H1BGScdhfME8IN3e8uHD3WPlKuhBhuFJuMdZiia3k70sl1D5XcFoVQiRckNk5YObDyk75aZ7PbybhXxMD3tzBofQzpPnHbfsnBTZFLFpQHlm63wEjojqoxd24BgRE8JGZE9dTo+1CFmzmvHYyZp9bg44fL3LGnDXtdn1z9CjRx3Y+spiCbXKYCQSFmPocoBS6pHQGO6wfwBf7RmFHbBq6WYsNzyFwfQsbvC7yJNlFrJznkkB81s4ZFB+NQfrzOdfQB/S18w== czo@bunnahabhain
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDo0JPz6p+m66sxUEMtXzZp/XVeH0rZItCa0tLjeBKxUNH29On8tmfSfHHgnC52DIjuRlEbfpPj7LghnHA5tLb1J1CMUTPu2xSblE7w4z3RiNwdwnaKzR8dElQUicNPoFhFzyLIRm7dTWJlsEwdoDRVQN/jrhsauCTLMdQkmDvbQDctFyHFUsHIfsIIeGH+ErrDS1hk6RGIam45tkAJDsGQoKQqckYxuzDAyDwLxJO3ps+PC5adT5Vg4gLt1Eu3oYlIdqfYRc90XY+qRPeuULKorIag2cUdySHSE36segwkP0aui8qGQ0P1L0J6YD7BtEXJKZUJvpr8QU/VMiG2gqGKLAczadOqpJaUSiEzT/pnXAnK3iS1vHWyxQTbUPgfqrmWcWQgejndzEr2+LhtjCOZJSUR/9aYi6CDmrJJRXI5j0sOQldhN5xkDOV+mZ3cohzl51WYiF8/jPV9y8O5iOsWo42gWpaO53giBZEeXBQoF12Ks6RjFJ37RouQsHlOApSivUHZzOilCFpQ3mlduFKuGnx23GCwG3VulyTFDfQpq/Irf8KmkRw595wWnR3b8HfcvvkPauKd3sTxk4V9Dg4f9oqjHR7J+QrHm+bM4n1PkKn2x2g+aDhSkODi8b+L/MNlsD/77OHevyLCiqRo+p6lBMHqIB6tlJO4PcOK/JaBxw== broucke@ordinavroche
+
+# munin-node on this host from geoscopemunin or smv-munin
+from="10.2.5.10,10.1.6.16",command="/bin/false",no-pty,no-X11-forwarding,no-agent-forwarding,permitopen="localhost:4949" ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC7n6r8dyTMqrC0HdlbNOrb48GXdhYwkp0Vd+nnf4nMeTCDYwyO9Kr7pjtqGuJKmapZAFvOivT8aCuwIk4arCHkamk5SCRNCIPnk8grK7Hhd9zQs00ro7oO44ORroeDB+wdlWqvrwxTk1ppRsO6iKksCPjpDkJSaiXGatv+xVdGNI2D2PysgZcvDXVxNzUxYiaYZibVnjZ+AN6v+g2Brs7YRWfxlxE7WCdrPUyAuxpOEbvMbXuSd2VEGwUAaXvJnoZnLRyzfvmBv+MgWCSivADi1XRbhMDtTxo/9mBugOZb1brAleIwu9wJOe/Wfx6iQX8P7LRXwHbdJcUlazVCd4ZFwxpeK9+WCDXSln0NkarH7KkAfP83yjk+Kyw5ejTX0l7GXL+Cwj+7RtbrsEiz1XYBxRScw9rtSD0LjyCdgJkn0k7S2Q3ofSN7KVmxkOKsf79iSt9eGZjGCSdnrRqJclpwPkbzKcN6EqgfpYtddWRo2iKJsy4w7cX0XDhxT6Cg9wAtFuAU5wQh4WExiTRB82I2Oig6RdkDTDaEfO1vxKW/Ddh4e9mYwAbXKhVNMPK2Vi5jHmMW2LD7gVlui99svxOD3M50v3QsQ+NxnQLFpgOAke1kvlVShdEpeVNntaF1HzaOw8mYYuzs/gMubGBoReNR2dn3XXixgyt2J7naakvLjQ== munin
 
 # others
 
