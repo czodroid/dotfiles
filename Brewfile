@@ -2,9 +2,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 7 March 2015
-# Last Modified: Saturday 20 January 2024, 11:48
-# $Id: Brewfile,v 1.17 2024/01/27 15:36:59 czo Exp $
-# Edit Time: 2:50:14
+# Last Modified: Saturday 03 February 2024, 12:55
+# $Id: Brewfile,v 1.18 2024/02/03 18:35:26 czo Exp $
+# Edit Time: 2:50:48
 # Description:
 #                   macos brew file
 #                   for sonoma (macOS 14.2)
@@ -51,6 +51,7 @@ brew "midnight-commander"
 brew "mist-cli"
 brew "mpv"
 brew "ncdu"
+brew "noti"
 brew "nmap"
 brew "node"
 brew "ocrmypdf"
