@@ -1,14 +1,14 @@
 "             ,,,
 "            (o o)
-"###=====oOO--(_)--OOO===============================================##"
+" =======oOO==(_)==OOo==================================================
 "
 " Filename: .vimrc
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 10 January 2024, 15:46
-" $Id: .vimrc,v 1.450 2024/01/10 14:46:17 czo Exp $
-" Edit Time: 242:31:59
+" Last Modified: Sunday 11 February 2024, 11:43
+" $Id: .vimrc,v 1.451 2024/02/11 10:52:00 czo Exp $
+" Edit Time: 242:48:27
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1092,7 +1092,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.450 2024/01/10 14:46:17 czo Exp $
+            " $Id: .vimrc,v 1.451 2024/02/11 10:52:00 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

@@ -1,14 +1,14 @@
 #             ,,,
 #            (o o)
-####=====oOO--(_)--OOO==============================================####
+####=====oOO==(_)==OOo==============================================####
 #
 # Filename: .bashrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 19 January 2024, 17:22
-# $Id: .bashrc,v 1.571 2024/01/19 16:24:07 czo Exp $
-# Edit Time: 133:45:15
+# Last Modified: Sunday 11 February 2024, 11:30
+# $Id: .bashrc,v 1.572 2024/02/11 10:52:00 czo Exp $
+# Edit Time: 133:54:19
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible

@@ -1,14 +1,14 @@
 #             ,,,
 #            (o o)
-####=====oOO--(_)--OOO=========================================####
+####=====oOO==(_)==OOo==============================================####
 #
 # Filename: .cshrc
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 10 January 2024, 19:10
-# $Id: .cshrc,v 1.169 2024/01/10 18:10:17 czo Exp $
-# Edit Time: 32:10:53
+# Last Modified: Sunday 11 February 2024, 11:42
+# $Id: .cshrc,v 1.170 2024/02/11 10:52:00 czo Exp $
+# Edit Time: 32:14:53
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -19,7 +19,7 @@
 #
 # Copyright: (C) 1993-2024 Olivier Sirol <czo@free.fr>
 
-##======= Csh Settings ==========================================##
+##======= Csh Settings ===============================================##
 
 # If not running interactively, don't do anything
 if (! $?prompt) then
@@ -53,7 +53,7 @@ if (-d /etc/profile.d) then
     unset i nonomatch
 endif
 
-##======= Platform ================================================##
+##======= Platform ===================================================##
 
 switch (`uname`)
 case Linux:
@@ -100,7 +100,7 @@ default:
 
 endsw
 
-##======= Paths ===================================================##
+##======= Paths ======================================================##
 
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 # WARNING : tcsh 6.07.02 : Words can be no longer than 1024 characters.
@@ -136,7 +136,7 @@ setenv PRINTER BW-Dressing
 setenv PGPPATH $HOME/.gnugp
 setenv HTML_TIDY $HOME/.tidyrc
 
-##======= Key bindings ============================================##
+##======= Key bindings ===============================================##
 
 if ($?tcsh) then
 
@@ -197,7 +197,7 @@ bindkey "\e\e"     kill-whole-line
 endif
 
 
-##======= Completions =============================================##
+##======= Completions ================================================##
 
 if ($?tcsh) then
     complete alias        'p/1/a/'
@@ -232,7 +232,7 @@ if ($?tcsh) then
     complete xlock        'n/-mode/`getXlockModes`/'
 endif
 
-##======= Aliases & NO-Functions ==================================##
+##======= Aliases & NO-Functions =====================================##
 
 unalias *
 
@@ -475,7 +475,7 @@ alias 16color '\
     end\
     printf "\033[0m\n\n"'
 
-##======= Main ======================================================##
+##======= Main =======================================================##
 
 if ($?tcsh) then
     set MYTTY     = `tty | sed s,/dev/,,`
