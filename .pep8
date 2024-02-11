@@ -1,14 +1,10 @@
-#             ,,,
-#            (o o)
-####=====oOO==(_)==OOo==============================================####
-#
 # Filename: .pep8
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 December 2019
-# Last Modified: Sunday 11 February 2024, 12:29
-# $Id: .pep8,v 1.7 2024/02/11 11:37:56 czo Exp $
-# Edit Time: 0:22:52
+# Last Modified: Sunday 11 February 2024, 13:53
+# $Id: .pep8,v 1.8 2024/02/11 12:54:25 czo Exp $
+# Edit Time: 0:23:00
 # Description:
 #           Python beautifier / formatter
 #           aptitude install python3-autopep8
