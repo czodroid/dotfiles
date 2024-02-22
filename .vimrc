@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 11 February 2024, 11:43
-" $Id: .vimrc,v 1.451 2024/02/11 10:52:00 czo Exp $
-" Edit Time: 242:48:27
+" Last Modified: Thursday 22 February 2024, 12:55
+" $Id: .vimrc,v 1.454 2024/02/22 11:55:58 czo Exp $
+" Edit Time: 242:56:09
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -31,7 +31,7 @@ else
 endif
 
 " for non working terminal colors, just set this:
-"set t_Co=16
+"set notermguicolors | set t_Co=16
 
 " vim mode
 set nocompatible
@@ -1092,7 +1092,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.451 2024/02/11 10:52:00 czo Exp $
+            " $Id: .vimrc,v 1.454 2024/02/22 11:55:58 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
