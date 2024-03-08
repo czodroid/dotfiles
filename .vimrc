@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 08 March 2024, 18:06
-" $Id: .vimrc,v 1.455 2024/03/08 17:07:11 czo Exp $
-" Edit Time: 242:57:43
+" Last Modified: Friday 08 March 2024, 18:18
+" $Id: .vimrc,v 1.456 2024/03/08 17:20:00 czo Exp $
+" Edit Time: 243:06:42
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -534,13 +534,11 @@ if version >= 601
         call CzoMSwinEnable()
     else
         " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
-        " echon
-        echon "WARNING: vim is compiled without system clipboard or works without X11!!!"
+        echoc "WARNING: vim is compiled without system clipboard or works without X11!!!"
         call CzoMSwinNoX11()
     endif
 else
-    " echon
-    echo "WARNING: too old version of vim, behave xterm..."
+    echoc "WARNING: too old version of vim, behave xterm..."
     call CzoMSwinDisable()
 endif
 
@@ -1094,7 +1092,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.455 2024/03/08 17:07:11 czo Exp $
+            " $Id: .vimrc,v 1.456 2024/03/08 17:20:00 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
