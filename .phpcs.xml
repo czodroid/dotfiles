@@ -1,11 +1,12 @@
+<?xml version="1.0"?>
 <!--
 Filename: .phpcs.xml
 Author: Olivier Sirol <czo@free.fr>
 License: GPL-2.0 (http://www.gnu.org/copyleft)
 File Created: 09 July 2019
-Last Modified: Sunday 11 February 2024, 13:53
-$Id: .phpcs.xml,v 1.5 2024/02/11 12:54:25 czo Exp $
-Edit Time: 0:32:45
+Last Modified: Thursday 07 March 2024, 21:46
+$Id: .phpcs.xml,v 1.6 2024/03/08 14:54:13 czo Exp $
+Edit Time: 0:32:57
 Description:
             PHP beautifier / formatter
             aptitude install php-pear
@@ -13,7 +14,6 @@ Description:
 
 Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
 -->
-<?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
   <description>PHP_CodeSniffer configuration</description>
   <rule ref="PSR12"/>
