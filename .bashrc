@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 27 February 2024, 17:14
-# $Id: .bashrc,v 1.573 2024/02/27 16:15:14 czo Exp $
-# Edit Time: 133:54:29
+# Last Modified: Monday 11 March 2024, 17:52
+# $Id: .bashrc,v 1.574 2024/03/11 20:52:01 czo Exp $
+# Edit Time: 133:56:45
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -487,7 +487,7 @@ alias ifa='ifconfig | grep "inet "'
 
 alias lsusb_tree='lsusb -tv'
 
-alias mount_list='P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
+alias mount_list='P="mount | grep -v \" /sys\| /run\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
@@ -632,6 +632,8 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=$( perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME ) ; echo $SB ; $SB & }
 
 ## OLD and RemeberThis_
+alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
+alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
 alias RemeberThis_7z_passwd='7z a -mhe=on -ptruc bidule.7z bidule'
 alias RemeberThis_GoPro_fps='ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 22 -c:a aac -strict experimental -pix_fmt yuv420p -r 29.97 out.mp4'
 alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file $PWD/$f"; done) -c copy output.mp4'
