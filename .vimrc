@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 08 March 2024, 18:18
-" $Id: .vimrc,v 1.456 2024/03/08 17:20:00 czo Exp $
-" Edit Time: 243:06:42
+" Last Modified: Monday 18 March 2024, 12:20
+" $Id: .vimrc,v 1.466 2024/03/18 11:20:55 czo Exp $
+" Edit Time: 246:06:05
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -324,9 +324,9 @@ command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
 function! CzoATabToSpaceAndTrailWhite ()
     let l = line(".")
     let c = col(".")
-    echom "Convert Tab to Space"
+    echo "Convert Tab to Space"
     exec '%s/\t/    /gce'
-    echom "Trim Trailing Whitespace"
+    echo "Trim Trailing Whitespace"
     exec '%s/\s\+$//ce'
     call cursor(l, c)
 endfunction
@@ -534,11 +534,11 @@ if version >= 601
         call CzoMSwinEnable()
     else
         " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
-        echoc "WARNING: vim is compiled without system clipboard or works without X11!!!"
+        "echo "WARNING: vim is compiled without system clipboard or works without X11!!!"
         call CzoMSwinNoX11()
     endif
 else
-    echoc "WARNING: too old version of vim, behave xterm..."
+    "echo "WARNING: too old version of vim, behave xterm..."
     call CzoMSwinDisable()
 endif
 
@@ -992,53 +992,6 @@ autocmd BufNewFile * call TemplateNewFile ("")
 autocmd BufReadPre,FileReadPre   * call TemplateGetTime ()
 autocmd BufWritePre,FileWritePre * call TemplateTimeStamp ()
 
-function! FindStrInHeader(pat)
-    if line("$") < g:TemplateMaxHeaderLines
-        let g:TemplateMaxHeaderLines = line("$")
-    endif
-    normal G
-    let currentline = line(".")
-    exec '1,'.g:TemplateMaxHeaderLines.'s/'.a:pat.'/&/ge'
-    if line(".") != currentline && line(".") <= g:TemplateMaxHeaderLines
-        normal ''
-        exec 'ijump! /'.a:pat.'/'
-        return 1
-    endif
-    return 0
-endfunction
-
-
-function! TemplateMacro ()
-    if &modified == 1
-        let save_report = &report
-        let &report = 999000
-        normal mwHmv
-
-        " substitute expand
-        let pattern = '\(.*\)VIMEX{=expand("\([^)]*\)")}\(.*\)'
-        while FindStrInHeader(pattern)
-            let editline = getline (".")
-            let editline = substitute(editline, pattern, '\2', "")
-            exec 's/'.pattern.'/\1'.escape(expand(editline), '\').'\3/e'
-        endw
-
-        " substitute strftime
-        let pattern = '\(.*\)VIMEX{=strftime("\([^)]*\)")}\(.*\)'
-        while FindStrInHeader(pattern)
-            let editline = getline (".")
-            let editline = substitute(editline, pattern, '\2', "")
-            let save_lang = v:lc_time
-            silent! exec 'language time C'
-            exec 's/'.pattern.'/\1'.escape(strftime(editline), '\').'\3/e'
-            silent! exec 'language time ' . save_lang
-        endw
-
-        normal 1G'vzt`w
-        let &report = save_report
-    endif
-endfunction
-
-
 function! TemplateDate()
     let save_lang = v:lc_time
     silent! exec 'language time C'
@@ -1067,12 +1020,36 @@ function! TemplateGitDate()
     return GitDate
 endfunction
 
+function! TemplateAppDate()
+    let save_lang = v:lc_time
+    silent! exec 'language time C'
+    let AppDate=strftime('"%Y-%m-%d"')
+    silent! exec 'language time ' . save_lang
+    return AppDate
+endfunction
+
 function! TemplateCopyrightDate()
     return  '(C) ' . b:Template_Copyright_Year . ' ' . g:TemplateAuthor
 endfunction
 
 function! TemplateGetTime ()
     let b:Template_opentime=localtime()
+endfunction
+
+function! FindStrInHeader(pat)
+    if line("$") < g:TemplateMaxHeaderLines
+        let g:TemplateMaxHeaderLines = line("$")
+    endif
+    normal G
+    let currentline = line(".")
+    exec '1,'.g:TemplateMaxHeaderLines.'s/'.a:pat.'/&/ge'
+    call histdel("search",-1)
+    if line(".") != currentline && line(".") <= g:TemplateMaxHeaderLines
+        normal ''
+        exec 'ijump! /'.a:pat.'/'
+        return 1
+    endif
+    return 0
 endfunction
 
 function! TemplateTimeStamp ()
@@ -1092,26 +1069,26 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.456 2024/03/08 17:20:00 czo Exp $
+            " $Id: .vimrc,v 1.466 2024/03/18 11:20:55 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
             " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
 
             if 1
-                " modif Started: in File Created:
+                " changed Started: by File Created:
                 let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
                 if FindStrInHeader(pattern)
                     exec 's/'.pattern.'/\1File Created:\2/e'
                     call histdel("search",-1)
                 endif
-                " modif Started: in File Created:
+                " changed Created: by File Created:
                 let pattern = '\(^.\=.\=.\=\s*\)Created:\(.*\)'
                 if FindStrInHeader(pattern)
                     exec 's/'.pattern.'/\1File Created:\2/e'
                     call histdel("search",-1)
                 endif
-                " modif Last Change: in Last Modified:
+                " changed Last Change: by Last Modified:
                 let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
                 if FindStrInHeader(pattern)
                     exec 's/'.pattern.'/\1Modified:\2/e'
@@ -1120,7 +1097,7 @@ function! TemplateTimeStamp ()
                 " Author: is new !
             endif
 
-            " Normal changes in my header here:
+            "" Normal changes in my header here:
 
             " substitute CVS $ Id:$ because now, I use Git...
             let pattern = '\(.*$I'.'d: \).*\( czo Git $.*\)'
@@ -1129,10 +1106,17 @@ function! TemplateTimeStamp ()
                 call histdel("search",-1)
             endif
 
-            " substitute CVS $ Date:$ in fact $ CzoDate:$...
-            let pattern = '\(.*$Czo'.'Date: \)[0-9 -:\/]\+ $\(.*\)'
+            " substitute CVS $ CzoDate:$ by $ CzoDate: 2024-03-14 14:36 $
+            let pattern = '\(.*$Czo'.'Date:\) *[0-9 -:]* *\$\(.*\)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1'.TemplateGitDate().' $\2/e'
+                exec 's/'.pattern.'/\1 '.TemplateGitDate().' $\2/e'
+                call histdel("search",-1)
+            endif
+
+            " substitute CVS $ CzoAppDate=; by $ CzoAppDate = '2024-03-14';
+            let pattern = '\(.*$Czo'.'AppDate\) *= *[0-9"-]* *;\(.*\)'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 = '.TemplateAppDate().';\2/e'
                 call histdel("search",-1)
             endif
 
@@ -1228,6 +1212,36 @@ function! TemplateTimeStamp ()
         endif
     endif
 
+endfunction
+
+function! TemplateMacro ()
+    if &modified == 1
+        let save_report = &report
+        let &report = 999000
+        normal mwHmv
+
+        " substitute expand
+        let pattern = '\(.*\)VIMEX{=expand("\([^)]*\)")}\(.*\)'
+        while FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            exec 's/'.pattern.'/\1'.escape(expand(editline), '\').'\3/e'
+        endw
+
+        " substitute strftime
+        let pattern = '\(.*\)VIMEX{=strftime("\([^)]*\)")}\(.*\)'
+        while FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            let save_lang = v:lc_time
+            silent! exec 'language time C'
+            exec 's/'.pattern.'/\1'.escape(strftime(editline), '\').'\3/e'
+            silent! exec 'language time ' . save_lang
+        endw
+
+        normal 1G'vzt`w
+        let &report = save_report
+    endif
 endfunction
 
 function! TemplateCzo (...)
@@ -2313,7 +2327,7 @@ else
 
   "" Neoformat options
   " On debian 12:
-  " aptitude install perltidy clang-format python3-autopep8 shfmt
+  " aptitude install perltidy clang-format python3-autopep8 shfmt php-pear
   " npm install -g prettier
   " pear install PHP_CodeSniffer
   "
