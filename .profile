@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Sunday 11 February 2024, 11:30
-# $Id: .profile,v 1.38 2024/02/11 10:52:00 czo Exp $
-# Edit Time: 1:32:56
+# Last Modified: Tuesday 19 March 2024, 17:55
+# $Id: .profile,v 1.40 2024/03/19 16:56:35 czo Exp $
+# Edit Time: 1:36:57
 # Description:
 #    ~/.profile: executed by the command interpreter for login shells.
 #    This file is not read by bash if ~/.bash_profile or ~/.bash_login
@@ -60,11 +60,26 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+# validation
+if [ -d "/archive/bin" ] ; then
+    PATH="/archive/bin:$PATH"
+fi
+
 if [ -d "/opt/seiscomp/bin" ] ; then
     PATH="$PATH:/opt/seiscomp/bin"
+fi
+
+# grt
+if [ -d "/opt/passcal/bin" ] ; then
+    PATH="$PATH:/opt/passcal/bin"
+fi
+
+if [ -d "/NAS/bin" ] ; then
+    PATH="$PATH:/NAS/bin"
 fi
 
 # startx

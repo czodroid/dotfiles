@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 18 March 2024, 14:59
-# $Id: .bashrc,v 1.577 2024/03/18 14:00:13 czo Exp $
-# Edit Time: 134:34:13
+# Last Modified: Tuesday 19 March 2024, 14:24
+# $Id: .bashrc,v 1.578 2024/03/19 13:28:37 czo Exp $
+# Edit Time: 134:36:19
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -341,7 +341,7 @@ case $PLATFORM in
     Linux*)
         alias cp='\cp -i'
         alias mv='\mv -i'
-        alias grep='\grep --color'
+        alias grep='\grep --color=auto'
         if \pgrep -fia 1 >/dev/null 2>&1; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
@@ -394,7 +394,7 @@ case $PLATFORM in
         export DISPLAY=:0
         alias cp='\cp -i'
         alias mv='\mv -i'
-        alias grep='\grep --color'
+        alias grep='\grep --color=auto'
         alias ps='\ps -aflW'
         alias pg='\pgrep -fia'
         alias pk='\pkill -fie'
@@ -411,8 +411,8 @@ alias lh='ls -lh'
 alias l='ls -alrt'
 alias g='grep -sri'
 alias g_cs='grep -sr'
-alias gl='\ls -1rt * | xargs grep -si --color'
-alias gl_cs='\ls -1rt * | xargs grep -s --color'
+alias gl='\ls -1rt * | xargs grep -si --color=auto'
+alias gl_cs='\ls -1rt * | xargs grep -s --color=auto'
 alias ..='cd ..'
 
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
