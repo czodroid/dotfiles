@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 21 March 2024, 14:55
-# $Id: .zshrc,v 1.545 2024/03/21 13:55:20 czo Exp $
-# Edit Time: 138:03:25
+# Last Modified: Thursday 21 March 2024, 15:06
+# $Id: .zshrc,v 1.546 2024/03/21 14:07:23 czo Exp $
+# Edit Time: 138:03:36
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -605,7 +605,8 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias ipl='echo $(wget -q -O- http://czo.free.fr/ip.php)'
+alias ipl='curl czo.wf/ip'
+alias ipf='curl czo.free.fr/ip'
 alias ipa='ip a | grep "inet "'
 alias ifa='ifconfig | grep "inet "'
 
