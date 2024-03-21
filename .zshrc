@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 19 March 2024, 14:25
-# $Id: .zshrc,v 1.542 2024/03/19 13:28:37 czo Exp $
-# Edit Time: 138:01:28
+# Last Modified: Thursday 21 March 2024, 14:55
+# $Id: .zshrc,v 1.545 2024/03/21 13:55:20 czo Exp $
+# Edit Time: 138:03:25
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -176,9 +176,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo
 
 ##======= Environment Variables ======================================##
 
-if [ -x "$(command -v getprop)" ]; then
-    HOSTNAME=$(getprop net.hostname android 2>/dev/null)
-elif [ -x "$(command -v hostname)" ]; then
+if [ -x "$(command -v hostname)" ]; then
     HOSTNAME=$(hostname 2>/dev/null)
 else
     HOSTNAME=$(uname -n 2>/dev/null)
@@ -571,13 +569,13 @@ alias ne='\emacs -nw'
 
 [ -f ~/.tmux.conf.czo ] && export MYTMUXRC="-f ~/.tmux.conf.czo"
 alias tmux="\tmux $MYTMUXRC"
-alias tmuxa="\tmux $MYTMUXRC attach -t 0"
-alias aa="\tmux $MYTMUXRC attach -d || \tmux $MYTMUXRC new"
+alias tmux0="tmux attach -t 0"
+alias aa="tmux attach -d || tmux new"
 
 # resets the terminal mouse when tmux crashes
 alias r='tput rs2'
 
-alias screena='screen -d -R'
+alias sc='screen -d -R'
 alias mc='\mc -b -u'
 #alias htop='\htop -C'
 if [ -x "$(command -v ncdu)" ]; then

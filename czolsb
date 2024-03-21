@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Sunday 11 February 2024, 11:49
-# $Id: czolsb,v 1.65 2024/02/11 10:52:00 czo Exp $
-# Edit Time: 57:57:16
+# Last Modified: Thursday 21 March 2024, 14:55
+# $Id: czolsb,v 1.69 2024/03/21 13:55:20 czo Exp $
+# Edit Time: 58:03:37
 # Description:
 #
 #   /etc/czolsb > /etc/motd
@@ -90,8 +90,9 @@ if ( !defined($HOSTNAME) ) {
     $HOSTNAME = qxc('hostname 2>/dev/null');
 }
 if ( !defined($HOSTNAME) ) {
-    $HOSTNAME = qxc('uname -n');
+    $HOSTNAME = qxc('uname -n 2>/dev/null');
 }
+$HOSTNAME =~ s/\..*//;
 
 $CCNAME = qxc('uname -m');
 $CKNAME = qxc('uname -r');
@@ -212,7 +213,6 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
     }
 
     if ( $OSNAME =~ /Android/i ) {
-        ## $HOSTNAME = qxc('getprop net.hostname');
         $ID          = $OSNAME;
         $VERSION_ID  = qxc('getprop ro.build.version.release');
         $PRETTY_NAME = "Linux ($ID $VERSION_ID)";
@@ -358,8 +358,7 @@ if ( -r $lsb_czo_file ) {
 } else {
     $CTAG = $ID . "_" . $VERSION_ID . "-" . $CCNAME . "-czo-???";
 }
-$CTAG     =~ s/(.*)/\L$1/;
-$HOSTNAME =~ s/\..*//;
+$CTAG =~ s/(.*)/\L$1/;
 
 # printv(qw (HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CMEM CSWAP CTAG));
 ($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
