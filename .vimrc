@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 18 March 2024, 12:20
-" $Id: .vimrc,v 1.466 2024/03/18 11:20:55 czo Exp $
-" Edit Time: 246:06:05
+" Last Modified: Sunday 24 March 2024, 16:11
+" $Id: .vimrc,v 1.467 2024/03/24 15:12:43 czo Exp $
+" Edit Time: 246:07:34
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -1069,7 +1069,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.466 2024/03/18 11:20:55 czo Exp $
+            " $Id: .vimrc,v 1.467 2024/03/24 15:12:43 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1363,19 +1363,32 @@ function! TemplateCzo (...)
                       \# Filename: template.crontab
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Wednesday 07 December 2022, 12:40
+                 \\<nl># Last Modified: Sunday 24 March 2024, 12:00
                  \\<nl># vim: set filetype=crontab:
                  \\<nl># Description: crontab .crontab.user@hostname
                  \\<nl>
-                 \\<nl>#
-                 \\<nl># minute (0-59)
-                 \\<nl># \|   hour (0-23)
-                 \\<nl># \|   \|   day of the month (1-31)
-                 \\<nl># \|   \|   \|   month of the year (1-12)
-                 \\<nl># \|   \|   \|   \|   day of the week (0-6 with 0=Sun)
-                 \\<nl># \|   \|   \|   \|   \|   commands
-                 \\<nl># \|   \|   \|   \|   \|   \|
-                 \\<nl>1     1   15  *   *   SUJ=\\"Crontab reminder for `id -un`@`hostname`\\" ; ( echo $SUJ ; date ; uname -a ; crontab -l ) \| mail -s \\"$SUJ\\" root > /dev/null
+                 \\<nl>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+                 \\<nl>
+                 \\<nl>#minute (0-59)
+                 \\<nl>#    hour (0-23)
+                 \\<nl>#    #    day of the month (1-31)
+                 \\<nl>#    #    #    month of the year (1-12)
+                 \\<nl>#    #    #    #    day of the week (0-6 with 0=Sun)
+                 \\<nl>#    #    #    #    #    commands
+                 \\<nl>#    #    #    #    #    #
+                 \\<nl>#    #    #    #    #    #
+                 \\<nl>#    #    #    #    #    #
+                 \\<nl>
+                 \\<nl>## crontab reminder
+                 \\<nl>1    1    15   *    *    SUJ=\\"Crontab reminder for `id -un`@`hostname`\\" ; ( echo $SUJ ; date ; uname -a ; crontab -l ) \| mail -s \\"$SUJ\\" root > /dev/null
+                 \\<nl>
+                 \\<nl>## start moteino
+                 \\<nl>*/5  *    *    *    *    $HOME/etc/shell/moteinolog.pl > /dev/null 2>&1
+                 \\<nl>@reboot                  $HOME/etc/shell/moteinolog.pl > /dev/null 2>&1
+                 \\<nl>
+                 \\<nl>## needed for wol
+                 \\<nl>@reboot                  ethtool -s enp3s0 wol g
+                 \\<nl>
                  \\<nl>
                  \\"
 
@@ -1996,42 +2009,45 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl># Last Modified: Sunday 24 March 2024, 12:13
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:12
+                 \\<nl># Edit Time: 0:00:03
                  \\<nl># Description:
+                 \\<nl>#          zpool scrub/resilver for munin
+                 \\<nl>#          OK:  100 % (old: off=10)
+                 \\<nl>#          BAD:   0 % (old: ON=90)
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>#use strict;
-                 \\<nl>#use warnings;
+                 \\<nl>use warnings;
                  \\<nl>
                  \\<nl>foreach (qx(zpool status)) {
                  \\<nl>    if (m,^\\s*pool:\\s+(.*),) { $pool = $1; }
                  \\<nl>    if (m,^\\s*scan:\\s+(.*),) { $scan = $1; $ok = 1; }
                  \\<nl>    if ($ok) {
                  \\<nl>        $ok = 0;
-                 \\<nl>        if ( $scan =~ 'scrub in progress\|resilver' ) {
-                 \\<nl>            $poollist{$pool} = 90;
+                 \\<nl>        if ( $scan =~ '(scrub in progress)\|(resilver in progress)' ) {
+                 \\<nl>            $poollist{$pool} = 0;
                  \\<nl>        } else {
-                 \\<nl>            $poollist{$pool} = 10;
+                 \\<nl>            $poollist{$pool} = 100;
                  \\<nl>        }
                  \\<nl>    }
                  \\<nl>}
                  \\<nl>
                  \\<nl>if ( $ARGV[0] and $ARGV[0] eq \\"config\\" ) {
                  \\<nl>    print <<EOT;
-                 \\<nl>graph_title scrub/resilver zpool
-                 \\<nl>graph_vlabel in scrub/rslv at 90
-                 \\<nl>graph_category ZFS
-                 \\<nl>graph_args --base 1000 --lower-limit 0 --upper-limit 100 --rigid
-                 \\<nl>graph_info This graph shows the pool scrub.
+                 \\<nl>graph_title \\@scrub or rslv zpool
+                 \\<nl>graph_vlabel in scrub or rslv at 0
+                 \\<nl>graph_category zfs
+                 \\<nl>graph_args --base 1000 --lower-limit -5 --upper-limit 105 --rigid
+                 \\<nl>graph_info This graph shows the pool scrub or resilver (OK=100 BAD=0).
                  \\<nl>EOT
                  \\<nl>
                  \\<nl>    foreach $d ( sort keys %poollist ) {
                  \\<nl>        print \\"$d.label $d\\n\\";
-                 \\<nl>        print \\"$d.warning 2:20\\n\\";
-                 \\<nl>        print \\"$d.critical 1:99\\n\\";
+                 \\<nl>        print \\"$d.warning 90:\\n\\";
+                 \\<nl>        ##print \\"$d.critical 90:\\n\\";
                  \\<nl>    }
                  \\<nl>    exit 0;
                  \\<nl>}
@@ -2074,21 +2090,44 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl># Last Modified: Sunday 24 March 2024, 15:47
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:12
+                 \\<nl># Edit Time: 0:00:04
                  \\<nl># Description:
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>#       Munin plugin for Freebox bandwith
+                 \\<nl>#       bug: perl doenst work in debian 11 munin 2.0.67
+                 \\<nl>#
+                 \\<nl># Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
                  \\<nl>
-                 \\<nl>import numpy as np
-                 \\<nl>import matplotlib.pyplot as plt
+                 \\<nl>import os
+                 \\<nl>import sys
+                 \\<nl>import json
                  \\<nl>
-                 \\<nl>x = np.linspace(0, 2*np.pi, 30)
-                 \\<nl>y = np.cos(x)
-                 \\<nl>plt.plot(x, y)
+                 \\<nl>if len(sys.argv) > 1:
+                 \\<nl>    if sys.argv[1] == \\"config\\":
+                 \\<nl>        print('''graph_title Bandwith Freebox
+                 \\<nl>graph_vlabel Mbps
+                 \\<nl>graph_args --base 1024
+                 \\<nl>graph_category sensors
+                 \\<nl>up.type GAUGE
+                 \\<nl>up.min 0
+                 \\<nl>up.max 9000
+                 \\<nl>up.label UP
+                 \\<nl>dl.type GAUGE
+                 \\<nl>dl.min 0
+                 \\<nl>dl.max 9000
+                 \\<nl>dl.label DL''')
+                 \\<nl>    sys.exit(0)
                  \\<nl>
-                 \\<nl>plt.show()
+                 \\<nl>spt = json.load(os.popen('speedtest -f json'))
+                 \\<nl>
+                 \\<nl>up = spt[\\"upload\\"][\\"bandwidth\\"] * 8 / 1024 / 1024
+                 \\<nl>dl = spt[\\"download\\"][\\"bandwidth\\"] * 8 / 1024 / 1024
+                 \\<nl>
+                 \\<nl>print(\\"up.value\\", up)
+                 \\<nl>print(\\"dl.value\\", dl)
+                 \\<nl>
                  \\"
 
             "## template.sh #########################################
@@ -2100,46 +2139,27 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Friday 16 June 2023, 19:22
+                 \\<nl># Last Modified: Sunday 24 March 2024, 16:08
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:16
+                 \\<nl># Edit Time: 0:00:03
                  \\<nl># Description:
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2023 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl>
+                 \\<nl>if [ $(id -u) -ne 0 ]; then
+                 \\<nl>    echo \\"ERROR: this script must be run as root\\"
+                 \\<nl>    exit 1
+                 \\<nl>fi
                  \\<nl>
                  \\<nl>if [ \\"$#\\" -ne 1 ]; then
                  \\<nl>    echo \\"ERROR : please specify a device, e.g.: /dev/sdb\\"
                  \\<nl>    echo \\"Usage : $0 device\\"
-                 \\<nl>    echo \\"Just print, not doing it!\\"
-                 \\<nl>    exit 42
+                 \\<nl>    exit 1
                  \\<nl>fi
                  \\<nl>
-                 \\<nl>echo
-                 \\<nl>echo \\"-> mkparted, run this as root!:\\"
-                 \\<nl>echo \\"===============================\\"
-                 \\<nl>echo
+                 \\<nl>export LC_ALL=C
                  \\<nl>
-                 \\<nl>USB_NAME=RESCUE
-                 \\<nl>DEV_TO_FORMAT=$1
-                 \\<nl>cat << EOF
-                 \\<nl>mkdir -p /mnt/$USB_NAME
-                 \\<nl>umount ${DEV_TO_FORMAT}1
-                 \\<nl>wipefs ${DEV_TO_FORMAT} -a
-                 \\<nl>parted -s -a optimal ${DEV_TO_FORMAT} mklabel msdos
-                 \\<nl>parted -s -a optimal ${DEV_TO_FORMAT} unit MB mkpart primary fat32 -- 1 -1
-                 \\<nl>parted -s ${DEV_TO_FORMAT} set 1 boot on
-                 \\<nl>mkfs.fat -F32 -n $USB_NAME ${DEV_TO_FORMAT}1
-                 \\<nl>mount ${DEV_TO_FORMAT}1 /mnt/$USB_NAME
-                 \\<nl>mkdir -p /mnt/$USB_NAME/boot/syslinux
-                 \\<nl>echo 'This flash drive is mine, please email me at czo@free.fr, thank you!' > /mnt/$USB_NAME/README
-                 \\<nl>./syslinux --directory /boot/syslinux/ --install ${DEV_TO_FORMAT}1
-                 \\<nl>umount ${DEV_TO_FORMAT}1
-                 \\<nl>dd if=./mbr.bin of=${DEV_TO_FORMAT}
-                 \\<nl>sync
-                 \\<nl>
-                 \\<nl>EOF
-                 \\<nl>
-                 \\<nl>
+                 \\<nl>echo \\"BlaBla...\\"
                  \\"
 
             catch /.*/
