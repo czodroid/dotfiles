@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 24 March 2024, 19:26
-" $Id: .vimrc,v 1.473 2024/03/24 18:29:14 czo Exp $
-" Edit Time: 246:52:54
+" Last Modified: Sunday 24 March 2024, 19:47
+" $Id: .vimrc,v 1.474 2024/03/24 18:47:36 czo Exp $
+" Edit Time: 246:57:47
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -270,8 +270,9 @@ endif
 " reset cursor when vim exits
 "autocmd VimLeave * silent !echo -n "\033]112\007"
 
-" .cpp/.c++/.cxx/.cc are defined as cpp
+" .cpp/.c++/.cxx/.cc are defined as cpp in vim9
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
+autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
 autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 
@@ -1067,7 +1068,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.473 2024/03/24 18:29:14 czo Exp $
+            " $Id: .vimrc,v 1.474 2024/03/24 18:47:36 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
