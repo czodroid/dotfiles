@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 24 March 2024, 16:11
-" $Id: .vimrc,v 1.467 2024/03/24 15:12:43 czo Exp $
-" Edit Time: 246:07:34
+" Last Modified: Sunday 24 March 2024, 18:01
+" $Id: .vimrc,v 1.471 2024/03/24 17:01:35 czo Exp $
+" Edit Time: 246:39:05
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -184,6 +184,10 @@ if exists('+list')
     "set list
 endif
 
+if exists('+commentstring')
+    setlocal commentstring=#\ %s
+endif
+
 " tags search path
 set tags=./tags,tags,/users/soft5/newlabo/cvstree/alliance/sources/tags
 "set errorformat=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
@@ -272,17 +276,19 @@ autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd Filetype json       let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 autocmd FileType perl       setlocal equalprg=perltidy\ -ce\ -l=0\ -st
 
-autocmd FileType apache     setlocal commentstring=#\ %s
-autocmd FileType cfg        setlocal commentstring=#\ %s
-autocmd FileType crontab    setlocal commentstring=#\ %s
-autocmd FileType exports    setlocal commentstring=#\ %s
-autocmd FileType debsources setlocal commentstring=#\ %s
+" setlocal commentstring=# at start
+" autocmd FileType apache     setlocal commentstring=#\ %s
+" autocmd FileType cfg        setlocal commentstring=#\ %s
+" autocmd FileType conf       setlocal commentstring=#\ %s
+" autocmd FileType crontab    setlocal commentstring=#\ %s
+" autocmd FileType debsources setlocal commentstring=#\ %s
+" autocmd FileType exports    setlocal commentstring=#\ %s
 autocmd FileType cpp        setlocal commentstring=//\ %s
 autocmd FileType json       setlocal commentstring=//\ %s
 autocmd FileType php        setlocal commentstring=//\ %s
 autocmd FileType xdefaults  setlocal commentstring=!\ %s
 
-autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|conf\|xdefaults\|vim' | :call CzoTTW () | endif
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim' | :call CzoTTW () | endif
 
 
 endif
@@ -1069,7 +1075,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.467 2024/03/24 15:12:43 czo Exp $
+            " $Id: .vimrc,v 1.471 2024/03/24 17:01:35 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -2194,36 +2200,39 @@ endif
 
 " == commentary.vim ====================================================
 
-if version < 700
-  finish
+if exists("g:loaded_commentary") || v:version < 700
+    finish
 else
 
-" Maintainer:   Tim Pope <http://tpo.pe/>
-" Version:      1.3
-" GetLatestVimScripts: 3695 1 :AutoInstall: commentary.vim
-" autocmd FileType apache setlocal commentstring=#\ %s
-" 2019/06/18: Modified by Olivier Sirol <czo@free.fr>
-" https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim
+    " https://github.com/tpope/vim-commentary/blob/master/plugin/commentary.vim
+    " commentary.vim - Comment stuff out
+    " Maintainer:   Tim Pope <http://tpo.pe/>
+    " Version:      1.3
+    " 2015-06-18: Modified by Olivier Sirol <czo@free.fr>
+    " 2024-03-24:
+    " version is stil 1.3, but has changed...
+    " seems to work on >= 703
+    " s: script local remplaced by s:commentary_
 
     let g:loaded_commentary = 1
 
-    function! Commentary_surroundings() abort
+    function! s:commentary_surroundings() abort
         return split(get(b:, 'commentary_format', substitute(substitute(substitute(
                     \ &commentstring, '^$', '%s', ''), '\S\zs%s',' %s', '') ,'%s\ze\S', '%s ', '')), '%s', 1)
     endfunction
 
-    function! Commentary_strip_white_space(l,r,line) abort
+    function! s:commentary_strip_white_space(l,r,line) abort
         let [l, r] = [a:l, a:r]
         if l[-1:] ==# ' ' && stridx(a:line,l) == -1 && stridx(a:line,l[0:-2]) == 0
             let l = l[:-2]
         endif
-        if r[0] ==# ' ' && a:line[-strlen(r):] != r && a:line[1-strlen(r):] == r[1:]
+        if r[0] ==# ' ' && (' ' . a:line)[-strlen(r)-1:] != r && a:line[-strlen(r):] == r[1:]
             let r = r[1:]
         endif
         return [l, r]
     endfunction
 
-    function! Commentary_go(...) abort
+    function! s:commentary_go(...) abort
         if !a:0
             let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
             return 'g@'
@@ -2233,30 +2242,43 @@ else
             let [lnum1, lnum2] = [line("'["), line("']")]
         endif
 
-        let [l, r] = Commentary_surroundings()
+        let [l, r] = s:commentary_surroundings()
         let uncomment = 2
+        let force_uncomment = a:0 > 2 && a:3
         for lnum in range(lnum1,lnum2)
             let line = matchstr(getline(lnum),'\S.*\s\@<!')
-            let [l, r] = Commentary_strip_white_space(l,r,line)
+            let [l, r] = s:commentary_strip_white_space(l,r,line)
             if len(line) && (stridx(line,l) || line[strlen(line)-strlen(r) : -1] != r)
                 let uncomment = 0
             endif
         endfor
 
+        if get(b:, 'commentary_startofline')
+            let indent = '^'
+        else
+            let indent = '^\s*'
+        endif
+
+        let lines = []
         for lnum in range(lnum1,lnum2)
             let line = getline(lnum)
             if strlen(r) > 2 && l.r !~# '\\'
                 let line = substitute(line,
-                            \'\M'.r[0:-2].'\zs\d\*\ze'.r[-1:-1].'\|'.l[0].'\zs\d\*\ze'.l[1:-1],
+                            \'\M' . substitute(l, '\ze\S\s*$', '\\zs\\d\\*\\ze', '') . '\|' . substitute(r, '\S\zs', '\\zs\\d\\*\\ze', ''),
                             \'\=substitute(submatch(0)+1-uncomment,"^0$\\|^-\\d*$","","")','g')
             endif
-            if uncomment
+            if force_uncomment
+                if line =~ '^\s*' . l
+                    let line = substitute(line,'\S.*\s\@<!','\=submatch(0)[strlen(l):-strlen(r)-1]','')
+                endif
+            elseif uncomment
                 let line = substitute(line,'\S.*\s\@<!','\=submatch(0)[strlen(l):-strlen(r)-1]','')
             else
-                let line = substitute(line,'^\%('.matchstr(getline(lnum1),'^\s*').'\|\s*\)\zs.*\S\@<=','\=l.submatch(0).r','')
+                let line = substitute(line,'^\%('.matchstr(getline(lnum1),indent).'\|\s*\)\zs.*\S\@<=','\=l.submatch(0).r','')
             endif
-            call setline(lnum,line)
+            call add(lines, line)
         endfor
+        call setline(lnum1, lines)
         let modelines = &modelines
         try
             set modelines=0
@@ -2267,14 +2289,14 @@ else
         return ''
     endfunction
 
-    function! Commentary_textobject(inner) abort
-        let [l, r] = Commentary_surroundings()
+    function! s:commentary_textobject(inner) abort
+        let [l, r] = s:commentary_surroundings()
         let lnums = [line('.')+1, line('.')-2]
         for [index, dir, bound, line] in [[0, -1, 1, ''], [1, 1, line('$'), '']]
             while lnums[index] != bound && line ==# '' || !(stridx(line,l) || line[strlen(line)-strlen(r) : -1] != r)
                 let lnums[index] += dir
                 let line = matchstr(getline(lnums[index]+dir),'\S.*\s\@<!')
-                let [l, r] = Commentary_strip_white_space(l,r,line)
+                let [l, r] = s:commentary_strip_white_space(l,r,line)
             endwhile
         endfor
         while (a:inner || lnums[1] != line('$')) && empty(getline(lnums[0]))
@@ -2284,18 +2306,12 @@ else
             let lnums[1] -= 1
         endwhile
         if lnums[0] <= lnums[1]
-            exec 'normal! 'lnums[0].'GV'.lnums[1].'G'
+            execute 'normal! 'lnums[0].'GV'.lnums[1].'G'
         endif
     endfunction
 
-    command! -range -bar Commentary call Commentary_go(<line1>,<line2>)
+    command! -range -bar -bang Commentary call s:commentary_go(<line1>,<line2>,<bang>0)
 
-    " remove or add a comment with 'C-_' or 'Ctrl-Shift-/' (French kbd)
-    " or 'Ctrl-Shift-=' (US kbd) (any key near backspace and right shift)
-    map  <C-_>      :Commentary<CR>
-    imap <C-_>      <C-O>:Commentary<CR>
-
-    " command! -range -bar Commentary call s:go(<line1>,<line2>)
     " xnoremap <expr>   <Plug>Commentary     <SID>go()
     " nnoremap <expr>   <Plug>Commentary     <SID>go()
     " nnoremap <expr>   <Plug>CommentaryLine <SID>go() . '_'
@@ -2304,15 +2320,17 @@ else
     " nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"<CR>
 
     " if !hasmapto('<Plug>Commentary') || maparg('gc','n') ==# ''
-    "   xmap gc  <Plug>Commentary
-    "   nmap gc  <Plug>Commentary
-    "   omap gc  <Plug>Commentary
-    "   nmap gcc <Plug>CommentaryLine
-    "   if maparg('c','n') ==# '' && !exists('v:operator')
-    "     nmap cgc <Plug>ChangeCommentary
-    "   endif
-    "   nmap gcu <Plug>Commentary<Plug>Commentary
+    "     xmap gc  <Plug>Commentary
+    "     nmap gc  <Plug>Commentary
+    "     omap gc  <Plug>Commentary
+    "     nmap gcc <Plug>CommentaryLine
+    "     nmap gcu <Plug>Commentary<Plug>Commentary
     " endif
+
+    " remove or add a comment with any key near backspace and right shift
+    " 'C-_' or 'Ctrl-Shift-/' (French kbd) or 'Ctrl-Shift-=' (US kbd)
+    map  <C-_>      :Commentary<CR>
+    imap <C-_>      <C-O>:Commentary<CR>
 
 endif
 " end commentary.vim
