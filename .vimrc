@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 24 March 2024, 18:01
-" $Id: .vimrc,v 1.471 2024/03/24 17:01:35 czo Exp $
-" Edit Time: 246:39:05
+" Last Modified: Sunday 24 March 2024, 19:26
+" $Id: .vimrc,v 1.473 2024/03/24 18:29:14 czo Exp $
+" Edit Time: 246:52:54
 " Description:
 "              my vim config file
 "              self contained, no .gvimrc, nothing in .vim
@@ -270,23 +270,15 @@ endif
 " reset cursor when vim exits
 "autocmd VimLeave * silent !echo -n "\033]112\007"
 
+" .cpp/.c++/.cxx/.cc are defined as cpp
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
-autocmd BufNewFile,BufRead *.h++ set filetype=cpp
-autocmd Filetype json       let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
-autocmd FileType perl       setlocal equalprg=perltidy\ -ce\ -l=0\ -st
+autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 
-" setlocal commentstring=# at start
-" autocmd FileType apache     setlocal commentstring=#\ %s
-" autocmd FileType cfg        setlocal commentstring=#\ %s
-" autocmd FileType conf       setlocal commentstring=#\ %s
-" autocmd FileType crontab    setlocal commentstring=#\ %s
-" autocmd FileType debsources setlocal commentstring=#\ %s
-" autocmd FileType exports    setlocal commentstring=#\ %s
-autocmd FileType cpp        setlocal commentstring=//\ %s
-autocmd FileType json       setlocal commentstring=//\ %s
-autocmd FileType php        setlocal commentstring=//\ %s
-autocmd FileType xdefaults  setlocal commentstring=!\ %s
+autocmd FileType cpp       setlocal commentstring=//\ %s
+autocmd FileType json      setlocal commentstring=//\ %s
+autocmd FileType php       setlocal commentstring=//\ %s
+autocmd FileType xdefaults setlocal commentstring=!\ %s
 
 autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim' | :call CzoTTW () | endif
 
@@ -1075,7 +1067,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.471 2024/03/24 17:01:35 czo Exp $
+            " $Id: .vimrc,v 1.473 2024/03/24 18:29:14 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
