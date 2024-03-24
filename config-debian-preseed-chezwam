@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Monday 27 November 2023, 20:20
-# $Id: config-debian-preseed-chezwam,v 1.31 2023/11/27 19:21:31 czo Exp $
-# Edit Time: 8:55:48
+# Last Modified: Saturday 23 March 2024, 11:58
+# $Id: config-debian-preseed-chezwam,v 1.32 2024/03/23 10:58:43 czo Exp $
+# Edit Time: 8:57:09
 # Description:
 #
 #            debian 10 preseed update
@@ -26,7 +26,7 @@
 #
 # aptitude search '~i ~Osalt'
 #
-# Copyright: (C) 2018-2023 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2018-2024 Olivier Sirol <czo@free.fr>
 
 LOGFILE="/tmp/debian_preseed_up_root_$(date '+%Y-%m-%d_%H-%M')_$$.log"
 
@@ -118,7 +118,13 @@ server 192.168.11.1
 # server 10.0.21.16
 # server 10.0.21.17
 
-# et POOL
+## Lognes
+# pool 0.fr.pool.ntp.org iburst
+# pool 1.fr.pool.ntp.org iburst
+# pool 2.fr.pool.ntp.org iburst
+# pool 3.fr.pool.ntp.org iburst
+
+## et World Pool
 # pool 0.debian.pool.ntp.org iburst
 # pool 1.debian.pool.ntp.org iburst
 # pool 2.debian.pool.ntp.org iburst
