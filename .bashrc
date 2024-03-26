@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 26 March 2024, 17:16
-# $Id: .bashrc,v 1.586 2024/03/26 16:22:38 czo Exp $
-# Edit Time: 134:44:47
+# Last Modified: Tuesday 26 March 2024, 22:03
+# $Id: .bashrc,v 1.587 2024/03/26 21:04:02 czo Exp $
+# Edit Time: 134:45:41
 # Description:
 #         ~/.bashrc is executed by bash for non-login shells.
 #         tries to mimic my .zshrc and to be 2.05 compatible
@@ -638,7 +638,8 @@ alias RemeberThis_7z_passwd='7z a -mhe=on -ptruc bidule.7z bidule'
 alias RemeberThis_GoPro_fps='ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 22 -c:a aac -strict experimental -pix_fmt yuv420p -r 29.97 out.mp4'
 alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file $PWD/$f"; done) -c copy output.mp4'
 alias RemeberThis_iMovie_fps2997='export FPS=29.97 ; ffmpeg -f lavfi -i testsrc=duration=10:size=1920x1080:rate=$FPS -vf "drawtext=text=%{n}:fontsize=72:r=$FPS:x=(w-tw)/2: y=h-(2*lh):fontcolor=white:box=1:boxcolor=0x00000099" -pix_fmt yuv420p test-${FPS}fps.mp4'
-alias RemeberThis_poweroff_FreeBSD='shutdown -p +0'
+alias RemeberThis_poweroff_FreeBSD5='shutdown -p +0'
+alias RemeberThis_poweroff_macOS='shutdown -h now'
 alias RemeberThis_zpool_create='zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on tank1 /dev/XXX'
 alias RemeberThis_zpool_create_crypted_passwd='zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on -O encryption=on -O keyformat=passphrase -O keylocation=prompt -o feature@encryption=enabled tank1 /dev/XXX'
 alias RemeberThis_zpool_create_crypted_file='dd if=/dev/urandom bs=32 count=1 of=/run/keyfile ; zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on -O encryption=on -O keylocation=file:///run/keyfile -O keyformat=raw -o feature@encryption=enabled tank1 /dev/XXX'
