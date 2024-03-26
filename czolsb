@@ -4,25 +4,34 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Thursday 21 March 2024, 14:55
-# $Id: czolsb,v 1.69 2024/03/21 13:55:20 czo Exp $
-# Edit Time: 58:03:37
+# Last Modified: Tuesday 26 March 2024, 20:00
+# $Id: czolsb,v 1.71 2024/03/26 19:01:32 czo Exp $
+# Edit Time: 59:40:51
 # Description:
 #
-#   /etc/czolsb > /etc/motd
+#   This script displays the hostname, distribution version,
+#   machine hardware name, kernel version, number of processors
+#   and their make/model, memory, swap space and a version with
+#   the latest update, which can be placed in the /etc/motd file
 #
-#   the older czolsb, without lsb_release but with /etc/os-release
-#   when it was necessary to give the ESA the well-defined version
-#   centos_6.5-x86_64-czo_servup-20140410
+#   I wrote `czolsb' for Linux when I had to give ESA the well
+#   defined version 'centos_6.5-x86_64-czo_servup-20140410'
+#
+#   Now it works for Linux, Android, FreeBSD, OpenBSD, NetBSD,
+#   macOS, Windows (cygwin)
+#
+#   It will give you the update date if you enter the date in
+#   each update as follows:
+#    echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate
 #
 #   On Linux copy this script to /etc and make a cron
 #   /etc/cron.d/czo-motd-czolsb:
-#   @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
+#    @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
 #
 # Copyright: (C) 2009-2024 Olivier Sirol <czo@free.fr>
 
 # use strict;
-# use warnings;
+use warnings;
 
 $release_file        = '/etc/os-release';
 $debian_version_file = '/etc/debian_version';

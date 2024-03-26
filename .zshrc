@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 24 March 2024, 19:39
-# $Id: .zshrc,v 1.547 2024/03/24 18:47:36 czo Exp $
-# Edit Time: 138:03:52
+# Last Modified: Tuesday 26 March 2024, 17:21
+# $Id: .zshrc,v 1.549 2024/03/26 16:22:38 czo Exp $
+# Edit Time: 138:04:15
 # Description:
 #         ~/.zshrc is sourced in interactive shells.
 #         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
@@ -628,7 +628,7 @@ alias FC='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/
 alias FS='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
 alias FW='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
-alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. roBot, I dont want to bother you. I always check\n/var/log/mail.log or journalctl -u postfix@-.service to identify\nany bugs.\n" ; printf "\n/etc/mailname:\n" ; cat /etc/mailname ; printf "\n/etc/aliases:\n" ; cat /etc/aliases ; printf "\n/etc/mail.rc:\n" ; cat /etc/mail.rc ; printf "\n$HOME/.forward:\n" ; cat $HOME/.forward ; printf "\n$HOME/.mailrc:\n" ; cat $HOME/.mailrc ; ) 2>&1 | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
+alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. RoBot, I dont want to bother you. I always check\n/var/log/mail.log or journalctl -u postfix@-.service to identify\nany bugs.\n" ; printf "\n/etc/mailname:\n" ; cat /etc/mailname ; printf "\n/etc/aliases:\n" ; cat /etc/aliases ; printf "\n/etc/mail.rc:\n" ; cat /etc/mail.rc ; printf "\n$HOME/.forward:\n" ; cat $HOME/.forward ; printf "\n$HOME/.mailrc:\n" ; cat $HOME/.mailrc ; ) 2>&1 | mail -s "CZO, from $USER@$HOSTNAME, $(date +%Y-%m-%d\ %H:%M), do not reply" root'
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
@@ -757,6 +757,7 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 sq() { SB=$( perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME ) ; echo $SB ; $SB & }
 
 ## OLD and RemeberThis_
+alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'
 alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
 alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
 alias RemeberThis_7z_passwd='7z a -mhe=on -ptruc bidule.7z bidule'
