@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Tuesday 26 March 2024, 20:00
-# $Id: czolsb,v 1.71 2024/03/26 19:01:32 czo Exp $
-# Edit Time: 59:40:51
+# Last Modified: Tuesday 26 March 2024, 21:46
+# $Id: czolsb,v 1.72 2024/03/26 20:50:11 czo Exp $
+# Edit Time: 59:57:16
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -18,7 +18,7 @@
 #   defined version 'centos_6.5-x86_64-czo_servup-20140410'
 #
 #   Now it works for Linux, Android, FreeBSD, OpenBSD, NetBSD,
-#   macOS, Windows (cygwin)
+#   macOS, Windows (Cygwin/Mingw)
 #
 #   It will give you the update date if you enter the date in
 #   each update as follows:
@@ -110,7 +110,7 @@ $OSN    = qxc('uname');
 ##printv(qw(CCNAME CKNAME OSN));
 
 # Linux | Android | Cygwin
-if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
+if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
     $OSNAME = qxc('uname -o');
     if ( $OSN =~ /^Linux/ ) {
         if ( system('lsb_release >/dev/null 2>&1') != 0 ) {
@@ -154,10 +154,12 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin/i ) {
             }
         }
     } else {
-        $PRETTY_NAME = "Cygwin ($OSN)";
-        $ID          = "Cygwin";
+        $ID          = "Windows";
+        $OSN         = lc($OSN);
+        $PRETTY_NAME = "$ID ($OSN)";
         $VERSION_ID  = $OSN;
-        $VERSION_ID =~ s/^.*-//;
+        $VERSION_ID =~ s/^[^-]*-//;
+        $VERSION_ID =~ s/-/_/g;
     }
 
     ## CPU
@@ -276,6 +278,7 @@ elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
     }
 
     if ( $OSN =~ /^Darwin/ ) {
+        $ID         = 'macOS';
         $VERSION_ID = qxc('sysctl -n kern.osproductversion');
         $CRELEASE   = "$ID $VERSION_ID";
         $CCOREMODEL = qxc('sysctl -n machdep.cpu.brand_string');
