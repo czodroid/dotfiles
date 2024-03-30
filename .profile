@@ -6,36 +6,35 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Tuesday 19 March 2024, 17:55
-# $Id: .profile,v 1.40 2024/03/19 16:56:35 czo Exp $
-# Edit Time: 1:36:57
+# Last Modified: Saturday 30 March 2024, 17:20
+# $Id: .profile,v 1.46 2024/03/30 16:23:21 czo Exp $
+# Edit Time: 2:16:23
 # Description:
-#    ~/.profile: executed by the command interpreter for login shells.
-#    This file is not read by bash if ~/.bash_profile or ~/.bash_login
-#    exists.
+#
+#       .profile config file
+#
+#       ~/.profile is included by the shell for login shells.
+#       This file is not read by bash or zsh if ~/.bash_profile,
+#       ~/.bash_login, ~/.zshenv, ~/.zprofile or ~/.zlogin exists.
 #
 # Copyright: (C) 1995-2024 Olivier Sirol <czo@free.fr>
 
-# The default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
+## umask
+# umask 022
 
-# xmpp login alert
+## xmpp login alert
 if [ -x "$HOME/xmpp-send-login42.pl" ]; then
     sh -c '( DATE=`date "+%Y-%m-%d %H:%M"` ; echo "-> LOGIN `id -un`@`hostname` at $DATE" ; who | grep "$DATE" ; ) | $HOME/xmpp-send-login42.pl > /dev/null 2>&1 &'
 fi
 
-#export CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES=1400x800
+## include shell configuration
+# SHELLNAME=$(echo $0 | sed 's,.*/,,' | sed 's,^-,,')
+SHELLNAME=$( (echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null )
 
-#if [ -x "/usr/bin/dbus-launch" ]; then
-# export $(dbus-launch)
-#fi
-
-SHELLNAME=$(echo $0 | sed 's,.*/,,' | sed 's,^-,,')
 
 # if running sh
 case "$SHELLNAME" in
-    sh | ash | dash)
+    sh | ash | dash | mksh)
         # include .bashrc if it exists
         if [ -f "$HOME/.bashrc" ]; then
             . "$HOME/.bashrc"
@@ -55,35 +54,17 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-# GEOSCOPE / SMV bad habit
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+## remote desktop size
+# export CHROME_REMOTE_DESKTOP_DEFAULT_DESKTOP_SIZES=1400x800
 
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-# validation
-if [ -d "/archive/bin" ] ; then
-    PATH="/archive/bin:$PATH"
-fi
+## dbus
+# if [ -x "/usr/bin/dbus-launch" ]; then
+#  export $(dbus-launch)
+# fi
 
-if [ -d "/opt/seiscomp/bin" ] ; then
-    PATH="$PATH:/opt/seiscomp/bin"
-fi
+## startx
+# [ ! $DISPLAY ] && [ ! $SSH_TTY ] && [ $XDG_VTNR == 1 ] && startx
 
-# grt
-if [ -d "/opt/passcal/bin" ] ; then
-    PATH="$PATH:/opt/passcal/bin"
-fi
-
-if [ -d "/NAS/bin" ] ; then
-    PATH="$PATH:/NAS/bin"
-fi
-
-# startx
-#[ ! $DISPLAY ] && [ ! $SSH_TTY ] && [ $XDG_VTNR == 1 ] && startx
-
-# mesg n 2> /dev/null || true
+## messages talk / write
+mesg n 2> /dev/null || true
 

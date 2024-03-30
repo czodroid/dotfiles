@@ -6,16 +6,16 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2001
-# Last Modified: Sunday 11 February 2024, 11:30
-# $Id: .inputrc,v 1.13 2024/02/11 10:52:00 czo Exp $
-# Edit Time: 5:01:17
+# Last Modified: Saturday 30 March 2024, 15:40
+# $Id: .inputrc,v 1.15 2024/03/30 14:58:56 czo Exp $
+# Edit Time: 5:07:44
 # Description:
-#              inputrc config file
-#              See `man readline` and `info rluserman'
 #
-#              [bash 5.2 (2023-06-15)]:
-#              Need to keep .inputrc for LS_COLORS colors to be correct
-#              even if it's on .bashrc
+#       inputrc config file (man readline)
+#
+#       [bash 5.2 (2023-06-15)]:
+#           Need to keep .inputrc for LS_COLORS colors to be
+#           correct even if it's on .bashrc
 #
 # Copyright: (C) 2001-2024 Olivier Sirol <czo@free.fr>
 

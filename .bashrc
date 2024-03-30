@@ -6,15 +6,21 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 26 March 2024, 22:03
-# $Id: .bashrc,v 1.587 2024/03/26 21:04:02 czo Exp $
-# Edit Time: 134:45:41
+# Last Modified: Saturday 30 March 2024, 17:21
+# $Id: .bashrc,v 1.598 2024/03/30 16:23:21 czo Exp $
+# Edit Time: 137:57:06
 # Description:
-#         ~/.bashrc is executed by bash for non-login shells.
-#         tries to mimic my .zshrc and to be 2.05 compatible
-#         for old wkstations
-#         rm ~/.bash_profile ~/.bash_login ~/.bash_history
-#         and put instead .profile
+#
+#       bash config file
+#
+#       This file is compatible with sh, ash, dash, mksh and bash.
+#
+#       bash and zsh have the same HISTFILE (~/.sh_history).
+#       Just do a `ln -s ~/.sh_history ~/.bash_history'.
+#       Because ~/.bashrc is executed by bash for non-login shells,
+#       you need to create ~/.profile to include it. You must also
+#       `rm ~/.bash_profile ~/.bash_login' which are not compatible
+#       with ~/.profile.
 #
 # Copyright: (C) 1998-2024 Olivier Sirol <czo@free.fr>
 
@@ -25,23 +31,26 @@
 # set -x
 #RTMStart=$(date +%s%N)
 
-##======= Bash Settings ==============================================##
+##======= Interactive ================================================##
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-export TMPDIR=${TMPDIR-/tmp}
+##======= Bash Settings ==============================================##
 
-export HISTFILE=$TMPDIR/.sh_history
+export TMPDIR=${TMPDIR-/tmp}
+SHELLNAME=$( (echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null )
+
+if [ "X${SHELLNAME}" = "Xmksh" ]; then
+    export HISTFILE=$HOME/.mksh_history
+else
+    export HISTFILE=$HOME/.sh_history
+fi
 
 if [ -n "$BASH_VERSION" ]; then
-    #busybox ash bug when defining HISTFILE...
-    export HISTFILE=$HOME/.sh_history
-    # olivier, repasse a zsh ...
     export HISTFILESIZE=55000
     export HISTSIZE=44000
     export HISTCONTROL=ignorespace:erasedups
-    #export HISTTIMEFORMAT='%F %T '
 
     # avoid overwriting history
     #shopt -s histappend
@@ -131,12 +140,13 @@ fi
 
 ## config openwrt
 if [ -d /rom/bin ]; then
+    export HISTFILE=$TMPDIR/.sh_history
     export PATH="$PATH:/rom/bin"
 fi
 
 ## config termux for android
 if [ -d /system/bin ]; then
-    export TMPDIR=/data/local/tmp
+    export TMPDIR=/data/data/com.termux/files/home/tmp
     export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:$PATH"
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 fi
@@ -156,6 +166,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo
 
 ##======= Environment Variables ======================================##
 
+#if command -v most > /dev/null 2>&1; then
 if [ -x "$(command -v hostname)" ]; then
     HOSTNAME=$(hostname 2>/dev/null)
 else
@@ -286,6 +297,11 @@ if [ -n "$BASH_VERSION" ]; then
     # for FR keybord : undo is ctrl-shift-/
 fi
 
+if [ "X${SHELLNAME}" = "Xmksh" ]; then
+    bind "^[[A"=search-history-up
+    bind "^[[B"=search-history-down
+fi
+
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Completions ================================================##
@@ -318,8 +334,8 @@ alias t='type -a'
 alias a='type -a'
 alias eq='type -P'
 
-alias st=". ~/.bashrc"
-[ -f ~/.bashrc.czo ] && alias st=". ~/.bashrc.czo"
+alias st=". $HOME/.bashrc"
+[ -f ~/.bashrc.czo ] && alias st=". $HOME/.bashrc.czo"
 alias hi='fc -l -9111000'
 alias h='fc -l -9111000 | sed "s/^[ \t]*[0-9]\+[ \t]\+//" | grep'
 
@@ -498,7 +514,7 @@ alias rsync_normal='rsync --delete -av'
 # config:  https://git.io/JU6cm
 # ssh:     https://git.io/JU6c2
 # preseed: http://git.io/JkHdk
-alias FC='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
+alias FF='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
 alias FS='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
 alias FW='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
@@ -729,7 +745,7 @@ precmd
 if [ -n "$BASH_VERSION" ]; then
     # history 1 | sed "s/^\s*[0-9]\+\s\+//" # works in GNU, but doesnt on BSD
     # history 1 | awk "{sub(/^\s*[0-9]+\s+/,\"\") ; print}" # works in GNU, but doesnt on BSD
-    # history 1 | perl -pe "s/^\s*[0-9]+\s+//" # but maybe perl is not installed - but I love perl!
+    # history 1 | perl -pe "s/^\s*[0-9]+\s+//" # maybe perl is not installed - but I love perl!
     # history 1 | awk "{sub(/^[ \t]*[0-9]+[ \t]+/,\"\") ; print}" # good on awk bsd and gnu!!!!!
     PS0='$(title "$(history 1 2>/dev/null | awk "{sub(/^[ \t]*[0-9]+[ \t]+/,\"\") ; print}" 2>/dev/null) (${USER}@${HOSTNAME})")'
 fi
@@ -762,8 +778,6 @@ if [ -x "$(command -v git)" ]; then
     __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
 fi
 
-SHELLNAME=$(echo $0 | sed 's,.*/,,' | sed 's,^-,,')
-
 if [ -x "$(command -v tty)" ]; then
     MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
 fi
@@ -771,7 +785,7 @@ fi
 if [ -n "$BASH_VERSION" ]; then
     PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;33m\]$(__git_ps1 "(%s)")\[\e[0;97m\]>>\[\e[m\] '
 else
-    # old sh/ash/dash .shrc .shinit ($' works in sh android but not in sh freebsd)
+    # old sh/ash/dash/mksh .mkshrc .shrc .shinit ($' works in sh android but not in sh freebsd)
     PS1='[m
 [0;97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
 [0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;96m$PWD[m

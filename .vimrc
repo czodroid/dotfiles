@@ -6,12 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 24 March 2024, 19:47
-" $Id: .vimrc,v 1.474 2024/03/24 18:47:36 czo Exp $
-" Edit Time: 246:57:47
+" Last Modified: Saturday 30 March 2024, 16:49
+" $Id: .vimrc,v 1.476 2024/03/30 15:49:26 czo Exp $
+" Edit Time: 247:02:43
 " Description:
-"              my vim config file
-"              self contained, no .gvimrc, nothing in .vim
+"
+"       vim config file
+"       self contained, no .gvimrc, nothing in .vim/
 "
 " Copyright: (C) 1995-2024 Olivier Sirol <czo@free.fr>
 
@@ -281,7 +282,7 @@ autocmd FileType json      setlocal commentstring=//\ %s
 autocmd FileType php       setlocal commentstring=//\ %s
 autocmd FileType xdefaults setlocal commentstring=!\ %s
 
-autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim' | :call CzoTTW () | endif
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim\|readline' | :call CzoTTW () | endif
 
 
 endif
@@ -1068,7 +1069,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.474 2024/03/24 18:47:36 czo Exp $
+            " $Id: .vimrc,v 1.476 2024/03/30 15:49:26 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

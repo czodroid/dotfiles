@@ -6,15 +6,22 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 26 March 2024, 22:03
-# $Id: .zshrc,v 1.550 2024/03/26 21:04:02 czo Exp $
-# Edit Time: 138:04:24
+# Last Modified: Saturday 30 March 2024, 17:21
+# $Id: .zshrc,v 1.558 2024/03/30 16:23:21 czo Exp $
+# Edit Time: 139:16:34
 # Description:
-#         ~/.zshrc is sourced in interactive shells.
-#         rm ~/.zshenv ~/.zprofile ~/.zlogin ~/.zsh_history
-#         and put instead .profile
-#         This is Alex Fenyo, my guru, who made me discover this
-#         amazing shell in 1996... I am forever grateful to him.
+#
+#       zsh config file
+#
+#       bash and zsh have the same HISTFILE (~/.sh_history).
+#       Just do a `ln -s ~/.sh_history ~/.zsh_history'.
+#       You need to `rm ~/.zshenv ~/.zprofile ~/.zlogin' which are
+#       not compatible with ~/.profile used by zsh/sh/ash/mksh/bash.
+#       but no need to include it in ~/.profile because ~/.zshrc is
+#       sourced in interactive shells.
+#
+#       This is Alex Fenyo, my guru, who made me discover this
+#       amazing shell in 1996... I am forever grateful to him.
 #
 # Copyright: (C) 1996-2024 Olivier Sirol <czo@free.fr>
 
@@ -26,6 +33,9 @@
 #RTMStart=$(date +%s%N)
 
 ##======= Zsh Settings ===============================================##
+
+export TMPDIR=${TMPDIR-/tmp}
+SHELLNAME='zsh'
 
 setopt ALWAYS_TO_END          # On completion go to end of word
 setopt NO_AUTO_CD             # Directory as command does cd
@@ -52,13 +62,12 @@ setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
 setopt RM_STAR_SILENT         # Don’t warn on rm *
 setopt SH_WORD_SPLIT          # Split non­array variables yuckily
 
-export TMPDIR=${TMPDIR-/tmp}
-
 export HISTFILE=$HOME/.sh_history
 export SAVEHIST=55000
 export HISTSIZE=44000
-# screen size
-#export LISTMAX=0
+
+## screen size
+# export LISTMAX=0
 export LISTMAX=1000
 
 export REPORTTIME=5
@@ -151,12 +160,13 @@ fi
 
 ## config openwrt
 if [ -d /rom/bin ]; then
+    export HISTFILE=$TMPDIR/.sh_history
     export PATH="$PATH:/rom/bin"
 fi
 
 ## config termux for android
 if [ -d /system/bin ]; then
-    export TMPDIR=/data/local/tmp
+    export TMPDIR=/data/data/com.termux/files/home/tmp
     export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:$PATH"
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 fi
@@ -624,7 +634,7 @@ alias rsync_normal='rsync --delete -av'
 # config:  https://git.io/JU6cm
 # ssh:     https://git.io/JU6c2
 # preseed: http://git.io/JkHdk
-alias FC='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
+alias FF='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
 alias FS='curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
 alias FW='wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
@@ -901,8 +911,6 @@ __git_ps1() { true ;}
 if [ -x "$(command -v git)" ]; then
     __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
 fi
-
-SHELLNAME='zsh'
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;33m%}$(__git_ps1 "(%s)")%{\e[0;97m%}>>%{\e[m%} '
 

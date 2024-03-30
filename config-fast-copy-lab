@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Sunday 11 February 2024, 13:16
-# $Id: config-fast-copy-lab,v 1.3 2024/02/11 12:54:25 czo Exp $
-# Edit Time: 6:14:31
+# Last Modified: Saturday 30 March 2024, 16:18
+# $Id: config-fast-copy-lab,v 1.4 2024/03/30 15:19:34 czo Exp $
+# Edit Time: 6:16:43
 # Description:
 #
 #  copy my config files (you must do a "cd" before running this script)
@@ -29,6 +29,9 @@ echo "## -> copy my config files"
 mkdir -p .config/htop
 mkdir -p .config/mc
 chmod 700 .config/mc
+
+rm -f .tmate.conf
+ln -s .tmux.conf .tmate.conf
 
 for f in .bashrc .clang-format .cshrc .cvsrc .gitconfig .inputrc .pep8 .perltidyrc .phpcs.xml .prettierrc .profile .screenrc .tmux.conf .vimrc .Xresources .zshrc .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
 do

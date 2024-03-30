@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Monday 18 March 2024, 14:58
-# $Id: .cshrc,v 1.173 2024/03/18 14:00:13 czo Exp $
-# Edit Time: 32:21:35
+# Last Modified: Saturday 30 March 2024, 17:22
+# $Id: .cshrc,v 1.174 2024/03/30 16:23:21 czo Exp $
+# Edit Time: 32:21:50
 # Description:
 #         ~/.cshrc config file for csh or tcsh
 #         it was really a good trick to update my .cshrc
@@ -373,7 +373,7 @@ alias rsync_fat     'rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal  'rsync --delete -av'
 alias lsblk         'lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
 
-alias FC            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
+alias FF            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
 alias FS            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
 alias FW            'wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
