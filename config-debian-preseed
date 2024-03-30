@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 29 August 2020
-# Last Modified: Monday 18 December 2023, 19:08
-# $Id: config-debian-preseed,v 1.27 2023/12/18 18:11:49 czo Exp $
-# Edit Time: 1:24:48
+# Last Modified: Saturday 30 March 2024, 17:38
+# $Id: config-debian-preseed,v 1.28 2024/03/30 16:38:50 czo Exp $
+# Edit Time: 1:28:38
 # Description:
 #
 #   debian 10 preseed/late_command for my dotconfig
@@ -17,13 +17,16 @@
 #   Run:
 #     wget --hsts-file=/tmp/.wget-hsts --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh
 #
-# Copyright: (C) 2020-2023 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2020-2024 Olivier Sirol <czo@free.fr>
 
 mkdir -p  .config/htop
 mkdir -p  .config/mc
 chmod 700 .config/mc
 
-for f in .Xresources .bashrc .cshrc .cvsrc .gitconfig .inputrc .profile .screenrc .tmux.conf .vimrc .zshrc .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
+rm -f .tmate.conf
+ln -s .tmux.conf .tmate.conf
+
+for f in .bashrc .clang-format .cshrc .cvsrc .gitconfig .inputrc .pep8 .perltidyrc .phpcs.xml .prettierrc .profile .screenrc .tmux.conf .vimrc .Xresources .zshrc .config/htop/htoprc .config/mc/ini .config/mc/panels.ini
 do
   wget --hsts-file=/tmp/.wget-hsts --no-check-certificate -q https://raw.githubusercontent.com/czodroid/dotfiles/master/$f -O $f
 done
