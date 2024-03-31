@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 30 March 2024, 16:49
-" $Id: .vimrc,v 1.476 2024/03/30 15:49:26 czo Exp $
-" Edit Time: 247:02:43
+" Last Modified: Sunday 31 March 2024, 10:12
+" $Id: .vimrc,v 1.477 2024/03/31 08:13:10 czo Exp $
+" Edit Time: 247:11:59
 " Description:
 "
 "       vim config file
@@ -278,6 +278,7 @@ autocmd BufNewFile,BufRead *.h   set filetype=c
 autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
 
 autocmd FileType cpp       setlocal commentstring=//\ %s
+autocmd FileType crontab   setlocal commentstring=#\ %s
 autocmd FileType json      setlocal commentstring=//\ %s
 autocmd FileType php       setlocal commentstring=//\ %s
 autocmd FileType xdefaults setlocal commentstring=!\ %s
@@ -1069,7 +1070,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.476 2024/03/30 15:49:26 czo Exp $
+            " $Id: .vimrc,v 1.477 2024/03/31 08:13:10 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
