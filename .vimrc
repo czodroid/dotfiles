@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 31 March 2024, 13:41
-" $Id: .vimrc,v 1.480 2024/03/31 11:41:40 czo Exp $
-" Edit Time: 249:08:54
+" Last Modified: Sunday 31 March 2024, 13:52
+" $Id: .vimrc,v 1.481 2024/03/31 11:52:28 czo Exp $
+" Edit Time: 249:18:02
 " Description:
 "
 "       vim config file
@@ -443,7 +443,7 @@ function! CzoMSwinEnable ()
         noremap     <C-F>   <C-F>
         inoremap    <C-F>   <C-F>
     else
-        echo "WARNING: no $VIMRUNTIME/mswin.vim..."
+        "echo "WARNING: no $VIMRUNTIME/mswin.vim..."
         behave mswin
         " Sort of for noX11
         vnoremap    <C-X>       "+x
@@ -471,7 +471,7 @@ function! CzoMSwinNoX11 ()
         noremap     <C-F>   <C-F>
         inoremap    <C-F>   <C-F>
     else
-        echo "WARNING: no $VIMRUNTIME/mswin.vim..."
+        "echo "WARNING: no $VIMRUNTIME/mswin.vim..."
         behave mswin
     endif
 
@@ -1073,7 +1073,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.480 2024/03/31 11:41:40 czo Exp $
+            " $Id: .vimrc,v 1.481 2024/03/31 11:52:28 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
