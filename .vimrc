@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 31 March 2024, 10:12
-" $Id: .vimrc,v 1.477 2024/03/31 08:13:10 czo Exp $
-" Edit Time: 247:11:59
+" Last Modified: Sunday 31 March 2024, 13:41
+" $Id: .vimrc,v 1.480 2024/03/31 11:41:40 czo Exp $
+" Edit Time: 249:08:54
 " Description:
 "
 "       vim config file
@@ -297,6 +297,9 @@ iab _e    <C-R>=expand("%:e")<cr>
 iab _fn   <C-R>=expand("%:t")<cr>
 iab _ffn  <C-R>=expand("%:p")<cr>
 
+iab _uh   <C-R>=$USER<cr>@<C-R>=$HOSTNAME<cr>
+iab _uu   <C-R>=$USER<cr>
+iab _hh   <C-R>=hostname()<cr>
 iab _home <C-R>=$HOME<cr>
 iab _vim  <C-R>=$VIMRUNTIME<cr>
 iab _date <C-R>=strftime("%Y-%m-%d")<cr>
@@ -1070,7 +1073,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.477 2024/03/31 08:13:10 czo Exp $
+            " $Id: .vimrc,v 1.480 2024/03/31 11:41:40 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1221,14 +1224,6 @@ function! TemplateMacro ()
         let &report = 999000
         normal mwHmv
 
-        " substitute expand
-        let pattern = '\(.*\)VIMEX{=expand("\([^)]*\)")}\(.*\)'
-        while FindStrInHeader(pattern)
-            let editline = getline (".")
-            let editline = substitute(editline, pattern, '\2', "")
-            exec 's/'.pattern.'/\1'.escape(expand(editline), '\').'\3/e'
-        endw
-
         " substitute strftime
         let pattern = '\(.*\)VIMEX{=strftime("\([^)]*\)")}\(.*\)'
         while FindStrInHeader(pattern)
@@ -1238,6 +1233,14 @@ function! TemplateMacro ()
             silent! exec 'language time C'
             exec 's/'.pattern.'/\1'.escape(strftime(editline), '\').'\3/e'
             silent! exec 'language time ' . save_lang
+        endw
+
+        " substitute expand
+        let pattern = '\(.*\)VIMEX{=\(.*\)}\(.*\)'
+        while FindStrInHeader(pattern)
+            let editline = getline (".")
+            let editline = substitute(editline, pattern, '\2', "")
+            exec 's/'.pattern.'/\1'.escape(expand(editline), '\').'\3/e'
         endw
 
         normal 1G'vzt`w
@@ -1263,6 +1266,7 @@ function! TemplateCzo (...)
     " /* 2011/01/27 : czo */
     " I have only a .vimrc, no more multiple config/template files
     "
+    " old code:
     "    let mytemplatefile = expand("$HOME/etc/vim/templates/template\." . xft)
     "    if filereadable(mytemplatefile)
     "        normal 1G
@@ -1270,9 +1274,9 @@ function! TemplateCzo (...)
     "        1d
     "    endif
     "
-    " run this:
+    " to update run this:
     " :r !cd ~/etc/vim-templates ; ./template
-    " after delting this
+    " after delting this:
     " ------------- SearchThisThenDelete -------------
 
     if xft != ""
@@ -1364,21 +1368,20 @@ function! TemplateCzo (...)
                       \# Filename: template.crontab
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Sunday 24 March 2024, 12:00
+                 \\<nl># Last Modified: Sunday 31 March 2024, 12:18
                  \\<nl># vim: set filetype=crontab:
-                 \\<nl># Description: crontab .crontab.user@hostname
+                 \\<nl># Description: crontab .crontab.VIMEX{=$USER}@VIMEX{=$HOSTNAME}
                  \\<nl>
+                 \\<nl># SHELL=/bin/sh
                  \\<nl>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
                  \\<nl>
-                 \\<nl>#minute (0-59)
-                 \\<nl>#    hour (0-23)
-                 \\<nl>#    #    day of the month (1-31)
-                 \\<nl>#    #    #    month of the year (1-12)
-                 \\<nl>#    #    #    #    day of the week (0-6 with 0=Sun)
-                 \\<nl>#    #    #    #    #    commands
-                 \\<nl>#    #    #    #    #    #
-                 \\<nl>#    #    #    #    #    #
-                 \\<nl>#    #    #    #    #    #
+                 \\<nl># .----------------------minute (0-59)
+                 \\<nl># \|  .-------------------hour (0-23)
+                 \\<nl># \|  \|  .----------------day of the month (1-31)
+                 \\<nl># \|  \|  \|  .-------------month of the year (1-12)
+                 \\<nl># \|  \|  \|  \|  .----------day of the week (0-6 with 0=Sun)
+                 \\<nl># \|  \|  \|  \|  \|
+                 \\<nl># *  *  *  *  *          command
                  \\<nl>
                  \\<nl>## crontab reminder
                  \\<nl>1    1    15   *    *    SUJ=\\"Crontab reminder for `id -un`@`hostname`\\" ; ( echo $SUJ ; date ; uname -a ; crontab -l ) \| mail -s \\"$SUJ\\" root > /dev/null
@@ -2166,7 +2169,6 @@ function! TemplateCzo (...)
             catch /.*/
         endtry
     endif
-
     " ------------- SearchThisThenDelete -------------
 
     exec ':0'
