@@ -1,0 +1,44 @@
+{
+  "magic": "nassh-prefs",
+  "version": 1,
+  "nassh": {
+    "welcome/notes-version": 1,
+    "welcome/show-count": 10
+  },
+  "hterm": {
+    "default": {
+      "desktop-notification-bell": true,
+      "background-color": "rgba(40, 40, 40, 1)",
+      "cursor-blink": true,
+      "cursor-blink-cycle": [600, 600],
+      "cursor-color": "rgba(184, 187, 38, 0.69)",
+      "color-palette-overrides": [
+        "#282828",
+        "#cc241d",
+        "#98971a",
+        "#fe8019",
+        "#458588",
+        "#b16286",
+        "#689d6a",
+        "#c9b788",
+        "#4a4239",
+        "#fb4934",
+        "#b8bb26",
+        "#fabd2f",
+        "#83a598",
+        "#d3869b",
+        "#8ec07c",
+        "#fbf1c7"
+      ],
+      "enable-bold": false,
+      "find-result-color": "rgba(98, 103, 223, 0.45)",
+      "find-result-selected-color": "rgba(80, 68, 136, 0.83)",
+      "font-family": "\"Source Code Pro\", \"DejaVu Sans Mono\", \"Noto Sans Mono\", monospace",
+      "font-size": "17",
+      "foreground-color": "rgba(201, 183, 136, 1)",
+      "scrollbar-visible": false,
+      "user-css-text": " ::selection {\n            color: #fbf1c7;\n            background-color: #458588;\n        }"
+    },
+    "mosh": { "scrollbar-visible": false }
+  }
+}
