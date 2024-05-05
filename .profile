@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Saturday 30 March 2024, 17:20
-# $Id: .profile,v 1.46 2024/03/30 16:23:21 czo Exp $
-# Edit Time: 2:16:23
+# Last Modified: Wednesday 24 April 2024, 15:59
+# $Id: .profile,v 1.48 2024/04/24 14:00:03 czo Exp $
+# Edit Time: 2:55:28
 # Description:
 #
 #       .profile config file
@@ -28,16 +28,15 @@ if [ -x "$HOME/xmpp-send-login42.pl" ]; then
 fi
 
 ## include shell configuration
-# SHELLNAME=$(echo $0 | sed 's,.*/,,' | sed 's,^-,,')
 SHELLNAME=$( (echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null )
-
 
 # if running sh
 case "$SHELLNAME" in
     sh | ash | dash | mksh)
-        # include .bashrc if it exists
+        # include a *compatible* .bashrc if it exists
         if [ -f "$HOME/.bashrc" ]; then
-            . "$HOME/.bashrc"
+            ENV="$HOME/.bashrc"
+            export ENV
         fi
         ;;
 esac

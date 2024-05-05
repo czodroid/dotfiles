@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 30 March 2024, 17:21
-# $Id: .zshrc,v 1.558 2024/03/30 16:23:21 czo Exp $
-# Edit Time: 139:16:34
+# Last Modified: Friday 26 April 2024, 17:09
+# $Id: .zshrc,v 1.561 2024/04/26 15:09:26 czo Exp $
+# Edit Time: 139:17:42
 # Description:
 #
 #       zsh config file
@@ -171,6 +171,19 @@ if [ -d /system/bin ]; then
     export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
 fi
 
+## config GEOSCOPE
+# vpn seiscomp v3
+if [ -d "/home/sysop/seiscomp3/bin" ] ; then
+    PATH="$PATH:/home/sysop/seiscomp3/bin"
+fi
+# seiscomp v4 v5 v6
+if [ -d "/home/sysop/seiscomp/bin" ] ; then
+    PATH="$PATH:/home/sysop/seiscomp/bin"
+    export SEISCOMP_ROOT="/home/sysop/seiscomp"
+    export LD_LIBRARY_PATH="/home/sysop/seiscomp/lib:$LD_LIBRARY_PATH"
+    export PYTHONPATH="/home/sysop/seiscomp/lib/python:$PYTHONPATH"
+fi
+
 ## config SWARM
 #export PATH="/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$PATH"
 
@@ -197,7 +210,7 @@ export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 export USER
 
 # GNU ls
-export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.7z=91:*.ace=91:*.arc=91:*.arj=91:*.bz2=91:*.bz=91:*.cab=91:*.cpio=91:*.deb=91:*.dz=91:*.ear=91:*.gz=91:*.jar=91:*.lha=91:*.lrz=91:*.lz4=91:*.lz=91:*.lzh=91:*.lzma=91:*.lzo=91:*.rar=91:*.rpm=91:*.rz=91:*.t7z=91:*.tar=91:*.taz=91:*.tbz2=91:*.tbz=91:*.tgz=91:*.tlz=91:*.txz=91:*.tz=91:*.tzst=91:*.war=91:*.xz=91:*.z=91:*.zip=91:*.zoo=91:*.zst=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.heic=95:*.heif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.oga=36:*.ogg=36:*.opus=36:*.ra=36:*.spx=36:*.wav=36:*.xspf=36:*.doc=92:*.docx=92:*.latex=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.tex=92:*.xls=92:*.xlsx=92:*.bat=93:*.c=93:*.c++=93:*.cc=93:*.cl=93:*.cmd=93:*.cpp=93:*.csh=93:*.css=93:*.cxx=93:*.el=93:*.f90=93:*.f=93:*.go=93:*.h=93:*.h++=93:*.hh=93:*.hpp=93:*.hs=93:*.htm=93:*.html=93:*.hxx=93:*.ino=93:*.java=93:*.js=93:*.json=93:*.l=93:*.less=93:*.lua=93:*.n=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.rs=93:*.scss=93:*.sh=93:*.shtml=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93'
+export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.7z=91:*.ace=91:*.arc=91:*.arj=91:*.bz2=91:*.bz=91:*.cab=91:*.cpio=91:*.deb=91:*.dz=91:*.ear=91:*.gz=91:*.iso=91:*.jar=91:*.lha=91:*.lrz=91:*.lz4=91:*.lz=91:*.lzh=91:*.lzma=91:*.lzo=91:*.rar=91:*.rpm=91:*.rz=91:*.t7z=91:*.tar=91:*.taz=91:*.tbz2=91:*.tbz=91:*.tgz=91:*.tlz=91:*.txz=91:*.tz=91:*.tzst=91:*.war=91:*.xz=91:*.z=91:*.zip=91:*.zoo=91:*.zst=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.heic=95:*.heif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.oga=36:*.ogg=36:*.opus=36:*.ra=36:*.spx=36:*.wav=36:*.xspf=36:*.doc=92:*.docx=92:*.latex=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.tex=92:*.xls=92:*.xlsx=92:*.bat=93:*.c=93:*.c++=93:*.cc=93:*.cl=93:*.cmd=93:*.cpp=93:*.csh=93:*.css=93:*.cxx=93:*.el=93:*.f90=93:*.f=93:*.go=93:*.h=93:*.h++=93:*.hh=93:*.hpp=93:*.hs=93:*.htm=93:*.html=93:*.hxx=93:*.ino=93:*.java=93:*.js=93:*.json=93:*.l=93:*.less=93:*.lua=93:*.n=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.rs=93:*.scss=93:*.sh=93:*.shtml=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93'
 
 # BSD ls
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
@@ -643,7 +656,7 @@ alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. RoBot, I dont wa
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
 alias dig_lartha='curl -sk https://lartha/hosts.html'
-alias ssha='eval $(ssh-agent); ssh-add; echo; echo "To add another identity:"; echo "ssh-add ~/.ssh/id_rsa_czo@bunnahabhain"'
+alias ssha='eval $(ssh-agent); ssh-add; echo; echo "To add another identity:"; echo "ssh-add ~/.ssh/id_rsa_czo\@bruichladdich"; echo "ssh-add ~/.ssh/id_rsa_czo\@bunnahabhain"'
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
@@ -717,7 +730,7 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # openwrt: opkg
-alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in /tmp/opkg.list"'
+alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in: vim /tmp/opkg.list"'
 alias OI='opkg install'
 alias OP='opkg remove'
 OS() { grep $1 /tmp/opkg.list ;}
@@ -766,6 +779,10 @@ passwd_simple_decrypt() { perl -e 'print join("",map{$_^"*"}split(//,pack("H*",$
 ## -o pulse
 sq() { SB=$( perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m + . join(qq+:+, substr(md5_hex(qq+$ARGV[0]+),0,12) =~ /(..)/g)' $HOSTNAME ) ; echo $SB ; $SB & }
 
+## GEOSCOPE
+alias slink='slinktool -Q :18000'
+alias slink1='slinktool -Q rtserver.ipgp.fr'
+
 ## OLD and RemeberThis_
 alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'
 alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
@@ -787,7 +804,7 @@ alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; 
 alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
 alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
 alias RemeberThis_ssh-copy-id_openssh='cat ~/.ssh/id_rsa.pub | ssh root@debian10 "cat - >> .ssh/authorized_keys"'
-alias RemeberThis_ssh-copy-id_owrt='cat ~/.ssh/id_rsa.pub | ssh root@sw-marion "cat - >> /etc/dropbear/authorized_keys"'
+alias RemeberThis_ssh-copy-id_dropbear='cat ~/.ssh/id_rsa.pub | ssh root@sw-marion "cat - >> /etc/dropbear/authorized_keys"'
 alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
 alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
 alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --make-rslave --rbind /\$p \$LIVE_BOOT/chroot/\$p ; done"

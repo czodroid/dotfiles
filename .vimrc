@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 31 March 2024, 13:52
-" $Id: .vimrc,v 1.481 2024/03/31 11:52:28 czo Exp $
-" Edit Time: 249:18:02
+" Last Modified: Friday 03 May 2024, 18:37
+" $Id: .vimrc,v 1.482 2024/05/03 16:40:20 czo Exp $
+" Edit Time: 249:42:21
 " Description:
 "
 "       vim config file
@@ -93,6 +93,7 @@ set undolevels=99000
 set nostartofline
 set backspace=indent,eol,start
 set whichwrap=<,>,[,]
+" :retab
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
@@ -1073,7 +1074,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.481 2024/03/31 11:52:28 czo Exp $
+            " $Id: .vimrc,v 1.482 2024/05/03 16:40:20 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
