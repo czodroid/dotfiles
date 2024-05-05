@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Friday 26 April 2024, 17:09
-# $Id: .zshrc,v 1.561 2024/04/26 15:09:26 czo Exp $
-# Edit Time: 139:17:42
+# Last Modified: Sunday 05 May 2024, 20:10
+# $Id: .zshrc,v 1.562 2024/05/05 18:10:35 czo Exp $
+# Edit Time: 139:19:16
 # Description:
 #
 #       zsh config file
@@ -172,16 +172,39 @@ if [ -d /system/bin ]; then
 fi
 
 ## config GEOSCOPE
-# vpn seiscomp v3
-if [ -d "/home/sysop/seiscomp3/bin" ] ; then
-    PATH="$PATH:/home/sysop/seiscomp3/bin"
+
+## seiscomp
+# rutx seiscomp v5
+if [ -d "/opt/seiscomp/bin" ] ; then
+    export SEISCOMP_ROOT="/opt/seiscomp"
+    export LD_LIBRARY_PATH="$SEISCOMP_ROOT/lib:$LD_LIBRARY_PATH"
+    export PYTHONPATH="$SEISCOMP_ROOT/lib/python:$PYTHONPATH"
+    PATH="$PATH:$SEISCOMP_ROOT/bin"
 fi
 # seiscomp v4 v5 v6
 if [ -d "/home/sysop/seiscomp/bin" ] ; then
-    PATH="$PATH:/home/sysop/seiscomp/bin"
     export SEISCOMP_ROOT="/home/sysop/seiscomp"
-    export LD_LIBRARY_PATH="/home/sysop/seiscomp/lib:$LD_LIBRARY_PATH"
-    export PYTHONPATH="/home/sysop/seiscomp/lib/python:$PYTHONPATH"
+    export LD_LIBRARY_PATH="$SEISCOMP_ROOT/lib:$LD_LIBRARY_PATH"
+    export PYTHONPATH="$SEISCOMP_ROOT/lib/python:$PYTHONPATH"
+    PATH="$PATH:$SEISCOMP_ROOT/bin"
+fi
+
+## pqlx
+if [ -f /opt/PQLX/env/PQLXprodVars ]; then
+    export LC_ALL=en_US.UTF-8
+    export PQLX=/opt/PQLX/
+    . $PQLX/PROD/PQLXprodVars
+    export PATH="$PATH:$PQLXBIN"
+fi
+if [ -f /home/sysop/v2011.365.P4/PQLX/env/PQLXprodVars ]; then
+    export LC_ALL=en_US.UTF-8
+    export PQLX=/home/sysop/v2011.365.P4/PQLX
+    . $PQLX/PROD/PQLXprodVars
+    export PATH="$PATH:$PQLXBIN"
+fi
+
+if [ -d "/opt/passcal/bin" ] ; then
+    PATH="$PATH:/opt/passcal/bin"
 fi
 
 ## config SWARM
