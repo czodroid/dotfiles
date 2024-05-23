@@ -2,13 +2,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 April 2013
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: config,v 1.8 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 0:28:57
+# Last Modified: Sunday 19 May 2024, 11:41
+# $Id: config,v 1.10 2024/05/19 09:41:47 czo Exp $
+# Edit Time: 0:29:51
 # Description:
 #               terminator config
 #
-# Copyright: (C) 2013-2022 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2013-2024 Olivier Sirol <czo@free.fr>
 
 [global_config]
   title_transmit_fg_color = "#282828"
@@ -24,7 +24,7 @@
     background_color = "#282828"
     cursor_color = "#98971a"
     cursor_color_fg = False
-    font = Monospace 13
+    font = Source Code Pro 13
     foreground_color = "#c9b788"
     scrollbar_position = hidden
     scrollback_lines = 99000

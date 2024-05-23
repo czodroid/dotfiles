@@ -4,13 +4,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 September 2019
-# Last Modified: Thursday 13 October 2022, 18:29
-# $Id: gnome-terminal-dconf.sh,v 1.5 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 0:22:38
+# Last Modified: Sunday 19 May 2024, 11:45
+# $Id: gnome-terminal-dconf.sh,v 1.7 2024/05/19 09:45:57 czo Exp $
+# Edit Time: 0:24:03
 # Description:
 #               dconf for gnome terminal
 #
-# Copyright: (C) 2019-2022 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
 
 dconf load / << 'EOF'
 
@@ -71,8 +71,7 @@ cursor-foreground-color='rgb(40,40,40)'
 cursor-shape='block'
 default-size-columns=90
 default-size-rows=24
-# font='Monospace Regular 13'
-font='Source Code Pro for Powerline 13'
+font='Source Code Pro 13'
 foreground-color='rgb(201,183,136)'
 highlight-background-color='rgb(69,133,136)'
 highlight-colors-set=true
