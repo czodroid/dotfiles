@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 23 May 2024, 20:46
-" $Id: .vimrc,v 1.484 2024/05/23 18:46:39 czo Exp $
-" Edit Time: 249:48:56
+" Last Modified: Saturday 25 May 2024, 08:50
+" $Id: .vimrc,v 1.485 2024/05/25 06:50:29 czo Exp $
+" Edit Time: 249:53:22
 " Description:
 "
 "       vim config file
@@ -71,7 +71,7 @@ if $PLATFORM == "Linux_mips"
     if isdirectory("/tmp")
         set backupdir=/tmp,.
         set directory=/tmp,.
-        set viminfo+=n/tmp/.viminfo
+        " set viminfo+=n/tmp/.viminfo
     endif
 endif
 
@@ -1075,7 +1075,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.484 2024/05/23 18:46:39 czo Exp $
+            " $Id: .vimrc,v 1.485 2024/05/25 06:50:29 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 05 May 2024, 20:08
-# $Id: .bashrc,v 1.608 2024/05/05 18:10:35 czo Exp $
-# Edit Time: 139:51:31
+# Last Modified: Saturday 25 May 2024, 08:41
+# $Id: .bashrc,v 1.615 2024/05/25 06:42:09 czo Exp $
+# Edit Time: 140:42:56
 # Description:
 #
 #       bash config file
@@ -135,7 +135,7 @@ fi
 
 ## config openwrt
 if [ -d /rom/bin ]; then
-    export HISTFILE=$TMPDIR/.sh_history
+    # export HISTFILE=$TMPDIR/.sh_history
     export PATH="$PATH:/rom/bin"
 fi
 
@@ -185,8 +185,8 @@ fi
 ## config SWARM
 #export PATH="/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$PATH"
 
-# there was a time when I needed it, but I can't remember anymore...
-#typeset -U MANPATH="$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH"
+## there was a time when I needed it, but I can't remember anymore...
+# typeset -U MANPATH="$HOME/local/share/man:/usr/pkg/man:/usr/man:/usr/local/man:/usr/local/lib/gcc-lib/man:/usr/local/lib/perl5/man:/usr/local/lib/texmf/man:/usr/man/preformat:/usr/openwin/man:/usr/share/man:/usr/5bin/man:/usr/X11/man:/usr/X11R6/man:/usr/dt/man:/usr/lang/man:$MANPATH"
 #export MANPATH
 
 # export LD_RUN_PATH=/users/soft5/gnu/bazar/archi/Linux/lib/wxgtk/lib
@@ -199,7 +199,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo
 
 SHELLNAME=$( (echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null )
 
-#if command -v most > /dev/null 2>&1; then
+# if command -v most > /dev/null 2>&1; then
 if [ -x "$(command -v hostname)" ]; then
     HOSTNAME=$(hostname 2>/dev/null)
 else
@@ -229,6 +229,9 @@ export CVS_RSH=ssh
 export CVSEDITOR=vim
 export CVSIGNORE=.DS_Store
 
+export PGPPATH="$HOME/.gnupg"
+export HTML_TIDY="$HOME/.tidyrc"
+
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
     export CVSROOT=czo@dalmore:/tank/data/czo/.cvsroot
 else
@@ -239,9 +242,6 @@ case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
     *) export PRINTER=BW-Dressing ;;
 esac
-
-export PGPPATH="$HOME/.gnupg"
-export HTML_TIDY="$HOME/.tidyrc"
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
@@ -371,6 +371,7 @@ alias eq='type -P'
 
 alias st=". $HOME/.bashrc"
 [ -f ~/.bashrc.czo ] && alias st=". $HOME/.bashrc.czo"
+alias stc=". $HOME/.bashrc.czo"
 alias hi='fc -l -9111000'
 alias h='fc -l -9111000 | sed "s/^[ \t]*[0-9]\+[ \t]\+//" | grep'
 
@@ -378,7 +379,7 @@ alias history_load='history -r'
 alias history_save='history -w'
 alias history_clear='history -c'
 alias history_clear_all_log='echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c'
-#BASHBUG history remove duplicates
+# BASHBUG history remove duplicates
 alias history_bash_bug='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
 
 # csh compatibility env set
@@ -391,7 +392,8 @@ case $PLATFORM in
         alias cp='\cp -i'
         alias mv='\mv -i'
         alias grep='\grep --color=auto'
-        if \pgrep -fia 1 >/dev/null 2>&1; then
+        # if \pgrep -fia 1 >/dev/null 2>&1; then
+        if [ $( (\pgrep -fiac 1111 | wc -l;)2>/dev/null ) = 1 ]; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
         else
@@ -458,20 +460,21 @@ alias rule='echo "....|....1....|....2....|....3....|....4....|....5....|....6..
 alias ll='ls -l'
 alias lh='ls -lh'
 alias l='ls -alrt'
-alias g='grep -sri'
-alias g_cs='grep -sr'
-alias gl='\ls -1rt * | xargs grep -si --color=auto'
-alias gl_cs='\ls -1rt * | xargs grep -s --color=auto'
-alias ..='cd ..'
 
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llx='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -perm -1 -print | sort'
 alias lll='find . -type l  -printf "%p -> %l\n"'
-alias md='\mkdir -p'
-mdcd()    { \mkdir -p "$1" ; cd "$1"; }
+
+alias g='grep -sri'
+alias g_cs='grep -sr'
+alias gl='\ls -1rt * | xargs grep -si --color=auto'
+alias gl_cs='\ls -1rt * | xargs grep -s --color=auto'
 ff() { find . -iname "*$1*"; }
 ff_cs() { find . -name "*$1*"; }
+
+alias md='\mkdir -p'
+mdcd()    { \mkdir -p "$1" ; cd "$1"; }
 
 alias rmf='rm -fr'
 alias rmemptyf='find . -empty -type f -print -exec rm {} \;'
@@ -831,6 +834,8 @@ else
 [0;33m$(__git_ps1 "(%s)")[0;97m>>[m '
 fi
 
+## if PS1 doesnt work:
+# PS1='${USER}@${HOSTNAME}:$PWD >> '
 
 # limit -s
 # ulimit unlimited
