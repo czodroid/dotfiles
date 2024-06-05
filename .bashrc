@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 25 May 2024, 08:41
-# $Id: .bashrc,v 1.615 2024/05/25 06:42:09 czo Exp $
-# Edit Time: 140:42:56
+# Last Modified: Monday 03 June 2024, 10:06
+# $Id: .bashrc,v 1.626 2024/06/03 08:06:39 czo Exp $
+# Edit Time: 148:00:15
 # Description:
 #
 #       bash config file
@@ -17,6 +17,7 @@
 #
 #       bash and zsh have the same HISTFILE (~/.sh_history).
 #       Just do a `ln -s ~/.sh_history ~/.bash_history'.
+#
 #       Because ~/.bashrc is executed by bash for non-login shells,
 #       you need to create ~/.profile to include it. You must also
 #       `rm ~/.bash_profile ~/.bash_login' which are not compatible
@@ -40,9 +41,8 @@
 
 export TMPDIR=${TMPDIR-/tmp}
 
-export HISTFILE=$HOME/.sh_history
-
 if [ -n "$BASH_VERSION" ]; then
+    export HISTFILE=$HOME/.sh_history
     export HISTFILESIZE=55000
     export HISTSIZE=44000
     export HISTCONTROL=ignorespace:erasedups
@@ -111,7 +111,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); e
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:$HOME/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH"
 
 # $HOME/node_modules/.bin: needed for prettier, link in $HOME/.local/bin
-# /usr/lib: needed 20 years ago...
+# /usr/lib: needed 25 years ago...
 
 ## config cpanm perl libs not in distro
 # export PERL_LOCAL_LIB_ROOT="$HOME/.local/perl";
@@ -135,7 +135,6 @@ fi
 
 ## config openwrt
 if [ -d /rom/bin ]; then
-    # export HISTFILE=$TMPDIR/.sh_history
     export PATH="$PATH:/rom/bin"
 fi
 
@@ -333,8 +332,14 @@ fi
 ## mksh
 if [ "X${SHELLNAME}" = "Xmksh" ]; then
     export HISTFILE=$HOME/.mksh_history
+    alias history='\\builtin fc -l'
     bind "^[[A"=search-history-up
     bind "^[[B"=search-history-down
+fi
+
+## OpenWRT MIPS
+if [ "X${PLATFORM}" = "XLinux_mips" ]; then
+    export HISTFILE=$TMPDIR/.sh_history
 fi
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
@@ -372,15 +377,17 @@ alias eq='type -P'
 alias st=". $HOME/.bashrc"
 [ -f ~/.bashrc.czo ] && alias st=". $HOME/.bashrc.czo"
 alias stc=". $HOME/.bashrc.czo"
-alias hi='fc -l -9111000'
-alias h='fc -l -9111000 | sed "s/^[ \t]*[0-9]\+[ \t]\+//" | grep'
+
+alias hi='history'
+alias h='history | sed "s/^[ \t]*[0-9]\+[ \t]\+//" | grep'
 
 alias history_load='history -r'
 alias history_save='history -w'
 alias history_clear='history -c'
 alias history_clear_all_log='echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c'
 # BASHBUG history remove duplicates
-alias history_bash_bug='history -n; history | tac | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | tac > $HISTFILE ; history -c ; history -r'
+# tac for busybox: perl -e 'print reverse <>'
+alias history_bash_bug='history -n; history | perl -e "print reverse <>" | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | perl -e "print reverse <>" > $HISTFILE ; history -c ; history -r'
 
 # csh compatibility env set
 setenv() { export $1=$2; }
@@ -391,9 +398,10 @@ case $PLATFORM in
     Linux*)
         alias cp='\cp -i'
         alias mv='\mv -i'
-        alias grep='\grep --color=auto'
-        # if \pgrep -fia 1 >/dev/null 2>&1; then
-        if [ $( (\pgrep -fiac 1111 | wc -l;)2>/dev/null ) = 1 ]; then
+        if ( echo A | \grep --color=auto A ) >/dev/null 2>&1; then
+            alias grep='\grep --color=auto'
+        fi
+        if [ $( (\pgrep -fiac 1111 | wc -l) 2>/dev/null ) = 1 ]; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
         else
@@ -468,8 +476,8 @@ alias lll='find . -type l  -printf "%p -> %l\n"'
 
 alias g='grep -sri'
 alias g_cs='grep -sr'
-alias gl='\ls -1rt * | xargs grep -si --color=auto'
-alias gl_cs='\ls -1rt * | xargs grep -s --color=auto'
+alias gl='\ls -1rt * | xargs grep -si'
+alias gl_cs='\ls -1rt * | xargs grep -s'
 ff() { find . -iname "*$1*"; }
 ff_cs() { find . -name "*$1*"; }
 
@@ -812,9 +820,6 @@ __git_ps1() { true ;}
 #     export GIT_PS1_DESCRIBE_STYLE=branch
 #     . /etc/bash_completion.d/git-prompt
 # fi
-#
-# parse_git_dirty() { [[ $(git status --porcelain 2> /dev/null) ]] && echo "*"; }
-# parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"; }
 
 if [ -x "$(command -v git)" ]; then
     __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
@@ -841,6 +846,7 @@ fi
 # ulimit unlimited
 
 # Disable Ctrl-S / Ctrl-Q
+# busybox has no stty on openWRT!
 [ -x "$(command -v stty)" ] && stty -ixon
 
 umask 022

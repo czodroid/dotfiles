@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 25 May 2024, 08:42
-# $Id: .zshrc,v 1.567 2024/05/25 06:42:09 czo Exp $
-# Edit Time: 139:24:05
+# Last Modified: Thursday 30 May 2024, 12:14
+# $Id: .zshrc,v 1.571 2024/05/30 10:16:51 czo Exp $
+# Edit Time: 139:33:10
 # Description:
 #
 #       zsh config file
@@ -136,7 +136,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); e
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:$HOME/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH"
 
 # $HOME/node_modules/.bin: needed for prettier, link in $HOME/.local/bin
-# /usr/lib: needed 20 years ago...
+# /usr/lib: needed 25 years ago...
 
 ## config cpanm perl libs not in distro
 # export PERL_LOCAL_LIB_ROOT="$HOME/.local/perl";
@@ -493,6 +493,7 @@ alias eq='whence -p'
 
 alias st='. ~/.zshrc'
 [ -f ~/.zshrc.czo ] && alias st=". ~/.zshrc.czo"
+
 alias hi='fc -l 1'
 alias h='fc -l 1 | sed "s/^[ \t]*[0-9]\+[ \t]\+//" | grep'
 
@@ -512,9 +513,10 @@ case $PLATFORM in
     Linux*)
         alias cp='\cp -i'
         alias mv='\mv -i'
-        alias grep='\grep --color=auto'
-        # if \pgrep -fia 1 >/dev/null 2>&1; then
-        if [ $( (\pgrep -fiac 1111 | wc -l;)2>/dev/null ) = 1 ]; then
+        if ( echo A | \grep --color=auto A ) >/dev/null 2>&1; then
+            alias grep='\grep --color=auto'
+        fi
+        if [ $( (\pgrep -fiac 1111 | wc -l) 2>/dev/null ) = 1 ]; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
         else
@@ -589,8 +591,8 @@ alias lll='find . -type l  -printf "%p -> %l\n"'
 
 alias g='grep -sri'
 alias g_cs='grep -sr'
-alias gl='\ls -1rt * | xargs grep -si --color=auto'
-alias gl_cs='\ls -1rt * | xargs grep -s --color=auto'
+alias gl='\ls -1rt * | xargs grep -si'
+alias gl_cs='\ls -1rt * | xargs grep -s'
 ff() { find . -iname "*$1*"; }
 ff_cs() { find . -name "*$1*"; }
 
@@ -931,15 +933,6 @@ fi
 
 # GIT
 __git_ps1() { true ;}
-# if [ -f /etc/bash_completion.d/git-prompt ]; then
-#     export GIT_PS1_SHOWUPSTREAM=1       # (<, >, =)
-#     export GIT_PS1_SHOWDIRTYSTATE=1     # (*)
-#     export GIT_PS1_SHOWUNTRACKEDFILES=1 # (%)
-#     export GIT_PS1_SHOWSTASHSTATE=1     # ($)
-#     export GIT_PS1_DESCRIBE_STYLE=branch
-#     . /etc/bash_completion.d/git-prompt
-# fi
-#
 # if [ -f ~/.oh-my-zsh/lib/git.zsh ]; then
 #     ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
 #     ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
@@ -947,9 +940,6 @@ __git_ps1() { true ;}
 #     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 #     . ~/.oh-my-zsh/lib/git.zsh
 # fi
-#
-# parse_git_dirty() { [[ $(git status --porcelain 2> /dev/null) ]] && echo "*"; }
-# parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"; }
 
 if [ -x "$(command -v git)" ]; then
     __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
@@ -960,6 +950,7 @@ PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${T
 # limit -s
 # ulimit unlimited
 
+# Disable Ctrl-S / Ctrl-Q
 # busybox has no stty on openWRT!
 [ -x "$(command -v stty)" ] && stty -ixon
 
