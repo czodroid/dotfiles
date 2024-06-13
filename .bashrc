@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 03 June 2024, 10:06
-# $Id: .bashrc,v 1.626 2024/06/03 08:06:39 czo Exp $
-# Edit Time: 148:00:15
+# Last Modified: Saturday 08 June 2024, 09:05
+# $Id: .bashrc,v 1.628 2024/06/08 07:06:12 czo Exp $
+# Edit Time: 148:10:10
 # Description:
 #
 #       bash config file
@@ -480,6 +480,16 @@ alias gl='\ls -1rt * | xargs grep -si'
 alias gl_cs='\ls -1rt * | xargs grep -s'
 ff() { find . -iname "*$1*"; }
 ff_cs() { find . -name "*$1*"; }
+
+if \df -P -T -k >/dev/null 2>&1; then
+    alias df='\df -P -T -k'
+elif \df -P -k >/dev/null 2>&1; then
+    # freeBSD5: no -T and don't show 512 blocks but 1024
+    alias df='\df -P -k'
+elif \df -k >/dev/null 2>&1; then
+    # solaris: no multiline
+    alias df='\df -k | cat'
+fi
 
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1" ; cd "$1"; }

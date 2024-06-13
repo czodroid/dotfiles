@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 30 May 2024, 12:14
-# $Id: .zshrc,v 1.571 2024/05/30 10:16:51 czo Exp $
-# Edit Time: 139:33:10
+# Last Modified: Saturday 08 June 2024, 09:06
+# $Id: .zshrc,v 1.573 2024/06/08 07:06:12 czo Exp $
+# Edit Time: 139:34:37
 # Description:
 #
 #       zsh config file
@@ -595,6 +595,16 @@ alias gl='\ls -1rt * | xargs grep -si'
 alias gl_cs='\ls -1rt * | xargs grep -s'
 ff() { find . -iname "*$1*"; }
 ff_cs() { find . -name "*$1*"; }
+
+if \df -P -T -k >/dev/null 2>&1; then
+    alias df='\df -P -T -k'
+elif \df -P -k >/dev/null 2>&1; then
+    # freeBSD5: no -T and don't show 512 blocks but 1024
+    alias df='\df -P -k'
+elif \df -k >/dev/null 2>&1; then
+    # solaris: no multiline
+    alias df='\df -k | cat'
+fi
 
 alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1" ; cd "$1"; }

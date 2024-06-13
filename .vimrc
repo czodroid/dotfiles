@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 05 June 2024, 13:32
-" $Id: .vimrc,v 1.487 2024/06/05 11:32:49 czo Exp $
-" Edit Time: 249:57:10
+" Last Modified: Thursday 13 June 2024, 21:48
+" $Id: .vimrc,v 1.490 2024/06/13 19:48:56 czo Exp $
+" Edit Time: 250:12:22
 " Description:
 "
 "       vim config file
@@ -337,6 +337,15 @@ function! CzoATabToSpaceAndTrailWhite ()
     call cursor(l, c)
 endfunction
 
+command!  CzoInvTemplate call CzoInvTemplate ()
+function! CzoInvTemplate ()
+    if g:DoCzoTemplate
+        let g:DoCzoTemplate=0
+    else
+        let g:DoCzoTemplate=1
+    endif
+endfunction
+
 command!  CzoDiffWithSaved call CzoDiffWithSaved ()
 function! CzoDiffWithSaved()
   let filetype=&ft
@@ -392,31 +401,27 @@ endfunction
 
 command!  CzoInvFold call CzoInvFold ()
 function! CzoInvFold ()
-    set invfoldenable
+    set foldenable!
 endfunction
 
 command!  CzoInvList call CzoInvList ()
 function! CzoInvList ()
-    set invlist
+    set list!
 endfunction
 
-command!  CzoInvWrap call CzoInvWrap ()
-function! CzoInvWrap ()
-    set invwrap
+command!  CzoInvNumber call CzoInvNumber ()
+function! CzoInvNumber ()
+    set number!
 endfunction
 
 command!  CzoInvPaste call CzoInvPaste ()
 function! CzoInvPaste ()
-    set invpaste
+    set paste!
 endfunction
 
-command!  CzoInvTemplate call CzoInvTemplate ()
-function! CzoInvTemplate ()
-    if g:DoCzoTemplate
-        let g:DoCzoTemplate=0
-    else
-        let g:DoCzoTemplate=1
-    endif
+command!  CzoInvWrap call CzoInvWrap ()
+function! CzoInvWrap ()
+    set wrap!
 endfunction
 
 command!  CzoVisualClear call CzoVisualClear ()
@@ -1075,7 +1080,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.487 2024/06/05 11:32:49 czo Exp $
+            " $Id: .vimrc,v 1.490 2024/06/13 19:48:56 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1083,19 +1088,19 @@ function! TemplateTimeStamp ()
 
             if 1
                 " changed Started: by File Created:
-                let pattern = '\(^.\=.\=.\=\s*\)Started:\(.*\)'
+                let pattern = '\(^.\=.\=.\=\s* \)Started:\(.*\)'
                 if FindStrInHeader(pattern)
                     exec 's/'.pattern.'/\1File Created:\2/e'
                     call histdel("search",-1)
                 endif
                 " changed Created: by File Created:
-                let pattern = '\(^.\=.\=.\=\s*\)Created:\(.*\)'
+                let pattern = '\(^.\=.\=.\=\s* \)Created:\(.*\)'
                 if FindStrInHeader(pattern)
                     exec 's/'.pattern.'/\1File Created:\2/e'
                     call histdel("search",-1)
                 endif
                 " changed Last Change: by Last Modified:
-                let pattern = '\(^.\=.\=.\=\s*Last \)Change:\(.*\)'
+                let pattern = '\(^.\=.\=.\=\s* Last \)Change:\(.*\)'
                 if FindStrInHeader(pattern)
                     exec 's/'.pattern.'/\1Modified:\2/e'
                     call histdel("search",-1)
@@ -1127,35 +1132,35 @@ function! TemplateTimeStamp ()
             endif
 
             " substitute the file name
-            let pattern = '\(^.\=.\=.\=\s*Filename:\).*'
+            let pattern = '\(^.\=.\=.\=\s* Filename:\).*'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '\').'/e'
                 call histdel("search",-1)
             endif
 
             " substitute Author
-            let pattern = '\(^.\=.\=.\=\s*Author:\).*'
+            let pattern = '\(^.\=.\=.\=\s* Author:\).*'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1 '.g:TemplateAuthor.'/e'
                 call histdel("search",-1)
             endif
 
             " substitute License
-            let pattern = '\(^.\=.\=.\=\s*License:\).*'
+            let pattern = '\(^.\=.\=.\=\s* License:\).*'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1 '.g:TemplateLicense.'/e'
                 call histdel("search",-1)
             endif
 
             " time stamp
-            let pattern = '\(^.\=.\=.\=\s*Last Modified:\).*'
+            let pattern = '\(^.\=.\=.\=\s* Last Modified:\).*'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
                 call histdel("search",-1)
             endif
 
             " edit time
-            let pattern = '\(^.\=.\=.\=\s*Edit Time:\)\s*\([0-9]*:[0-9]*:[0-9]*\).*'
+            let pattern = '\(^.\=.\=.\=\s* Edit Time:\)\s*\([0-9]*:[0-9]*:[0-9]*\).*'
             if FindStrInHeader(pattern)
                 let editline = getline (".")
                 let editline = substitute(editline, pattern, '\2', "")
@@ -1185,7 +1190,7 @@ function! TemplateTimeStamp ()
             endif
 
             " copy file's created year for Copyright
-            let pattern = '\(^.\=.\=.\=\s*File Created:\)\s*\(.*\)'
+            let pattern = '\(^.\=.\=.\=\s* File Created:\)\s*\(.*\)'
             if FindStrInHeader(pattern)
                 let editline = getline (".")
                 let editline = substitute(editline, pattern, '\2', "")
@@ -1205,7 +1210,7 @@ function! TemplateTimeStamp ()
             endif
 
             " substitute Copyright
-            let pattern = '\(^.\=.\=.\=\s*Copyright:\).*'
+            let pattern = '\(^.\=.\=.\=\s* Copyright:\).*'
             if FindStrInHeader(pattern)
                 exec 's/'.pattern.'/\1 '.TemplateCopyrightDate().'/e'
                 call histdel("search",-1)
@@ -1560,16 +1565,16 @@ function! TemplateCzo (...)
                       \<!DOCTYPE html>
                  \\<nl>
                  \\<nl><!--
-                 \\<nl>Filename: template.html
-                 \\<nl>Author: Olivier Sirol <czo@free.fr>
-                 \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>Last Modified: Thursday 13 October 2022, 18:03
-                 \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>Edit Time: 0:00:13
-                 \\<nl>Description:
-                 \\<nl>
-                 \\<nl>Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Filename: template.html
+                 \\<nl>// Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>// Last Modified: Thursday 13 June 2024, 21:43
+                 \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>// Edit Time: 0:00:30
+                 \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
                  \\<nl>-->
                  \\<nl>
                  \\<nl><html lang=\\"en\\">
@@ -1840,16 +1845,16 @@ function! TemplateCzo (...)
             catch /^markdown$/
                0put = \"
                       \<!--
-                 \\<nl>Filename: template.markdown
-                 \\<nl>Author: Olivier Sirol <czo@free.fr>
-                 \\<nl>License: GPL-2.0 (http://www.gnu.org/copyleft)
-                 \\<nl>File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>Last Modified: Thursday 13 October 2022, 18:03
-                 \\<nl>$VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>Edit Time: 0:00:12
-                 \\<nl>Description:
-                 \\<nl>
-                 \\<nl>Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Filename: template.markdown
+                 \\<nl>// Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>// Last Modified: Thursday 13 June 2024, 21:46
+                 \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>// Edit Time: 0:00:36
+                 \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
                  \\<nl>-->
                  \\<nl>
                  \\<nl># Markdown Cheatsheet
