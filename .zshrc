@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 08 June 2024, 09:06
-# $Id: .zshrc,v 1.573 2024/06/08 07:06:12 czo Exp $
-# Edit Time: 139:34:37
+# Last Modified: Saturday 15 June 2024, 18:58
+# $Id: .zshrc,v 1.575 2024/06/15 16:58:18 czo Exp $
+# Edit Time: 139:37:47
 # Description:
 #
 #       zsh config file
@@ -734,6 +734,8 @@ alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C
 alias pkg_debian_list_long="dpkg-query -Wf '\${Package}\n' | LANG=C sort > pkg_list_long_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_size="dpkg-query -Wf '\${Installed-Size} \${Package} (\${version})\n' | LANG=C sort -rn > pkg_size_${HOSTNAME}_$(date +%Y%m%d).txt"
 
+alias pkg_owrt_list="find /usr/lib/opkg/info -name '*.control' \( -exec test -f /overlay/upper/{} \; -exec echo {} \; \) | sed -e 's,.*/,,;s/\.control//' | sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
+
 alias pkg_redhat_list="dnf repoquery --userinstalled | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_redhat_list_long="rpm -qa --qf '%{NAME}\n' | LANG=C sort > pkg_list_long_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_redhat_size="rpm -qa --qf '%{SIZE} %{NAME} (%{VERSION})\n' | LANG=C sort -rn > pkg_size_${HOSTNAME}_$(date +%Y%m%d).txt"
@@ -768,7 +770,7 @@ alias YL='rpm -ql'
 alias YF='rpm -qf'
 
 # openwrt: opkg
-alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in: vim /tmp/opkg.list"'
+alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in: /tmp/opkg.list"'
 alias OI='opkg install'
 alias OP='opkg remove'
 OS() { grep $1 /tmp/opkg.list ;}
