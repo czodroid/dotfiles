@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Thursday 20 June 2024, 18:46
+# Last Modified: Thursday 20 June 2024, 18:56
 # $Id: config-fast-ssh,v 1.27 2024/06/20 16:47:21 czo Exp $
-# Edit Time: 9:30:24
+# Edit Time: 9:34:21
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -64,33 +64,6 @@ chmod 600 .ssh/authorized_keys
 
 cat << 'EOF' >> .ssh/config
 # Filename: config
-# Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 2000
-# Last Modified: Thursday 20 June 2024, 14:32
-# $Id: config-fast-ssh,v 1.27 2024/06/20 16:47:21 czo Exp $
-# Edit Time: 14:29:07
-# Description:
-#   ssh settings
-#    ssh -J, ssh -W, ssh -tt
-#       ssh -J root@geoscopevpn root@10.9.21.17 -p XXX
-#    ProxyCommand,  ProxyJump
-#
-#   lartha       : ssh -p42022 root@czo.wf
-#   aberlour     : ssh -p40022 lartha -l root
-#   gp-vm110     : ssh -p40023 lartha
-#   voyelle      : ssh -p40024 lartha
-#   lagavulin    : ssh -p30022 lartha
-#   bunnahabhain : ssh -p52022 lartha
-#   geoscoperd   : ssh -p51022 lartha
-#
-#   +a  : ProxyCommand ssh -p40022 root@lartha ncat $(echo %h | sed 's/+.*//') %p
-#   +l  : ProxyCommand ssh -p30022 lartha ncat $(echo %h | sed 's/+.*//') %p
-#   +b  : ProxyCommand ssh -p22080 root@idefix.ipgp.fr nc $(echo %h | sed 's/+.*//') %p
-#   +fw : ProxyCommand ssh -p11240 localhost ncat $(echo %h | sed 's/+.*//') %p
-#
-# Copyright: (C) 2000-2024 Olivier Sirol <czo@free.fr>
-
 
 ## CHEZWAM's PROXIES
 

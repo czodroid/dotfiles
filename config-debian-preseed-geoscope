@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Thursday 20 June 2024, 18:39
+# Last Modified: Thursday 20 June 2024, 18:57
 # $Id: config-debian-preseed-geoscope,v 1.39 2024/06/20 16:47:21 czo Exp $
-# Edit Time: 10:57:41
+# Edit Time: 11:02:57
 # Description:
 #
 #            debian 10 preseed geoscope update
@@ -234,24 +234,17 @@ ssh-keygen -t rsa -b 4096 -N "" -f .ssh/id_rsa
 
 cat << 'EOF' >> .ssh/config
 # Filename: config
-# Author: Olivier Sirol <czo@free.fr>
-# License: GPL-2.0 (http://www.gnu.org/copyleft)
-# File Created: April 2000
-# Last Modified:
-# Description:
-#   ssh settings
-#    ssh -J, ssh -W, ssh -tt
-#    ProxyCommand,  ProxyJump
-#
 
-# THE REMAINDER
+## THE REMAINDER
 Host *
  Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
- ForwardX11 yes
  NoHostAuthenticationForLocalhost yes
  StrictHostKeyChecking ask
  HashKnownHosts no
- ServerAliveInterval 15
+ # GSSAPIAuthentication no
+ ServerAliveInterval 29
+ ServerAliveCountMax 3
+ ForwardX11 yes
 
 EOF
 
