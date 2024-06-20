@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 13 June 2024, 21:48
-" $Id: .vimrc,v 1.490 2024/06/13 19:48:56 czo Exp $
-" Edit Time: 250:12:22
+" Last Modified: Wednesday 19 June 2024, 17:23
+" $Id: .vimrc,v 1.491 2024/06/19 15:24:39 czo Exp $
+" Edit Time: 251:36:06
 " Description:
 "
 "       vim config file
@@ -191,14 +191,20 @@ if exists('+commentstring')
     setlocal commentstring=#\ %s
 endif
 
+" set errorformat=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
+
 " tags search path
-set tags=./tags,tags,/users/soft5/newlabo/cvstree/alliance/sources/tags
-"set errorformat=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
+set tags=./tags,tags
 
 " dictionary completion: (Ctrl-X Ctrl-k)
-set dictionary=/usr/dict/words,/users/soft5/newlabo/cvstree/alliance/sources/tags
+" debian12: aptitude install hunspell-en-us hunspell-fr-revised
+set dictionary=/usr/share/hunspell/en_US.dic,/usr/share/hunspell/fr.dic
 
-
+" completion: (Ctrl-P / Ctrl-N)
+if exists('+complete')
+    set complete=.,w,b,t
+    " set complete=.,w,b,u,t,i
+endif
 
 " == Statusline ========================================================
 
@@ -1080,7 +1086,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.490 2024/06/13 19:48:56 czo Exp $
+            " $Id: .vimrc,v 1.491 2024/06/19 15:24:39 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

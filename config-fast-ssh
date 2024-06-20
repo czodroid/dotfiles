@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Monday 10 June 2024, 15:11
-# $Id: config-fast-ssh,v 1.26 2024/06/10 13:22:56 czo Exp $
-# Edit Time: 9:25:47
+# Last Modified: Thursday 20 June 2024, 18:46
+# $Id: config-fast-ssh,v 1.27 2024/06/20 16:47:21 czo Exp $
+# Edit Time: 9:30:24
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -67,22 +67,42 @@ cat << 'EOF' >> .ssh/config
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
-# Last Modified: Saturday 10 December 2022, 14:58
-# $Id: config-fast-ssh,v 1.26 2024/06/10 13:22:56 czo Exp $
-# Edit Time: 13:13:42
+# Last Modified: Thursday 20 June 2024, 14:32
+# $Id: config-fast-ssh,v 1.27 2024/06/20 16:47:21 czo Exp $
+# Edit Time: 14:29:07
 # Description:
 #   ssh settings
 #    ssh -J, ssh -W, ssh -tt
+#       ssh -J root@geoscopevpn root@10.9.21.17 -p XXX
 #    ProxyCommand,  ProxyJump
 #
-# Copyright: (C) 2000-2022 Olivier Sirol <czo@free.fr>
+#   lartha       : ssh -p42022 root@czo.wf
+#   aberlour     : ssh -p40022 lartha -l root
+#   gp-vm110     : ssh -p40023 lartha
+#   voyelle      : ssh -p40024 lartha
+#   lagavulin    : ssh -p30022 lartha
+#   bunnahabhain : ssh -p52022 lartha
+#   geoscoperd   : ssh -p51022 lartha
+#
+#   +a  : ProxyCommand ssh -p40022 root@lartha ncat $(echo %h | sed 's/+.*//') %p
+#   +l  : ProxyCommand ssh -p30022 lartha ncat $(echo %h | sed 's/+.*//') %p
+#   +b  : ProxyCommand ssh -p22080 root@idefix.ipgp.fr nc $(echo %h | sed 's/+.*//') %p
+#   +fw : ProxyCommand ssh -p11240 localhost ncat $(echo %h | sed 's/+.*//') %p
+#
+# Copyright: (C) 2000-2024 Olivier Sirol <czo@free.fr>
 
-## PROXIES
+
+## CHEZWAM's PROXIES
 
 # bunnahabhain
 Host *+b
  VerifyHostKeyDNS no
  ProxyCommand ssh -p52022 root@lartha nc $(echo %h | sed 's/+.*//') %p
+
+# aberlour
+Host *+a
+ VerifyHostKeyDNS no
+ ProxyCommand ssh -p40022 root@lartha nc $(echo %h | sed 's/+.*//') %p
 
 # geoscoperd
 Host *+g
@@ -104,28 +124,6 @@ Host dalmorechezwam
  VerifyHostKeyDNS no
  ProxyCommand ssh -p42022 root@czo.wf nc dalmore %p
 
-## IPGP
-
-# GEOSCOPE
-Host geoscopevpn
- Port 222
-
-Host geoscopert
- Port 222
- Hostname geoscopert.dyndns.org
-
-Host geoscopegui
- Port 223
- Hostname geoscopert.dyndns.org
-
-# SVM
-Host smv-ups
- Ciphers aes256-cbc
- KexAlgorithms diffie-hellman-group1-sha1
-
-Host smv-pdu*
- Ciphers aes256-cbc
-
 ## CHEZWAM
 
 Host czophone10 czo-taba matphone
@@ -134,10 +132,10 @@ Host czophone10 czo-taba matphone
 # Host test* debian* ubuntu* centos* fedora* arch* freebsd*
 #  StrictHostKeyChecking no
 
-Host centos5 debian4 solaris10 opensolaris
+Host centos5 debian4 debian3-1 solaris10 opensolaris
  KexAlgorithms diffie-hellman-group1-sha1
 
-Host fedora5 fedora1 redhat8 redhat72
+Host sb-armand sb-marion sb-sdb gp-fedora1 gp-fedora5 fedora1 fedora5 redhat72 redhat8
  Ciphers aes256-cbc
  KexAlgorithms diffie-hellman-group1-sha1
 
@@ -145,17 +143,22 @@ Host freebsd5
  HostKeyAlgorithms ssh-dss
  KexAlgorithms diffie-hellman-group1-sha1
 
-# vscode
+## vscode
+
+Host gs-deb12-t
+ HostName gs-deb12-t
+ ForwardAgent yes
+
 Host ananas
- Hostname ananas
+ HostName ananas
  ForwardAgent yes
 
 Host bruichladdich
- Hostname bruichladdich
+ HostName bruichladdich
  ForwardAgent yes
 
 Host dalmore
- Hostname dalmore
+ HostName dalmore
  ForwardAgent yes
 
 ## DHCP
@@ -167,11 +170,13 @@ Host chezwam-* magdhcp-*
 
 Host *
  Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
- ForwardX11 yes
  NoHostAuthenticationForLocalhost yes
  StrictHostKeyChecking ask
  HashKnownHosts no
- ServerAliveInterval 15
+ GSSAPIAuthentication no
+ ServerAliveInterval 29
+ ServerAliveCountMax 3
+ ForwardX11 yes
 
 EOF
 chmod 600 .ssh/config

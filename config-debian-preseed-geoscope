@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 2018
-# Last Modified: Saturday 23 March 2024, 11:57
-# $Id: config-debian-preseed-geoscope,v 1.38 2024/03/23 10:58:43 czo Exp $
-# Edit Time: 10:56:10
+# Last Modified: Thursday 20 June 2024, 18:39
+# $Id: config-debian-preseed-geoscope,v 1.39 2024/06/20 16:47:21 czo Exp $
+# Edit Time: 10:57:41
 # Description:
 #
 #            debian 10 preseed geoscope update
@@ -243,18 +243,6 @@ cat << 'EOF' >> .ssh/config
 #    ssh -J, ssh -W, ssh -tt
 #    ProxyCommand,  ProxyJump
 #
-
-# GEOSCOPE
-Host geoscopevpn
- Port 222
-
-Host geoscopert
- Port 222
- Hostname geoscopert.dyndns.org
-
-Host geoscopegui
- Port 223
- Hostname geoscopert.dyndns.org
 
 # THE REMAINDER
 Host *
