@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 19 June 2024, 17:23
-" $Id: .vimrc,v 1.491 2024/06/19 15:24:39 czo Exp $
-" Edit Time: 251:36:06
+" Last Modified: Saturday 22 June 2024, 17:21
+" $Id: .vimrc,v 1.492 2024/06/22 15:24:49 czo Exp $
+" Edit Time: 252:02:05
 " Description:
 "
 "       vim config file
@@ -1086,7 +1086,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.491 2024/06/19 15:24:39 czo Exp $
+            " $Id: .vimrc,v 1.492 2024/06/22 15:24:49 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1124,9 +1124,10 @@ function! TemplateTimeStamp ()
             endif
 
             " substitute CVS $ CzoDate:$ by $ CzoDate: 2024-03-14 14:36 $
-            let pattern = '\(.*$Czo'.'Date:\) *[0-9 -:]* *\$\(.*\)'
+            " let pattern = '\(.*$Czo'.'Date:\) *[0-9 -:]* *\$\(.*\)'
+            let pattern = '\(.*( Czo'.'Date:\) *[0-9 -:]* *)\(.*\)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.TemplateGitDate().' $\2/e'
+                exec 's/'.pattern.'/\1 '.TemplateGitDate().' )\2/e'
                 call histdel("search",-1)
             endif
 
