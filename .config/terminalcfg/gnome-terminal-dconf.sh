@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 September 2019
-# Last Modified: Sunday 19 May 2024, 11:45
-# $Id: gnome-terminal-dconf.sh,v 1.7 2024/05/19 09:45:57 czo Exp $
-# Edit Time: 0:24:03
+# Last Modified: Wednesday 10 July 2024, 13:27
+# $Id: gnome-terminal-dconf.sh,v 1.8 2024/07/12 09:35:20 czo Exp $
+# Edit Time: 0:24:36
 # Description:
 #               dconf for gnome terminal
 #
@@ -18,35 +18,43 @@ dconf load / << 'EOF'
 #dconf dump / > /root/dconf.1
 
 [org/gnome/shell/extensions/system-monitor]
-disk-display=true
-cpu-system-color='#d3d7cfff'
-center-display=false
-disk-graph-width=30
-memory-display=false
-fan-sensor-file='/sys/class/hwmon/hwmon2/device/fan1_input'
-show-tooltip=true
-compact-display=false
-disk-show-text=false
-cpu-user-color='#eeeeecff'
-net-show-text=false
-disk-read-color='#eeeeecff'
-disk-style='graph'
-net-graph-width=30
-memory-graph-width=30
-icon-display=false
-disk-usage-style='pie'
-swap-graph-width=30
-memory-show-text=false
-thermal-display=false
-move-clock=false
-net-up-color='#babdb6ff'
 battery-display=false
-cpu-style='graph'
-net-down-color='#eeeeecff'
-cpu-nice-color='#00a3ffff'
+center-display=false
+compact-display=false
+cpu-display=true
 cpu-graph-width=30
+cpu-iowait-color='#c01c28ff'
+cpu-nice-color='#ffffffff'
+cpu-other-color='#813d9cff'
 cpu-show-text=false
-disk-write-color='#babdb6ff'
+cpu-style='graph'
+cpu-system-color='#9a9996ff'
+cpu-user-color='#eeeeecff'
+disk-display=true
+disk-graph-width=30
+disk-read-color='#eeeeecff'
+disk-show-text=false
+disk-style='graph'
+disk-usage-style='pie'
+disk-write-color='#813d9cff'
+fan-sensor-file='/sys/class/hwmon/hwmon2/device/fan1_input'
+icon-display=false
+memory-display=false
+memory-graph-width=30
+memory-show-text=false
+move-clock=false
+net-collisions-color='#e66100ff'
+net-down-color='#eeeeecff'
+net-downerrors-color='#c01c28ff'
+net-graph-width=30
+net-show-text=false
+net-up-color='#babdb6ff'
+net-uperrors-color='#c01c28ff'
+show-tooltip=true
+swap-graph-width=30
+thermal-display=false
+tooltip-delay-ms=100
+
 
 # dconf dump /org/gnome/terminal/ > gnometerm.dconf
 # dconf reset -f /org/gnome/terminal/

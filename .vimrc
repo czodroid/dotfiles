@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 22 June 2024, 17:21
-" $Id: .vimrc,v 1.492 2024/06/22 15:24:49 czo Exp $
-" Edit Time: 252:02:05
+" Last Modified: Friday 12 July 2024, 11:25
+" $Id: .vimrc,v 1.493 2024/07/12 09:35:19 czo Exp $
+" Edit Time: 252:04:29
 " Description:
 "
 "       vim config file
@@ -688,15 +688,19 @@ if (has("syntax"))
       endif
   endif
 
-  " 2021/10/03 : macvim
-  let g:colors_name = "gruvbox64"
-
 " gruvbox64.vim
-" Description: Retro groove color scheme for Vim
-"     gruvbox64 colors, inspired by gruvbox style, without bold
-"     works with xterm-256color with 'set termguicolors' in vim
-"     works with xterm 8c / 16c with nearly similar colors
+let g:colors_name = "gruvbox64"
 
+"           Retro color scheme for Vim.
+"           The colors in my gruvbox64 theme for Vim are inspired
+"           by the gruvbox style but without bold fonts.
+"           This works with 'set termguicolors' in .vimrc (if your
+"           terminal allows it) or in an xterm 8c / 16c / 256c
+"           with nearly similar colors if you use a gruvbox64
+"           terminal palette.
+"
+"           :source $VIMRUNTIME/syntax/hitest.vim
+"
 " gruvbox dark
 " bg0-h     #1d2021
 " bg0       #282828 -
@@ -938,43 +942,43 @@ endif
 
 
 if version > 604
-if has('nvim')
-  let g:terminal_color_0  = '#282828'
-  let g:terminal_color_1  = '#cc241d'
-  let g:terminal_color_2  = '#98971a'
-  let g:terminal_color_3  = '#fe8019'
-  let g:terminal_color_4  = '#458588'
-  let g:terminal_color_5  = '#b16286'
-  let g:terminal_color_6  = '#689d6a'
-  let g:terminal_color_7  = '#c9b788'
-  let g:terminal_color_8  = '#4a4239'
-  let g:terminal_color_9  = '#fb4934'
-  let g:terminal_color_10 = '#b8bb26'
-  let g:terminal_color_11 = '#fabd2f'
-  let g:terminal_color_12 = '#83a598'
-  let g:terminal_color_13 = '#d3869b'
-  let g:terminal_color_14 = '#8ec07c'
-  let g:terminal_color_15 = '#fbf1c7'
-else
-  let g:terminal_ansi_colors = [
-\                           '#282828',
-\                           '#cc241d',
-\                           '#98971a',
-\                           '#fe8019',
-\                           '#458588',
-\                           '#b16286',
-\                           '#689d6a',
-\                           '#c9b788',
-\                           '#4a4239',
-\                           '#fb4934',
-\                           '#b8bb26',
-\                           '#fabd2f',
-\                           '#83a598',
-\                           '#d3869b',
-\                           '#8ec07c',
-\                           '#fbf1c7'
-\                                     ]
-endif
+    if has('nvim')
+        let g:terminal_color_0  = '#282828'
+        let g:terminal_color_1  = '#cc241d'
+        let g:terminal_color_2  = '#98971a'
+        let g:terminal_color_3  = '#fe8019'
+        let g:terminal_color_4  = '#458588'
+        let g:terminal_color_5  = '#b16286'
+        let g:terminal_color_6  = '#689d6a'
+        let g:terminal_color_7  = '#c9b788'
+        let g:terminal_color_8  = '#4a4239'
+        let g:terminal_color_9  = '#fb4934'
+        let g:terminal_color_10 = '#b8bb26'
+        let g:terminal_color_11 = '#fabd2f'
+        let g:terminal_color_12 = '#83a598'
+        let g:terminal_color_13 = '#d3869b'
+        let g:terminal_color_14 = '#8ec07c'
+        let g:terminal_color_15 = '#fbf1c7'
+    else
+        let g:terminal_ansi_colors = [
+                                \ '#282828',
+                                \ '#cc241d',
+                                \ '#98971a',
+                                \ '#fe8019',
+                                \ '#458588',
+                                \ '#b16286',
+                                \ '#689d6a',
+                                \ '#c9b788',
+                                \ '#4a4239',
+                                \ '#fb4934',
+                                \ '#b8bb26',
+                                \ '#fabd2f',
+                                \ '#83a598',
+                                \ '#d3869b',
+                                \ '#8ec07c',
+                                \ '#fbf1c7'
+                                \           ]
+    endif
 endif
 
 endif
@@ -1086,7 +1090,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.492 2024/06/22 15:24:49 czo Exp $
+            " $Id: .vimrc,v 1.493 2024/07/12 09:35:19 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
