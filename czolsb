@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Tuesday 26 March 2024, 21:46
-# $Id: czolsb,v 1.72 2024/03/26 20:50:11 czo Exp $
-# Edit Time: 59:57:16
+# Last Modified: Sunday 25 August 2024, 01:53
+# $Id: czolsb,v 1.73 2024/08/24 23:53:21 czo Exp $
+# Edit Time: 60:19:27
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -162,33 +162,41 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
         $VERSION_ID =~ s/-/_/g;
     }
 
-    ## CPU
-    $CNBCORE = 0;
-    if ( open( FILE, "</proc/cpuinfo" ) ) {
-        while (<FILE>) {
-            chomp $_;
-            if ( $_ =~ /^((model name)|(cpu model))[\t ]*: (.*)/ ) {
-                $CNBCORE += 1;
-                $CCOREMODEL = $4;
-                $CCOREMODEL =~ s/  */ /g;
-                printv(qw(CCOREMODEL CNBCORE));
-            }
-        }
-        close FILE;
+    foreach (qx(lscpu 2>/dev/null)) {
+        chomp;
+        if (/^CPU\(s\):\s+(.*)/m)      { $CNBCORE    = $1; }
+        if (/^\s*Model name:\s+(.*)/m) { $CCOREMODEL = $1; }
     }
 
-    if ( $CNBCORE == 0 ) {
+    if ( !defined($CCOREMODEL) ) {
+        ## CPU
+        $CNBCORE = 0;
         if ( open( FILE, "</proc/cpuinfo" ) ) {
             while (<FILE>) {
                 chomp $_;
-                if ( $_ =~ /^Processor[\t ]*: (.*)/ ) {
+                if ( $_ =~ /^((model name)|(cpu model))[\t ]*: (.*)/ ) {
                     $CNBCORE += 1;
-                    $CCOREMODEL = $1;
+                    $CCOREMODEL = $4;
                     $CCOREMODEL =~ s/  */ /g;
                     printv(qw(CCOREMODEL CNBCORE));
                 }
             }
             close FILE;
+        }
+
+        if ( $CNBCORE == 0 ) {
+            if ( open( FILE, "</proc/cpuinfo" ) ) {
+                while (<FILE>) {
+                    chomp $_;
+                    if ( $_ =~ /^Processor[\t ]*: (.*)/ ) {
+                        $CNBCORE += 1;
+                        $CCOREMODEL = $1;
+                        $CCOREMODEL =~ s/  */ /g;
+                        printv(qw(CCOREMODEL CNBCORE));
+                    }
+                }
+                close FILE;
+            }
         }
     }
 
@@ -229,8 +237,6 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
         $PRETTY_NAME = "Linux ($ID $VERSION_ID)";
         ## 5.10.101-android12-9-00017-ge660be55c683-ab9041535
         ##$CKNAME=~ s/-.*$//;
-        ($CNBCORE)    = qx'lscpu' =~ /^CPU\(s\):\s+(.*)/m;
-        ($CCOREMODEL) = qx'lscpu' =~ /^\s*Model name:\s+(.*)/m;
     }
 
     $CRELEASE = $PRETTY_NAME;
