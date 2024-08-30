@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Sunday 25 August 2024, 01:53
-# $Id: czolsb,v 1.73 2024/08/24 23:53:21 czo Exp $
-# Edit Time: 60:19:27
+# Last Modified: Thursday 29 August 2024, 01:09
+# $Id: czolsb,v 1.77 2024/08/28 23:14:55 czo Exp $
+# Edit Time: 60:53:02
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -49,8 +49,10 @@ sub printd {
 }
 
 sub printv {
-    while ( $s = shift ) {
-        if ($debug) { warn( $s . ": '" . $$s . "'\n" ); }
+    if ($debug) {
+        while ( $s = shift ) {
+            warn( $s . ": '" . $$s . "'\n" );
+        }
     }
 }
 
@@ -59,8 +61,8 @@ sub printv {
 
 sub qxc {
     my $s;
-    ($s) = qx(@_);
-    chomp($s);
+    ($s) = qx(@_ 2>/dev/null);
+    chomp($s) if defined $s;
     return $s;
 }
 
@@ -96,10 +98,10 @@ sub kilo {
 
 $HOSTNAME = $ENV{HOSTNAME};
 if ( !defined($HOSTNAME) ) {
-    $HOSTNAME = qxc('hostname 2>/dev/null');
+    $HOSTNAME = qxc('hostname');
 }
 if ( !defined($HOSTNAME) ) {
-    $HOSTNAME = qxc('uname -n 2>/dev/null');
+    $HOSTNAME = qxc('uname -n');
 }
 $HOSTNAME =~ s/\..*//;
 
@@ -107,9 +109,9 @@ $CCNAME = qxc('uname -m');
 $CKNAME = qxc('uname -r');
 $OSN    = qxc('uname');
 
-##printv(qw(CCNAME CKNAME OSN));
+printv(qw(CCNAME CKNAME OSN));
 
-# Linux | Android | Cygwin
+# Linux | Android | Cygwin | Mingw
 if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
     $OSNAME = qxc('uname -o');
     if ( $OSN =~ /^Linux/ ) {
@@ -120,7 +122,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
                     while (<FILE>) {
                         chomp $_;
                         if ( $_ =~ m/["]?([^="]+)["]?=["]?([^"]+)["]?/ ) {
-                            ##printd "'$1':        '$2'\n";
+                            printd "'$1':        '$2'\n";
                             ${$1} = $2;
                         }
                     }
@@ -326,7 +328,7 @@ elsif ( $OSN =~ /^SunOS/ ) {
 
     $CKNAME = qxc('uname -v');
 
-    ($CCOREMODEL) = qx'kstat -m cpu_info' =~ /^\s+brand\s+(.*)/m;
+    ($CCOREMODEL) = ( qx'kstat -m cpu_info' =~ /^\s+brand\s+(.*)/m );
     $CNBCORE = grep( /\score_id\s/, qx'kstat cpu_info' );
     printv(qw(CCOREMODEL CNBCORE));
 
@@ -378,7 +380,7 @@ if ( -r $lsb_czo_file ) {
 }
 $CTAG =~ s/(.*)/\L$1/;
 
-# printv(qw (HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CMEM CSWAP CTAG));
+# printv(qw(HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CMEM CSWAP CTAG));
 ($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
 
 print <<HEREDOC
