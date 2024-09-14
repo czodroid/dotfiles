@@ -1,0 +1,133 @@
+# Filename: Brewfile
+# Author: Olivier Sirol <czo@free.fr>
+# License: GPL-2.0 (http://www.gnu.org/copyleft)
+# File Created: 7 March 2015
+# Last Modified: Monday 15 July 2024, 10:04
+# $Id: Brewfile-10.15,v 1.5 2024/07/15 08:04:53 czo Exp $
+# Edit Time: 2:46:30
+# Description:
+#                   macos brew file
+#                   for catalina (macOS 10.15)
+#
+#   install brew:
+#       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#   create Brewfile:
+#       brew bundle dump
+#   install Brewfile:
+#       brew bundle
+#   update:
+#       brew update && brew upgrade && brew cleanup
+#
+# Copyright: (C) 2015-2024 Olivier Sirol <czo@free.fr>
+
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "homebrew/services"
+
+# brew install --cask adoptopenjdk
+# cask "adoptopenjdk8"
+
+brew "alerter"
+brew "bash"
+brew "cdrtools"
+brew "clipper"
+brew "colordiff"
+brew "coreutils"
+brew "cvs"
+brew "dhex"
+brew "dmg2img"
+brew "duti"
+# brew "ffmpeg"
+brew "findutils"
+# brew "gcc"
+brew "git"
+brew "gnu-sed"
+brew "gzip"
+brew "htop"
+brew "iftop"
+# brew "imagemagick"
+brew "lftp"
+# brew "libnotify"
+brew "macvim"
+brew "mas"
+brew "midnight-commander"
+brew "ncdu"
+# brew "nmap"
+# brew "node"
+# brew "ocrmypdf"
+# brew "opus"
+brew "p7zip"
+brew "par"
+# brew "pdfsandwich"
+# brew "pdftk-java"
+# brew "poppler"
+# brew "pygobject3"
+# brew "python@3.10"
+# brew "reattach-to-user-namespace"
+brew "rsync"
+# brew "squashfs"
+# brew "subversion"
+brew "tcpdump"
+# brew "tesseract"
+# brew "tesseract-lang"
+brew "tmate"
+brew "tmux"
+brew "unzip"
+brew "wget"
+# brew "xorriso"
+
+# cask "adobe-acrobat-reader"
+# cask "android-file-transfer"
+# cask "android-platform-tools"
+# cask "arduino"
+# cask "barrier"
+# cask "cyberduck"
+cask "firefox"
+cask "font-meslo-for-powerline"
+cask "font-source-code-pro-for-powerline"
+cask "font-source-code-pro"
+# cask "gimp"
+# cask "gitkraken"
+# cask "google-chrome"
+# cask "handbrake"
+cask "hex-fiend"
+# cask "inkscape"
+cask "iterm2"
+cask "itsycal"
+cask "keka"
+# cask "libreoffice"
+# cask "libreoffice-language-pack"
+# cask "meld"
+# cask "menumeters"
+cask "stats"
+cask "microsoft-auto-update"
+cask "microsoft-office"
+cask "openvpn-connect"
+# cask "openzfs"
+# cask "pdfsam-basic"
+cask "platypus"
+cask "rectangle"
+# cask "skype"
+# cask "timemachineeditor"
+# cask "virtualbox"
+# cask "virtualbox-extension-pack"
+cask "visual-studio-code"
+cask "vlc"
+cask "xquartz"
+# cask "zoom"
+
+mas "AJA System Test Lite", id: 1092006274
+mas "Amphetamine", id: 937984704
+mas "GarageBand", id: 682658836
+mas "Image2icon", id: 992115977
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Microsoft Remote Desktop", id: 715768417
+mas "NordVPN IKE", id: 1116599239
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Photos Duplicate Cleaner", id: 592704001
+mas "Surfshark", id: 1437809329
