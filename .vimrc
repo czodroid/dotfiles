@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 12 July 2024, 11:25
-" $Id: .vimrc,v 1.493 2024/07/12 09:35:19 czo Exp $
-" Edit Time: 252:04:29
+" Last Modified: Saturday 31 August 2024, 19:44
+" $Id: .vimrc,v 1.494 2024/09/01 08:36:06 czo Exp $
+" Edit Time: 252:06:09
 " Description:
 "
 "       vim config file
@@ -449,8 +449,8 @@ function! CzoMSwinEnable ()
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
         " but dont use Ctrl-A
-        " noremap     <C-A>   <C-A>
-        " inoremap    <C-A>   <C-A>
+        noremap     <C-A>   <C-A>
+        inoremap    <C-A>   <C-A>
         noremap     <C-Y>   <C-Y>
         inoremap    <C-Y>   <C-Y>
         noremap     <C-F>   <C-F>
@@ -477,8 +477,8 @@ function! CzoMSwinNoX11 ()
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
         " but dont use Ctrl-A
-        " noremap     <C-A>   <C-A>
-        " inoremap    <C-A>   <C-A>
+        noremap     <C-A>   <C-A>
+        inoremap    <C-A>   <C-A>
         noremap     <C-Y>   <C-Y>
         inoremap    <C-Y>   <C-Y>
         noremap     <C-F>   <C-F>
@@ -1090,7 +1090,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.493 2024/07/12 09:35:19 czo Exp $
+            " $Id: .vimrc,v 1.494 2024/09/01 08:36:06 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

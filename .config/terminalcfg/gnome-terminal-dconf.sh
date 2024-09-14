@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 September 2019
-# Last Modified: Wednesday 10 July 2024, 13:27
-# $Id: gnome-terminal-dconf.sh,v 1.8 2024/07/12 09:35:20 czo Exp $
-# Edit Time: 0:24:36
+# Last Modified: Friday 13 September 2024, 18:41
+# $Id: gnome-terminal-dconf.sh,v 1.11 2024/09/13 16:41:33 czo Exp $
+# Edit Time: 0:34:00
 # Description:
 #               dconf for gnome terminal
 #
@@ -14,47 +14,40 @@
 
 dconf load / << 'EOF'
 
-#czo /* 2018/02/06 : Modified by Olivier Sirol <czo@free.fr> */
-#dconf dump / > /root/dconf.1
+
+[org/gnome/desktop/wm/preferences]
+button-layout='appmenu:minimize,maximize,close'
+
+
+# dconf dump /org/gnome/shell/extensions/system-monitor/ > system-monitor.dconf
+# dconf reset -f /org/gnome/shell/extensions/system-monitor
 
 [org/gnome/shell/extensions/system-monitor]
-battery-display=false
-center-display=false
-compact-display=false
-cpu-display=true
-cpu-graph-width=30
-cpu-iowait-color='#c01c28ff'
-cpu-nice-color='#ffffffff'
-cpu-other-color='#813d9cff'
+background='#ffffff08'
+cpu-graph-width=40
+cpu-iowait-color='#e01b24ff'
+cpu-nice-color='#26a269ff'
+cpu-other-color='#613583ff'
 cpu-show-text=false
-cpu-style='graph'
-cpu-system-color='#9a9996ff'
-cpu-user-color='#eeeeecff'
+cpu-system-color='#613583ff'
+cpu-user-color='#26a269ff'
 disk-display=true
-disk-graph-width=30
-disk-read-color='#eeeeecff'
+disk-graph-width=40
+disk-read-color='#26a269ff'
 disk-show-text=false
-disk-style='graph'
-disk-usage-style='pie'
-disk-write-color='#813d9cff'
-fan-sensor-file='/sys/class/hwmon/hwmon2/device/fan1_input'
+disk-usage-style='bar'
+disk-write-color='#c01c28ff'
 icon-display=false
 memory-display=false
-memory-graph-width=30
-memory-show-text=false
-move-clock=false
-net-collisions-color='#e66100ff'
-net-down-color='#eeeeecff'
-net-downerrors-color='#c01c28ff'
-net-graph-width=30
+net-collisions-color='#9141acff'
+net-down-color='#26a269ff'
+net-downerrors-color='#33d17aff'
+net-graph-width=40
+net-show-menu=true
 net-show-text=false
-net-up-color='#babdb6ff'
-net-uperrors-color='#c01c28ff'
+net-up-color='#c01c28ff'
+net-uperrors-color='#ed333bff'
 show-tooltip=true
-swap-graph-width=30
-thermal-display=false
-tooltip-delay-ms=100
-
 
 # dconf dump /org/gnome/terminal/ > gnometerm.dconf
 # dconf reset -f /org/gnome/terminal/

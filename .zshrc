@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 15 June 2024, 18:58
-# $Id: .zshrc,v 1.575 2024/06/15 16:58:18 czo Exp $
-# Edit Time: 139:37:47
+# Last Modified: Thursday 05 September 2024, 12:27
+# $Id: .zshrc,v 1.576 2024/09/05 10:28:13 czo Exp $
+# Edit Time: 139:37:57
 # Description:
 #
 #       zsh config file
@@ -822,6 +822,8 @@ sq() { SB=$( perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m 
 ## GEOSCOPE
 alias slink='slinktool -Q :18000'
 alias slink1='slinktool -Q rtserver.ipgp.fr'
+alias socksipgp='ssh -ND 53128 root@geoscopevpn'
+alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
 
 ## OLD and RemeberThis_
 alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'

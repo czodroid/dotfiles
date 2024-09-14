@@ -2,9 +2,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 7 March 2015
-# Last Modified: Sunday 21 April 2024, 22:10
-# $Id: Brewfile,v 1.24 2024/04/21 20:10:42 czo Exp $
-# Edit Time: 3:06:43
+# Last Modified: Friday 13 September 2024, 18:47
+# $Id: Brewfile,v 1.26 2024/09/13 16:47:11 czo Exp $
+# Edit Time: 3:11:51
 # Description:
 #                   macos brew file
 #                   for sonoma (macOS 14.2)
@@ -24,14 +24,12 @@
 
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
-
-cask "adoptopenjdk"
-
 brew "bash"
+brew "coreutils"
+brew "cask"
 brew "cdrtools"
 brew "clipper"
 brew "colordiff"
-brew "coreutils"
 brew "cvs"
 brew "dhex"
 brew "dmg2img"
@@ -48,6 +46,7 @@ brew "imagemagick"
 brew "lftp"
 brew "macvim"
 brew "mas"
+brew "micro_inetd"
 brew "midnight-commander"
 brew "mist-cli"
 brew "mpv"
@@ -58,13 +57,15 @@ brew "noti"
 brew "ocrmypdf"
 brew "openvpn"
 brew "opus"
+brew "7zip"
 brew "p7zip"
 brew "par"
+brew "poppler"
 brew "pdfsandwich"
 brew "pdftk-java"
-brew "poppler"
 brew "reattach-to-user-namespace"
 brew "rsync"
+brew "smartmontools"
 brew "squashfs"
 brew "subversion"
 brew "tcpdump"
@@ -77,9 +78,8 @@ brew "unzip"
 brew "wget"
 brew "xorriso"
 brew "zip"
-
-cask "adoptopenjdk"
 cask "adobe-acrobat-reader"
+cask "adoptopenjdk"
 cask "android-commandlinetools"
 cask "android-file-transfer"
 cask "android-platform-tools"
@@ -93,6 +93,7 @@ cask "font-source-code-pro-for-powerline"
 cask "gimp"
 cask "gitkraken"
 cask "google-chrome"
+# cask "gstreamer-runtime"
 cask "handbrake"
 cask "hex-fiend"
 cask "inkscape"
@@ -117,11 +118,10 @@ cask "tunnelblick"
 cask "virtualbox"
 cask "visual-studio-code"
 cask "vlc"
-# cask "wine-stable"
+cask "vnc-viewer"
 cask "xnviewmp"
 cask "xquartz"
 cask "zoom"
-
 mas "AJA System Test Lite", id: 1092006274
 mas "Amphetamine", id: 937984704
 mas "GarageBand", id: 682658836
