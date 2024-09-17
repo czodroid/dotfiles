@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 31 August 2024, 19:44
-" $Id: .vimrc,v 1.494 2024/09/01 08:36:06 czo Exp $
-" Edit Time: 252:06:09
+" Last Modified: Tuesday 17 September 2024, 21:17
+" $Id: .vimrc,v 1.495 2024/09/17 19:19:42 czo Exp $
+" Edit Time: 253:04:09
 " Description:
 "
 "       vim config file
@@ -598,6 +598,12 @@ imap <C-ScrollWheelDown>    <C-O><C-D>
 vnoremap >          >gv
 vnoremap <          <gv
 
+" line move
+nnoremap <Up>       gk
+inoremap <Up>       <C-O>gk
+nnoremap <Down>     gj
+inoremap <Down>     <C-O>gj
+
 " goto tags
 map  <C-S-PageUp>   <C-]>
 imap <C-S-PageUp>   <C-O><C-]>
@@ -1090,7 +1096,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.494 2024/09/01 08:36:06 czo Exp $
+            " $Id: .vimrc,v 1.495 2024/09/17 19:19:42 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

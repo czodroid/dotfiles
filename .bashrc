@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 15 September 2024, 17:30
-# $Id: .bashrc,v 1.632 2024/09/15 18:01:04 czo Exp $
-# Edit Time: 148:21:57
+# Last Modified: Tuesday 17 September 2024, 19:53
+# $Id: .bashrc,v 1.633 2024/09/17 17:54:13 czo Exp $
+# Edit Time: 148:24:32
 # Description:
 #
 #       bash config file
@@ -711,6 +711,8 @@ alias socksipgp='ssh -ND 53128 root@geoscopevpn'
 alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
 
 ## OLD and RemeberThis_
+alias RemeberThis_chrome_https_not_sercure='certutil -d sql:$HOME/.pki/nssdb -A -t 'P,,' -n bunnahabhain.ipgp.fr -i Desktop/bunnahabhain.ipgp.fr:8006'
+alias RemeberThis_chrome_https_not_sercure_list='certutil -d sql:$HOME/.pki/nssdb -L'
 alias RemeberThis_vnc_passwd_decrypt='echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv'
 alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'
 alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
