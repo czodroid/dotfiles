@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 17 September 2024, 21:17
-" $Id: .vimrc,v 1.495 2024/09/17 19:19:42 czo Exp $
-" Edit Time: 253:04:09
+" Last Modified: Wednesday 18 September 2024, 04:17
+" $Id: .vimrc,v 1.497 2024/09/18 02:18:41 czo Exp $
+" Edit Time: 253:21:23
 " Description:
 "
 "       vim config file
@@ -566,6 +566,7 @@ inoremap    <C-S>       <Esc>:update<CR>gi
 noremap     <C-Z>       u
 inoremap    <C-Z>       <C-O>u
 vnoremap    <BS>        d
+
 " always use Ctrl-Q instead of Ctrl-V
 noremap     <C-Q>       <C-V>
 
@@ -603,6 +604,13 @@ nnoremap <Up>       gk
 inoremap <Up>       <C-O>gk
 nnoremap <Down>     gj
 inoremap <Down>     <C-O>gj
+
+nnoremap k          gk
+nnoremap j          gj
+vnoremap k          gk
+vnoremap j          gj
+vnoremap h          h
+vnoremap l          l
 
 " goto tags
 map  <C-S-PageUp>   <C-]>
@@ -1096,7 +1104,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.495 2024/09/17 19:19:42 czo Exp $
+            " $Id: .vimrc,v 1.497 2024/09/18 02:18:41 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

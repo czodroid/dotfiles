@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 17 September 2024, 19:53
-# $Id: .bashrc,v 1.633 2024/09/17 17:54:13 czo Exp $
-# Edit Time: 148:24:32
+# Last Modified: Monday 23 September 2024, 23:16
+# $Id: .bashrc,v 1.636 2024/09/23 21:17:54 czo Exp $
+# Edit Time: 148:39:36
 # Description:
 #
 #       bash config file
@@ -401,7 +401,7 @@ case $PLATFORM in
         if ( echo A | \grep --color=auto A ) >/dev/null 2>&1; then
             alias grep='\grep --color=auto'
         fi
-        if [ $( (\pgrep -fiac 1111 | wc -l) 2>/dev/null ) = 1 ]; then
+        if [ $( (\pgrep -fiac 11czo11 | wc -l) 2>/dev/null ) = 1 ]; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
         else
@@ -481,12 +481,13 @@ alias gl_cs='\ls -1rt * | xargs grep -s'
 ff() { find . -iname "*$1*"; }
 ff_cs() { find . -name "*$1*"; }
 
-if \df -P -T -k >/dev/null 2>&1; then
+## TODO: might block, then .
+if \df -P -T -k . >/dev/null 2>&1; then
     alias df='\df -P -T -k'
-elif \df -P -k >/dev/null 2>&1; then
+elif \df -P -k . >/dev/null 2>&1; then
     # freeBSD5: no -T and don't show 512 blocks but 1024
     alias df='\df -P -k'
-elif \df -k >/dev/null 2>&1; then
+elif \df -k . >/dev/null 2>&1; then
     # solaris: no multiline
     alias df='\df -k | cat'
 fi
