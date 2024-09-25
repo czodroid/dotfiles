@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 25 September 2024, 17:16
-# $Id: .zshrc,v 1.583 2024/09/25 15:17:01 czo Exp $
-# Edit Time: 140:33:41
+# Last Modified: Wednesday 25 September 2024, 19:51
+# $Id: .zshrc,v 1.584 2024/09/25 19:05:34 czo Exp $
+# Edit Time: 140:34:03
 # Description:
 #
 #       zsh config file
@@ -799,7 +799,7 @@ alias KU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias CU='choco upgrade all -y && cyg-get.bat -upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias CU='choco upgrade all -y && rm -f /cygdrive/c/Users/Public/Desktop/* && cyg-get.bat -upgrade all && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # suse: zypper
 # netbsd: pkgin
