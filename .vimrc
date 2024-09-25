@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 18 September 2024, 04:17
-" $Id: .vimrc,v 1.497 2024/09/18 02:18:41 czo Exp $
-" Edit Time: 253:21:23
+" Last Modified: Wednesday 25 September 2024, 08:52
+" $Id: .vimrc,v 1.499 2024/09/25 06:53:04 czo Exp $
+" Edit Time: 253:42:39
 " Description:
 "
 "       vim config file
@@ -332,6 +332,13 @@ iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire 
 
 " == Command ===========================================================
 
+let g:DoCzoTemplate=1
+let g:TemplateMaxHeaderLines=50
+let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
+let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
+
+let g:DoCzoLineMove=0
+
 command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
 function! CzoATabToSpaceAndTrailWhite ()
     let l = line(".")
@@ -341,6 +348,35 @@ function! CzoATabToSpaceAndTrailWhite ()
     echo "Trim Trailing Whitespace"
     exec '%s/\s\+$//ce'
     call cursor(l, c)
+endfunction
+
+command!  CzoInvLineMove call CzoInvLineMove ()
+function! CzoInvLineMove ()
+    if g:DoCzoLineMove
+        let g:DoCzoLineMove=0
+        nnoremap <Up>       k
+        inoremap <Up>       <C-O>k
+        nnoremap <Down>     j
+        inoremap <Down>     <C-O>j
+        nnoremap k          k
+        nnoremap j          j
+        vnoremap k          k
+        vnoremap j          j
+        vnoremap h          h
+        vnoremap l          l
+    else
+        let g:DoCzoLineMove=1
+        nnoremap <Up>       gk
+        inoremap <Up>       <C-O>gk
+        nnoremap <Down>     gj
+        inoremap <Down>     <C-O>gj
+        nnoremap k          gk
+        nnoremap j          gj
+        vnoremap k          gk
+        vnoremap j          gj
+        vnoremap h          h
+        vnoremap l          l
+    endif
 endfunction
 
 command!  CzoInvTemplate call CzoInvTemplate ()
@@ -599,18 +635,18 @@ imap <C-ScrollWheelDown>    <C-O><C-D>
 vnoremap >          >gv
 vnoremap <          <gv
 
-" line move
-nnoremap <Up>       gk
-inoremap <Up>       <C-O>gk
-nnoremap <Down>     gj
-inoremap <Down>     <C-O>gj
+" line move (now in CzoInvLineMove)
+" nnoremap <Up>       gk
+" inoremap <Up>       <C-O>gk
+" nnoremap <Down>     gj
+" inoremap <Down>     <C-O>gj
 
-nnoremap k          gk
-nnoremap j          gj
-vnoremap k          gk
-vnoremap j          gj
-vnoremap h          h
-vnoremap l          l
+" nnoremap k          gk
+" nnoremap j          gj
+" vnoremap k          gk
+" vnoremap j          gj
+" vnoremap h          h
+" vnoremap l          l
 
 " goto tags
 map  <C-S-PageUp>   <C-]>
@@ -1014,10 +1050,11 @@ endif
 "set verbose=9
 "autocmd!
 
-let g:TemplateMaxHeaderLines=50
-let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
-let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
-let g:DoCzoTemplate=1
+"" Now in command section
+" let g:DoCzoTemplate=1
+" let g:TemplateMaxHeaderLines=50
+" let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
+" let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
 
 command! -nargs=? Template call Template (<q-args>)
 command! TemplateMacro call TemplateMacro ()
@@ -1104,7 +1141,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.497 2024/09/18 02:18:41 czo Exp $
+            " $Id: .vimrc,v 1.499 2024/09/25 06:53:04 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

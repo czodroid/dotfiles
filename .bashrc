@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 23 September 2024, 23:16
-# $Id: .bashrc,v 1.636 2024/09/23 21:17:54 czo Exp $
-# Edit Time: 148:39:36
+# Last Modified: Wednesday 25 September 2024, 17:16
+# $Id: .bashrc,v 1.638 2024/09/25 15:17:00 czo Exp $
+# Edit Time: 149:56:40
 # Description:
 #
 #       bash config file
@@ -496,9 +496,13 @@ alias md='\mkdir -p'
 mdcd()    { \mkdir -p "$1" ; cd "$1"; }
 
 alias rmf='rm -fr'
-alias rmemptyf='find . -empty -type f -print -exec rm {} \;'
-alias rmemptyd='find . -empty -type d -print -exec rm -fr {} \;'
-alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
+
+## need arg -w to really delete file
+# alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
+rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE *.bak."; RM="-exec rm -f {} ;"; else echo "Just PRINT *.bak, need -w as arg to really deletes files."; RM=""; fi ; find . \( -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print $RM ; }
+rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file."; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -empty -type f -print $RM ; }
+rmempty_dir() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file."; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
+
 
 #command -v foo >/dev/null 2>&1
 #[ -x "$(command -v foo)" ]
