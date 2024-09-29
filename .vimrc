@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 29 September 2024, 12:25
-" $Id: .vimrc,v 1.500 2024/09/29 10:27:07 czo Exp $
-" Edit Time: 253:49:05
+" Last Modified: Sunday 29 September 2024, 18:55
+" $Id: .vimrc,v 1.501 2024/09/29 16:56:04 czo Exp $
+" Edit Time: 253:56:17
 " Description:
 "
 "       vim config file
@@ -470,14 +470,14 @@ command!  CzoVisualClear call CzoVisualClear ()
 function! CzoVisualClear ()
     hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
     hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-    hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
+    hi IncSearch     guifg=NONE    guibg=#596b63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
 endfunction
 
 command!  CzoVisualGrey call CzoVisualGrey ()
 function! CzoVisualGrey ()
     hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
     hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
-    hi IncSearch     guifg=#596B63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+    hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endfunction
 
 command!  CzoMSwinEnable call CzoMSwinEnable ()
@@ -1141,7 +1141,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.500 2024/09/29 10:27:07 czo Exp $
+            " $Id: .vimrc,v 1.501 2024/09/29 16:56:04 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
