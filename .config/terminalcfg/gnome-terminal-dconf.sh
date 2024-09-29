@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 September 2019
-# Last Modified: Monday 23 September 2024, 16:28
-# $Id: gnome-terminal-dconf.sh,v 1.16 2024/09/23 14:30:19 czo Exp $
-# Edit Time: 0:49:28
+# Last Modified: Sunday 29 September 2024, 19:22
+# $Id: gnome-terminal-dconf.sh,v 1.17 2024/09/29 17:23:24 czo Exp $
+# Edit Time: 0:51:08
 # Description:
 #               my dconf for gnome
 #                - buttons
@@ -110,7 +110,6 @@ show-tooltip=true
 swap-position=5
 thermal-position=7
 tooltip-delay-ms=200
-
 
 # dconf dump /org/gnome/shell/extensions/dash-to-panel/ > dashtopanel.dconf
 # dconf reset -f /org/gnome/shell/extensions/dash-to-panel/
@@ -257,7 +256,7 @@ stockgs-keep-dash=false
 stockgs-keep-top-panel=false
 stockgs-panelbtn-click-only=false
 taskbar-locked=true
-trans-bg-color='#282828'
+trans-bg-color='#1d2021'
 trans-dynamic-anim-target=0.80000000000000004
 trans-dynamic-anim-time=300
 trans-dynamic-behavior='ALL_WINDOWS'
@@ -271,7 +270,6 @@ tray-padding=-1
 tray-size=0
 window-preview-hide-immediate-click=true
 window-preview-title-position='TOP'
-
 
 # dconf dump /org/gnome/shell/extensions/arcmenu/ > arcmenu.dconf
 # dconf reset -f /org/gnome/shell/extensions/arcmenu/
