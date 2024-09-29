@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 25 September 2024, 08:52
-" $Id: .vimrc,v 1.499 2024/09/25 06:53:04 czo Exp $
-" Edit Time: 253:42:39
+" Last Modified: Sunday 29 September 2024, 12:25
+" $Id: .vimrc,v 1.500 2024/09/29 10:27:07 czo Exp $
+" Edit Time: 253:49:05
 " Description:
 "
 "       vim config file
@@ -291,7 +291,7 @@ autocmd FileType json      setlocal commentstring=//\ %s
 autocmd FileType php       setlocal commentstring=//\ %s
 autocmd FileType xdefaults setlocal commentstring=!\ %s
 
-autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim\|readline' | :call CzoTTW () | endif
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim\|readline\|json' | :call CzoTTW () | endif
 
 
 endif
@@ -848,19 +848,19 @@ hi SpellBad      guifg=NONE    guibg=NONE    gui=underline ctermfg=NONE       ct
 hi SpellLocal    guifg=NONE    guibg=NONE    gui=underline ctermfg=NONE       ctermbg=NONE     cterm=underline term=underline
 hi SpellRare     guifg=NONE    guibg=NONE    gui=underline ctermfg=NONE       ctermbg=NONE     cterm=underline term=underline
 
-hi DiffAdd       guifg=NONE    guibg=#4F2E2A gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-hi DiffChange    guifg=NONE    guibg=#4F2E2A gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-hi DiffDelete    guifg=#753730 guibg=#4F2E2A gui=NONE      ctermfg=Black      ctermbg=DarkGray cterm=NONE      term=NONE
+hi DiffAdd       guifg=NONE    guibg=#4f2e2a gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+hi DiffChange    guifg=NONE    guibg=#4f2e2a gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+hi DiffDelete    guifg=#753730 guibg=#4f2e2a gui=NONE      ctermfg=Black      ctermbg=DarkGray cterm=NONE      term=NONE
 hi DiffText      guifg=NONE    guibg=#753730 gui=NONE      ctermfg=NONE       ctermbg=DarkBlue cterm=NONE      term=NONE
 
 hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-hi IncSearch     guifg=NONE    guibg=#596B63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
+hi IncSearch     guifg=NONE    guibg=#596b63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
 
 if &t_Co < 16
 hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
 hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
-hi IncSearch     guifg=#596B63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endif
 
 hi User1         guifg=#35302b guibg=#83a598 gui=inverse   ctermfg=DarkGray   ctermbg=Blue     cterm=inverse   term=inverse
@@ -1141,7 +1141,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.499 2024/09/25 06:53:04 czo Exp $
+            " $Id: .vimrc,v 1.500 2024/09/29 10:27:07 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

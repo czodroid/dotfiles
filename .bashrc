@@ -6,8 +6,8 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 27 September 2024, 01:11
-# $Id: .bashrc,v 1.640 2024/09/26 23:12:37 czo Exp $
+# Last Modified: Saturday 28 September 2024, 21:51
+# $Id: .bashrc,v 1.641 2024/09/29 10:27:07 czo Exp $
 # Edit Time: 149:58:29
 # Description:
 #
@@ -499,9 +499,9 @@ alias rmf='rm -fr'
 
 ## need arg -w to really delete file
 # alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
-rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE *.bak."; RM="-exec rm -f {} ;"; else echo "Just PRINT *.bak, need -w as arg to really deletes files."; RM=""; fi ; find . \( -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print $RM ; }
-rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file."; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -empty -type f -print $RM ; }
-rmempty_dir() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file."; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
+rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE *.[bakup]:"; RM="-exec rm -f {} ;"; else echo "Just PRINT *.bak, need -w as arg to really deletes files."; RM=""; fi ; find . \( -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print $RM ; }
+rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -empty -type f -print $RM ; }
+rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
 
 
 #command -v foo >/dev/null 2>&1
