@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 28 September 2024, 21:51
-# $Id: .bashrc,v 1.641 2024/09/29 10:27:07 czo Exp $
-# Edit Time: 149:58:29
+# Last Modified: Thursday 03 October 2024, 13:30
+# $Id: .bashrc,v 1.645 2024/10/03 11:31:35 czo Exp $
+# Edit Time: 150:05:45
 # Description:
 #
 #       bash config file
@@ -239,7 +239,7 @@ fi
 
 case $(domainname 2>/dev/null) in
     NIS-CZO*) export PRINTER=U172-magos ;;
-    *) export PRINTER=BW-Dressing ;;
+    *) export PRINTER=LaserJet ;;
 esac
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
@@ -716,9 +716,13 @@ alias socksipgp='ssh -ND 53128 root@geoscopevpn'
 alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
 
 ## OLD and RemeberThis_
+alias RemeberThis_vnc_bowmore='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_bowmore_view='ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_bowmore_bad='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd bowmore:32'
+alias RemeberThis_vnc_bowmore_view_bad='vncviewer -FullScreen -passwd ~/.vnc/passwd bowmore:32'
+alias RemeberThis_vnc_passwd_decrypt='echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv'
 alias RemeberThis_chrome_https_not_sercure='certutil -d sql:$HOME/.pki/nssdb -A -t 'P,,' -n bunnahabhain.ipgp.fr -i Desktop/bunnahabhain.ipgp.fr:8006'
 alias RemeberThis_chrome_https_not_sercure_list='certutil -d sql:$HOME/.pki/nssdb -L'
-alias RemeberThis_vnc_passwd_decrypt='echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv'
 alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'
 alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
 alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
