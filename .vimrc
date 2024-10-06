@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 29 September 2024, 18:55
-" $Id: .vimrc,v 1.501 2024/09/29 16:56:04 czo Exp $
-" Edit Time: 253:56:17
+" Last Modified: Sunday 06 October 2024, 13:38
+" $Id: .vimrc,v 1.505 2024/10/06 11:39:18 czo Exp $
+" Edit Time: 254:43:58
 " Description:
 "
 "       vim config file
@@ -243,14 +243,14 @@ if has("gui_running")
     " gui fonts on linux, win, osx (set guifont=<TAB>)
     if has("gui_gtk")
         " Linux GUI
-        set guifont=Monospace\ 13
-        "set guifont=Source\ Code\ Pro\ for\ Powerline\ 13
+        " set guifont=Monospace\ 13
+        set guifont=Source\ Code\ Pro\ 13
     elseif has("gui_win32")
         " Win32/64 GVim
-        set guifont=Source_Code_Pro_for_Powerline:h13,Consolas:h13,Andale_Mono:h13
+        set guifont=Source_Code_Pro:h13,Consolas:h13,Andale_Mono:h13
     elseif has("gui_macvim")
         " MacVim
-        set guifont=SourceCodeProForPowerline-Regular:h17,Monaco:h17
+        set guifont=SourceCodeProRoman-Regular:h17,Monaco:h17
     endif
 
 endif
@@ -283,7 +283,8 @@ endif
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
 autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
-autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0
+autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0 | let g:vim_json_allow_comments=1
+" syntax autocmd for jsonc at end of file
 
 autocmd FileType cpp       setlocal commentstring=//\ %s
 autocmd FileType crontab   setlocal commentstring=#\ %s
@@ -291,8 +292,8 @@ autocmd FileType json      setlocal commentstring=//\ %s
 autocmd FileType php       setlocal commentstring=//\ %s
 autocmd FileType xdefaults setlocal commentstring=!\ %s
 
+" Trim Trailing Whitespace
 autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim\|readline\|json' | :call CzoTTW () | endif
-
 
 endif
 
@@ -717,7 +718,6 @@ endif
 " end MAPpings
 
 
-
 " == Color theme =======================================================
 
 " source $VIMRUNTIME/syntax/hitest.vim
@@ -1034,6 +1034,9 @@ endif
 endif
 " end Color theme
 
+" == Syntax Autocommands ===============================================
+
+autocmd FileType json      syntax match Comment "//.*$"
 
 " == template.vim ======================================================
 
@@ -1060,7 +1063,8 @@ command! -nargs=? Template call Template (<q-args>)
 command! TemplateMacro call TemplateMacro ()
 command! TemplateTimeStamp call TemplateTimeStamp ()
 
-autocmd BufNewFile * call TemplateNewFile ("")
+"" remove call Template() for a new file
+" autocmd BufNewFile * call TemplateNewFile ("")
 autocmd BufReadPre,FileReadPre   * call TemplateGetTime ()
 autocmd BufWritePre,FileWritePre * call TemplateTimeStamp ()
 
@@ -1141,7 +1145,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.501 2024/09/29 16:56:04 czo Exp $
+            " $Id: .vimrc,v 1.505 2024/10/06 11:39:18 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1803,6 +1807,30 @@ function! TemplateCzo (...)
                  \\<nl>    updateClock();
                  \\<nl>
                  \\<nl>});
+                 \\"
+
+            "## template.json #########################################
+            catch /^json$/
+               0put = \"
+                      \// Filename: template.json
+                 \\<nl>// Author: Olivier Sirol <czo@free.fr>
+                 \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
+                 \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
+                 \\<nl>// Last Modified: Sunday 06 October 2024, 13:36
+                 \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
+                 \\<nl>// Edit Time: 0:00:03
+                 \\<nl>// Description:
+                 \\<nl>//
+                 \\<nl>// Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl>{
+                 \\<nl>  \\"type\\": \\"result\\",
+                 \\<nl>  \\"timestamp\\": \\"2024-10-06T01:57:28Z\\",
+                 \\<nl>  \\"download\\": {
+                 \\<nl>    \\"bandwidth\\": 18289534,
+                 \\<nl>    \\"bytes\\": 129359976,
+                 \\<nl>    \\"elapsed\\": 7109
+                 \\<nl>  }
+                 \\<nl>}
                  \\"
 
             "## template.lua #########################################
