@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 03 October 2024, 13:31
-# $Id: .zshrc,v 1.590 2024/10/03 11:31:35 czo Exp $
-# Edit Time: 140:35:33
+# Last Modified: Sunday 13 October 2024, 18:08
+# $Id: .zshrc,v 1.591 2024/10/13 16:08:56 czo Exp $
+# Edit Time: 140:35:49
 # Description:
 #
 #       zsh config file
@@ -856,6 +856,7 @@ alias RemeberThis_zfs_rename='for snapshot in $(zfs list -H -t snapshot | grep "
 alias RemeberThis_serial_connect='picocom -e z -b 115200 /dev/ttyUSB0'
 alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; sync; rm /zero.dat'
 alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
+alias RemeberThis_git_delete_big_files='git filter-repo --strip-blobs-bigger-than 100M'
 alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
 alias RemeberThis_ssh-copy-id_openssh='cat ~/.ssh/id_rsa.pub | ssh root@debian10 "cat - >> .ssh/authorized_keys"'
 alias RemeberThis_ssh-copy-id_dropbear='cat ~/.ssh/id_rsa.pub | ssh root@sw-marion "cat - >> /etc/dropbear/authorized_keys"'
