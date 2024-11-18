@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 13 October 2024, 18:08
-# $Id: .zshrc,v 1.591 2024/10/13 16:08:56 czo Exp $
-# Edit Time: 140:35:49
+# Last Modified: Saturday 16 November 2024, 20:42
+# $Id: .zshrc,v 1.594 2024/11/18 13:21:33 czo Exp $
+# Edit Time: 140:36:12
 # Description:
 #
 #       zsh config file
@@ -254,6 +254,8 @@ export CVSIGNORE=.DS_Store
 
 export PGPPATH="$HOME/.gnupg"
 export HTML_TIDY="$HOME/.tidyrc"
+# AI qgnomeplatform-qt5
+export QT_QPA_PLATFORMTHEME=gnome
 
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
     export CVSROOT=czo@dalmore:/tank/data/czo/.cvsroot
@@ -831,6 +833,7 @@ alias socksipgp='ssh -ND 53128 root@geoscopevpn'
 alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
 
 ## OLD and RemeberThis_
+alias RemeberThis_mailq_repost='postqueue -p | awk "/^[0-9A-F]/ { print \"postqueue -i \" \$1 \" ; sleep 1s ;\" }" | sh'
 alias RemeberThis_vnc_bowmore='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
 alias RemeberThis_vnc_bowmore_view='ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
 alias RemeberThis_vnc_bowmore_bad='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd bowmore:32'
