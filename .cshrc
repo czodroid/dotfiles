@@ -6,17 +6,17 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 01 January 2025, 14:14
-# $Id: .cshrc,v 1.178 2025/01/01 13:15:10 czo Exp $
-# Edit Time: 32:35:47
+# Last Modified: Wednesday 01 January 2025, 14:16
+# $Id: .cshrc,v 1.179 2025/01/01 13:17:52 czo Exp $
+# Edit Time: 32:35:31
 # Description:
 #
 #       csh and tcsh config file
 #
 #       it was really a good trick to update my .cshrc
 #       30 years later!!!
-#       but be careful, I don't use it, and I don't know
-#       if all the alias are OK...
+#       but be careful, I don't use it, even on FreeBSD,
+#       and I don't know if all the alias are OK...
 #       keep this for fun!
 #
 # Copyright: (C) 1993-2025 Olivier Sirol <czo@free.fr>
