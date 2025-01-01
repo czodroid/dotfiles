@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 01 January 2025, 18:24
-# $Id: .bashrc,v 1.676 2025/01/01 17:26:55 czo Exp $
-# Edit Time: 154:47:25
+# Last Modified: Wednesday 01 January 2025, 18:58
+# $Id: .bashrc,v 1.677 2025/01/01 18:02:05 czo Exp $
+# Edit Time: 154:54:03
 # Description:
 #
 #       bash config file
@@ -367,7 +367,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Completions:"; RTMStop=$(date +%s%N)
 
 unalias -a
 
-alias t='type -a'
+{ \type -a type >/dev/null 2>&1 && alias t='type -a'; } || alias t='type'
 alias eq='type -P'
 
 alias st=". $HOME/.bashrc"
