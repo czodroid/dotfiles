@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 28 December 2024, 19:27
-# $Id: .zshrc,v 1.607 2024/12/28 18:27:55 czo Exp $
-# Edit Time: 141:29:40
+# Last Modified: Wednesday 01 January 2025, 11:33
+# $Id: .zshrc,v 1.608 2025/01/01 10:34:21 czo Exp $
+# Edit Time: 141:30:05
 # Description:
 #
 #       zsh config file
@@ -23,7 +23,7 @@
 #       This is Alex Fenyo, my guru, who made me discover this
 #       amazing shell in 1996... I am forever grateful to him.
 #
-# Copyright: (C) 1996-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1996-2025 Olivier Sirol <czo@free.fr>
 
 ##======= Debug ======================================================##
 
@@ -623,8 +623,8 @@ rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM
 [ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
 [ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
 command -v nvim >/dev/null 2>&1 && alias vim="\nvim"
-command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
 command -v vim  >/dev/null 2>&1 && alias vim="\vim"
+command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
 
 command -v less >/dev/null 2>&1 && alias more=less
 whence -p arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }

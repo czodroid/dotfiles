@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 28 December 2024, 19:23
-# $Id: .bashrc,v 1.672 2024/12/28 18:27:55 czo Exp $
-# Edit Time: 154:33:27
+# Last Modified: Wednesday 01 January 2025, 11:22
+# $Id: .bashrc,v 1.673 2025/01/01 10:34:21 czo Exp $
+# Edit Time: 154:33:47
 # Description:
 #
 #       bash config file
@@ -23,7 +23,7 @@
 #       `rm ~/.bash_profile ~/.bash_login' which are not compatible
 #       with ~/.profile.
 #
-# Copyright: (C) 1998-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1998-2025 Olivier Sirol <czo@free.fr>
 
 
 ##======= Debug ======================================================##
@@ -518,8 +518,8 @@ rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM
 [ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
 [ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
 command -v nvim >/dev/null 2>&1 && alias vim="\nvim"
-command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
 command -v vim  >/dev/null 2>&1 && alias vim="\vim"
+command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
 
 command -v less >/dev/null 2>&1 && alias more=less
 # command: takes into account the functions defined here, on some shell...
