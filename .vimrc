@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 06 October 2024, 13:38
-" $Id: .vimrc,v 1.505 2024/10/06 11:39:18 czo Exp $
-" Edit Time: 254:43:58
+" Last Modified: Tuesday 10 December 2024, 21:58
+" $Id: .vimrc,v 1.506 2024/12/10 20:59:30 czo Exp $
+" Edit Time: 254:50:42
 " Description:
 "
 "       vim config file
@@ -853,6 +853,9 @@ hi DiffChange    guifg=NONE    guibg=#4f2e2a gui=NONE      ctermfg=NONE       ct
 hi DiffDelete    guifg=#753730 guibg=#4f2e2a gui=NONE      ctermfg=Black      ctermbg=DarkGray cterm=NONE      term=NONE
 hi DiffText      guifg=NONE    guibg=#753730 gui=NONE      ctermfg=NONE       ctermbg=DarkBlue cterm=NONE      term=NONE
 
+hi diffAdded     guifg=#b8bb26 guibg=NONE    gui=NONE      ctermfg=Green      ctermbg=NONE     cterm=NONE      term=NONE
+hi diffRemoved   guifg=#fb4934 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
+
 hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi IncSearch     guifg=NONE    guibg=#596b63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
@@ -1145,7 +1148,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.505 2024/10/06 11:39:18 czo Exp $
+            " $Id: .vimrc,v 1.506 2024/12/10 20:59:30 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

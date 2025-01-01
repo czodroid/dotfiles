@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Saturday 30 March 2024, 17:27
-# $Id: .cshrc,v 1.175 2024/03/30 16:28:15 czo Exp $
-# Edit Time: 32:23:48
+# Last Modified: Saturday 28 December 2024, 16:53
+# $Id: .cshrc,v 1.176 2024/12/28 15:55:48 czo Exp $
+# Edit Time: 32:33:26
 # Description:
 #
 #       csh and tcsh config file
@@ -123,20 +123,20 @@ endif
 # BSD ls
 setenv LSCOLORS 'ExGxfxFxHxacabxDxeae'
 
-setenv LESS          '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-setenv PAGER         less
-setenv PERLDOC_PAGER 'less -R'
-setenv SYSTEMD_PAGER cat
-
-setenv RSYNC_RSH ssh
-setenv EDITOR vim
-setenv CVSEDITOR vim
-setenv CVSIGNORE .DS_Store
-setenv CVSROOT czo@dalmorechezwam:/tank/data/czo/.cvsroot
-
-setenv PRINTER BW-Dressing
-setenv PGPPATH $HOME/.gnugp
-setenv HTML_TIDY $HOME/.tidyrc
+setenv LESS              '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
+setenv HIGHLIGHT_OPTIONS '-s base16/gruvbox-dark-hard'
+setenv PAGER             less
+setenv PERLDOC           '-oterm'
+setenv PERLDOC_PAGER     'less -R'
+setenv SYSTEMD_PAGER     cat
+setenv RSYNC_RSH         ssh
+setenv EDITOR            vim
+setenv CVS_RSH           ssh
+setenv CVSEDITOR         vim
+setenv PGPPATH           $HOME/.gnugp
+setenv HTML_TIDY         $HOME/.tidyrc
+setenv CVSROOT           czo@dalmorechezwam:/tank/data/czo/.cvsroot
+setenv PRINTER           LaserJet
 
 ##======= Key bindings ===============================================##
 

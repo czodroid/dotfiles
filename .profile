@@ -6,16 +6,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Wednesday 24 April 2024, 15:59
-# $Id: .profile,v 1.48 2024/04/24 14:00:03 czo Exp $
-# Edit Time: 2:55:28
+# Last Modified: Sunday 29 December 2024, 08:53
+# $Id: .profile,v 1.50 2024/12/29 07:53:49 czo Exp $
+# Edit Time: 3:04:30
 # Description:
 #
-#       .profile config file
-#
 #       ~/.profile is included by the shell for login shells.
-#       This file is not read by bash or zsh if ~/.bash_profile,
-#       ~/.bash_login, ~/.zshenv, ~/.zprofile or ~/.zlogin exists.
+#
+#       this file is not read by bash or zsh if these files exist:
+#       > rm ~/.bash_profile ~/.bash_login ~/.zshenv ~/.zprofile ~/.zlogin
 #
 # Copyright: (C) 1995-2024 Olivier Sirol <czo@free.fr>
 
@@ -28,12 +27,12 @@ if [ -x "$HOME/xmpp-send-login42.pl" ]; then
 fi
 
 ## include shell configuration
-SHELLNAME=$( (echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null )
+SHELLNAME=`(echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null`
 
 # if running sh
 case "$SHELLNAME" in
     sh | ash | dash | mksh)
-        # include a *compatible* .bashrc if it exists
+        # include a *compatible* .bashrc if it exists. Start with -l
         if [ -f "$HOME/.bashrc" ]; then
             ENV="$HOME/.bashrc"
             export ENV

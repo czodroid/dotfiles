@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 16 November 2024, 20:42
-# $Id: .bashrc,v 1.649 2024/11/18 13:21:33 czo Exp $
-# Edit Time: 150:24:17
+# Last Modified: Saturday 28 December 2024, 19:23
+# $Id: .bashrc,v 1.672 2024/12/28 18:27:55 czo Exp $
+# Edit Time: 154:33:27
 # Description:
 #
 #       bash config file
@@ -30,7 +30,8 @@
 
 # set -v
 # set -x
-#RTMStart=$(date +%s%N)
+## need to have GNU date
+# RTMStart=$(date +%s%N); RTMTotalTime=$(date +%s%N)
 
 ##======= Interactive ================================================##
 
@@ -42,10 +43,10 @@
 export TMPDIR=${TMPDIR-/tmp}
 
 if [ -n "$BASH_VERSION" ]; then
-    export HISTFILE=$HOME/.sh_history
-    export HISTFILESIZE=55000
-    export HISTSIZE=44000
-    export HISTCONTROL=ignorespace:erasedups
+    HISTFILE=$HOME/.sh_history
+    HISTFILESIZE=55000
+    HISTSIZE=44000
+    HISTCONTROL=ignorespace:erasedups
 
     # avoid overwriting history
     #shopt -s histappend
@@ -55,7 +56,7 @@ if [ -n "$BASH_VERSION" ]; then
     shopt -s globstar
 fi
 
-export TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
+TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 
 #BASHMISSING : REPORTTIME, complete alias, equal =foo
 # removed zsh preexec implementation of REPORTTIME, see rev 1.32
@@ -100,6 +101,11 @@ case $(uname 2>/dev/null) in
 esac
 
 export PLATFORM
+
+## OpenWRT MIPS
+if [ "X${PLATFORM}" = "XLinux_mips" ]; then
+    HISTFILE=$TMPDIR/.sh_history
+fi
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
@@ -198,15 +204,14 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo
 
 SHELLNAME=$( (echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null )
 
-# if command -v most > /dev/null 2>&1; then
-if [ -x "$(command -v hostname)" ]; then
+if command -v hostname >/dev/null 2>&1; then
     HOSTNAME=$(hostname 2>/dev/null)
 else
     HOSTNAME=$(uname -n 2>/dev/null)
 fi
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
-{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
+{ command -v whoami >/dev/null 2>&1 && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
 export USER
 
 # GNU ls
@@ -216,22 +221,20 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
+export HIGHLIGHT_OPTIONS='-s base16/gruvbox-dark-hard'
 export PAGER=less
 export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'
 export SYSTEMD_PAGER=cat
-export APT_LISTCHANGES_FRONTEND=none
-
 export RSYNC_RSH=ssh
 export EDITOR=vim
 export CVS_RSH=ssh
 export CVSEDITOR=vim
-export CVSIGNORE=.DS_Store
-
 export PGPPATH="$HOME/.gnupg"
 export HTML_TIDY="$HOME/.tidyrc"
 # AI qgnomeplatform-qt5
 export QT_QPA_PLATFORMTHEME=gnome
+export APT_LISTCHANGES_FRONTEND=none
 
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
     export CVSROOT=czo@dalmore:/tank/data/czo/.cvsroot
@@ -331,17 +334,10 @@ if [ -n "$BASH_VERSION" ]; then
     # for FR keybord : undo is ctrl-shift-/
 fi
 
-## mksh
 if [ "X${SHELLNAME}" = "Xmksh" ]; then
-    export HISTFILE=$HOME/.mksh_history
-    alias history='\\builtin fc -l'
+    HISTFILE=$HOME/.mksh_history
     bind "^[[A"=search-history-up
     bind "^[[B"=search-history-down
-fi
-
-## OpenWRT MIPS
-if [ "X${PLATFORM}" = "XLinux_mips" ]; then
-    export HISTFILE=$TMPDIR/.sh_history
 fi
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
@@ -371,10 +367,24 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Completions:"; RTMStop=$(date +%s%N)
 
 unalias -a
 
-alias where='type -a'
 alias t='type -a'
-alias a='type -a'
 alias eq='type -P'
+
+## alias mksh
+if [ "X${SHELLNAME}" = "Xmksh" ]; then
+    alias autoload='\\builtin typeset -fu'
+    alias functions='\\builtin typeset -f'
+    alias hash='\\builtin alias -t'
+    alias history='\\builtin fc -l'
+    alias integer='\\builtin typeset -i'
+    alias local='\\builtin typeset'
+    alias login='\\builtin exec login'
+    alias nameref='\\builtin typeset -n'
+    alias nohup='nohup '
+    alias r='\\builtin fc -e -'
+    alias type='\\builtin whence -v'
+    alias t='\\builtin whence -v'
+fi
 
 alias st=". $HOME/.bashrc"
 [ -f ~/.bashrc.czo ] && alias st=". $HOME/.bashrc.czo"
@@ -389,7 +399,7 @@ alias history_clear='history -c'
 alias history_clear_all_log='echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c'
 # BASHBUG history remove duplicates
 # tac for busybox: perl -e 'print reverse <>'
-alias history_bash_bug='history -n; history | perl -e "print reverse <>" | sed "s/^ *[0-9]\+ \+//" | sed "s/\s\+$//" | perl -ne  "print if not \$x{\$_}++;" | perl -e "print reverse <>" > $HISTFILE ; history -c ; history -r'
+alias history_bash_bug="history -n; history | perl -e 'print reverse <>' | sed 's/^ *[0-9]\+ \+//' | sed 's/\s\+$//' | perl -ne  'print if not \$x{\$_}++;' | perl -e 'print reverse <>' > $HISTFILE ; history -c ; history -r"
 
 # csh compatibility env set
 setenv() { export $1=$2; }
@@ -424,12 +434,12 @@ case $PLATFORM in
         alias ps='\ps -Awww'
         alias pg='\pgrep -fil'
         alias pk='\pkill -fil'
-        { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
+        { command -v gnuls >/dev/null 2>&1 && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
     NetBSD | OpenBSD)
         alias ps='\ps -Awww'
-        { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -a'
+        { command -v gnuls >/dev/null 2>&1 && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -a'
         ;;
 
     Darwin)
@@ -441,7 +451,7 @@ case $PLATFORM in
         alias ps='\ps -Awww'
         alias pg='\pgrep -fil'
         alias pk='\pkill -fil'
-        { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
+        { command -v gls >/dev/null 2>&1 && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
     SunOS | Solaris)
@@ -505,18 +515,18 @@ rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE *.[bakup]:"; RM="-exec 
 rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -empty -type f -print $RM ; }
 rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
 
-
-#command -v foo >/dev/null 2>&1
-#[ -x "$(command -v foo)" ]
-[ -x "$(command -v arp)" ] || arp() { cat /proc/net/arp; }
-[ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
-[ -x "$(command -v less)" ] || alias more=less
-
 [ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
 [ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
-[ -x "$(command -v nvim)" ] && alias vim="\nvim"
-[ -x "$(command -v vimx)" ] && alias vim="\vimx"
-[ -x "$(command -v vim)"  ] && alias vim="\vim"
+command -v nvim >/dev/null 2>&1 && alias vim="\nvim"
+command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
+command -v vim  >/dev/null 2>&1 && alias vim="\vim"
+
+command -v less >/dev/null 2>&1 && alias more=less
+# command: takes into account the functions defined here, on some shell...
+# In bash: unset -f ldd
+command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
+command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
+
 
 alias ne='\emacs -nw'
 
@@ -529,15 +539,23 @@ alias aa="tmux attach -d || tmux new"
 alias r='tput rs2'
 
 alias sc='screen -d -R'
-alias mc='\mc -b -u'
-#alias htop='\htop -C'
-if [ -x "$(command -v ncdu)" ]; then
+
+if command -v ncd >/dev/null 2>&1; then
+    n() { \ncd "$@"; if [ $? -eq 0 ]; then cd "$(cat ~/.ncd_sdir)"; fi; }
+fi
+
+if command -v mc >/dev/null 2>&1; then
+    alias mc='\mc -b -u'
+    m() { \mc -b -u -P ~/.mc_pwd "$@"; if [ $? -eq 0 ]; then cd "$(cat ~/.mc_pwd)"; rm -f ~/.mc_pwd; fi; }
+fi
+
+if command -v ncdu >/dev/null 2>&1; then
     \ncdu --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --color off'
 fi
 
-psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
+#alias htop='\htop -C'
 
-n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat ~/.ncd_sdir)"; fi; }
+psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
@@ -686,7 +704,7 @@ alias KU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias CU='choco upgrade all -y ; rm -f /cygdrive/c/Users/Public/Desktop/* ; cyg-get.bat -upgrade all ; echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias CU='choco upgrade all -y && cyg-get.bat -upgrade all && rm -f /cygdrive/c/Users/Public/Desktop/* && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # suse: zypper
 # netbsd: pkgin
@@ -831,7 +849,7 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # busybox has no cksum on openWRT!
-if [ -x "$(command -v cksum)" -a -x "$(command -v awk)" ]; then
+if command -v cksum >/dev/null 2>&1 && command -v awk >/dev/null 2>&1; then
     # hash for colors
     USER_PROMPT_COLOR=$( printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
     HOST_PROMPT_COLOR=$( printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
@@ -840,8 +858,8 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
-# GIT
-__git_ps1() { true ;}
+## GIT
+#
 # if [ -f /etc/bash_completion.d/git-prompt ]; then
 #     export GIT_PS1_SHOWUPSTREAM=1       # (<, >, =)
 #     export GIT_PS1_SHOWDIRTYSTATE=1     # (*)
@@ -851,18 +869,21 @@ __git_ps1() { true ;}
 #     . /etc/bash_completion.d/git-prompt
 # fi
 
-if [ -x "$(command -v git)" ]; then
-    __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+if command -v git >/dev/null 2>&1; then
+    __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+else
+    __git_ps1() { :; }
 fi
 
-if [ -x "$(command -v tty)" ]; then
+if command -v tty >/dev/null 2>&1; then
     MYTTY=$(tty 2>/dev/null | sed s,/dev/,,)
 fi
 
 if [ -n "$BASH_VERSION" ]; then
     PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;33m\]$(__git_ps1 "(%s)")\[\e[0;97m\]>>\[\e[m\] '
 else
-    # old sh/ash/dash/mksh .mkshrc .shrc .shinit ($' works in sh android but not in sh freebsd)
+    # old sh/ash/dash/mksh works with: export ENV="$HOME/.bashrc" and start with -l
+    # $' works in sh android but not in sh freebsd
     PS1='[m
 [0;97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
 [0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;96m$PWD[m
@@ -877,16 +898,17 @@ fi
 
 # Disable Ctrl-S / Ctrl-Q
 # busybox has no stty on openWRT!
-[ -x "$(command -v stty)" ] && stty -ixon
+command -v stty >/dev/null 2>&1 && stty -ixon
 
 umask 022
 
 # Shorten PATH, as with zsh export -U PATH
-if [ -x "$(command -v awk)" ]; then
+if command -v awk >/dev/null 2>&1; then
     export PATH=$(echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
 fi
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG RTMTotalTime:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMTotalTime)/1000000))ms"; fi
 
 # EOF
 

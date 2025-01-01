@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 16 November 2024, 20:42
-# $Id: .zshrc,v 1.594 2024/11/18 13:21:33 czo Exp $
-# Edit Time: 140:36:12
+# Last Modified: Saturday 28 December 2024, 19:27
+# $Id: .zshrc,v 1.607 2024/12/28 18:27:55 czo Exp $
+# Edit Time: 141:29:40
 # Description:
 #
 #       zsh config file
@@ -30,12 +30,12 @@
 # zmodload zsh/zprof
 # set -v
 # set -x
-#RTMStart=$(date +%s%N)
+## need to have GNU date
+# RTMStart=$(date +%s%N); RTMTotalTime=$(date +%s%N)
 
 ##======= Zsh Settings ===============================================##
 
 export TMPDIR=${TMPDIR-/tmp}
-SHELLNAME='zsh'
 
 setopt ALWAYS_TO_END          # On completion go to end of word
 setopt NO_AUTO_CD             # Directory as command does cd
@@ -62,15 +62,15 @@ setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
 setopt RM_STAR_SILENT         # Don’t warn on rm *
 setopt SH_WORD_SPLIT          # Split non­array variables yuckily
 
-export HISTFILE=$HOME/.sh_history
-export SAVEHIST=55000
-export HISTSIZE=44000
+HISTFILE=$HOME/.sh_history
+SAVEHIST=55000
+HISTSIZE=44000
 
 ## screen size
 # export LISTMAX=0
-export LISTMAX=1000
+LISTMAX=1000
 
-export REPORTTIME=5
+REPORTTIME=5
 
 DIRSTACKSIZE=20
 watch=(notme)
@@ -83,7 +83,7 @@ WATCHFMT='%n %a %l from %m at %t.'
 # Search path for the cd command
 #cdpath=(.. ~ ~/src ~/zsh)
 
-export TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
+TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG ZshSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
@@ -126,6 +126,11 @@ esac
 
 export PLATFORM
 
+## OpenWRT MIPS
+if [ "X${PLATFORM}" = "XLinux_mips" ]; then
+    HISTFILE=$TMPDIR/.sh_history
+fi
+
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
 ##======= Paths ======================================================##
@@ -160,7 +165,6 @@ fi
 
 ## config openwrt
 if [ -d /rom/bin ]; then
-    # export HISTFILE=$TMPDIR/.sh_history
     export PATH="$PATH:/rom/bin"
 fi
 
@@ -222,15 +226,16 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo
 
 ##======= Environment Variables ======================================##
 
-# if command -v most > /dev/null 2>&1; then
-if [ -x "$(command -v hostname)" ]; then
+SHELLNAME='zsh'
+
+if command -v hostname >/dev/null 2>&1; then
     HOSTNAME=$(hostname 2>/dev/null)
 else
     HOSTNAME=$(uname -n 2>/dev/null)
 fi
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
-{ [ -x "$(command -v whoami)" ] && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
+{ command -v whoami >/dev/null 2>&1 && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
 export USER
 
 # GNU ls
@@ -240,22 +245,20 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
+export HIGHLIGHT_OPTIONS='-s base16/gruvbox-dark-hard'
 export PAGER=less
 export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'
 export SYSTEMD_PAGER=cat
-export APT_LISTCHANGES_FRONTEND=none
-
 export RSYNC_RSH=ssh
 export EDITOR=vim
 export CVS_RSH=ssh
 export CVSEDITOR=vim
-export CVSIGNORE=.DS_Store
-
 export PGPPATH="$HOME/.gnupg"
 export HTML_TIDY="$HOME/.tidyrc"
 # AI qgnomeplatform-qt5
 export QT_QPA_PLATFORMTHEME=gnome
+export APT_LISTCHANGES_FRONTEND=none
 
 if [ "X${HOSTNAME}" != "Xbunnahabhain" ]; then
     export CVSROOT=czo@dalmore:/tank/data/czo/.cvsroot
@@ -487,10 +490,7 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Completions:"; RTMStop=$(date +%s%N)
 
 unalias -m '*'
 
-
-#alias where='whence -ca'
 alias t='whence -ca'
-alias a='whence -ca'
 alias eq='whence -p'
 
 alias st='. ~/.zshrc'
@@ -539,12 +539,12 @@ case $PLATFORM in
         alias ps='\ps -Awww'
         alias pg='\pgrep -fil'
         alias pk='\pkill -fil'
-        { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
+        { command -v gnuls >/dev/null 2>&1 && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
     NetBSD | OpenBSD)
         alias ps='\ps -Awww'
-        { [ -x "$(command -v gnuls)" ] && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -a'
+        { command -v gnuls >/dev/null 2>&1 && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -a'
         ;;
 
     Darwin)
@@ -556,7 +556,7 @@ case $PLATFORM in
         alias ps='\ps -Awww'
         alias pg='\pgrep -fil'
         alias pk='\pkill -fil'
-        { [ -x "$(command -v gls)" ] && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
+        { command -v gls >/dev/null 2>&1 && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
     SunOS | Solaris)
@@ -620,18 +620,16 @@ rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE *.[bakup]:"; RM="-exec 
 rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -empty -type f -print $RM ; }
 rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
 
-
-#command -v foo >/dev/null 2>&1
-#[ -x "$(command -v foo)" ]
-[ -x "$(command -v arp)" ] || arp() { cat /proc/net/arp; }
-[ -x "$(command -v ldd)" ] || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
-[ -x "$(command -v less)" ] || alias more=less
-
 [ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
 [ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
-[ -x "$(command -v nvim)" ] && alias vim="\nvim"
-[ -x "$(command -v vimx)" ] && alias vim="\vimx"
-[ -x "$(command -v vim)"  ] && alias vim="\vim"
+command -v nvim >/dev/null 2>&1 && alias vim="\nvim"
+command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
+command -v vim  >/dev/null 2>&1 && alias vim="\vim"
+
+command -v less >/dev/null 2>&1 && alias more=less
+whence -p arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
+whence -p ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
+
 
 alias ne='\emacs -nw'
 
@@ -644,15 +642,23 @@ alias aa="tmux attach -d || tmux new"
 alias r='tput rs2'
 
 alias sc='screen -d -R'
-alias mc='\mc -b -u'
-#alias htop='\htop -C'
-if [ -x "$(command -v ncdu)" ]; then
+
+if command -v ncd >/dev/null 2>&1; then
+    n() { \ncd "$@"; if [ $? -eq 0 ]; then cd "$(cat ~/.ncd_sdir)"; fi; }
+fi
+
+if command -v mc >/dev/null 2>&1; then
+    alias mc='\mc -b -u'
+    m() { \mc -b -u -P ~/.mc_pwd "$@"; if [ $? -eq 0 ]; then cd "$(cat ~/.mc_pwd)"; rm -f ~/.mc_pwd; fi; }
+fi
+
+if command -v ncdu >/dev/null 2>&1; then
     \ncdu --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --color off'
 fi
 
-psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
+#alias htop='\htop -C'
 
-n() { ncd $*; if [ $? -eq 0 ]; then cd "$(cat ~/.ncd_sdir)"; fi; }
+psg() { ps | grep -i $1 | sort -r -k 3 | grep -v "grep \!*\|sort -r -k 3"; }
 
 alias wgetr='wget -m -np -k -r'
 alias wgetp='wget -m -np -k -l1'
@@ -801,7 +807,7 @@ alias KU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias CU='choco upgrade all -y ; rm -f /cygdrive/c/Users/Public/Desktop/* ; cyg-get.bat -upgrade all ; echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias CU='choco upgrade all -y && cyg-get.bat -upgrade all && rm -f /cygdrive/c/Users/Public/Desktop/* && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # suse: zypper
 # netbsd: pkgin
@@ -952,7 +958,7 @@ if [[ -x /usr/lib/command-not-found ]]; then
 fi
 
 # busybox has no cksum on openWRT!
-if [ -x "$(command -v cksum)" -a -x "$(command -v awk)" ]; then
+if command -v cksum >/dev/null 2>&1 && command -v awk >/dev/null 2>&1; then
     # hash for colors
     USER_PROMPT_COLOR=$( printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
     HOST_PROMPT_COLOR=$( printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
@@ -961,8 +967,8 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
-# GIT
-__git_ps1() { true ;}
+## GIT
+#
 # if [ -f ~/.oh-my-zsh/lib/git.zsh ]; then
 #     ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
 #     ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
@@ -971,8 +977,10 @@ __git_ps1() { true ;}
 #     . ~/.oh-my-zsh/lib/git.zsh
 # fi
 
-if [ -x "$(command -v git)" ]; then
-    __git_ps1() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+if whence -p git >/dev/null 2>&1; then
+    __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+else
+    __git_ps1() { :; }
 fi
 
 PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;33m%}$(__git_ps1 "(%s)")%{\e[0;97m%}>>%{\e[m%} '
@@ -982,7 +990,7 @@ PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${T
 
 # Disable Ctrl-S / Ctrl-Q
 # busybox has no stty on openWRT!
-[ -x "$(command -v stty)" ] && stty -ixon
+command -v stty >/dev/null 2>&1 && stty -ixon
 
 umask 022
 
@@ -990,6 +998,7 @@ export -U PATH
 
 # zprof
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+if [ -n "$RTMStart" ] ; then echo -n "DEBUG RTMTotalTime:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMTotalTime)/1000000))ms"; fi
 
 # EOF
 
