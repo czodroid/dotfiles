@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 01 January 2025, 11:22
-# $Id: .bashrc,v 1.673 2025/01/01 10:34:21 czo Exp $
-# Edit Time: 154:33:47
+# Last Modified: Wednesday 01 January 2025, 13:46
+# $Id: .bashrc,v 1.674 2025/01/01 12:49:07 czo Exp $
+# Edit Time: 154:34:10
 # Description:
 #
 #       bash config file
@@ -221,7 +221,7 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-export HIGHLIGHT_OPTIONS='-s base16/gruvbox-dark-hard'
+export HIGHLIGHT_OPTIONS='--force -s base16/gruvbox-dark-hard'
 export PAGER=less
 export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'

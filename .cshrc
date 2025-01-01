@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Saturday 28 December 2024, 16:53
-# $Id: .cshrc,v 1.176 2024/12/28 15:55:48 czo Exp $
-# Edit Time: 32:33:26
+# Last Modified: Wednesday 01 January 2025, 13:47
+# $Id: .cshrc,v 1.177 2025/01/01 12:49:07 czo Exp $
+# Edit Time: 32:33:39
 # Description:
 #
 #       csh and tcsh config file
@@ -19,7 +19,7 @@
 #       if all the alias are OK...
 #       keep this for fun!
 #
-# Copyright: (C) 1993-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1993-2025 Olivier Sirol <czo@free.fr>
 
 ##======= Csh Settings ===============================================##
 
@@ -124,7 +124,7 @@ endif
 setenv LSCOLORS 'ExGxfxFxHxacabxDxeae'
 
 setenv LESS              '-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-setenv HIGHLIGHT_OPTIONS '-s base16/gruvbox-dark-hard'
+setenv HIGHLIGHT_OPTIONS '--force -s base16/gruvbox-dark-hard'
 setenv PAGER             less
 setenv PERLDOC           '-oterm'
 setenv PERLDOC_PAGER     'less -R'
