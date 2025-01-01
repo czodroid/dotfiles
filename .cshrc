@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Wednesday 01 January 2025, 13:47
-# $Id: .cshrc,v 1.177 2025/01/01 12:49:07 czo Exp $
-# Edit Time: 32:33:39
+# Last Modified: Wednesday 01 January 2025, 14:14
+# $Id: .cshrc,v 1.178 2025/01/01 13:15:10 czo Exp $
+# Edit Time: 32:35:47
 # Description:
 #
 #       csh and tcsh config file
@@ -241,7 +241,6 @@ unalias *
 alias .     'source'
 
 alias t     'where'
-alias a     'where'
 # alias v     'set | grep -ai \!*'
 
 alias st    'source ~/.cshrc'
