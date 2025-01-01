@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 01 January 2025, 13:47
-# $Id: .zshrc,v 1.609 2025/01/01 12:49:07 czo Exp $
-# Edit Time: 141:30:41
+# Last Modified: Wednesday 01 January 2025, 18:17
+# $Id: .zshrc,v 1.610 2025/01/01 17:19:29 czo Exp $
+# Edit Time: 141:31:21
 # Description:
 #
 #       zsh config file
@@ -620,23 +620,28 @@ rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE *.[bakup]:"; RM="-exec 
 rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -empty -type f -print $RM ; }
 rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
 
-[ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
-[ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
-command -v nvim >/dev/null 2>&1 && alias vim="\nvim"
-command -v vim  >/dev/null 2>&1 && alias vim="\vim"
-command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
-
-command -v less >/dev/null 2>&1 && alias more=less
-whence -p arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
-whence -p ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
-
+if command -v vim >/dev/null 2>&1 || command -v vimx >/dev/null 2>&1 || command -v nvim >/dev/null 2>&1; then
+    [ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
+    [ -f ~/.vimrc.czo ] && export VIMINIT="source $HOME/.vimrc.czo"
+    command -v nvim >/dev/null 2>&1 && alias vim="\nvim"
+    command -v vim  >/dev/null 2>&1 && alias vim="\vim"
+    command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
+    alias vi=vim
+fi
 
 alias ne='\emacs -nw'
+command -v less >/dev/null 2>&1 && alias more=less
+# command: takes into account the functions defined here, on some shell...
+# In bash: unset -f ldd
+command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
+command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 
-[ -f ~/.tmux.conf.czo ] && export MYTMUXRC="-f ~/.tmux.conf.czo"
-alias tmux="\tmux $MYTMUXRC"
-alias tmux0="tmux attach -t 0"
-alias aa="tmux attach -d || tmux new"
+if command -v tmux >/dev/null 2>&1; then
+    [ -f ~/.tmux.conf.czo ] && export MYTMUXRC="-f ~/.tmux.conf.czo"
+    alias tmux="\tmux $MYTMUXRC"
+    alias tmux0="tmux attach -t 0"
+    alias aa="tmux attach -d || tmux new"
+fi
 
 # resets the terminal mouse when tmux crashes
 alias r='tput rs2'
