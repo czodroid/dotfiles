@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Thursday 20 June 2024, 18:56
-# $Id: config-fast-ssh,v 1.28 2024/06/20 17:02:55 czo Exp $
-# Edit Time: 9:34:21
+# Last Modified: Wednesday 01 January 2025, 17:41
+# $Id: config-fast-ssh,v 1.29 2025/01/01 16:44:23 czo Exp $
+# Edit Time: 11:10:22
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -17,7 +17,7 @@
 #
 #   You must do a "cd" before running this script to modify your own ssh configuration.
 #
-# Copyright: (C) 1999-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1999-2025 Olivier Sirol <czo@free.fr>
 
 
 ## This script works in '.', so in current directory!!!!
@@ -87,17 +87,15 @@ Host *+l
  VerifyHostKeyDNS no
  ProxyCommand ssh -p42022 root@czo.wf nc $(echo %h | sed 's/+.*//') %p
 
-# cvs on ananas
-Host ananaschezwam
- VerifyHostKeyDNS no
- ProxyCommand ssh -p42022 root@czo.wf nc ananas %p
-
 # cvs on dalmore
 Host dalmorechezwam
  VerifyHostKeyDNS no
  ProxyCommand ssh -p42022 root@czo.wf nc dalmore %p
 
 ## CHEZWAM
+
+Host czo-rutxr1 pel-rutxr1
+ Port 222
 
 Host czophone10 czo-taba matphone
  Port 8022
@@ -113,29 +111,12 @@ Host sb-armand sb-marion sb-sdb gp-fedora1 gp-fedora5 fedora1 fedora5 redhat72 r
  KexAlgorithms diffie-hellman-group1-sha1
 
 Host freebsd5
- HostKeyAlgorithms ssh-dss
+ ## openssh-9.8p1-1: no matching host key type found. Their offer: ssh-dss
+ # HostKeyAlgorithms ssh-dss
  KexAlgorithms diffie-hellman-group1-sha1
 
-## vscode
-
-Host gs-deb12-t
- HostName gs-deb12-t
- ForwardAgent yes
-
-Host ananas
- HostName ananas
- ForwardAgent yes
-
-Host bruichladdich
- HostName bruichladdich
- ForwardAgent yes
-
-Host dalmore
- HostName dalmore
- ForwardAgent yes
-
 ## DHCP
-Host chezwam-* magdhcp-*
+Host chezwam-* 192.168.0.1  192.168.1.1
  UserKnownHostsFile /dev/null
  StrictHostKeyChecking no
 
@@ -143,6 +124,8 @@ Host chezwam-* magdhcp-*
 
 Host *
  Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
+ # dalmore from openvpn
+ # KexAlgorithms curve25519-sha256
  NoHostAuthenticationForLocalhost yes
  StrictHostKeyChecking ask
  HashKnownHosts no
