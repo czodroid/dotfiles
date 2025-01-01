@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 01 January 2025, 18:13
-# $Id: .bashrc,v 1.675 2025/01/01 17:19:29 czo Exp $
-# Edit Time: 154:43:52
+# Last Modified: Wednesday 01 January 2025, 18:24
+# $Id: .bashrc,v 1.676 2025/01/01 17:26:55 czo Exp $
+# Edit Time: 154:47:25
 # Description:
 #
 #       bash config file
@@ -369,22 +369,6 @@ unalias -a
 
 alias t='type -a'
 alias eq='type -P'
-
-## alias mksh
-if [ "X${SHELLNAME}" = "Xmksh" ]; then
-    alias autoload='\\builtin typeset -fu'
-    alias functions='\\builtin typeset -f'
-    alias hash='\\builtin alias -t'
-    alias history='\\builtin fc -l'
-    alias integer='\\builtin typeset -i'
-    alias local='\\builtin typeset'
-    alias login='\\builtin exec login'
-    alias nameref='\\builtin typeset -n'
-    alias nohup='nohup '
-    alias r='\\builtin fc -e -'
-    alias type='\\builtin whence -v'
-    alias t='\\builtin whence -v'
-fi
 
 alias st=". $HOME/.bashrc"
 [ -f ~/.bashrc.czo ] && alias st=". $HOME/.bashrc.czo"
@@ -815,6 +799,21 @@ alias RemeberThis_imprimescript='enscript --color -j --fancy-header=edd -E -r -2
 alias RemeberThis_xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias RemeberThis_mbk='set | grep "MBK\|RDS\|ELP" | sort'
 alias RemeberThis_fing='finger | sort | uniq -w 15'
+
+## alias mksh
+if [ "X${SHELLNAME}" = "Xmksh" ]; then
+    alias autoload='\\builtin typeset -fu'
+    alias functions='\\builtin typeset -f'
+    alias hash='\\builtin alias -t'
+    alias history='\\builtin fc -l'
+    alias integer='\\builtin typeset -i'
+    alias local='\\builtin typeset'
+    alias login='\\builtin exec login'
+    alias nameref='\\builtin typeset -n'
+    alias nohup='nohup '
+    alias type='\\builtin whence -v'
+    alias t='\\builtin whence -v'
+fi
 
 if [ -n "$RTMStart" ] ; then echo -n "DEBUG Alias:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
 
