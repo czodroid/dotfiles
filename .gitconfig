@@ -2,13 +2,13 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 mars 2011
-# Last Modified: Thursday 15 February 2024, 11:12
-# $Id: .gitconfig,v 1.35 2024/02/15 10:34:24 czo Exp $
-# Edit Time: 6:47:19
+# Last Modified: Wednesday 08 January 2025, 20:00
+# $Id: .gitconfig,v 1.38 2025/01/09 10:08:42 czo Exp $
+# Edit Time: 9:07:27
 # Description:
 #                 git conf file
 #
-# Copyright: (C) 2011-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2011-2025 Olivier Sirol <czo@free.fr>
 
 [user]
     name     = czo
@@ -45,8 +45,9 @@
     f   = fetch
     fo  = fetch origin
     fu  = fetch upstream
-    l   = log --oneline
-    ll  = log --pretty=format:'%C(red)%h%Creset %C(cyan)%ad%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --date=format-local:'%Y-%m-%d %H:%M:%S'
+    ; l   = log --pretty=oneline
+    l   = log --reflog --pretty=format:'%C(red)%h%Creset %C(cyan)%ad%Creset%C(yellow)%d%Creset %<(50,mtrunc)%s' --date=format-local:'%Y-%m-%d %H:%M:%S'
+    ll  = log --reflog --pretty=format:'%C(red)%H%Creset %C(cyan)%ad%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --date=format-local:'%Y-%m-%d %H:%M:%S'
     lg  = log --graph --pretty=format:'%C(red)%h%Creset - %C(cyan)%ad%Creset -%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset%n' --date=format-local:'%Y-%m-%d %H:%M:%S'
     pst = push --tags
 

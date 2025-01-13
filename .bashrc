@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 01 January 2025, 18:58
-# $Id: .bashrc,v 1.677 2025/01/01 18:02:05 czo Exp $
-# Edit Time: 154:54:03
+# Last Modified: Monday 13 January 2025, 11:16
+# $Id: .bashrc,v 1.678 2025/01/13 10:17:16 czo Exp $
+# Edit Time: 154:54:53
 # Description:
 #
 #       bash config file
@@ -625,6 +625,7 @@ alias  gta='git add .'
 alias  gtb='git branch -a'
 alias  gtf='git fetch; git diff master origin/master'
 alias gtgc='git gc'
+alias gtcl='git clean -dfn'
 
 #alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"

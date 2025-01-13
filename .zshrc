@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 01 January 2025, 18:17
-# $Id: .zshrc,v 1.610 2025/01/01 17:19:29 czo Exp $
-# Edit Time: 141:31:21
+# Last Modified: Monday 13 January 2025, 11:16
+# $Id: .zshrc,v 1.611 2025/01/13 10:17:16 czo Exp $
+# Edit Time: 141:31:30
 # Description:
 #
 #       zsh config file
@@ -746,6 +746,7 @@ alias  gta='git add .'
 alias  gtb='git branch -a'
 alias  gtf='git fetch; git diff master origin/master'
 alias gtgc='git gc'
+alias gtcl='git clean -dfn'
 
 #alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"

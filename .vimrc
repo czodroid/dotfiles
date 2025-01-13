@@ -6,15 +6,15 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 10 December 2024, 21:58
-" $Id: .vimrc,v 1.506 2024/12/10 20:59:30 czo Exp $
-" Edit Time: 254:50:42
+" Last Modified: Monday 13 January 2025, 10:35
+" $Id: .vimrc,v 1.507 2025/01/13 09:37:05 czo Exp $
+" Edit Time: 255:00:36
 " Description:
 "
 "       vim config file
 "       self contained, no .gvimrc, nothing in .vim/
 "
-" Copyright: (C) 1995-2024 Olivier Sirol <czo@free.fr>
+" Copyright: (C) 1995-2025 Olivier Sirol <czo@free.fr>
 
 if version >= 505
 
@@ -264,6 +264,10 @@ autocmd!
 
 " pos on the last edit line
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exec "normal g'\"" | endif
+
+autocmd GUIEnter * winpos 0 0
+autocmd GUIEnter * set lines=9000
+autocmd GUIEnter * set columns=9000
 
 if version > 601
     " vim diff with wrap
@@ -1148,7 +1152,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.506 2024/12/10 20:59:30 czo Exp $
+            " $Id: .vimrc,v 1.507 2025/01/13 09:37:05 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
