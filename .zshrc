@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Monday 13 January 2025, 11:16
-# $Id: .zshrc,v 1.611 2025/01/13 10:17:16 czo Exp $
-# Edit Time: 141:31:30
+# Last Modified: Monday 27 January 2025, 19:13
+# $Id: .zshrc,v 1.613 2025/01/27 18:14:09 czo Exp $
+# Edit Time: 141:33:15
 # Description:
 #
 #       zsh config file
@@ -24,6 +24,7 @@
 #       amazing shell in 1996... I am forever grateful to him.
 #
 # Copyright: (C) 1996-2025 Olivier Sirol <czo@free.fr>
+
 
 ##======= Debug ======================================================##
 
@@ -525,8 +526,8 @@ case $PLATFORM in
             alias pg='\pgrep -fl'
             alias pk='\pkill -f'
         fi
-        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
-            alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,UUID,MODEL >/dev/null 2>&1; then
+            alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,UUID,MODEL'
         elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 13 January 2025, 11:16
-# $Id: .bashrc,v 1.678 2025/01/13 10:17:16 czo Exp $
-# Edit Time: 154:54:53
+# Last Modified: Monday 27 January 2025, 19:13
+# $Id: .bashrc,v 1.680 2025/01/27 18:14:09 czo Exp $
+# Edit Time: 154:55:39
 # Description:
 #
 #       bash config file
@@ -404,8 +404,8 @@ case $PLATFORM in
             alias pg='\pgrep -fl'
             alias pk='\pkill -f'
         fi
-        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
-            alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+        if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,UUID,MODEL >/dev/null 2>&1; then
+            alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,UUID,MODEL'
         elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi

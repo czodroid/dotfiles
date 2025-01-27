@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 13 January 2025, 10:35
-" $Id: .vimrc,v 1.507 2025/01/13 09:37:05 czo Exp $
-" Edit Time: 255:00:36
+" Last Modified: Monday 27 January 2025, 19:15
+" $Id: .vimrc,v 1.509 2025/01/27 18:15:44 czo Exp $
+" Edit Time: 255:24:27
 " Description:
 "
 "       vim config file
@@ -1152,7 +1152,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.507 2025/01/13 09:37:05 czo Exp $
+            " $Id: .vimrc,v 1.509 2025/01/27 18:15:44 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1204,10 +1204,17 @@ function! TemplateTimeStamp ()
                 call histdel("search",-1)
             endif
 
+            " substitute the full file name
+            let pattern = '\(^.\=.\=.\=\s* FullFilename:\).*'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1 '.escape(expand("%:p"), '/').'/e'
+                call histdel("search",-1)
+            endif
+
             " substitute the file name
             let pattern = '\(^.\=.\=.\=\s* Filename:\).*'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '\').'/e'
+                exec 's/'.pattern.'/\1 '.escape(expand("%:t"), '/').'/e'
                 call histdel("search",-1)
             endif
 
