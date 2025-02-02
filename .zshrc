@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Monday 27 January 2025, 19:13
-# $Id: .zshrc,v 1.613 2025/01/27 18:14:09 czo Exp $
-# Edit Time: 141:33:15
+# Last Modified: Sunday 02 February 2025, 11:39
+# $Id: .zshrc,v 1.614 2025/02/02 10:39:26 czo Exp $
+# Edit Time: 141:33:23
 # Description:
 #
 #       zsh config file
@@ -882,6 +882,7 @@ alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --m
 alias RemeberThis_chroot_umount="umount -lf \$LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}"
 alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
 alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
+alias RemeberThis_find_execdir="find . -type f -name '*.7z' -printf \"################ %p\n\" -execdir sh -c \"7z x -pchamallow {}\" \;"
 alias RemeberThis_kfm='setxkbmap fr mac'
 alias RemeberThis_edl='export DISPLAY=localhost:0'
 alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
