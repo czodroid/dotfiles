@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 27 January 2025, 19:15
-" $Id: .vimrc,v 1.509 2025/01/27 18:15:44 czo Exp $
-" Edit Time: 255:24:27
+" Last Modified: Wednesday 05 February 2025, 13:18
+" $Id: .vimrc,v 1.510 2025/02/05 12:19:16 czo Exp $
+" Edit Time: 255:50:49
 " Description:
 "
 "       vim config file
@@ -673,23 +673,23 @@ vmap ?              y?<C-R>"<CR>
 nmap <F1>           :help <C-R>=expand('<cword>')<CR><CR>
 imap <F1>           <C-O>:help <C-R>=expand('<cword>')<CR><CR>
 
-nmap <F2>           ]c
-imap <F2>           <C-O>]c
-map  <F3>           [c
-imap <F3>           <C-O>[c
+map  <F2>           :so ~/.vimrc<CR>
+imap <F2>           <C-O>:so ~/.vimrc<CR>
 
-map  <F4>           :N<CR>
-imap <F4>           <C-O>:N<CR>
-map  <F5>           :n<CR>
-imap <F5>           <C-O>:n<CR>
+nmap <F3>           ]c
+imap <F3>           <C-O>]c
+map  <F4>           [c
+imap <F4>           <C-O>[c
 
-map  <F6>           :cp<CR>
-imap <F6>           <C-O>:cp<CR>
-map  <F7>           :cn<CR>
-imap <F7>           <C-O>:cn<CR>
+map  <F5>           :N<CR>
+imap <F5>           <C-O>:N<CR>
+map  <F6>           :n<CR>
+imap <F6>           <C-O>:n<CR>
 
-map  <F8>           :so ~/.vimrc<CR>
-imap <F8>           <C-O>:so ~/.vimrc<CR>
+map  <F7>           :cp<CR>
+imap <F7>           <C-O>:cp<CR>
+map  <F8>           :cn<CR>
+imap <F8>           <C-O>:cn<CR>
 
 map  <F9>           :make<CR>
 imap <F9>           <C-O>:make<CR>
@@ -1152,7 +1152,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.509 2025/01/27 18:15:44 czo Exp $
+            " $Id: .vimrc,v 1.510 2025/02/05 12:19:16 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
