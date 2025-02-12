@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 05 February 2025, 13:18
-" $Id: .vimrc,v 1.510 2025/02/05 12:19:16 czo Exp $
-" Edit Time: 255:50:49
+" Last Modified: Tuesday 11 February 2025, 13:27
+" $Id: .vimrc,v 1.513 2025/02/11 12:28:47 czo Exp $
+" Edit Time: 255:56:43
 " Description:
 "
 "       vim config file
@@ -823,7 +823,7 @@ hi NonText       guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=DarkGray   ct
 hi SpecialKey    guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
 hi Conceal       guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
 hi TabLineFill   guifg=#7c6f64 guibg=#35302b gui=NONE      ctermfg=DarkGray   ctermbg=Black    cterm=NONE      term=NONE
-hi TabLineSel    guifg=#ebdbb2 guibg=#35302b gui=NONE      ctermfg=White      ctermbg=Black    cterm=NONE      term=NONE
+hi TabLineSel    guifg=#ebdbb2 guibg=#282828 gui=NONE      ctermfg=White      ctermbg=Black    cterm=NONE      term=NONE
 hi MatchParen    guifg=NONE    guibg=#665c54 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi ColorColumn   guifg=NONE    guibg=#3c3836 gui=NONE      ctermfg=NONE       ctermbg=Black    cterm=NONE      term=NONE
 hi Underlined    guifg=#83a598 guibg=NONE    gui=underline ctermfg=Blue       ctermbg=NONE     cterm=underline term=underline
@@ -1152,7 +1152,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.510 2025/02/05 12:19:16 czo Exp $
+            " $Id: .vimrc,v 1.513 2025/02/11 12:28:47 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
