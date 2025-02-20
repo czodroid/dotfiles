@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 01 February 2025, 22:39
-# $Id: .bashrc,v 1.681 2025/02/02 10:39:26 czo Exp $
-# Edit Time: 155:20:29
+# Last Modified: Wednesday 19 February 2025, 20:18
+# $Id: .bashrc,v 1.684 2025/02/19 19:37:18 czo Exp $
+# Edit Time: 156:26:09
 # Description:
 #
 #       bash config file
@@ -202,13 +202,9 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo
 
 ##======= Environment Variables ======================================##
 
-SHELLNAME=$( (echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null )
+SHELLNAME=$( { echo $0 | sed 's,.*/,,' | sed 's,^-,,'; } 2>/dev/null )
 
-if command -v hostname >/dev/null 2>&1; then
-    HOSTNAME=$(hostname 2>/dev/null)
-else
-    HOSTNAME=$(uname -n 2>/dev/null)
-fi
+{ command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { command -v whoami >/dev/null 2>&1 && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
@@ -221,7 +217,11 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-export HIGHLIGHT_OPTIONS='--force -s base16/gruvbox-dark-hard'
+# highlight, cat syntax highlighting, alias 'lessc' further on
+# version 4.10
+export HIGHLIGHT_OPTIONS='--force -s base16/gruvbox-dark-hard -O xterm256'
+# version 3.41
+# export HIGHLIGHT_OPTIONS='--force -s candy -O xterm256'
 export PAGER=less
 export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'
@@ -397,7 +397,7 @@ case $PLATFORM in
         if ( echo A | \grep --color=auto A ) >/dev/null 2>&1; then
             alias grep='\grep --color=auto'
         fi
-        if [ $( (\pgrep -fiac 11czo11 | wc -l) 2>/dev/null ) = 1 ]; then
+        if [ $( { \pgrep -fiac 11czo11 | wc -l; } 2>/dev/null ) = 1 ]; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
         else
@@ -512,6 +512,7 @@ alias ne='\emacs -nw'
 command -v less >/dev/null 2>&1 && alias more=less
 # command: takes into account the functions defined here, on some shell...
 # In bash: unset -f ldd
+command -v highlight >/dev/null 2>&1 && lessc() { highlight $* | less -R; }
 command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
 command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 

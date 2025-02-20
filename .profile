@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Sunday 29 December 2024, 08:53
-# $Id: .profile,v 1.50 2024/12/29 07:53:49 czo Exp $
-# Edit Time: 3:04:30
+# Last Modified: Wednesday 19 February 2025, 20:32
+# $Id: .profile,v 1.51 2025/02/19 19:37:19 czo Exp $
+# Edit Time: 3:05:30
 # Description:
 #
 #       ~/.profile is included by the shell for login shells.
@@ -16,7 +16,7 @@
 #       this file is not read by bash or zsh if these files exist:
 #       > rm ~/.bash_profile ~/.bash_login ~/.zshenv ~/.zprofile ~/.zlogin
 #
-# Copyright: (C) 1995-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1995-2025 Olivier Sirol <czo@free.fr>
 
 ## umask
 # umask 022
@@ -27,7 +27,7 @@ if [ -x "$HOME/xmpp-send-login42.pl" ]; then
 fi
 
 ## include shell configuration
-SHELLNAME=`(echo $0 | sed 's,.*/,,' | sed 's,^-,,') 2>/dev/null`
+SHELLNAME=`{ echo $0 | sed 's,.*/,,' | sed 's,^-,,'; } 2>/dev/null`
 
 # if running sh
 case "$SHELLNAME" in
