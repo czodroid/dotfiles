@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 22 February 2025, 13:19
-# $Id: .bashrc,v 1.689 2025/02/22 12:20:37 czo Exp $
-# Edit Time: 160:58:51
+# Last Modified: Saturday 22 February 2025, 13:49
+# $Id: .bashrc,v 1.690 2025/02/22 12:50:57 czo Exp $
+# Edit Time: 161:22:36
 # Description:
 #
 #       bash config file
@@ -61,7 +61,7 @@ TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 #BASHMISSING : REPORTTIME, complete alias, equal =foo
 # removed zsh preexec implementation of REPORTTIME, see rev 1.32
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG BashSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG   BashSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
 
 ##======= Platform ===================================================##
 
@@ -107,7 +107,7 @@ if [ "X${PLATFORM}" = "XLinux_mips" ]; then
     HISTFILE=$TMPDIR/.sh_history
 fi
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG       Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
 
 ##======= Paths ======================================================##
 
@@ -198,7 +198,7 @@ fi
 
 export PATH
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG          Paths:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
 
 ##======= Environment Variables ======================================##
 
@@ -249,7 +249,7 @@ case $(domainname 2>/dev/null) in
     *) export PRINTER=LaserJet ;;
 esac
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
 
 ##======= Key bindings ===============================================##
 
@@ -342,7 +342,7 @@ if [ "X${SHELLNAME}" = "Xmksh" ]; then
     bind "^[[B"=search-history-down
 fi
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG    Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
 
 ##======= Completions ================================================##
 
@@ -363,7 +363,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG Completions:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG    Completions:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
 
 ##======= Aliases & Functions ========================================##
 
@@ -820,7 +820,7 @@ if [ "X${SHELLNAME}" = "Xmksh" ]; then
     alias t='\\builtin whence -v'
 fi
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG Alias:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG          Alias:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
 
 ##======= Main ======================================================##
 
@@ -917,8 +917,8 @@ if command -v awk >/dev/null 2>&1; then
     export PATH=$(echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
 fi
 
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop ; fi
-if [ -n "$RTMStart" ] ; then echo -n "DEBUG RTMTotalTime:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMTotalTime)/1000000))ms"; fi
+[ -n "$RTMStart" ] && { echo -n "DEBUG           Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+[ -n "$RTMStart" ] && { echo -n "DEBUG   RTMTotalTime:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMTotalTime)/1000000))ms"; }
 
 # EOF
 
