@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: juil. 1995
-# Last Modified: Wednesday 19 February 2025, 20:32
-# $Id: .profile,v 1.51 2025/02/19 19:37:19 czo Exp $
-# Edit Time: 3:05:30
+# Last Modified: Thursday 20 February 2025, 13:08
+# $Id: .profile,v 1.52 2025/02/20 13:24:09 czo Exp $
+# Edit Time: 3:05:58
 # Description:
 #
 #       ~/.profile is included by the shell for login shells.

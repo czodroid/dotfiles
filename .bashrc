@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 19 February 2025, 20:18
-# $Id: .bashrc,v 1.684 2025/02/19 19:37:18 czo Exp $
-# Edit Time: 156:26:09
+# Last Modified: Saturday 22 February 2025, 13:19
+# $Id: .bashrc,v 1.689 2025/02/22 12:20:37 czo Exp $
+# Edit Time: 160:58:51
 # Description:
 #
 #       bash config file
@@ -203,6 +203,8 @@ if [ -n "$RTMStart" ] ; then echo -n "DEBUG Paths:"; RTMStop=$(date +%s%N); echo
 ##======= Environment Variables ======================================##
 
 SHELLNAME=$( { echo $0 | sed 's,.*/,,' | sed 's,^-,,'; } 2>/dev/null )
+## Android sh IS mksh
+[ -n "$KSH_VERSION" ] && SHELLNAME="mksh"
 
 { command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
@@ -217,7 +219,7 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-# highlight, cat syntax highlighting, alias 'lessc' further on
+# highlight, cat syntax highlighting, alias 'catc' further on
 # version 4.10
 export HIGHLIGHT_OPTIONS='--force -s base16/gruvbox-dark-hard -O xterm256'
 # version 3.41
@@ -510,9 +512,9 @@ fi
 
 alias ne='\emacs -nw'
 command -v less >/dev/null 2>&1 && alias more=less
+command -v highlight >/dev/null 2>&1 && alias catc=highlight
 # command: takes into account the functions defined here, on some shell...
 # In bash: unset -f ldd
-command -v highlight >/dev/null 2>&1 && lessc() { highlight $* | less -R; }
 command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
 command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 
@@ -885,14 +887,17 @@ if command -v tty >/dev/null 2>&1; then
 fi
 
 if [ -n "$BASH_VERSION" ]; then
-    PS1=$'\[\e[m\]\n\[\e[0;97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[0;9${USER_PROMPT_COLOR}m\]${USER}\[\e[0;97m\]@\[\e[0;9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[0;97m\]:\[\e[0;96m\]$PWD\[\e[m\]\n\[\e[0;33m\]$(__git_ps1 "(%s)")\[\e[0;97m\]>>\[\e[m\] '
+    # $'ANSI-C quoting'
+    # \[ \] non-printable characters for calculating the size of the prompt
+    PS1=$'\[\e[m\]\n\[\e[97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[9${USER_PROMPT_COLOR}m\]${USER}\[\e[97m\]@\[\e[9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[97m\]:\[\e[96m\]$PWD\[\e[m\]\n\[\e[33m\]$(__git_ps1 "(%s)")\[\e[97m\]>>\[\e[m\] '
 else
     # old sh/ash/dash/mksh works with: export ENV="$HOME/.bashrc" and start with -l
-    # $' works in sh android but not in sh freebsd
+    # $' works in sh android but not in sh freebsd, and really old sh can can't handle
+    # \033 or \x1b, so escape character in binary form for starting ANSI escape sequences
     PS1='[m
-[0;97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [0;9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
-[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;96m$PWD[m
-[0;33m$(__git_ps1 "(%s)")[0;97m>>[m '
+[97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
+[9${USER_PROMPT_COLOR}m${USER}[97m@[9${HOST_PROMPT_COLOR}m${HOSTNAME}[97m:[96m$PWD[m
+[33m$(__git_ps1 "(%s)")[97m>>[m '
 fi
 
 ## if PS1 doesnt work:

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 19 February 2025, 20:21
-# $Id: .zshrc,v 1.617 2025/02/19 19:37:19 czo Exp $
-# Edit Time: 141:38:52
+# Last Modified: Friday 21 February 2025, 12:03
+# $Id: .zshrc,v 1.620 2025/02/21 11:27:58 czo Exp $
+# Edit Time: 141:57:35
 # Description:
 #
 #       zsh config file
@@ -58,10 +58,10 @@ setopt INTERACTIVE            # Shell is interactive
 setopt LONG_LIST_JOBS         # More verbose listing of jobs
 setopt MONITOR                # Shell has job control enabled
 setopt PROMPT_SUBST           # $ expansion etc. in prompts
-setopt PUSHD_IGNORE_DUPS      # Don’t push dir multiply on stack
-setopt PUSHD_MINUS            # Reverse sense of – and + in pushd
-setopt RM_STAR_SILENT         # Don’t warn on rm *
-setopt SH_WORD_SPLIT          # Split non­array variables yuckily
+setopt PUSHD_IGNORE_DUPS      # Don't push dir multiply on stack
+setopt PUSHD_MINUS            # Reverse sense of - and + in pushd
+setopt RM_STAR_SILENT         # Don't warn on rm *
+setopt SH_WORD_SPLIT          # Split non array variables yuckily
 
 HISTFILE=$HOME/.sh_history
 SAVEHIST=55000
@@ -242,7 +242,7 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-# highlight, cat syntax highlighting, alias 'lessc' further on
+# highlight, cat syntax highlighting, alias 'catc' further on
 # version 4.10
 export HIGHLIGHT_OPTIONS='--force -s base16/gruvbox-dark-hard -O xterm256'
 # version 3.41
@@ -632,9 +632,9 @@ fi
 
 alias ne='\emacs -nw'
 command -v less >/dev/null 2>&1 && alias more=less
+command -v highlight >/dev/null 2>&1 && alias catc=highlight
 # command: takes into account the functions defined here, on some shell...
 # In bash: unset -f ldd
-command -v highlight >/dev/null 2>&1 && lessc() { highlight $* | less -R; }
 command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
 command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 
@@ -992,7 +992,7 @@ else
     __git_ps1() { :; }
 fi
 
-PS1=$'%{\e[m%}\n%{\e[0;97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[0;97m%}:%{\e[0;91m%})[%?]%{\e[m%}\n%{\e[0;9${USER_PROMPT_COLOR}m%}${USER}%{\e[0;97m%}@%{\e[0;9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[0;97m%}:%{\e[0;95m%}$PWD%{\e[m%}\n%{\e[0;33m%}$(__git_ps1 "(%s)")%{\e[0;97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[97m%}:%{\e[91m%})[%?]%{\e[m%}\n%{\e[9${USER_PROMPT_COLOR}m%}${USER}%{\e[97m%}@%{\e[9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[97m%}:%{\e[95m%}$PWD%{\e[m%}\n%{\e[33m%}$(__git_ps1 "(%s)")%{\e[97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited

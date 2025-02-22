@@ -6,16 +6,17 @@
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
 ! File Created: 28 mars 1996
-! Last Modified: Wednesday 05 June 2024, 13:39
-! $Id: .Xresources,v 1.50 2024/06/05 11:39:29 czo Exp $
-! Edit Time: 7:42:48
+! Last Modified: Friday 21 February 2025, 11:46
+! $Id: .Xresources,v 1.52 2025/02/21 11:27:58 czo Exp $
+! Edit Time: 7:53:37
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources
 !
-! Copyright: (C) 1996-2024 Olivier Sirol <czo@free.fr>
+! Copyright: (C) 1996-2025 Olivier Sirol <czo@free.fr>
 
+!! Screen and fonts !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Xft.dpi:        96
 Xft.autohint:   0
 Xft.antialias:  1
@@ -27,24 +28,28 @@ Xft.rgba:       none
 ! Xft.lcdfilter:  lcddefault
 ! Xft.lcdfilter:  lcdlegacy
 
+! Xcursor.theme:  Adwaita
+! Xcursor.size:   24
 
-! 2004/05/26 :
+
+!! Xterm !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! 2004-05-26:
 ! removed wheel scroll and other mozilla config, removed
 ! athena and motif widget overides, XOsview, rxvt, vim
+! but keep xterm
 
-! Xterm !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! my xterm terminfo is xterm-256color
 XTerm*geometry: 90x26
 XTerm*termName: xterm-256color
-!en 1996
+! 1996:
 !XTerm*boldFont: 7x13bold
 !XTerm*font:     7x13bold
-!en 2012
+! 2012:
 !XTerm*boldFont: 10x20
 !XTerm*font:     10x20
-!en 2018, hé ouais, je suis presbyte...
+! 2018: hey yeah, I'm presbyopic...
 XTerm*faceName: fixed:size=13
-! i want bold font to be the same
+! I want bold font to be the same
 !XTerm*boldMode: off
 XTerm*allowBoldFonts: false
 
@@ -60,7 +65,7 @@ XTerm*visualBell: false
 XTerm*toolBar:        false
 XTerm*allowTcapOps:   false
 
-! i want Alt-X to send ESC-x but I prefer correct input of é : false
+! I want Alt-X to send ESC-x but I prefer correct input of é : false
 !XTerm*eightBitControl: false
 !XTerm*eightBitOutput:  true
 !XTerm*utf8: 2
