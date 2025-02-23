@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 22 February 2025, 14:59
-# $Id: .zshrc,v 1.622 2025/02/22 13:59:56 czo Exp $
-# Edit Time: 142:20:21
+# Last Modified: Sunday 23 February 2025, 15:07
+# $Id: .zshrc,v 1.624 2025/02/23 14:07:42 czo Exp $
+# Edit Time: 142:20:55
 # Description:
 #
 #       zsh config file
@@ -229,7 +229,8 @@ export -U PATH
 
 SHELLNAME='zsh'
 
-{ command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
+# { command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
+{ command -v getprop >/dev/null 2>&1 && HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { command -v whoami >/dev/null 2>&1 && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)

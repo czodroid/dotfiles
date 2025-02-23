@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 22 February 2025, 13:49
-# $Id: .bashrc,v 1.690 2025/02/22 12:50:57 czo Exp $
-# Edit Time: 161:22:36
+# Last Modified: Sunday 23 February 2025, 15:05
+# $Id: .bashrc,v 1.692 2025/02/23 14:07:42 czo Exp $
+# Edit Time: 161:41:41
 # Description:
 #
 #       bash config file
@@ -206,7 +206,8 @@ SHELLNAME=$( { echo $0 | sed 's,.*/,,' | sed 's,^-,,'; } 2>/dev/null )
 ## Android sh IS mksh
 [ -n "$KSH_VERSION" ] && SHELLNAME="mksh"
 
-{ command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
+# { command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
+{ command -v getprop >/dev/null 2>&1 && HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { command -v whoami >/dev/null 2>&1 && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
