@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 23 February 2025, 15:05
-# $Id: .bashrc,v 1.692 2025/02/23 14:07:42 czo Exp $
-# Edit Time: 161:41:41
+# Last Modified: Sunday 23 February 2025, 17:47
+# $Id: .bashrc,v 1.694 2025/02/23 16:50:29 czo Exp $
+# Edit Time: 162:35:38
 # Description:
 #
 #       bash config file
@@ -207,7 +207,7 @@ SHELLNAME=$( { echo $0 | sed 's,.*/,,' | sed 's,^-,,'; } 2>/dev/null )
 [ -n "$KSH_VERSION" ] && SHELLNAME="mksh"
 
 # { command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
-{ command -v getprop >/dev/null 2>&1 && HOSTNAME=$(getprop net.hostname 2>/dev/null); } || { command -v hostname >/dev/null 2>&1 && HOSTNAME=$(hostname 2>/dev/null); } || HOSTNAME=$(uname -n 2>/dev/null)
+{ command -v getprop >/dev/null 2>&1 && { HOSTNAME=$(getprop net.hostname 2>/dev/null); [ -n "$HOSTNAME" ]; }; } || { command -v hostname >/dev/null 2>&1 && { HOSTNAME=$(hostname 2>/dev/null); [ -n "$HOSTNAME" ]; }; } || HOSTNAME=$(uname -n 2>/dev/null)
 export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 
 { command -v whoami >/dev/null 2>&1 && USER=$(whoami 2>/dev/null); } || USER=$(id -nu 2>/dev/null)
