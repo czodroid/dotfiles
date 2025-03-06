@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 06 March 2025, 20:15
-# $Id: .zshrc,v 1.627 2025/03/06 19:19:15 czo Exp $
-# Edit Time: 142:21:50
+# Last Modified: Thursday 06 March 2025, 21:59
+# $Id: .zshrc,v 1.628 2025/03/06 21:02:01 czo Exp $
+# Edit Time: 142:22:46
 # Description:
 #
 #       zsh config file
@@ -695,7 +695,7 @@ alias ifa='ifconfig | grep "inet "'
 
 alias lsusb_tree='lsusb -tv'
 
-alias mount_list='P="mount | grep -v \" /sys\| /run\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
+alias mount_list='P="mount | grep -v \" /sys\| /run\| /snap\| /proc\| /dev\""; echo "-> Runing: $P"; eval "$P"'
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
 alias rsync_full='rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'

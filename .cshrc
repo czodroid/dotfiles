@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Thursday 06 March 2025, 20:16
-# $Id: .cshrc,v 1.180 2025/03/06 19:19:15 czo Exp $
-# Edit Time: 32:36:17
+# Last Modified: Thursday 06 March 2025, 22:04
+# $Id: .cshrc,v 1.183 2025/03/06 21:05:29 czo Exp $
+# Edit Time: 33:10:50
 # Description:
 #
 #       csh and tcsh config file
@@ -312,7 +312,7 @@ alias g        'grep -sri'
 alias g_cs     'grep -sr'
 alias ..       'cd ..'
 
-alias ltt      'find . -type f -printf "touch -acm -d \"%TF %TT\" \"%p\"\n"'
+alias ltt      'find . -type f -printf "touch -acm -d '\''%TF %TT'\'' '\''%p'\''\n"'
 alias llt      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llx      'find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -perm -1 -print | sort'
@@ -368,7 +368,7 @@ alias r        'tput rs2'
 
 alias lsusb_tree    'lsusb -t -v'
 
-alias mount_list    'P="mount | grep -v \" /sys\| /run\| /net\| /snap\| /proc\| /dev\""; echo "Runing: $P"; eval "$P"'
+alias mount_list    'set P="mount | grep -v '\''/sys\| /run\| /net\| /snap\| /proc\| /dev'\''"; echo "-> Runing: $P"; eval "$P"'
 alias rsync_sys     'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
 alias rsync_full    'rsync --numeric-ids -S -H --delete -av'
 alias rsync_fat     'rsync --no-p --no-g --modify-window=1 --delete -av -L'
