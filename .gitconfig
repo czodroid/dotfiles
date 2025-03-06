@@ -2,9 +2,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 mars 2011
-# Last Modified: Wednesday 05 February 2025, 02:51
-# $Id: .gitconfig,v 1.40 2025/02/05 12:19:16 czo Exp $
-# Edit Time: 9:09:08
+# Last Modified: Tuesday 04 March 2025, 20:05
+# $Id: .gitconfig,v 1.41 2025/03/05 15:06:34 czo Exp $
+# Edit Time: 9:24:19
 # Description:
 #                 git conf file
 #
@@ -36,7 +36,7 @@
     cmd = vim -d \"$REMOTE\" \"$LOCAL\"
 
 [alias]
-    b   = branch
+    b   = branch -a
     c1  = clone --depth 1
     co  = checkout
     ci  = commit
@@ -45,9 +45,23 @@
     f   = fetch
     fo  = fetch origin
     fu  = fetch upstream
+    u   = pull
+    p   = push
+    pt  = push --tags
     l   = log --reverse --pretty=oneline
     ll  = log --reverse --pretty=format:'%C(red)%h%Creset %C(cyan)%ad%Creset%C(yellow)%d%Creset %<(50,mtrunc)%s' --date=format-local:'%Y-%m-%d %H:%M:%S'
     lr  = log --reverse --reflog --pretty=format:'%C(red)%h%Creset %C(cyan)%ad%Creset%C(yellow)%d%Creset %<(50,mtrunc)%s' --date=format-local:'%Y-%m-%d %H:%M:%S'
     lg  = log --graph --pretty=format:'%C(red)%h%Creset - %C(cyan)%ad%Creset -%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset%n' --date=format-local:'%Y-%m-%d %H:%M:%S'
-    pst = push --tags
+
+; alias  gtu='git pull'
+; alias  gtp='git push'
+; alias  gtd='git diff'
+; alias  gtc='git commit -a'
+; alias gtcc='git commit -a -mupdate ; git push'
+; alias  gts='git status'
+; alias  gta='git add .'
+; alias  gtb='git branch -a'
+; alias  gtf='git fetch; git diff master origin/master'
+; alias gtgc='git gc'
+; alias gtcl='git clean -dfn'
 

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 23 February 2025, 17:47
-# $Id: .bashrc,v 1.694 2025/02/23 16:50:29 czo Exp $
-# Edit Time: 162:35:38
+# Last Modified: Thursday 06 March 2025, 20:14
+# $Id: .bashrc,v 1.696 2025/03/06 19:19:15 czo Exp $
+# Edit Time: 162:48:16
 # Description:
 #
 #       bash config file
@@ -468,6 +468,7 @@ alias ll='ls -l'
 alias lh='ls -lh'
 alias l='ls -alrt'
 
+alias ltt='find . -type f -printf "touch -acm -d \"%TF %TT\" \"%p\"\n"'
 alias llt='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%TF_%TR %5m %10s %p\n" | sort -n'
 alias lls='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -printf "%s %TF_%TR %5m %p\n" | sort -n'
 alias llx='find . -type d \( -name '.git' -o -name 'CVS' \) -prune -o -type f -perm -1 -print | sort'

@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 11 February 2025, 13:27
-" $Id: .vimrc,v 1.513 2025/02/11 12:28:47 czo Exp $
-" Edit Time: 255:56:43
+" Last Modified: Monday 24 February 2025, 12:29
+" $Id: .vimrc,v 1.514 2025/02/24 11:29:29 czo Exp $
+" Edit Time: 256:03:14
 " Description:
 "
 "       vim config file
@@ -432,10 +432,12 @@ endfunction
 
 " for autocmd
 function! CzoTTW ()
-    let l = line(".")
-    let c = col(".")
-    exec '%s/\s\+$//e'
-    call cursor(l, c)
+    if version >= 601
+        let l = line(".")
+        let c = col(".")
+        exec '%s/\s\+$//e'
+        call cursor(l, c)
+    endif
 endfunction
 
 command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
@@ -618,23 +620,25 @@ map         <C-K><C-K>      :qa!<CR>
 imap        <C-K><C-K>      <C-O>:qa!<CR>
 cmap        <C-K><C-K>      <C-C><C-O>:qa!<CR>
 
-" scroll by one line
-map  <ScrollWheelUp>        <C-Y>
-imap <ScrollWheelUp>        <C-O><C-Y>
-map  <ScrollWheelDown>      <C-E>
-imap <ScrollWheelDown>      <C-O><C-E>
+if version >= 601
+    " scroll by one line
+    map  <ScrollWheelUp>        <C-Y>
+    imap <ScrollWheelUp>        <C-O><C-Y>
+    map  <ScrollWheelDown>      <C-E>
+    imap <ScrollWheelDown>      <C-O><C-E>
 
-" scroll by one page
-map  <S-ScrollWheelUp>      <C-B>
-imap <S-ScrollWheelUp>      <C-O><C-B>
-map  <S-ScrollWheelDown>    <C-F>
-imap <S-ScrollWheelDown>    <C-O><C-F>
+    " scroll by one page
+    map  <S-ScrollWheelUp>      <C-B>
+    imap <S-ScrollWheelUp>      <C-O><C-B>
+    map  <S-ScrollWheelDown>    <C-F>
+    imap <S-ScrollWheelDown>    <C-O><C-F>
 
-" scroll by one 1/2 page
-map  <C-ScrollWheelUp>      <C-U>
-imap <C-ScrollWheelUp>      <C-O><C-U>
-map  <C-ScrollWheelDown>    <C-D>
-imap <C-ScrollWheelDown>    <C-O><C-D>
+    " scroll by one 1/2 page
+    map  <C-ScrollWheelUp>      <C-U>
+    imap <C-ScrollWheelUp>      <C-O><C-U>
+    map  <C-ScrollWheelDown>    <C-D>
+    imap <C-ScrollWheelDown>    <C-O><C-D>
+endif
 
 " shift
 vnoremap >          >gv
@@ -1152,7 +1156,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.513 2025/02/11 12:28:47 czo Exp $
+            " $Id: .vimrc,v 1.514 2025/02/24 11:29:29 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
