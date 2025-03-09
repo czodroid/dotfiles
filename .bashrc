@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Thursday 06 March 2025, 21:59
-# $Id: .bashrc,v 1.697 2025/03/06 21:02:01 czo Exp $
-# Edit Time: 162:48:46
+# Last Modified: Saturday 08 March 2025, 23:10
+# $Id: .bashrc,v 1.698 2025/03/08 22:44:11 czo Exp $
+# Edit Time: 162:58:35
 # Description:
 #
 #       bash config file
@@ -532,13 +532,13 @@ alias r='tput rs2'
 
 alias sc='screen -d -R'
 
-if command -v ncd >/dev/null 2>&1; then
-    n() { \ncd "$@"; if [ $? -eq 0 ]; then cd "$(cat ~/.ncd_sdir)"; fi; }
-fi
-
 if command -v mc >/dev/null 2>&1; then
     alias mc='\mc -b -u'
     m() { \mc -b -u -P ~/.mc_pwd "$@"; if [ $? -eq 0 ]; then cd "$(cat ~/.mc_pwd)"; rm -f ~/.mc_pwd; fi; }
+fi
+
+if command -v ncd >/dev/null 2>&1; then
+    n() { \ncd "$@"; if [ $? -eq 0 ]; then cd "$(cat ~/.ncd_sdir)"; rm -f ~/.ncd_sdir; fi; }
 fi
 
 if command -v ncdu >/dev/null 2>&1; then

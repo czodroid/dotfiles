@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Thursday 06 March 2025, 22:04
-# $Id: .cshrc,v 1.183 2025/03/06 21:05:29 czo Exp $
-# Edit Time: 33:10:50
+# Last Modified: Saturday 08 March 2025, 23:53
+# $Id: .cshrc,v 1.185 2025/03/08 23:31:45 czo Exp $
+# Edit Time: 33:18:06
 # Description:
 #
 #       csh and tcsh config file
@@ -339,7 +339,8 @@ alias mc       '\mc -b -u'
 
 alias psg      'ps | grep -i \!* | sort -r -k 3 | grep -v "grep \\!*\|sort -r -k 3"'
 
-alias n        'ncd \!* ; if $status == 0 cd "`cat $HOME/.ncd_sdir`"'
+alias m        'mc -b -u -P ~/.mc_pwd \!*; if $status == 0 cd "`cat ~/.mc_pwd`"; rm -f ~/.mc_pwd'
+alias n        'ncd \!*; if $status == 0 cd "`cat ~/.ncd_sdir`"; rm -f ~/.ncd_sdir'
 
 alias wgetr    'wget -m -np -k -r'
 alias wgetp    'wget -m -np -k -l1'
