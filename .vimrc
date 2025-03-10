@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 24 February 2025, 12:29
-" $Id: .vimrc,v 1.514 2025/02/24 11:29:29 czo Exp $
-" Edit Time: 256:03:14
+" Last Modified: Monday 10 March 2025, 01:22
+" $Id: .vimrc,v 1.516 2025/03/10 00:23:45 czo Exp $
+" Edit Time: 256:11:14
 " Description:
 "
 "       vim config file
@@ -674,8 +674,8 @@ vmap /              y/<C-R>"<CR>
 vmap ?              y?<C-R>"<CR>
 
 " function
-nmap <F1>           :help <C-R>=expand('<cword>')<CR><CR>
-imap <F1>           <C-O>:help <C-R>=expand('<cword>')<CR><CR>
+nmap <F1>           :help <C-R>=expand('<cword>')<CR>
+imap <F1>           <C-O>:help <C-R>=expand('<cword>')<CR>
 
 map  <F2>           :so ~/.vimrc<CR>
 imap <F2>           <C-O>:so ~/.vimrc<CR>
@@ -1156,7 +1156,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.514 2025/02/24 11:29:29 czo Exp $
+            " $Id: .vimrc,v 1.516 2025/03/10 00:23:45 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -2128,15 +2128,12 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Sunday 24 March 2024, 12:13
+                 \\<nl># Last Modified: Monday 10 March 2025, 01:20
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:03
+                 \\<nl># Edit Time: 0:02:24
                  \\<nl># Description:
-                 \\<nl>#          zpool scrub/resilver for munin
-                 \\<nl>#          OK:  100 % (old: off=10)
-                 \\<nl>#          BAD:   0 % (old: ON=90)
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>#use strict;
                  \\<nl>use warnings;
@@ -2209,15 +2206,12 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Sunday 24 March 2024, 15:47
+                 \\<nl># Last Modified: Monday 10 March 2025, 01:20
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:04
+                 \\<nl># Edit Time: 0:02:37
                  \\<nl># Description:
                  \\<nl>#
-                 \\<nl>#       Munin plugin for Freebox bandwith
-                 \\<nl>#       bug: perl doenst work in debian 11 munin 2.0.67
-                 \\<nl>#
-                 \\<nl># Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>import os
                  \\<nl>import sys
