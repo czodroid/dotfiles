@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 10 March 2025, 01:22
-" $Id: .vimrc,v 1.516 2025/03/10 00:23:45 czo Exp $
-" Edit Time: 256:11:14
+" Last Modified: Wednesday 12 March 2025, 15:31
+" $Id: .vimrc,v 1.518 2025/03/12 14:32:25 czo Exp $
+" Edit Time: 256:43:21
 " Description:
 "
 "       vim config file
@@ -1156,7 +1156,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.516 2025/03/10 00:23:45 czo Exp $
+            " $Id: .vimrc,v 1.518 2025/03/12 14:32:25 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1382,11 +1382,11 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl> * Last Modified: Thursday 13 October 2022, 18:03
-                 \\<nl> * Edit Time: 0:00:13
+                 \\<nl> * Last Modified: Thursday 28 November 2019, 15:38
+                 \\<nl> * Edit Time: 0:00:18
                  \\<nl> * Description:
                  \\<nl> *
-                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl> * Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl> */
                  \\<nl>
                  \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
@@ -1423,11 +1423,11 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Thursday 13 October 2022, 18:03
-                 \\<nl>// Edit Time: 0:00:13
+                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
+                 \\<nl>// Edit Time: 0:00:18
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>
                  \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
@@ -1459,7 +1459,7 @@ function! TemplateCzo (...)
                       \# Filename: template.crontab
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Sunday 31 March 2024, 12:18
+                 \\<nl># Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl># vim: set filetype=crontab:
                  \\<nl># Description: crontab .crontab.VIMEX{=$USER}@VIMEX{=$HOSTNAME}
                  \\<nl>
@@ -1495,12 +1495,12 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl> * Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl> * Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl> * Edit Time: 0:00:13
+                 \\<nl> * Edit Time: 0:00:18
                  \\<nl> * Description:
                  \\<nl> *
-                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl> * Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl> */
                  \\<nl>
                  \\<nl>html {
@@ -1598,11 +1598,11 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl> * Last Modified: Thursday 13 October 2022, 18:03
-                 \\<nl> * Edit Time: 0:00:13
+                 \\<nl> * Last Modified: Thursday 28 November 2019, 15:38
+                 \\<nl> * Edit Time: 0:00:18
                  \\<nl> * Description:
                  \\<nl> *
-                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl> * Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl> */
                  \\<nl>
                  \\<nl>#ifndef MY_HEADER_H
@@ -1625,11 +1625,11 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Thursday 13 October 2022, 18:03
-                 \\<nl>// Edit Time: 0:00:13
+                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
+                 \\<nl>// Edit Time: 0:00:18
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>
                  \\<nl>#ifndef MY_HEADER_H
@@ -1653,12 +1653,12 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Thursday 13 June 2024, 21:43
+                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>// Edit Time: 0:00:30
+                 \\<nl>// Edit Time: 0:00:18
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>-->
                  \\<nl>
                  \\<nl><html lang=\\"en\\">
@@ -1704,18 +1704,18 @@ function! TemplateCzo (...)
             "## template.java #########################################
             catch /^java$/
                0put = \"
-                      \package org.czo.badumtsss;
-                 \\<nl>
-                 \\<nl>// Filename: template.java
+                      \// Filename: template.java
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>// Edit Time: 0:00:13
+                 \\<nl>// Edit Time: 0:00:18
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
+                 \\<nl>
+                 \\<nl>package org.czo.badumtsss;
                  \\<nl>
                  \\<nl>import android.app.Activity;
                  \\<nl>import android.media.AudioManager;
@@ -1767,12 +1767,12 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl> * Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl> * Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl> * $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl> * Edit Time: 0:00:13
+                 \\<nl> * Edit Time: 0:00:18
                  \\<nl> * Description:
                  \\<nl> *
-                 \\<nl> * Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl> * Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl> */
                  \\<nl>
                  \\<nl>$(document).ready(function () {
@@ -1834,12 +1834,12 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Sunday 06 October 2024, 13:36
+                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>// Edit Time: 0:00:03
+                 \\<nl>// Edit Time: 0:00:19
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>{
                  \\<nl>  \\"type\\": \\"result\\",
                  \\<nl>  \\"timestamp\\": \\"2024-10-06T01:57:28Z\\",
@@ -1860,12 +1860,12 @@ function! TemplateCzo (...)
                  \\<nl>-- Author: Olivier Sirol <czo@free.fr>
                  \\<nl>-- License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>-- File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>-- Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl>-- Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl>-- $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>-- Edit Time: 0:00:12
+                 \\<nl>-- Edit Time: 0:00:19
                  \\<nl>-- Description:
                  \\<nl>--
-                 \\<nl>-- Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>-- Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>function cat(file, bufsize)
                  \\<nl>    if not bufsize then bufsize = 8192 end
@@ -1895,9 +1895,9 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Friday 16 June 2023, 19:22
+                 \\<nl># Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:25
+                 \\<nl># Edit Time: 0:00:19
                  \\<nl># Description:
                  \\<nl>#               Makefile for this project
                  \\<nl>#
@@ -1907,7 +1907,7 @@ function! TemplateCzo (...)
                  \\<nl>#      $? List of dependencies newer than the target
                  \\<nl>#      $* Target name without suffix
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2023 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>CC = gcc
                  \\<nl>CFLAGS = -Wall -Wextra -Wpedantic
@@ -1957,12 +1957,12 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Thursday 13 June 2024, 21:46
+                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>// Edit Time: 0:00:36
+                 \\<nl>// Edit Time: 0:00:19
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>-->
                  \\<nl>
                  \\<nl># Markdown Cheatsheet
@@ -2128,12 +2128,12 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Monday 10 March 2025, 01:20
+                 \\<nl># Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:02:24
+                 \\<nl># Edit Time: 0:00:19
                  \\<nl># Description:
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>#use strict;
                  \\<nl>use warnings;
@@ -2185,12 +2185,12 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Thursday 13 October 2022, 18:03
+                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl>// $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl>// Edit Time: 0:00:12
+                 \\<nl>// Edit Time: 0:00:19
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2022 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>phpinfo();
                  \\<nl>
@@ -2206,12 +2206,12 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Monday 10 March 2025, 01:20
+                 \\<nl># Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:02:37
+                 \\<nl># Edit Time: 0:00:19
                  \\<nl># Description:
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>import os
                  \\<nl>import sys
@@ -2252,12 +2252,12 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl># Last Modified: Sunday 24 March 2024, 16:08
+                 \\<nl># Last Modified: Thursday 28 November 2019, 15:38
                  \\<nl># $VIMEX{=strftime(\\"Id:$\\")}
-                 \\<nl># Edit Time: 0:00:03
+                 \\<nl># Edit Time: 0:00:19
                  \\<nl># Description:
                  \\<nl>#
-                 \\<nl># Copyright: (C) 2024 Olivier Sirol <czo@free.fr>
+                 \\<nl># Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>if [ $(id -u) -ne 0 ]; then
                  \\<nl>    echo \\"ERROR: this script must be run as root\\"
@@ -2288,7 +2288,7 @@ endfunction
 
 function! TemplateNewFile (...)
     call call(function("TemplateCzo"), a:000)
-    " to save all buffer with are not modofied do a
+    " to save all buffer with are not modified do a
     " :tabdo saveas %
     " or a
     " :tabdo set modified
