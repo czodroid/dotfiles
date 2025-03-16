@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 12 March 2025, 15:31
-" $Id: .vimrc,v 1.518 2025/03/12 14:32:25 czo Exp $
-" Edit Time: 256:43:21
+" Last Modified: Sunday 16 March 2025, 02:55
+" $Id: .vimrc,v 1.521 2025/03/16 01:58:59 czo Exp $
+" Edit Time: 256:50:12
 " Description:
 "
 "       vim config file
@@ -188,7 +188,7 @@ if exists('+list')
 endif
 
 if exists('+commentstring')
-    setlocal commentstring=#\ %s
+    setlocal commentstring=#%s
 endif
 
 " set errorformat=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
@@ -211,12 +211,13 @@ endif
 if version >= 600
     " .vimrc                   220/9 117:0x75 utf-8/unix [vim]  9%(2003)
     set statusline=
-    "set statusline+=%1*\ [%n]\                           " buffer number
+    " set statusline+=%1*\ [%n]\                           " buffer number
     set statusline+=%1*\                                 " NO buffer number
     set statusline+=%5*%<%f\                             " Filename
     set statusline+=%6*%m                                " Modified?
     set statusline+=%3*%r                                " RO?
     set statusline+=%=                                   " right
+    " set statusline+=%5*%{&commentstring}\                " test comment
     set statusline+=%2*%l/%c\                            " ln col
     set statusline+=%3*%b:0x%2B\                         " char hex
     set statusline+=%4*%{''.(&fenc!=''?&fenc:&enc).''}   " Encoding
@@ -287,14 +288,16 @@ endif
 autocmd BufNewFile,BufRead *.ino set filetype=cpp
 autocmd BufNewFile,BufRead *.h++ set filetype=cpp
 autocmd BufNewFile,BufRead *.h   set filetype=c
-autocmd Filetype json      let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0 | let g:vim_json_allow_comments=1
+
+autocmd Filetype json let g:indentLine_setConceal = 0 | let g:vim_json_syntax_conceal = 0 | let g:vim_json_allow_comments=1
 " syntax autocmd for jsonc at end of file
 
-autocmd FileType cpp       setlocal commentstring=//\ %s
-autocmd FileType crontab   setlocal commentstring=#\ %s
-autocmd FileType json      setlocal commentstring=//\ %s
-autocmd FileType php       setlocal commentstring=//\ %s
-autocmd FileType xdefaults setlocal commentstring=!\ %s
+autocmd FileType c         setlocal commentstring=/*%s*/
+autocmd FileType cpp       setlocal commentstring=//%s
+autocmd FileType crontab   setlocal commentstring=#%s
+autocmd FileType json      setlocal commentstring=//%s
+autocmd FileType php       setlocal commentstring=//%s
+autocmd FileType xdefaults setlocal commentstring=!%s
 
 " Trim Trailing Whitespace
 autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim\|readline\|json' | :call CzoTTW () | endif
@@ -1156,7 +1159,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.518 2025/03/12 14:32:25 czo Exp $
+            " $Id: .vimrc,v 1.521 2025/03/16 01:58:59 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
