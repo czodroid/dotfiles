@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 08 March 2025, 23:10
-# $Id: .bashrc,v 1.698 2025/03/08 22:44:11 czo Exp $
-# Edit Time: 162:58:35
+# Last Modified: Monday 17 March 2025, 22:54
+# $Id: .bashrc,v 1.700 2025/03/17 23:28:51 czo Exp $
+# Edit Time: 163:14:00
 # Description:
 #
 #       bash config file
@@ -568,10 +568,9 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias ipl='curl czo.wf/ip'
-alias ipf='curl czo.free.fr/ip'
-alias ipa='ip a | grep "inet "'
-alias ifa='ifconfig | grep "inet "'
+alias ifw='curl czo.free.fr/ip'
+alias ifa='ifconfig | grep "^\s*inet \|^\s*ether "'
+alias ipa='ip -br l; ip -br a'
 
 alias lsusb_tree='lsusb -tv'
 
