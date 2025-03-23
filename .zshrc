@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Monday 17 March 2025, 22:54
-# $Id: .zshrc,v 1.631 2025/03/17 23:28:51 czo Exp $
-# Edit Time: 142:37:39
+# Last Modified: Sunday 23 March 2025, 02:46
+# $Id: .zshrc,v 1.633 2025/03/23 01:47:07 czo Exp $
+# Edit Time: 142:40:34
 # Description:
 #
 #       zsh config file
@@ -179,38 +179,37 @@ fi
 ## config GEOSCOPE
 
 ## seiscomp
-# rutx seiscomp v5
-if [ -d "/opt/seiscomp/bin" ] ; then
-    export SEISCOMP_ROOT="/opt/seiscomp"
-    export LD_LIBRARY_PATH="$SEISCOMP_ROOT/lib:$LD_LIBRARY_PATH"
-    export PYTHONPATH="$SEISCOMP_ROOT/lib/python:$PYTHONPATH"
-    PATH="$PATH:$SEISCOMP_ROOT/bin"
-fi
-# seiscomp v4 v5 v6
-if [ -d "/home/sysop/seiscomp/bin" ] ; then
-    export SEISCOMP_ROOT="/home/sysop/seiscomp"
+# /data + seiscomp v3, gvpn + rutx seiscomp v5 + seiscomp v4 v5 v6
+for SCO in /data/seiscomp /home/sysop/seiscomp3 /opt/seiscomp /home/sysop/seiscomp; do
+    # echo A${SCO}B
+    if [ -x "$SCO/bin/seiscomp" ]; then
+        export SEISCOMP_ROOT=$SCO
+    fi
+done
+if [ -n "$SEISCOMP_ROOT" ]; then
     export LD_LIBRARY_PATH="$SEISCOMP_ROOT/lib:$LD_LIBRARY_PATH"
     export PYTHONPATH="$SEISCOMP_ROOT/lib/python:$PYTHONPATH"
     PATH="$PATH:$SEISCOMP_ROOT/bin"
 fi
 
 ## pqlx
-if [ -f /opt/PQLX/env/PQLXprodVars ]; then
-    export LC_ALL=en_US.UTF-8
-    export PQLX=/opt/PQLX/
+# validation, validation2 + pqlx9
+for PQV in /opt/PQLX /home/sysop/v2011.365.P4/PQLX; do
+    if [ -f $PQV/PROD/PQLXprodVars ]; then
+        export PQLX=$PQV
+    fi
+done
+if [ -n "$PQLX" ]; then
     . $PQLX/PROD/PQLXprodVars
     export PATH="$PATH:$PQLXBIN"
-fi
-if [ -f /home/sysop/v2011.365.P4/PQLX/env/PQLXprodVars ]; then
+    ## WARNING: en_US.UTF-8 must exist !!!!!
     export LC_ALL=en_US.UTF-8
-    export PQLX=/home/sysop/v2011.365.P4/PQLX
-    . $PQLX/PROD/PQLXprodVars
-    export PATH="$PATH:$PQLXBIN"
 fi
 
-if [ -d "/opt/passcal/bin" ] ; then
-    PATH="$PATH:/opt/passcal/bin"
-fi
+# grt + validation
+[ -d "/opt/passcal/bin" ] && PATH="$PATH:/opt/passcal/bin"
+[ -d "/NAS/bin" ] && PATH="$PATH:/NAS/bin"
+[ -d "/archive/bin" ] && PATH="$PATH:/archive/bin"
 
 ## config SWARM
 #export PATH="/users/project/swarm/data/tools/IpgpSoftwareTools:/users/project/swarm/data/tools/CommonSoftwareTools:$PATH"
@@ -695,8 +694,10 @@ alias ipa='ip -br l; ip -br a'
 alias lsusb_tree='lsusb -tv'
 
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /snap\| /proc\| /dev\""; echo "-> Runing: $P"; eval "$P"'
+
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
-alias rsync_full='rsync --numeric-ids -S -H --delete -av'
+alias rsync_full='rsync --numeric-ids -SH -AX --delete -av'
+alias rsync_full_noAX='rsync --numeric-ids -SH --delete -av'
 alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
 alias rsync_normal='rsync --delete -av'
 
