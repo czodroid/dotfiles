@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 24 April 2025, 15:13
-# $Id: .zshrc,v 1.635 2025/04/24 13:13:32 czo Exp $
-# Edit Time: 143:00:15
+# Last Modified: Thursday 24 April 2025, 15:55
+# $Id: .zshrc,v 1.636 2025/04/24 13:55:48 czo Exp $
+# Edit Time: 143:00:58
 # Description:
 #
 #       zsh config file
@@ -618,7 +618,6 @@ mdcd()    { \mkdir -p "$1" ; cd "$1"; }
 alias rmf='rm -fr'
 
 ## need arg -w to really delete file
-# alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
 rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE [bak] file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT [bak] file (need -w as arg to really deletes files):"; RM=""; fi ; find . \( -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print $RM ; }
 rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file (need -w as arg to really deletes files):"; RM=""; fi ; find . -empty -type f -print $RM ; }
 rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty dir:"; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty dir (need -w as arg to really deletes dir):"; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
