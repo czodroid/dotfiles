@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 23 March 2025, 02:46
-# $Id: .zshrc,v 1.633 2025/03/23 01:47:07 czo Exp $
-# Edit Time: 142:40:34
+# Last Modified: Thursday 24 April 2025, 15:13
+# $Id: .zshrc,v 1.635 2025/04/24 13:13:32 czo Exp $
+# Edit Time: 143:00:15
 # Description:
 #
 #       zsh config file
@@ -57,6 +57,7 @@ setopt INTERACTIVE_COMMENTS   # Dash on interactive line for comment
 setopt INTERACTIVE            # Shell is interactive
 setopt LONG_LIST_JOBS         # More verbose listing of jobs
 setopt MONITOR                # Shell has job control enabled
+setopt NO_NOMATCH             # No errors for filename pattern matches (bash)
 setopt PROMPT_SUBST           # $ expansion etc. in prompts
 setopt PUSHD_IGNORE_DUPS      # Don't push dir multiply on stack
 setopt PUSHD_MINUS            # Reverse sense of - and + in pushd
@@ -618,9 +619,9 @@ alias rmf='rm -fr'
 
 ## need arg -w to really delete file
 # alias rmbak='find . \( -iname "core" -o -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print -exec rm -f {} \;'
-rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE *.[bakup]:"; RM="-exec rm -f {} ;"; else echo "Just PRINT *.bak, need -w as arg to really deletes files."; RM=""; fi ; find . \( -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print $RM ; }
-rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -empty -type f -print $RM ; }
-rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty file, need -w as arg to really deletes files."; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
+rmbak() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE [bak] file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT [bak] file (need -w as arg to really deletes files):"; RM=""; fi ; find . \( -iname "#*#" -o -iname "*.bak" -o -iname ".*.bak" -o -iname ".*.sw?" -o -iname "*~" -o -iname ".*~" -o -iname ".#*" -o -iname "._*" -o -iname ".DS_Store" -o -iname "Thumbs.db" -o -iname "Thumbs.db:encryptable" \) -type f -print $RM ; }
+rmempty_file() { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty file:"; RM="-exec rm -f {} ;"; else echo "Just PRINT empty file (need -w as arg to really deletes files):"; RM=""; fi ; find . -empty -type f -print $RM ; }
+rmempty_dir()  { if [ "X$1" = "X-w" ]; then echo "REALLY DELETE empty dir:"; RM="-exec rm -fr {} ;"; else echo "Just PRINT empty dir (need -w as arg to really deletes dir):"; RM=""; fi ; find . -depth -empty -type d -print $RM ; }
 
 if command -v vim >/dev/null 2>&1 || command -v vimx >/dev/null 2>&1 || command -v nvim >/dev/null 2>&1; then
     [ -f ~/.vimrc ] && export VIMINIT="source $HOME/.vimrc"
