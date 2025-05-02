@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 24 April 2025, 15:55
-# $Id: .zshrc,v 1.636 2025/04/24 13:55:48 czo Exp $
-# Edit Time: 143:00:58
+# Last Modified: Friday 02 May 2025, 19:15
+# $Id: .zshrc,v 1.638 2025/05/02 17:15:03 czo Exp $
+# Edit Time: 143:01:21
 # Description:
 #
 #       zsh config file
@@ -885,7 +885,7 @@ alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --m
 alias RemeberThis_chroot_umount="umount -lf \$LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}"
 alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
 alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
-alias RemeberThis_find_execdir="find . -type f -name '*.7z' -printf \"################ %p\n\" -execdir sh -c \"7z x -pchamallow {}\" \;"
+alias RemeberThis_find_execdir="find . -type f -name '*.7z' -printf \"################ %p\n\" -execdir sh -c \"7z x -passwd {}\" \;"
 alias RemeberThis_kfm='setxkbmap fr mac'
 alias RemeberThis_edl='export DISPLAY=localhost:0'
 alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
