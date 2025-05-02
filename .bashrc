@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 02 May 2025, 19:14
-# $Id: .bashrc,v 1.708 2025/05/02 17:15:03 czo Exp $
-# Edit Time: 164:56:21
+# Last Modified: Friday 02 May 2025, 19:49
+# $Id: .bashrc,v 1.709 2025/05/02 17:50:47 czo Exp $
+# Edit Time: 164:58:10
 # Description:
 #
 #       bash config file
@@ -746,7 +746,7 @@ alias RemeberThis_chrome_https_not_sercure_list='certutil -d sql:$HOME/.pki/nssd
 alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'
 alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
 alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
-alias RemeberThis_7z_passwd='7z a -mhe=on -ptruc bidule.7z bidule'
+alias RemeberThis_7z_passwd='7z a -mhe=on -pfoo bidule.7z bidule'
 alias RemeberThis_GoPro_fps='ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 22 -c:a aac -strict experimental -pix_fmt yuv420p -r 29.97 out.mp4'
 alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file $PWD/$f"; done) -c copy output.mp4'
 alias RemeberThis_iMovie_fps2997='export FPS=29.97 ; ffmpeg -f lavfi -i testsrc=duration=10:size=1920x1080:rate=$FPS -vf "drawtext=text=%{n}:fontsize=72:r=$FPS:x=(w-tw)/2: y=h-(2*lh):fontcolor=white:box=1:boxcolor=0x00000099" -pix_fmt yuv420p test-${FPS}fps.mp4'
@@ -771,7 +771,7 @@ alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --m
 alias RemeberThis_chroot_umount="umount -lf \$LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}"
 alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
 alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
-alias RemeberThis_find_execdir="find . -type f -name '*.7z' -printf \"################ %p\n\" -execdir sh -c \"7z x -passwd {}\" \;"
+alias RemeberThis_find_execdir="find . -type f -name '*.7z' -printf \"################ %p\n\" -execdir sh -c \"7z x -pfoo {}\" \;"
 alias RemeberThis_kfm='setxkbmap fr mac'
 alias RemeberThis_edl='export DISPLAY=localhost:0'
 alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
