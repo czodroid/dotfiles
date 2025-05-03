@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 03 May 2025, 15:34
-# $Id: .zshrc,v 1.640 2025/05/03 13:34:18 czo Exp $
-# Edit Time: 143:01:51
+# Last Modified: Saturday 03 May 2025, 15:37
+# $Id: .zshrc,v 1.641 2025/05/03 13:37:48 czo Exp $
+# Edit Time: 143:01:58
 # Description:
 #
 #       zsh config file
@@ -688,8 +688,8 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
 alias ifw='curl czo.free.fr/ip'
-alias ifa='ifconfig | grep "^\s*inet \|^\s*ether "'
-alias ipa='ip a | grep "^\s*inet \|^\s*link/ether "'
+alias ifa='ifconfig | grep "^\s*inet "'
+alias ipa='ip a | grep "^\s*inet "'
 
 alias lsusb_tree='lsusb -tv'
 
