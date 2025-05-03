@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 16 March 2025, 02:55
-" $Id: .vimrc,v 1.521 2025/03/16 01:58:59 czo Exp $
-" Edit Time: 256:50:12
+" Last Modified: Saturday 03 May 2025, 15:42
+" $Id: .vimrc,v 1.522 2025/05/03 13:44:45 czo Exp $
+" Edit Time: 256:54:03
 " Description:
 "
 "       vim config file
@@ -606,15 +606,15 @@ else
 endif
 
 " keyboard
-noremap     <C-S>       :update<CR>
-vnoremap    <C-S>       <C-C>:update<CR>
-inoremap    <C-S>       <Esc>:update<CR>gi
-noremap     <C-Z>       u
-inoremap    <C-Z>       <C-O>u
-vnoremap    <BS>        d
+noremap     <C-S>           :update<CR>
+vnoremap    <C-S>           <C-C>:update<CR>
+inoremap    <C-S>           <Esc>:update<CR>gi
+noremap     <C-Z>           u
+inoremap    <C-Z>           <C-O>u
+vnoremap    <BS>            d
 
 " always use Ctrl-Q instead of Ctrl-V
-noremap     <C-Q>       <C-V>
+noremap     <C-Q>           <C-V>
 
 " digraph
 inoremap    <C-K><C-D>      <C-K>
@@ -1159,7 +1159,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.521 2025/03/16 01:58:59 czo Exp $
+            " $Id: .vimrc,v 1.522 2025/05/03 13:44:45 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
