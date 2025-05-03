@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 02 May 2025, 19:49
-# $Id: .bashrc,v 1.709 2025/05/02 17:50:47 czo Exp $
-# Edit Time: 164:58:10
+# Last Modified: Saturday 03 May 2025, 15:33
+# $Id: .bashrc,v 1.711 2025/05/03 13:34:18 czo Exp $
+# Edit Time: 168:13:06
 # Description:
 #
 #       bash config file
@@ -373,10 +373,9 @@ unalias -a
 { \type -a type >/dev/null 2>&1 && alias t='type -a'; } || alias t='type'
 alias eq='type -P'
 
-# sort of ZSH equal (=foo)
 if [ -n "$BASH_VERSION" ]; then
-    =() { type -P "$1"; }
-    complete -A command =
+    complete -A command t
+    complete -A command eq
 fi
 
 alias st=". $HOME/.bashrc"
@@ -575,7 +574,7 @@ listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wan
 
 alias ifw='curl czo.free.fr/ip'
 alias ifa='ifconfig | grep "^\s*inet \|^\s*ether "'
-alias ipa='ip -br l; ip -br a'
+alias ipa='ip a | grep "^\s*inet \|^\s*link/ether "'
 
 alias lsusb_tree='lsusb -tv'
 

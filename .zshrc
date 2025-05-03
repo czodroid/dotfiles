@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Friday 02 May 2025, 19:50
-# $Id: .zshrc,v 1.639 2025/05/02 17:50:47 czo Exp $
-# Edit Time: 143:01:44
+# Last Modified: Saturday 03 May 2025, 15:34
+# $Id: .zshrc,v 1.640 2025/05/03 13:34:18 czo Exp $
+# Edit Time: 143:01:51
 # Description:
 #
 #       zsh config file
@@ -689,7 +689,7 @@ listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wan
 
 alias ifw='curl czo.free.fr/ip'
 alias ifa='ifconfig | grep "^\s*inet \|^\s*ether "'
-alias ipa='ip -br l; ip -br a'
+alias ipa='ip a | grep "^\s*inet \|^\s*link/ether "'
 
 alias lsusb_tree='lsusb -tv'
 
