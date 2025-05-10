@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 03 May 2025, 15:37
-# $Id: .zshrc,v 1.641 2025/05/03 13:37:48 czo Exp $
-# Edit Time: 143:01:58
+# Last Modified: Saturday 10 May 2025, 17:47
+# $Id: .zshrc,v 1.644 2025/05/10 15:48:32 czo Exp $
+# Edit Time: 143:02:51
 # Description:
 #
 #       zsh config file
@@ -237,7 +237,7 @@ export HOSTNAME=$(echo "$HOSTNAME" | sed 's/\..*//')
 export USER
 
 # GNU ls
-export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.7z=91:*.ace=91:*.arc=91:*.arj=91:*.bz2=91:*.bz=91:*.cab=91:*.cpio=91:*.deb=91:*.dz=91:*.ear=91:*.gz=91:*.iso=91:*.jar=91:*.lha=91:*.lrz=91:*.lz4=91:*.lz=91:*.lzh=91:*.lzma=91:*.lzo=91:*.rar=91:*.rpm=91:*.rz=91:*.t7z=91:*.tar=91:*.taz=91:*.tbz2=91:*.tbz=91:*.tgz=91:*.tlz=91:*.txz=91:*.tz=91:*.tzst=91:*.war=91:*.xz=91:*.z=91:*.zip=91:*.zoo=91:*.zst=91:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.heic=95:*.heif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.oga=36:*.ogg=36:*.opus=36:*.ra=36:*.spx=36:*.wav=36:*.xspf=36:*.doc=92:*.docx=92:*.latex=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.tex=92:*.xls=92:*.xlsx=92:*.bat=93:*.c=93:*.c++=93:*.cc=93:*.cl=93:*.cmd=93:*.cpp=93:*.csh=93:*.css=93:*.cxx=93:*.el=93:*.f90=93:*.f=93:*.go=93:*.h=93:*.h++=93:*.hh=93:*.hpp=93:*.hs=93:*.htm=93:*.html=93:*.hxx=93:*.ino=93:*.java=93:*.js=93:*.json=93:*.l=93:*.less=93:*.lua=93:*.n=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.rs=93:*.scss=93:*.sh=93:*.shtml=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93'
+export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:cd=30;102:or=31;107:su=37;41:sg=30;43:tw=37;44:ow=30;44:st=30;46:ex=97:*.7z=91:*.ace=91:*.arc=91:*.arj=91:*.bz2=91:*.bz=91:*.cab=91:*.cpio=91:*.deb=91:*.dz=91:*.ear=91:*.gz=91:*.iso=91:*.jar=91:*.lha=91:*.lrz=91:*.lz4=91:*.lz=91:*.lzh=91:*.lzma=91:*.lzo=91:*.rar=91:*.rpm=91:*.rz=91:*.t7z=91:*.tar=91:*.taz=91:*.tbz2=91:*.tbz=91:*.tgz=91:*.tlz=91:*.txz=91:*.tz=91:*.tzst=91:*.war=91:*.xz=91:*.z=91:*.zip=91:*.zoo=91:*.zst=91:*.avif=95:*.bmp=95:*.cgm=95:*.emf=95:*.flc=95:*.fli=95:*.gif=95:*.heic=95:*.heif=95:*.icns=95:*.ico=95:*.jpeg=95:*.jpg=95:*.mng=95:*.pbm=95:*.pcx=95:*.pgm=95:*.png=95:*.ppm=95:*.svg=95:*.svgz=95:*.tga=95:*.tif=95:*.tiff=95:*.webp=95:*.xbm=95:*.xcf=95:*.xpm=95:*.xwd=95:*.asf=35:*.avi=35:*.flv=35:*.m2v=35:*.m4v=35:*.mjpeg=35:*.mjpg=35:*.mkv=35:*.mov=35:*.mp4=35:*.mp4v=35:*.mpeg=35:*.mpg=35:*.nuv=35:*.ogm=35:*.ogv=35:*.ogx=35:*.qt=35:*.rm=35:*.rmvb=35:*.vob=35:*.webm=35:*.wmv=35:*.aac=36:*.au=36:*.flac=36:*.m4a=36:*.mid=36:*.midi=36:*.mka=36:*.mp3=36:*.mpc=36:*.oga=36:*.ogg=36:*.opus=36:*.ra=36:*.spx=36:*.wav=36:*.xspf=36:*.doc=92:*.docx=92:*.latex=92:*.man=92:*.md=92:*.odp=92:*.ods=92:*.odt=92:*.pdf=92:*.pod=92:*.ppt=92:*.pptx=92:*.tex=92:*.xls=92:*.xlsx=92:*.bat=93:*.c=93:*.c++=93:*.cc=93:*.cl=93:*.cmd=93:*.cpp=93:*.csh=93:*.css=93:*.cxx=93:*.el=93:*.f90=93:*.f=93:*.go=93:*.h=93:*.h++=93:*.hh=93:*.hpp=93:*.hs=93:*.htm=93:*.html=93:*.hxx=93:*.ino=93:*.java=93:*.js=93:*.json=93:*.l=93:*.less=93:*.lua=93:*.n=93:*.p=93:*.php=93:*.pl=93:*.pm=93:*.py=93:*.rb=93:*.rs=93:*.scss=93:*.sh=93:*.shtml=93:*.sql=93:*.sv=93:*.svh=93:*.v=93:*.vhd=93:*.vim=93:*.zsh=93:';
 
 # BSD ls
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
@@ -661,7 +661,7 @@ if command -v ncd >/dev/null 2>&1; then
 fi
 
 if command -v ncdu >/dev/null 2>&1; then
-    \ncdu --color off -v >/dev/null 2>&1 && alias ncdu='\ncdu --color off'
+    { \ncdu --color off -v >/dev/null 2>&1; } && alias ncdu='\ncdu --color off'
 fi
 
 #alias htop='\htop -C'
@@ -886,6 +886,7 @@ alias RemeberThis_chroot_umount="umount -lf \$LIVE_BOOT/chroot/{run,dev/pts,dev,
 alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
 alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
 alias RemeberThis_find_execdir="find . -type f -name '*.7z' -printf \"################ %p\n\" -execdir sh -c \"7z x -pfoo {}\" \;"
+alias RemeberThis_find_sort_xargs="find . -type d -print0 | sort -z | xargs -r0 -I{} sh -c 'ls -1 \"{}\" | wc -l'"
 alias RemeberThis_kfm='setxkbmap fr mac'
 alias RemeberThis_edl='export DISPLAY=localhost:0'
 alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"

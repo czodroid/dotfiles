@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Thursday 29 August 2024, 01:09
-# $Id: czolsb,v 1.77 2024/08/28 23:14:55 czo Exp $
-# Edit Time: 60:53:02
+# Last Modified: Saturday 10 May 2025, 17:30
+# $Id: czolsb,v 1.78 2025/05/10 15:30:44 czo Exp $
+# Edit Time: 61:04:12
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -28,7 +28,7 @@
 #   /etc/cron.d/czo-motd-czolsb:
 #    @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
 #
-# Copyright: (C) 2009-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2009-2025 Olivier Sirol <czo@free.fr>
 
 # use strict;
 use warnings;
@@ -166,8 +166,8 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
 
     foreach (qx(lscpu 2>/dev/null)) {
         chomp;
-        if (/^CPU\(s\):\s+(.*)/m)      { $CNBCORE    = $1; }
-        if (/^\s*Model name:\s+(.*)/m) { $CCOREMODEL = $1; }
+        if (/^CPU\(s\):\s+(.*)/m)      { $CNBCORE    = $1 if ( !defined($CNBCORE) ); }
+        if (/^\s*Model name:\s+(.*)/m) { $CCOREMODEL = $1 if ( !defined($CCOREMODEL) ); }
     }
 
     if ( !defined($CCOREMODEL) ) {
