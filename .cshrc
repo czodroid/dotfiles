@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Saturday 08 March 2025, 23:53
-# $Id: .cshrc,v 1.185 2025/03/08 23:31:45 czo Exp $
-# Edit Time: 33:18:06
+# Last Modified: Tuesday 20 May 2025, 15:14
+# $Id: .cshrc,v 1.186 2025/05/20 13:15:43 czo Exp $
+# Edit Time: 33:23:49
 # Description:
 #
 #       csh and tcsh config file
@@ -367,18 +367,20 @@ alias aa       'tmux attach -d || tmux new'
 alias r        'tput rs2'
 
 
-alias lsusb_tree    'lsusb -t -v'
+alias lsusb_tree      'lsusb -t -v'
 
-alias mount_list    'set P="mount | grep -v '\''/sys\| /run\| /net\| /snap\| /proc\| /dev'\''"; echo "-> Runing: $P"; eval "$P"'
-alias rsync_sys     'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
-alias rsync_full    'rsync --numeric-ids -S -H --delete -av'
-alias rsync_fat     'rsync --no-p --no-g --modify-window=1 --delete -av -L'
-alias rsync_normal  'rsync --delete -av'
-alias lsblk         'lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+alias mount_list      'set P="mount | grep -v '\''/sys\| /run\| /net\| /snap\| /proc\| /dev'\''"; echo "-> Runing: $P"; eval "$P"'
+alias rsync_sys       'echo "mount --bind / /mnt/rootfs ; puis faire rsyncfull avec/sans -x..."'
+alias rsync_full      'rsync --delete -av --numeric-ids -SH -AX'
+alias rsync_full_noAX 'rsync --delete -av --numeric-ids -SH'
+alias rsync_fat       'rsync --delete -av -L --no-perms --no-owner --no-group --modify-window=2'
+alias rsync_normal    'rsync --delete -av'
 
-alias FF            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
-alias FS            'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
-alias FW            'wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
+alias lsblk           'lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
+
+alias FF              'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-copy | sh'
+alias FS              'curl -fsSL https://raw.githubusercontent.com/czodroid/dotfiles/master/config-fast-ssh | sh'
+alias FW              'wget --no-check-certificate -qO- https://raw.githubusercontent.com/czodroid/dotfiles/master/config-debian-preseed | sh'
 
 alias mail_test_root 'date | mail -s "CZO, from $USER@$HOSTNAME, `date +%Y-%m-%d\ %H:%M`, do not reply" root'
 

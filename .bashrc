@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 10 May 2025, 17:46
-# $Id: .bashrc,v 1.715 2025/05/10 15:48:32 czo Exp $
-# Edit Time: 168:23:52
+# Last Modified: Monday 23 June 2025, 13:30
+# $Id: .bashrc,v 1.719 2025/06/23 11:31:19 czo Exp $
+# Edit Time: 168:39:58
 # Description:
 #
 #       bash config file
@@ -136,6 +136,7 @@ if [ -d "$HOME/Android/android-studio/bin" ]; then
     # export PATH="$HOME/Android/Sdk/tools:$PATH"
     # export PATH="$HOME/Android/Sdk/platform-tools:$PATH"
     # export PATH="$HOME/Android/Sdk/ndk-bundle:$PATH"
+    export PATH="$HOME/Android/Sdk/cmdline-tools/latest/bin:$PATH"
     export PATH="$HOME/Android/android-studio/bin:$PATH"
 fi
 
@@ -418,7 +419,7 @@ case $PLATFORM in
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL'
         fi
         { \ps -eaf >/dev/null 2>&1 && alias ps='\ps -eaf'; } || alias ps='\ps -w'
-        { \ls -l --time-style=long-iso >/dev/null 2>&1 && alias ls='LC_COLLATE=C \ls --time-style=long-iso --color=auto -a'; } || alias ls='LC_COLLATE=C \ls --color=auto -a'
+        { \ls -l --time-style=long-iso --color=auto >/dev/null 2>&1 && alias ls='LC_COLLATE=C \ls --time-style=long-iso --color=auto -a'; } || { \ls -l --color=auto >/dev/null 2>&1 && alias ls='LC_COLLATE=C \ls --color=auto -a'; } || alias ls='LC_COLLATE=C \ls -a'
         ;;
 
     FreeBSD)
@@ -581,9 +582,9 @@ alias lsusb_tree='lsusb -tv'
 alias mount_list='P="mount | grep -v \" /sys\| /run\| /snap\| /proc\| /dev\""; echo "-> Runing: $P"; eval "$P"'
 
 alias rsync_sys='echo "mount --bind / /mnt/rootfs ; then do rsync_full with/without -x..."'
-alias rsync_full='rsync --numeric-ids -SH -AX --delete -av'
-alias rsync_full_noAX='rsync --numeric-ids -SH --delete -av'
-alias rsync_fat='rsync --no-p --no-g --modify-window=1 --delete -av -L'
+alias rsync_full='rsync --delete -av --numeric-ids -SH -AX'
+alias rsync_full_noAX='rsync --delete -av --numeric-ids -SH'
+alias rsync_fat='rsync --delete -av -L --no-perms --no-owner --no-group --modify-window=2'
 alias rsync_normal='rsync --delete -av'
 
 ## My dotconfig files
@@ -702,7 +703,7 @@ alias KU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /et
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
 
 # choco windows
-alias CU='choco upgrade all -y && cyg-get.bat -upgrade all && rm -f /cygdrive/c/Users/Public/Desktop/* && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias CU="choco upgrade all -y && cyg-get.bat -upgrade all && sh -c 'rm -f C:/Users/Public/Desktop/* ; echo $(date +%Y-%m-%d) > C:/tools/cygwin/etc/lsb-czo-updatedate'"
 
 # suse: zypper
 # netbsd: pkgin
