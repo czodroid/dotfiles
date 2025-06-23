@@ -6,12 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 23 June 2025, 16:31
-" $Id: .vimrc,v 1.527 2025/06/23 14:32:19 czo Exp $
-" Edit Time: 257:26:06
+" Last Modified: Monday 23 June 2025, 16:51
+" $Id: .vimrc,v 1.529 2025/06/23 14:52:43 czo Exp $
+" Edit Time: 257:28:09
 " Description:
 "
 "                 vim config file
+"
 "   self contained, no .gvimrc, nothing in ~/.vim/
 "
 " Copyright: (C) 1995-2025 Olivier Sirol <czo@free.fr>
@@ -61,7 +62,7 @@ set scrolloff=0
 "set helpheight=999000
 
 set modeline
-set modelines=30
+set modelines=20
 
 set history=5000
 set viminfo='100,\"1000,ra:,rb:,rz:,%
@@ -1197,7 +1198,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.527 2025/06/23 14:32:19 czo Exp $
+            " $Id: .vimrc,v 1.529 2025/06/23 14:52:43 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1500,7 +1501,7 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
                  \\<nl># Last Modified: Thursday 28 November 2019, 15:38
-                 \\<nl># Vim: set filetype=crontab:
+                 \\<nl># vim: set filetype=crontab:
                  \\<nl># Description: crontab .crontab.VIMEX{=$USER}@VIMEX{=$HOSTNAME}
                  \\<nl>
                  \\<nl># SHELL=/bin/sh
