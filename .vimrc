@@ -6,13 +6,13 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 12 May 2025, 17:58
-" $Id: .vimrc,v 1.523 2025/05/12 16:50:16 czo Exp $
-" Edit Time: 256:54:42
+" Last Modified: Monday 23 June 2025, 16:31
+" $Id: .vimrc,v 1.527 2025/06/23 14:32:19 czo Exp $
+" Edit Time: 257:26:06
 " Description:
 "
-"       vim config file
-"       self contained, no .gvimrc, nothing in .vim/
+"                 vim config file
+"   self contained, no .gvimrc, nothing in ~/.vim/
 "
 " Copyright: (C) 1995-2025 Olivier Sirol <czo@free.fr>
 
@@ -340,23 +340,20 @@ iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire 
 
 " == Command ===========================================================
 
+" My Template
 let g:DoCzoTemplate=1
 let g:TemplateMaxHeaderLines=50
 let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
 let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
 
-let g:DoCzoLineMove=0
+" Correct if needed
+let vimtemplatefile="$HOME/.vimtemplate"
+if filereadable(expand(vimtemplatefile))
+    exe 'source' vimtemplatefile
+endif
 
-command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
-function! CzoATabToSpaceAndTrailWhite ()
-    let l = line(".")
-    let c = col(".")
-    echo "Convert Tab to Space"
-    exec '%s/\t/    /gce'
-    echo "Trim Trailing Whitespace"
-    exec '%s/\s\+$//ce'
-    call cursor(l, c)
-endfunction
+" Move cursor
+let g:DoCzoLineMove=0
 
 command!  CzoInvLineMove call CzoInvLineMove ()
 function! CzoInvLineMove ()
@@ -387,6 +384,31 @@ function! CzoInvLineMove ()
     endif
 endfunction
 
+command!  CzoInvFold call CzoInvFold ()
+function! CzoInvFold ()
+    set foldenable!
+endfunction
+
+command!  CzoInvList call CzoInvList ()
+function! CzoInvList ()
+    set list!
+endfunction
+
+command!  CzoInvNumber call CzoInvNumber ()
+function! CzoInvNumber ()
+    set number!
+endfunction
+
+command!  CzoInvPaste call CzoInvPaste ()
+function! CzoInvPaste ()
+    set paste!
+endfunction
+
+command!  CzoInvWrap call CzoInvWrap ()
+function! CzoInvWrap ()
+    set wrap!
+endfunction
+
 command!  CzoInvTemplate call CzoInvTemplate ()
 function! CzoInvTemplate ()
     if g:DoCzoTemplate
@@ -394,6 +416,36 @@ function! CzoInvTemplate ()
     else
         let g:DoCzoTemplate=1
     endif
+endfunction
+
+command!  CzoTemplateFREE call CzoTemplateFREE ()
+function! CzoTemplateFREE ()
+    let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
+endfunction
+
+command!  CzoTemplateDROID call CzoTemplateDROID ()
+function! CzoTemplateDROID ()
+    let g:TemplateAuthor="CzoDroid <czodroid@gmail.com>"
+endfunction
+
+command!  CzoTemplateLIP6 call CzoTemplateLIP6 ()
+function! CzoTemplateLIP6 ()
+    let g:TemplateAuthor="Olivier Sirol <czo@asim.lip6.fr>"
+endfunction
+
+command!  CzoTemplateALS call CzoTemplateALS ()
+function! CzoTemplateALS ()
+    let g:TemplateAuthor="Alliance <alliance-support@asim.lip6.fr>"
+endfunction
+
+command!  CzoTemplateIPGP call CzoTemplateIPGP ()
+function! CzoTemplateIPGP ()
+    let g:TemplateAuthor="Olivier Sirol <czo@ipgp.fr>"
+endfunction
+
+command!  CzoTemplateGS call CzoTemplateGS ()
+function! CzoTemplateGS ()
+    let g:TemplateAuthor="Geoscope Team <geoscope-admin@ipgp.fr>"
 endfunction
 
 command!  CzoDiffWithSaved call CzoDiffWithSaved ()
@@ -415,6 +467,17 @@ function! CzoDiffWithCvs()
   diffthis
   exec "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
   exec "windo set wrap"
+endfunction
+
+command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
+function! CzoATabToSpaceAndTrailWhite ()
+    let l = line(".")
+    let c = col(".")
+    echo "Convert Tab to Space"
+    exec '%s/\t/    /gce'
+    echo "Trim Trailing Whitespace"
+    exec '%s/\s\+$//ce'
+    call cursor(l, c)
 endfunction
 
 command!  CzoTabToSpaces call CzoTabToSpaces ()
@@ -449,31 +512,6 @@ function! CzoRemoveEmptyLinesAndComment ()
     let c = col(".")
     exec 'g/\(^\s*#\)\|\(^\s*$\)/d'
     call cursor(l, c)
-endfunction
-
-command!  CzoInvFold call CzoInvFold ()
-function! CzoInvFold ()
-    set foldenable!
-endfunction
-
-command!  CzoInvList call CzoInvList ()
-function! CzoInvList ()
-    set list!
-endfunction
-
-command!  CzoInvNumber call CzoInvNumber ()
-function! CzoInvNumber ()
-    set number!
-endfunction
-
-command!  CzoInvPaste call CzoInvPaste ()
-function! CzoInvPaste ()
-    set paste!
-endfunction
-
-command!  CzoInvWrap call CzoInvWrap ()
-function! CzoInvWrap ()
-    set wrap!
 endfunction
 
 command!  CzoVisualClear call CzoVisualClear ()
@@ -1159,7 +1197,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.523 2025/05/12 16:50:16 czo Exp $
+            " $Id: .vimrc,v 1.527 2025/06/23 14:32:19 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1372,7 +1410,6 @@ function! TemplateCzo (...)
     " :r !cd ~/etc/vim-templates ; ./template
     " after delting this:
     " ------------- SearchThisThenDelete -------------
-
     if xft != ""
         try
             throw xft
@@ -1463,7 +1500,7 @@ function! TemplateCzo (...)
                  \\<nl># Author: Olivier Sirol <czo@free.fr>
                  \\<nl># File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
                  \\<nl># Last Modified: Thursday 28 November 2019, 15:38
-                 \\<nl># vim: set filetype=crontab:
+                 \\<nl># Vim: set filetype=crontab:
                  \\<nl># Description: crontab .crontab.VIMEX{=$USER}@VIMEX{=$HOSTNAME}
                  \\<nl>
                  \\<nl># SHELL=/bin/sh
