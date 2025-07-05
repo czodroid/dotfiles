@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Tuesday 20 May 2025, 15:14
-# $Id: .cshrc,v 1.186 2025/05/20 13:15:43 czo Exp $
-# Edit Time: 33:23:49
+# Last Modified: Saturday 05 July 2025, 19:06
+# $Id: .cshrc,v 1.187 2025/07/05 17:08:45 czo Exp $
+# Edit Time: 33:25:13
 # Description:
 #
 #       csh and tcsh config file
@@ -504,6 +504,8 @@ stty -ixon
 umask 022
 
 #FIXME: zsh, export -U PATH
-setenv PATH `echo $PATH | awk -F: '{for (i=1;i<=NF;i++) {if ( \\!x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}'`
+set histchars=
+setenv PATH `echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}'`
+set histchars="!^#"
 
 # EOF
