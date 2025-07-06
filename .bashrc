@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 05 July 2025, 19:07
-# $Id: .bashrc,v 1.720 2025/07/05 17:08:45 czo Exp $
-# Edit Time: 168:40:42
+# Last Modified: Sunday 06 July 2025, 11:35
+# $Id: .bashrc,v 1.721 2025/07/06 09:50:38 czo Exp $
+# Edit Time: 168:43:00
 # Description:
 #
 #       bash config file
@@ -682,7 +682,8 @@ alias YF='rpm -qf'
 alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in: /tmp/opkg.list"'
 alias OI='opkg install'
 alias OP='opkg remove'
-OS() { grep $1 /tmp/opkg.list ;}
+OS() { grep $1 /tmp/opkg.list | perl -pe '$_ =~ s/^(.{80}).*/$1/'; }
+OSS() { grep $1 /tmp/opkg.list; }
 alias OW='opkg info'
 alias OL='opkg files'
 alias OF='opkg search'
@@ -798,7 +799,7 @@ alias RemeberThis_matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
 alias RemeberThis_matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
 alias RemeberThis_ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
 alias RemeberThis_ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
-RemeberThis_ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0;} @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1 ;} ; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1;} print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
+RemeberThis_ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0; } @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1; }; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1; } print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
 
 ## CAO VLSI IBP.FR
 alias RemeberThis_win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
