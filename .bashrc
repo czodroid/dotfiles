@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 06 July 2025, 11:35
-# $Id: .bashrc,v 1.721 2025/07/06 09:50:38 czo Exp $
-# Edit Time: 168:43:00
+# Last Modified: Friday 11 July 2025, 13:04
+# $Id: .bashrc,v 1.723 2025/07/11 11:06:09 czo Exp $
+# Edit Time: 168:43:23
 # Description:
 #
 #       bash config file

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 06 July 2025, 11:38
-# $Id: .zshrc,v 1.649 2025/07/06 09:50:38 czo Exp $
-# Edit Time: 143:10:09
+# Last Modified: Friday 11 July 2025, 13:05
+# $Id: .zshrc,v 1.651 2025/07/11 11:06:09 czo Exp $
+# Edit Time: 143:10:40
 # Description:
 #
 #       zsh config file
