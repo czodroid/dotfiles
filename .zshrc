@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Friday 11 July 2025, 13:05
-# $Id: .zshrc,v 1.651 2025/07/11 11:06:09 czo Exp $
-# Edit Time: 143:10:40
+# Last Modified: Saturday 12 July 2025, 12:14
+# $Id: .zshrc,v 1.653 2025/07/12 10:15:09 czo Exp $
+# Edit Time: 143:11:20
 # Description:
 #
 #       zsh config file
@@ -521,6 +521,9 @@ case $PLATFORM in
         if ( echo A | \grep --color=auto A ) >/dev/null 2>&1; then
             alias grep='\grep --color=auto'
         fi
+        if ( \diff --color=auto / / ) >/dev/null 2>&1; then
+            alias diff='\diff --color=auto'
+        fi
         if [ $( { \pgrep -fiac 11czo11 | wc -l; } 2>/dev/null ) = 1 ]; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
@@ -539,6 +542,7 @@ case $PLATFORM in
 
     FreeBSD)
         alias grep='\grep --color'
+        alias diff='\diff --color=auto'
         alias ps='\ps -Awww'
         alias pg='\pgrep -fil'
         alias pk='\pkill -fil'
@@ -556,6 +560,7 @@ case $PLATFORM in
         ## config macos brew
         export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$PATH"
         alias grep='\grep --color'
+        alias diff='\diff --color=auto'
         alias ps='\ps -Awww'
         alias pg='\pgrep -fil'
         alias pk='\pkill -fil'
@@ -574,6 +579,7 @@ case $PLATFORM in
         alias cp='\cp -i'
         alias mv='\mv -i'
         alias grep='\grep --color=auto'
+        alias diff='\diff --color=auto'
         alias ps='\ps -aflW'
         alias pg='\pgrep -fia'
         alias pk='\pkill -fie'
@@ -640,17 +646,17 @@ command -v highlight >/dev/null 2>&1 && alias catc=highlight
 command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
 command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 
+# resets the terminal mouse when screen or tmux crashes
+alias r='reset'
+
+alias sc='screen -d -R'
+
 if command -v tmux >/dev/null 2>&1; then
     [ -f ~/.tmux.conf.czo ] && export MYTMUXRC="-f ~/.tmux.conf.czo"
     alias tmux="\tmux $MYTMUXRC"
     alias tmux0="tmux attach -t 0"
     alias aa="tmux attach -d || tmux new"
 fi
-
-# resets the terminal mouse when tmux crashes
-alias r='tput rs2'
-
-alias sc='screen -d -R'
 
 if command -v mc >/dev/null 2>&1; then
     alias mc='\mc -b -u'
