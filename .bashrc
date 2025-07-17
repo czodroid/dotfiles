@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 12 July 2025, 12:13
-# $Id: .bashrc,v 1.725 2025/07/12 10:15:09 czo Exp $
-# Edit Time: 168:50:50
+# Last Modified: Thursday 17 July 2025, 22:40
+# $Id: .bashrc,v 1.726 2025/07/17 20:42:31 czo Exp $
+# Edit Time: 171:38:47
 # Description:
 #
 #       bash config file
@@ -409,9 +409,12 @@ case $PLATFORM in
         if ( \diff --color=auto / / ) >/dev/null 2>&1; then
             alias diff='\diff --color=auto'
         fi
-        if [ $( { \pgrep -fiac 11czo11 | wc -l; } 2>/dev/null ) = 1 ]; then
+        if \pgrep -fia sh >/dev/null 2>&1; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
+        elif \pgrep -fa sh >/dev/null 2>&1; then
+            alias pg='\pgrep -fa'
+            alias pk='\pkill -fe'
         else
             alias pg='\pgrep -fl'
             alias pk='\pkill -f'

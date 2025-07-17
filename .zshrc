@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 12 July 2025, 12:14
-# $Id: .zshrc,v 1.653 2025/07/12 10:15:09 czo Exp $
-# Edit Time: 143:11:20
+# Last Modified: Thursday 17 July 2025, 22:43
+# $Id: .zshrc,v 1.654 2025/07/17 20:44:37 czo Exp $
+# Edit Time: 143:11:53
 # Description:
 #
 #       zsh config file
@@ -524,9 +524,12 @@ case $PLATFORM in
         if ( \diff --color=auto / / ) >/dev/null 2>&1; then
             alias diff='\diff --color=auto'
         fi
-        if [ $( { \pgrep -fiac 11czo11 | wc -l; } 2>/dev/null ) = 1 ]; then
+        if \pgrep -fia sh >/dev/null 2>&1; then
             alias pg='\pgrep -fia'
             alias pk='\pkill -fie'
+        elif \pgrep -fa sh >/dev/null 2>&1; then
+            alias pg='\pgrep -fa'
+            alias pk='\pkill -fe'
         else
             alias pg='\pgrep -fl'
             alias pk='\pkill -f'
