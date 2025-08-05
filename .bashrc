@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Thursday 17 July 2025, 22:40
-# $Id: .bashrc,v 1.726 2025/07/17 20:42:31 czo Exp $
-# Edit Time: 171:38:47
+# Last Modified: Tuesday 05 August 2025, 21:01
+# $Id: .bashrc,v 1.731 2025/08/05 12:07:26 czo Exp $
+# Edit Time: 173:32:56
 # Description:
 #
 #       bash config file
@@ -220,11 +220,6 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-# highlight, cat syntax highlighting, alias 'catc' further on
-# version 4.10
-export HIGHLIGHT_OPTIONS='--force -s base16/gruvbox-dark-hard -O xterm256'
-# version 3.41
-# export HIGHLIGHT_OPTIONS='--force -s candy -O xterm256'
 export PAGER=less
 export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'
@@ -528,11 +523,20 @@ fi
 
 alias ne='\emacs -nw'
 command -v less >/dev/null 2>&1 && alias more=less
-command -v highlight >/dev/null 2>&1 && alias catc=highlight
-# command: takes into account the functions defined here, on some shell...
-# In bash: unset -f ldd
-command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
-command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
+
+# catc: cat color, highlight v4.10, bat & batcat for debian
+command -v highlight >/dev/null 2>&1 && alias catc='\highlight --force -O xterm256 -s base16/gruvbox-dark-hard'
+command -v bat >/dev/null 2>&1       && alias catc='\bat    --style=plain --paging=never --theme=gruvbox-dark'
+command -v batcat >/dev/null 2>&1    && alias catc='\batcat --style=plain --paging=never --theme=gruvbox-dark'
+
+# command: takes the functions defined here in some shell
+if [ -n "$BASH_VERSION" ]; then
+    type -P arp >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
+    type -P ldd >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
+else
+    command -v arp >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
+    command -v ldd >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
+fi
 
 # resets the terminal mouse when screen or tmux crashes
 alias r='reset'
@@ -884,17 +888,7 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
-## GIT
-#
-# if [ -f /etc/bash_completion.d/git-prompt ]; then
-#     export GIT_PS1_SHOWUPSTREAM=1       # (<, >, =)
-#     export GIT_PS1_SHOWDIRTYSTATE=1     # (*)
-#     export GIT_PS1_SHOWUNTRACKEDFILES=1 # (%)
-#     export GIT_PS1_SHOWSTASHSTATE=1     # ($)
-#     export GIT_PS1_DESCRIBE_STYLE=branch
-#     . /etc/bash_completion.d/git-prompt
-# fi
-
+# git (faster than /etc/bash_completion.d/git-prompt)
 if command -v git >/dev/null 2>&1; then
     __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
 else
@@ -908,7 +902,7 @@ fi
 if [ -n "$BASH_VERSION" ]; then
     # $'ANSI-C quoting'
     # \[ \] non-printable characters for calculating the size of the prompt
-    PS1=$'\[\e[m\]\n\[\e[97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[9${USER_PROMPT_COLOR}m\]${USER}\[\e[97m\]@\[\e[9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[97m\]:\[\e[96m\]$PWD\[\e[m\]\n\[\e[33m\]$(__git_ps1 "(%s)")\[\e[97m\]>>\[\e[m\] '
+    PS1=$'\[\e[m\]\n\[\e[97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[9${USER_PROMPT_COLOR}m\]${USER}\[\e[97m\]@\[\e[9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[97m\]:\[\e[96m\]$PWD\[\e[m\]\n\[\e[33m\]$(__git_ps1)\[\e[97m\]>>\[\e[m\] '
 else
     # old sh/ash/dash/mksh works with: export ENV="$HOME/.bashrc" and start with -l
     # $' works in sh android but not in sh freebsd, and really old sh can can't handle
@@ -916,7 +910,7 @@ else
     PS1='[m
 [97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
 [9${USER_PROMPT_COLOR}m${USER}[97m@[9${HOST_PROMPT_COLOR}m${HOSTNAME}[97m:[96m$PWD[m
-[33m$(__git_ps1 "(%s)")[97m>>[m '
+[33m$(__git_ps1)[97m>>[m '
 fi
 
 ## if PS1 doesnt work:

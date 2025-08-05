@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 17 July 2025, 22:43
-# $Id: .zshrc,v 1.654 2025/07/17 20:44:37 czo Exp $
-# Edit Time: 143:11:53
+# Last Modified: Tuesday 05 August 2025, 20:59
+# $Id: .zshrc,v 1.658 2025/08/05 12:07:26 czo Exp $
+# Edit Time: 143:37:15
 # Description:
 #
 #       zsh config file
@@ -244,11 +244,6 @@ export LS_COLORS='no=00:fi=00:di=94:ln=96:pi=30;104:so=37;45:do=30;105:bd=30;42:
 export LSCOLORS='ExGxfxFxHxacabxDxeae'
 
 export LESS='-i -j5 -PLine\:%lb/%L (%pb\%) ?f%f:Standard input. [%i/%m] %B bytes'
-# highlight, cat syntax highlighting, alias 'catc' further on
-# version 4.10
-export HIGHLIGHT_OPTIONS='--force -s base16/gruvbox-dark-hard -O xterm256'
-# version 3.41
-# export HIGHLIGHT_OPTIONS='--force -s candy -O xterm256'
 export PAGER=less
 export PERLDOC='-oterm'
 export PERLDOC_PAGER='less -R'
@@ -643,11 +638,15 @@ fi
 
 alias ne='\emacs -nw'
 command -v less >/dev/null 2>&1 && alias more=less
-command -v highlight >/dev/null 2>&1 && alias catc=highlight
-# command: takes into account the functions defined here, on some shell...
-# In bash: unset -f ldd
-command -v arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
-command -v ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
+
+# catc: cat color, highlight v4.10, bat & batcat for debian
+command -v highlight >/dev/null 2>&1 && alias catc='\highlight --force -O xterm256 -s base16/gruvbox-dark-hard'
+command -v bat >/dev/null 2>&1       && alias catc='\bat    --style=plain --paging=never --theme=gruvbox-dark'
+command -v batcat >/dev/null 2>&1    && alias catc='\batcat --style=plain --paging=never --theme=gruvbox-dark'
+
+# command: takes into account the functions defined here in some shell (in bash: type -P arp == whence -p arp in zsh)
+whence -p arp  >/dev/null 2>&1 || arp() { cat /proc/net/arp; }
+whence -p ldd  >/dev/null 2>&1 || ldd() { LD_TRACE_LOADED_OBJECTS=1 $*; }
 
 # resets the terminal mouse when screen or tmux crashes
 alias r='reset'
@@ -990,23 +989,14 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
-## GIT
-#
-# if [ -f ~/.oh-my-zsh/lib/git.zsh ]; then
-#     ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
-#     ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-#     ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
-#     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
-#     . ~/.oh-my-zsh/lib/git.zsh
-# fi
-
+# git (faster than ~/.oh-my-zsh/lib/git.zsh)
 if whence -p git >/dev/null 2>&1; then
     __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
 else
     __git_ps1() { :; }
 fi
 
-PS1=$'%{\e[m%}\n%{\e[97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[97m%}:%{\e[91m%})[%?]%{\e[m%}\n%{\e[9${USER_PROMPT_COLOR}m%}${USER}%{\e[97m%}@%{\e[9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[97m%}:%{\e[95m%}$PWD%{\e[m%}\n%{\e[33m%}$(__git_ps1 "(%s)")%{\e[97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[97m%}:%{\e[91m%})[%?]%{\e[m%}\n%{\e[9${USER_PROMPT_COLOR}m%}${USER}%{\e[97m%}@%{\e[9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[97m%}:%{\e[95m%}$PWD%{\e[m%}\n%{\e[33m%}$(__git_ps1)%{\e[97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited
