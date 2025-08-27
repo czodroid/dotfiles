@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 05 August 2025, 21:01
-# $Id: .bashrc,v 1.731 2025/08/05 12:07:26 czo Exp $
-# Edit Time: 173:32:56
+# Last Modified: Wednesday 27 August 2025, 16:02
+# $Id: .bashrc,v 1.733 2025/08/27 14:07:08 czo Exp $
+# Edit Time: 173:54:36
 # Description:
 #
 #       bash config file
@@ -888,6 +888,12 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
+if [ -r /proc/1/root ]; then
+    if ! [ /proc/1/root/. -ef / ]; then
+        MYCHROOT="[chroot]"
+    fi
+fi
+
 # git (faster than /etc/bash_completion.d/git-prompt)
 if command -v git >/dev/null 2>&1; then
     __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
@@ -902,7 +908,7 @@ fi
 if [ -n "$BASH_VERSION" ]; then
     # $'ANSI-C quoting'
     # \[ \] non-printable characters for calculating the size of the prompt
-    PS1=$'\[\e[m\]\n\[\e[97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[9${USER_PROMPT_COLOR}m\]${USER}\[\e[97m\]@\[\e[9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[97m\]:\[\e[96m\]$PWD\[\e[m\]\n\[\e[33m\]$(__git_ps1)\[\e[97m\]>>\[\e[m\] '
+    PS1=$'\[\e[m\]\n\[\e[97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[9${USER_PROMPT_COLOR}m\]${USER}\[\e[97m\]@\[\e[9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[97m\]:\[\e[96m\]$PWD\[\e[m\]\n\[\e[33m\]${MYCHROOT}$(__git_ps1)\[\e[97m\]>>\[\e[m\] '
 else
     # old sh/ash/dash/mksh works with: export ENV="$HOME/.bashrc" and start with -l
     # $' works in sh android but not in sh freebsd, and really old sh can can't handle
@@ -910,7 +916,7 @@ else
     PS1='[m
 [97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
 [9${USER_PROMPT_COLOR}m${USER}[97m@[9${HOST_PROMPT_COLOR}m${HOSTNAME}[97m:[96m$PWD[m
-[33m$(__git_ps1)[97m>>[m '
+[33m${MYCHROOT}$(__git_ps1)[97m>>[m '
 fi
 
 ## if PS1 doesnt work:

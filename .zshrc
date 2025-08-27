@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Tuesday 05 August 2025, 20:59
-# $Id: .zshrc,v 1.658 2025/08/05 12:07:26 czo Exp $
-# Edit Time: 143:37:15
+# Last Modified: Wednesday 27 August 2025, 16:03
+# $Id: .zshrc,v 1.660 2025/08/27 14:07:08 czo Exp $
+# Edit Time: 143:46:21
 # Description:
 #
 #       zsh config file
@@ -989,6 +989,12 @@ else
     HOST_PROMPT_COLOR="5"
 fi
 
+if [ -r /proc/1/root ]; then
+    if ! [ /proc/1/root/. -ef / ]; then
+        MYCHROOT="[chroot]"
+    fi
+fi
+
 # git (faster than ~/.oh-my-zsh/lib/git.zsh)
 if whence -p git >/dev/null 2>&1; then
     __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
@@ -996,7 +1002,7 @@ else
     __git_ps1() { :; }
 fi
 
-PS1=$'%{\e[m%}\n%{\e[97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[97m%}:%{\e[91m%})[%?]%{\e[m%}\n%{\e[9${USER_PROMPT_COLOR}m%}${USER}%{\e[97m%}@%{\e[9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[97m%}:%{\e[95m%}$PWD%{\e[m%}\n%{\e[33m%}$(__git_ps1)%{\e[97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[97m%}:%{\e[91m%})[%?]%{\e[m%}\n%{\e[9${USER_PROMPT_COLOR}m%}${USER}%{\e[97m%}@%{\e[9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[97m%}:%{\e[95m%}$PWD%{\e[m%}\n%{\e[33m%}${MYCHROOT}$(__git_ps1)%{\e[97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited

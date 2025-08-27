@@ -6,9 +6,9 @@
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
 ! File Created: 28 mars 1996
-! Last Modified: Friday 21 February 2025, 11:46
-! $Id: .Xresources,v 1.52 2025/02/21 11:27:58 czo Exp $
-! Edit Time: 7:53:37
+! Last Modified: Monday 25 August 2025, 12:09
+! $Id: .Xresources,v 1.53 2025/08/25 10:10:19 czo Exp $
+! Edit Time: 7:59:09
 ! Description:
 !       X ressource file
 !       can be merged to X defaults whith
@@ -21,12 +21,13 @@ Xft.dpi:        96
 Xft.autohint:   0
 Xft.antialias:  1
 Xft.hinting:    1
+! Xft.hintstyle:  hintfull
 ! Xft.hintstyle:  hintmedium
-Xft.hintstyle:  hintfull
-Xft.rgba:       none
-! Xft.rgba:       rgb
-! Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintslight
+! Xft.rgba:       none
+Xft.rgba:       rgb
 ! Xft.lcdfilter:  lcdlegacy
+Xft.lcdfilter:  lcddefault
 
 ! Xcursor.theme:  Adwaita
 ! Xcursor.size:   24
@@ -47,7 +48,7 @@ XTerm*termName: xterm-256color
 ! 2012:
 !XTerm*boldFont: 10x20
 !XTerm*font:     10x20
-! 2018: hey yeah, I'm presbyopic...
+! 2018: hey yeah, Im presbyopic...
 XTerm*faceName: fixed:size=13
 ! I want bold font to be the same
 !XTerm*boldMode: off
