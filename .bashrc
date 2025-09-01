@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Wednesday 27 August 2025, 16:02
-# $Id: .bashrc,v 1.733 2025/08/27 14:07:08 czo Exp $
-# Edit Time: 173:54:36
+# Last Modified: Monday 01 September 2025, 16:30
+# $Id: .bashrc,v 1.735 2025/09/01 14:30:45 czo Exp $
+# Edit Time: 173:56:36
 # Description:
 #
 #       bash config file
@@ -795,7 +795,8 @@ alias RemeberThis_slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xb
 alias RemeberThis_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
 alias RemeberThis_macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
 alias RemeberThis_utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
-alias RemeberThis_whatsappjpg='mogrify -resize 1918800@ -quality 75 *.jpg'
+alias RemeberThis_jpg_progressive='mogrify -quality 90 -auto-orient -strip -interlace plane *.jpg'
+alias RemeberThis_jpg_whatsapp='mogrify -resize 1918800@ -quality 75 *.jpg'
 alias RemeberThis_favicon_png2ico='convert -background transparent favicon.png -define icon:auto-resize=16,24,32,48,64,72,96,128 favicon.ico'
 alias RemeberThis_show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias RemeberThis_show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
