@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 13 September 2025, 17:56
-# $Id: .zshrc,v 1.662 2025/09/01 14:30:45 czo Exp $
-# Edit Time: 143:50:51
+# Last Modified: Saturday 13 September 2025, 18:02
+# $Id: .zshrc,v 1.663 2025/09/13 16:02:39 czo Exp $
+# Edit Time: 143:50:59
 # Description:
 #
 #       zsh config file
@@ -179,6 +179,7 @@ if [ -d /system/bin ]; then
 fi
 
 ## config RUTX 7.17.3 bug /usr/local
+## TODO: ln -sf /usr/local/usr/share/terminfo /usr/share
 if [ -d /usr/local/lib/perl5/5.28/CORE ]; then
     export LD_LIBRARY_PATH=/usr/local/lib/perl5/5.28/CORE
     export PERL5LIB=/usr/local/usr/lib/perl5/5.28
