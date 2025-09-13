@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 13 September 2025, 18:02
-# $Id: .zshrc,v 1.663 2025/09/13 16:02:39 czo Exp $
-# Edit Time: 143:50:59
+# Last Modified: Saturday 13 September 2025, 19:14
+# $Id: .zshrc,v 1.664 2025/09/13 17:20:00 czo Exp $
+# Edit Time: 143:51:22
 # Description:
 #
 #       zsh config file
@@ -172,16 +172,16 @@ if [ -d /rom/bin ]; then
 fi
 
 ## config termux for android
-if [ -d /system/bin ]; then
+if [ -d /data/data/com.termux/files/usr/lib ]; then
     export TMPDIR=/data/data/com.termux/files/home/tmp
-    export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:/system/bin:/system/xbin:$PATH"
-    export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+    export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:$PATH"
+    export LD_LIBRARY_PATH="/data/data/com.termux/files/usr/lib:$LD_LIBRARY_PATH"
 fi
 
 ## config RUTX 7.17.3 bug /usr/local
 ## TODO: ln -sf /usr/local/usr/share/terminfo /usr/share
 if [ -d /usr/local/lib/perl5/5.28/CORE ]; then
-    export LD_LIBRARY_PATH=/usr/local/lib/perl5/5.28/CORE
+    export LD_LIBRARY_PATH="/usr/local/lib/perl5/5.28/CORE:$LD_LIBRARY_PATH"
     export PERL5LIB=/usr/local/usr/lib/perl5/5.28
 fi
 
