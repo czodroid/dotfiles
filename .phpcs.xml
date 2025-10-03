@@ -4,15 +4,15 @@
 // Author: Olivier Sirol <czo@free.fr>
 // License: GPL-2.0 (http://www.gnu.org/copyleft)
 // File Created: 09 July 2019
-// Last Modified: Friday 03 October 2025, 17:34
-// $Id: .phpcs.xml,v 1.7 2025/10/03 15:34:55 czo Exp $
-// Edit Time: 0:35:39
+// Last Modified: Friday 03 October 2025, 17:39
+// $Id: .phpcs.xml,v 1.8 2025/10/03 15:40:15 czo Exp $
+// Edit Time: 0:35:46
 // Description:
-// 
+//
 //             PHP beautifier / formatter
 //             aptitude install php-pear
 //             pear install PHP_CodeSniffer
-// 
+//
 // Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 -->
 <ruleset name="PHP_CodeSniffer">

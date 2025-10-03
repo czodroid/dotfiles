@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Monday 23 June 2025, 16:51
-" $Id: .vimrc,v 1.529 2025/06/23 14:52:43 czo Exp $
-" Edit Time: 257:28:09
+" Last Modified: Friday 03 October 2025, 17:39
+" $Id: .vimrc,v 1.530 2025/10/03 15:40:15 czo Exp $
+" Edit Time: 257:28:59
 " Description:
 "
 "                 vim config file
@@ -301,7 +301,7 @@ autocmd FileType php       setlocal commentstring=//%s
 autocmd FileType xdefaults setlocal commentstring=!%s
 
 " Trim Trailing Whitespace
-autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|vim\|readline\|json\|groovy' | :call CzoTTW () | endif
+autocmd BufWritePre,FileWritePre * if &ft =~ 'c\|cpp\|crontab\|css\|h\|hpp\|html\|java\|javascript\|lua\|make\|markdown\|perl\|php\|python\|sh\|zsh\|tmux\|xdefaults\|xml\|vim\|readline\|json\|groovy' | :call CzoTTW () | endif
 
 endif
 
@@ -1198,7 +1198,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.529 2025/06/23 14:52:43 czo Exp $
+            " $Id: .vimrc,v 1.530 2025/10/03 15:40:15 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
