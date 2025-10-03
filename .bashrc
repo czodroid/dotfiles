@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 13 September 2025, 19:14
-# $Id: .bashrc,v 1.737 2025/09/13 17:20:00 czo Exp $
-# Edit Time: 174:34:46
+# Last Modified: Saturday 27 September 2025, 03:09
+# $Id: .bashrc,v 1.740 2025/09/27 03:31:30 czo Exp $
+# Edit Time: 175:06:50
 # Description:
 #
 #       bash config file
@@ -374,11 +374,12 @@ fi
 unalias -a
 
 { \type -a type >/dev/null 2>&1 && alias t='type -a'; } || alias t='type'
-alias eq='type -P'
+# sort of zsh =command = $(= command)
+=() { type -P "$1"; }
 
 if [ -n "$BASH_VERSION" ]; then
     complete -A command t
-    complete -A command eq
+    complete -A command =
 fi
 
 alias st=". $HOME/.bashrc"
@@ -622,7 +623,7 @@ alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. RoBot, I dont wa
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
 alias dig_lartha='curl -sk https://lartha/hosts.html'
-alias ssha='eval $(ssh-agent); ssh-add; echo; echo "To add another identity:"; echo "ssh-add ~/.ssh/id_rsa_czo\@bruichladdich"; echo "ssh-add ~/.ssh/id_rsa_czo\@bunnahabhain"'
+alias ssha='eval $(ssh-agent); echo; echo "To add another identity:";  echo "ssh-add"; echo "ssh-add ~/.ssh/id_rsa_czo\@bruichladdich"; echo "ssh-add ~/.ssh/id_rsa_czo\@bunnahabhain"'
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
 alias tmate_ssh='tmate -S ${TMPDIR}/tmate.sock new-session -d ; tmate -S ${TMPDIR}/tmate.sock wait tmate-ready ; tmate -S ${TMPDIR}/tmate.sock display -p "#{tmate_web}%n#{tmate_ssh}"'
 
@@ -791,8 +792,8 @@ alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
 alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --make-rslave --rbind /\$p \$LIVE_BOOT/chroot/\$p ; done"
 alias RemeberThis_chroot_umount="umount -lf \$LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}"
 alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
-alias RemeberThis_pwd="find . -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
-alias RemeberThis_find_execdir="find . -type f -name '*.7z' -printf \"################ %p\n\" -execdir sh -c \"7z x -pfoo {}\" \;"
+alias RemeberThis_find_EXEC="find . -mindepth 1 -maxdepth 1 -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
+alias RemeberThis_find_EXECDIR="find . -type f -name '*.7z' -execdir sh -c \"echo '######### {}' && pwd\" \;"
 alias RemeberThis_find_sort_xargs="find . -type d -print0 | sort -z | xargs -r0 -I{} sh -c 'ls -1 \"{}\" | wc -l'"
 alias RemeberThis_kfm='setxkbmap fr mac'
 alias RemeberThis_edl='export DISPLAY=localhost:0'

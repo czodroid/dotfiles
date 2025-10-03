@@ -6,10 +6,11 @@
 ! License: GPL-2.0 (http://www.gnu.org/copyleft)
 ! Author: Olivier Sirol <czo@free.fr>
 ! File Created: 28 mars 1996
-! Last Modified: Monday 25 August 2025, 12:09
-! $Id: .Xresources,v 1.53 2025/08/25 10:10:19 czo Exp $
-! Edit Time: 7:59:09
+! Last Modified: Friday 03 October 2025, 17:33
+! $Id: .Xresources,v 1.54 2025/10/03 15:34:55 czo Exp $
+! Edit Time: 8:02:29
 ! Description:
+!
 !       X ressource file
 !       can be merged to X defaults whith
 !       xrdb -merge ~/.Xresources

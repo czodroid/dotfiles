@@ -5,8 +5,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 20 Sep 2006
-# Last Modified: Monday 28 April 2025, 18:33
+# Last Modified: Friday 03 October 2025, 17:33
 # Description:
+#
 #           config for htop
 #           which shows the "Avg:" with "wa:" activated,
 #           it must be on a single line
