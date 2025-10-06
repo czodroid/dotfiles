@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 27 September 2025, 03:09
-# $Id: .bashrc,v 1.740 2025/09/27 03:31:30 czo Exp $
-# Edit Time: 175:06:50
+# Last Modified: Monday 06 October 2025, 18:42
+# $Id: .bashrc,v 1.741 2025/10/06 16:45:23 czo Exp $
+# Edit Time: 175:08:05
 # Description:
 #
 #       bash config file
@@ -374,12 +374,12 @@ fi
 unalias -a
 
 { \type -a type >/dev/null 2>&1 && alias t='type -a'; } || alias t='type'
-# sort of zsh =command = $(= command)
-=() { type -P "$1"; }
+# sort of zsh =command = $(eq command), so I still use zsh...
+eq() { type -P "$1"; }
 
 if [ -n "$BASH_VERSION" ]; then
     complete -A command t
-    complete -A command =
+    complete -A command eq
 fi
 
 alias st=". $HOME/.bashrc"
