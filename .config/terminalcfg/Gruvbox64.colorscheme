@@ -2,14 +2,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 2021
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: Gruvbox64.colorscheme,v 1.4 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 0:45:42
+# Last Modified: Thursday 09 October 2025, 19:44
+# $Id: Gruvbox64.colorscheme,v 1.5 2025/10/09 18:09:08 czo Exp $
+# Edit Time: 0:49:20
 # Description:
-#              gruvbox64's colors for qterminal
-#              in /usr/share/qtermwidget5/color-schemes
 #
-# Copyright: (C) 2021, 2022 Olivier Sirol <czo@free.fr>
+#    gruvbox64's colors for qterminal
+#    /usr/share/qtermwidget5/color-schemes/Gruvbox64.colorscheme
+#
+# Copyright: (C) 2021-2025 Olivier Sirol <czo@free.fr>
 
 [General]
 Description=Gruvbox

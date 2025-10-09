@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 03 October 2025, 17:39
-" $Id: .vimrc,v 1.530 2025/10/03 15:40:15 czo Exp $
-" Edit Time: 257:28:59
+" Last Modified: Thursday 09 October 2025, 20:32
+" $Id: .vimrc,v 1.532 2025/10/09 18:33:19 czo Exp $
+" Edit Time: 257:30:55
 " Description:
 "
 "                 vim config file
@@ -791,15 +791,16 @@ if (has("syntax"))
 " gruvbox64.vim
 let g:colors_name = "gruvbox64"
 
-"           Retro color scheme for Vim.
-"           The colors in my gruvbox64 theme for Vim are inspired
-"           by the gruvbox style but without bold fonts.
-"           This works with 'set termguicolors' in .vimrc (if your
-"           terminal allows it) or in an xterm 8c / 16c / 256c
-"           with nearly similar colors if you use a gruvbox64
-"           terminal palette.
+"       Retro color scheme for Vim.
+"       The colors in my gruvbox64 theme for Vim are inspired
+"       by the gruvbox style but without bold fonts.
+"       This works with 'set termguicolors' in .vimrc (if your
+"       terminal allows it) or in an xterm 8c / 16c / 256c
+"       with nearly similar colors if you use a gruvbox64
+"       terminal palette.
 "
-"           :source $VIMRUNTIME/syntax/hitest.vim
+"       :source gruvbox64.vim
+"       :source $VIMRUNTIME/syntax/hitest.vim
 "
 " gruvbox dark
 " bg0-h     #1d2021
@@ -1063,24 +1064,7 @@ if version > 604
         let g:terminal_color_14 = '#8ec07c'
         let g:terminal_color_15 = '#fbf1c7'
     else
-        let g:terminal_ansi_colors = [
-                                \ '#282828',
-                                \ '#cc241d',
-                                \ '#98971a',
-                                \ '#fe8019',
-                                \ '#458588',
-                                \ '#b16286',
-                                \ '#689d6a',
-                                \ '#c9b788',
-                                \ '#4a4239',
-                                \ '#fb4934',
-                                \ '#b8bb26',
-                                \ '#fabd2f',
-                                \ '#83a598',
-                                \ '#d3869b',
-                                \ '#8ec07c',
-                                \ '#fbf1c7'
-                                \           ]
+        let g:terminal_ansi_colors = [ '#282828', '#cc241d', '#98971a', '#fe8019', '#458588', '#b16286', '#689d6a', '#c9b788', '#4a4239', '#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#fbf1c7' ]
     endif
 endif
 
@@ -1198,7 +1182,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.530 2025/10/03 15:40:15 czo Exp $
+            " $Id: .vimrc,v 1.532 2025/10/09 18:33:19 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

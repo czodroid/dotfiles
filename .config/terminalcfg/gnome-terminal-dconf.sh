@@ -4,21 +4,22 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 11 September 2019
-# Last Modified: Sunday 29 September 2024, 19:22
-# $Id: gnome-terminal-dconf.sh,v 1.17 2024/09/29 17:23:24 czo Exp $
-# Edit Time: 0:51:08
+# Last Modified: Thursday 09 October 2025, 19:46
+# $Id: gnome-terminal-dconf.sh,v 1.18 2025/10/09 18:09:08 czo Exp $
+# Edit Time: 0:57:32
 # Description:
-#               my dconf for gnome
-#                - buttons
-#                - terminal
-#                - gnome-shell system-monitor
-#                - gnome-shell dashtopanel
-#                - gnome-shell arcmenu
 #
-#               add packages in debian 12:
-#                AI gnome-shell-extension-system-monitor gnome-shell-extension-dash-to-panel gnome-shell-extension-arc-menu
+#        my dconf for gnome
+#          - buttons
+#          - terminal
+#          - gnome-shell system-monitor
+#          - gnome-shell dashtopanel
+#          - gnome-shell arcmenu
 #
-# Copyright: (C) 2019-2024 Olivier Sirol <czo@free.fr>
+#        add packages in debian 12:
+#          AI gnome-shell-extension-system-monitor gnome-shell-extension-dash-to-panel gnome-shell-extension-arc-menu
+#
+# Copyright: (C) 2019-2025 Olivier Sirol <czo@free.fr>
 
 dconf load / << 'EOF'
 

@@ -2,13 +2,15 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 15 July 2003
-# Last Modified: Thursday 13 October 2022, 18:33
-# $Id: .minttyrc,v 1.4 2022/10/13 16:34:20 czo Exp $
-# Edit Time: 0:53:25
+# Last Modified: Thursday 09 October 2025, 19:59
+# $Id: .minttyrc,v 1.5 2025/10/09 18:09:08 czo Exp $
+# Edit Time: 1:11:55
 # Description:
-#       gruvbox colorsheme for mintty
 #
-# Copyright: (C) 2003-2022 Olivier Sirol <czo@free.fr>
+#       gruvbox colorsheme for mintty
+#       ~/.minttyrc
+#
+# Copyright: (C) 2003-2025 Olivier Sirol <czo@free.fr>
 
 BoldAsFont=no
 CursorType=block
