@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 06 October 2025, 18:42
-# $Id: .bashrc,v 1.741 2025/10/06 16:45:23 czo Exp $
-# Edit Time: 175:08:05
+# Last Modified: Tuesday 28 October 2025, 18:20
+# $Id: .bashrc,v 1.743 2025/10/28 17:23:37 czo Exp $
+# Edit Time: 175:09:37
 # Description:
 #
 #       bash config file
@@ -891,7 +891,7 @@ fi
 if command -v cksum >/dev/null 2>&1 && command -v awk >/dev/null 2>&1; then
     # hash for colors
     USER_PROMPT_COLOR=$( printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
-    HOST_PROMPT_COLOR=$( printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
+    HOST_PROMPT_COLOR=$( printf "BN$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 else
     USER_PROMPT_COLOR="1"
     HOST_PROMPT_COLOR="5"

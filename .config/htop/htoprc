@@ -1,13 +1,12 @@
 # Beware! This file is rewritten by htop when settings are changed in the interface.
 # The parser is also very primitive, and not human-friendly.
 #
-# Filename: htoprc
+# Filename: htoprc-d7-to-d10
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 20 Sep 2006
-# Last Modified: Friday 03 October 2025, 17:33
+# Last Modified: Friday 10 October 2025, 12:27
 # Description:
-#
 #           config for htop
 #           which shows the "Avg:" with "wa:" activated,
 #           it must be on a single line
@@ -35,5 +34,5 @@ color_scheme=0
 delay=15
 left_meters=AllCPUs2 Memory Swap CPU
 left_meter_modes=1 1 1 2
-right_meters=Hostname Tasks LoadAverage Uptime
+right_meters=Hostname Uptime LoadAverage Tasks
 right_meter_modes=2 2 2 2

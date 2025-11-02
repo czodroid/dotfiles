@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 09 October 2025, 20:32
-" $Id: .vimrc,v 1.532 2025/10/09 18:33:19 czo Exp $
-" Edit Time: 257:30:55
+" Last Modified: Sunday 02 November 2025, 22:39
+" $Id: .vimrc,v 1.543 2025/11/02 21:39:47 czo Exp $
+" Edit Time: 266:44:31
 " Description:
 "
 "                 vim config file
@@ -323,7 +323,7 @@ iab _date <C-R>=strftime("%Y-%m-%d")<cr>
 iab _ma   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
 iab _mc   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
 iab _mi   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
-iab _git  "<C-R>=expand("$")<cr>Id: <C-R>=expand("%:t")<cr> 1.42 <C-R>=strftime("%Y/%m/%d %T")<cr> czo Git $"
+iab _git  "<C-R>=expand("$")<cr>Id: <C-R>=expand("%:t")<cr>,v 1.42 <C-R>=strftime("%Y/%m/%d %T")<cr> czo Git $"
 
 iab _abc   abcdefghijklmnopqrstuvwxyz
 iab _ABC   ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -1167,11 +1167,17 @@ endfunction
 
 function! TemplateTimeStamp ()
 
+    " echow "WARNING: ..." . escape(expand("%:p"), '/')
+
     if g:DoCzoTemplate
         if &modified == 1
             let save_report = &report
             let &report = 999999
+            let save_include = &include
+            let &include = ''
             normal mwHmv
+
+            "" THESE REGEXP ONLY CHANGE IN THE HEADER < 50 LINES AND ONLY ONCE
 
             " This is the fourth time I did modified my headers,
             " and this is for old scripts I may have...
@@ -1182,57 +1188,58 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.532 2025/10/09 18:33:19 czo Exp $
+            " $Id: .vimrc,v 1.543 2025/11/02 21:39:47 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
-            " Copyright: (C) 1992 Olivier Sirol <czo@free.fr>
+            " Copyright: (C) 1992-2022 Olivier Sirol <czo@free.fr>
 
-            if 1
-                " changed Started: by File Created:
-                let pattern = '\(^.\=.\=.\=\s* \)Started:\(.*\)'
-                if FindStrInHeader(pattern)
-                    exec 's/'.pattern.'/\1File Created:\2/e'
-                    call histdel("search",-1)
-                endif
-                " changed Created: by File Created:
-                let pattern = '\(^.\=.\=.\=\s* \)Created:\(.*\)'
-                if FindStrInHeader(pattern)
-                    exec 's/'.pattern.'/\1File Created:\2/e'
-                    call histdel("search",-1)
-                endif
-                " changed Last Change: by Last Modified:
-                let pattern = '\(^.\=.\=.\=\s* Last \)Change:\(.*\)'
-                if FindStrInHeader(pattern)
-                    exec 's/'.pattern.'/\1Modified:\2/e'
-                    call histdel("search",-1)
-                endif
-                " Author: is new !
-            endif
+            "" SUB CHANGE:
 
-            "" Normal changes in my header here:
-
-            " substitute CVS $ Id:$ because now, I use Git...
-            let pattern = '\(.*$I'.'d: \).*\( czo Git $.*\)'
+            " substitute CVS $I d:$ because I now use git...
+            let pattern = '\(\$I'.'d:\).*\( czo Git \$\)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1'.TemplateGitId().'\2/e'
+                exec 's/'.pattern.'/\1 '.TemplateGitId().'\2/e'
                 call histdel("search",-1)
             endif
 
-            " substitute CVS $ CzoDate:$ by $ CzoDate: 2024-03-14 14:36 $
-            " let pattern = '\(.*$Czo'.'Date:\) *[0-9 -:]* *\$\(.*\)'
-            let pattern = '\(.*( Czo'.'Date:\) *[0-9 -:]* *)\(.*\)'
+            " substitute ( CzoDat e: ) by ( CzoDat e: 2024-03-14 14:36 )
+            let pattern = '\(( CzoDat'.'e:\)\s*[0-9 -:]*\s*)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.TemplateGitDate().' )\2/e'
+                exec 's/'.pattern.'/\1 '.TemplateGitDate().' )/e'
                 call histdel("search",-1)
             endif
 
-            " substitute CVS $ CzoAppDate=; by $ CzoAppDate = '2024-03-14';
-            let pattern = '\(.*$Czo'.'AppDate\) *= *[0-9"-]* *;\(.*\)'
+            " substitute $CzoAppDat e=; by $CzoAppDat e = '2024-03-14';
+            let pattern = '\($CzoAppDat'.'e\)\s*=\s*[0-9"-]*\s*;'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 = '.TemplateAppDate().';\2/e'
+                exec 's/'.pattern.'/\1 = '.TemplateAppDate().';/e'
                 call histdel("search",-1)
             endif
+
+            "" CHANGES FROM ALL PREVIOUS VERSIONS:
+
+            " changed Started: by File Created:
+            let pattern = '\(^.\=.\=.\=\s* \)Started:\(.*\)'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1File Created:\2/e'
+                call histdel("search",-1)
+            endif
+            " changed Created: by File Created:
+            let pattern = '\(^.\=.\=.\=\s* \)Created:\(.*\)'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1File Created:\2/e'
+                call histdel("search",-1)
+            endif
+            " changed Last Change: by Last Modified:
+            let pattern = '\(^.\=.\=.\=\s* Last \)Change:\(.*\)'
+            if FindStrInHeader(pattern)
+                exec 's/'.pattern.'/\1Modified:\2/e'
+                call histdel("search",-1)
+            endif
+            " Author: is new !
+
+            "" NORMAL CHANGES:
 
             " substitute the full file name
             let pattern = '\(^.\=.\=.\=\s* FullFilename:\).*'
@@ -1330,6 +1337,7 @@ function! TemplateTimeStamp ()
             "let @/ = histget("search",-1)
             normal 1G'vzt`w
             let &report = save_report
+            let &include = save_include
         endif
     endif
 

@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Saturday 05 July 2025, 19:06
-# $Id: .cshrc,v 1.187 2025/07/05 17:08:45 czo Exp $
-# Edit Time: 33:25:13
+# Last Modified: Tuesday 28 October 2025, 18:22
+# $Id: .cshrc,v 1.189 2025/10/28 17:23:37 czo Exp $
+# Edit Time: 33:27:16
 # Description:
 #
 #       csh and tcsh config file
@@ -487,7 +487,7 @@ if ($?tcsh) then
     set SHELLNAME = `echo $0 | sed -e 's,.*/,,' -e 's,^-,,'`
     # hash for colors
     set USER_PROMPT_COLOR = `printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }'`
-    set HOST_PROMPT_COLOR = `printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
+    set HOST_PROMPT_COLOR = `printf "BN$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }'`
 
     alias precmd 'set E=$status ; if ($term =~ xterm*) echo -n "]0;${SHELLNAME} ${PWD} (${USER}@${HOST})"> /dev/tty ; echo "[00m" ; echo -n "[0;97m[${PLATFORM}/${SHELLNAME}] - `date +.%Y%m%d_%Hh%M` - ${TERM}:${MYTTY}:sh${SHLVL} - " ; if ($E == 0) echo "[0;97m[$E][m" ; if ($E != 0) echo "[0;91m[$E][m" ; echo "[0;9${USER_PROMPT_COLOR}m${USER}[0;97m@[0;9${HOST_PROMPT_COLOR}m${HOSTNAME}[0;97m:[0;94m${PWD}[m"'
 
@@ -509,3 +509,4 @@ setenv PATH `echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (
 set histchars="!^#"
 
 # EOF
+

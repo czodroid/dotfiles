@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Wednesday 24 September 2025, 20:56
-# $Id: .zshrc,v 1.666 2025/09/24 18:58:02 czo Exp $
-# Edit Time: 143:52:26
+# Last Modified: Tuesday 28 October 2025, 18:22
+# $Id: .zshrc,v 1.668 2025/10/28 17:23:37 czo Exp $
+# Edit Time: 143:54:12
 # Description:
 #
 #       zsh config file
@@ -991,7 +991,7 @@ fi
 if command -v cksum >/dev/null 2>&1 && command -v awk >/dev/null 2>&1; then
     # hash for colors
     USER_PROMPT_COLOR=$( printf "AA$USER" | cksum | awk '{ print ((( $1  + 2 ) % 6 ) + 1 ) }' )
-    HOST_PROMPT_COLOR=$( printf "JC$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
+    HOST_PROMPT_COLOR=$( printf "BN$HOSTNAME" | cksum | awk '{ print ((( $1  + 1 ) % 6 ) + 1 ) }' )
 else
     USER_PROMPT_COLOR="1"
     HOST_PROMPT_COLOR="5"
