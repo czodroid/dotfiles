@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Tuesday 28 October 2025, 18:20
-# $Id: .bashrc,v 1.743 2025/10/28 17:23:37 czo Exp $
-# Edit Time: 175:09:37
+# Last Modified: Thursday 13 November 2025, 11:06
+# $Id: .bashrc,v 1.747 2025/11/13 10:07:57 czo Exp $
+# Edit Time: 175:13:36
 # Description:
 #
 #       bash config file
@@ -644,7 +644,7 @@ alias dft='df -hPT'
 alias cvu='cd ~/etc ; cvs up ; cd -'
 alias cvd='cd ~/etc ; cvs diff | colordiff ; cd -'
 alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
-cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" -e 1q) $F; }
+cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" | sed -e '2!d' ) $F | colordiff; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
 
 alias  gtu='git pull'
@@ -753,8 +753,9 @@ sq() { SB=$( perl -mDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m 
 ## GEOSCOPE
 alias slink='slinktool -Q :18000'
 alias slink1='slinktool -Q rtserver.ipgp.fr'
-alias socksipgp='ssh -ND 53128 root@geoscopevpn'
+alias socksipgp='ssh -ND 63128 root@geoscopevpn'
 alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
+alias socksEDA='ssh -J bunnahabhain+b,root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@192.168.34.7 -p 222'
 
 ## OLD and RemeberThis_
 alias RemeberThis_mailq_repost='postqueue -p | awk "/^[0-9A-F]/ { print \"postqueue -i \" \$1 \" ; sleep 1s ;\" }" | sh'

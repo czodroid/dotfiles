@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 02 November 2025, 22:39
-" $Id: .vimrc,v 1.543 2025/11/02 21:39:47 czo Exp $
-" Edit Time: 266:44:31
+" Last Modified: Monday 01 December 2025, 14:54
+" $Id: .vimrc,v 1.549 2025/12/01 13:55:59 czo Exp $
+" Edit Time: 267:21:04
 " Description:
 "
 "                 vim config file
@@ -343,6 +343,7 @@ iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire 
 
 " My Template
 let g:DoCzoTemplate=1
+let g:DoCzoTab=1
 let g:TemplateMaxHeaderLines=50
 let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
 let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
@@ -355,6 +356,22 @@ endif
 
 " Move cursor
 let g:DoCzoLineMove=0
+
+command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
+function! CzoATabToSpaceAndTrailWhite ()
+    let l = line(".")
+    let c = col(".")
+    echo "Convert Tab to Space"
+    exec '%s/\t/    /gce'
+    echo "Trim Trailing Whitespace"
+    exec '%s/\s\+$//ce'
+    call cursor(l, c)
+endfunction
+
+command!  CzoInvFold call CzoInvFold ()
+function! CzoInvFold ()
+    set foldenable!
+endfunction
 
 command!  CzoInvLineMove call CzoInvLineMove ()
 function! CzoInvLineMove ()
@@ -385,11 +402,6 @@ function! CzoInvLineMove ()
     endif
 endfunction
 
-command!  CzoInvFold call CzoInvFold ()
-function! CzoInvFold ()
-    set foldenable!
-endfunction
-
 command!  CzoInvList call CzoInvList ()
 function! CzoInvList ()
     set list!
@@ -405,9 +417,15 @@ function! CzoInvPaste ()
     set paste!
 endfunction
 
-command!  CzoInvWrap call CzoInvWrap ()
-function! CzoInvWrap ()
-    set wrap!
+command!  CzoInvTab call CzoInvTab ()
+function! CzoInvTab ()
+    if g:DoCzoTab
+        let g:DoCzoTab=0
+        :tab ba
+    else
+        let g:DoCzoTab=1
+        :tabo
+    endif
 endfunction
 
 command!  CzoInvTemplate call CzoInvTemplate ()
@@ -419,48 +437,13 @@ function! CzoInvTemplate ()
     endif
 endfunction
 
-command!  CzoTemplateFREE call CzoTemplateFREE ()
-function! CzoTemplateFREE ()
-    let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
+command!  CzoInvWrap call CzoInvWrap ()
+function! CzoInvWrap ()
+    set wrap!
 endfunction
 
-command!  CzoTemplateDROID call CzoTemplateDROID ()
-function! CzoTemplateDROID ()
-    let g:TemplateAuthor="CzoDroid <czodroid@gmail.com>"
-endfunction
-
-command!  CzoTemplateLIP6 call CzoTemplateLIP6 ()
-function! CzoTemplateLIP6 ()
-    let g:TemplateAuthor="Olivier Sirol <czo@asim.lip6.fr>"
-endfunction
-
-command!  CzoTemplateALS call CzoTemplateALS ()
-function! CzoTemplateALS ()
-    let g:TemplateAuthor="Alliance <alliance-support@asim.lip6.fr>"
-endfunction
-
-command!  CzoTemplateIPGP call CzoTemplateIPGP ()
-function! CzoTemplateIPGP ()
-    let g:TemplateAuthor="Olivier Sirol <czo@ipgp.fr>"
-endfunction
-
-command!  CzoTemplateGS call CzoTemplateGS ()
-function! CzoTemplateGS ()
-    let g:TemplateAuthor="Geoscope Team <geoscope-admin@ipgp.fr>"
-endfunction
-
-command!  CzoDiffWithSaved call CzoDiffWithSaved ()
-function! CzoDiffWithSaved()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exec "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-  exec "windo set wrap"
-endfunction
-
-command!  CzoDiffWithCvs call CzoDiffWithCvs ()
-function! CzoDiffWithCvs()
+command!  CzoMDiffWithCvs call CzoMDiffWithCvs ()
+function! CzoMDiffWithCvs()
   let filetype=&ft
   diffthis
   vnew | r !cvs up -pr BASE #
@@ -470,63 +453,19 @@ function! CzoDiffWithCvs()
   exec "windo set wrap"
 endfunction
 
-command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
-function! CzoATabToSpaceAndTrailWhite ()
-    let l = line(".")
-    let c = col(".")
-    echo "Convert Tab to Space"
-    exec '%s/\t/    /gce'
-    echo "Trim Trailing Whitespace"
-    exec '%s/\s\+$//ce'
-    call cursor(l, c)
+command!  CzoMDiffWithSaved call CzoMDiffWithSaved ()
+function! CzoMDiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exec "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  exec "windo set wrap"
 endfunction
 
-command!  CzoTabToSpaces call CzoTabToSpaces ()
-function! CzoTabToSpaces ()
-    let l = line(".")
-    let c = col(".")
-    exec '%s/\t/    /gce'
-    call cursor(l, c)
-endfunction
-
-command!  CzoTrimTrailingWhitespace call CzoTrimTrailingWhitespace ()
-function! CzoTrimTrailingWhitespace ()
-    let l = line(".")
-    let c = col(".")
-    exec '%s/\s\+$//ce'
-    call cursor(l, c)
-endfunction
-
-" for autocmd
-function! CzoTTW ()
-    if version >= 601
-        let l = line(".")
-        let c = col(".")
-        exec '%s/\s\+$//e'
-        call cursor(l, c)
-    endif
-endfunction
-
-command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
-function! CzoRemoveEmptyLinesAndComment ()
-    let l = line(".")
-    let c = col(".")
-    exec 'g/\(^\s*#\)\|\(^\s*$\)/d'
-    call cursor(l, c)
-endfunction
-
-command!  CzoVisualClear call CzoVisualClear ()
-function! CzoVisualClear ()
-    hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-    hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-    hi IncSearch     guifg=NONE    guibg=#596b63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
-endfunction
-
-command!  CzoVisualGrey call CzoVisualGrey ()
-function! CzoVisualGrey ()
-    hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-    hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
-    hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+command!  CzoMSwinDisable call CzoMSwinDisable ()
+function! CzoMSwinDisable ()
+    behave xterm
 endfunction
 
 command!  CzoMSwinEnable call CzoMSwinEnable ()
@@ -586,9 +525,82 @@ function! CzoMSwinNoX11 ()
     cmap        <S-Insert>  <C-R>"
 endfunction
 
-command!  CzoMSwinDisable call CzoMSwinDisable ()
-function! CzoMSwinDisable ()
-    behave xterm
+command!  CzoRTabToSpaces call CzoRTabToSpaces ()
+function! CzoRTabToSpaces ()
+    let l = line(".")
+    let c = col(".")
+    exec '%s/\t/    /gce'
+    call cursor(l, c)
+endfunction
+
+command!  CzoRTrimTrailingWhitespace call CzoRTrimTrailingWhitespace ()
+function! CzoRTrimTrailingWhitespace ()
+    let l = line(".")
+    let c = col(".")
+    exec '%s/\s\+$//ce'
+    call cursor(l, c)
+endfunction
+
+command!  CzoRemoveEmptyLinesAndComment call CzoRemoveEmptyLinesAndComment ()
+function! CzoRemoveEmptyLinesAndComment ()
+    let l = line(".")
+    let c = col(".")
+    exec 'g/\(^\s*#\)\|\(^\s*$\)/d'
+    call cursor(l, c)
+endfunction
+
+command!  CzoTemplateALS call CzoTemplateALS ()
+function! CzoTemplateALS ()
+    let g:TemplateAuthor="Alliance <alliance-support@asim.lip6.fr>"
+endfunction
+
+command!  CzoTemplateDROID call CzoTemplateDROID ()
+function! CzoTemplateDROID ()
+    let g:TemplateAuthor="CzoDroid <czodroid@gmail.com>"
+endfunction
+
+command!  CzoTemplateFREE call CzoTemplateFREE ()
+function! CzoTemplateFREE ()
+    let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
+endfunction
+
+command!  CzoTemplateGS call CzoTemplateGS ()
+function! CzoTemplateGS ()
+    let g:TemplateAuthor="Geoscope Team <geoscope-admin@ipgp.fr>"
+endfunction
+
+command!  CzoTemplateIPGP call CzoTemplateIPGP ()
+function! CzoTemplateIPGP ()
+    let g:TemplateAuthor="Olivier Sirol <czo@ipgp.fr>"
+endfunction
+
+command!  CzoTemplateLIP6 call CzoTemplateLIP6 ()
+function! CzoTemplateLIP6 ()
+    let g:TemplateAuthor="Olivier Sirol <czo@asim.lip6.fr>"
+endfunction
+
+command!  CzoVisualClear call CzoVisualClear ()
+function! CzoVisualClear ()
+    hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+    hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+    hi IncSearch     guifg=NONE    guibg=#596b63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
+endfunction
+
+command!  CzoVisualGrey call CzoVisualGrey ()
+function! CzoVisualGrey ()
+    hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
+    hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+    hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+endfunction
+
+" for autocmd
+function! CzoTTW ()
+    if version >= 601
+        let l = line(".")
+        let c = col(".")
+        exec '%s/\s\+$//e'
+        call cursor(l, c)
+    endif
 endfunction
 
 
@@ -657,10 +669,16 @@ noremap     <C-Q>           <C-V>
 
 " digraph
 inoremap    <C-K><C-D>      <C-K>
+
 " quit
 map         <C-K><C-K>      :qa!<CR>
 imap        <C-K><C-K>      <C-O>:qa!<CR>
 cmap        <C-K><C-K>      <C-C><C-O>:qa!<CR>
+
+" Remap gf to always open in tab
+if version >= 701
+    nnoremap    gf              <C-w>gf
+endif
 
 if version >= 601
     " scroll by one line
@@ -1188,7 +1206,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.543 2025/11/02 21:39:47 czo Exp $
+            " $Id: .vimrc,v 1.549 2025/12/01 13:55:59 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
