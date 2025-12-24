@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 10 December 2025, 12:33
-" $Id: .vimrc,v 1.552 2025/12/10 11:33:39 czo Exp $
-" Edit Time: 267:42:05
+" Last Modified: Wednesday 24 December 2025, 11:19
+" $Id: .vimrc,v 1.554 2025/12/24 10:19:58 czo Exp $
+" Edit Time: 267:44:48
 " Description:
 "
 "                 vim config file
@@ -1206,7 +1206,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.552 2025/12/10 11:33:39 czo Exp $
+            " $Id: .vimrc,v 1.554 2025/12/24 10:19:58 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1421,6 +1421,7 @@ function! TemplateCzo (...)
     " :r !cd ~/etc/vim-templates ; ./template
     " after delting this:
     " ------------- SearchThisThenDelete -------------
+
     if xft != ""
         try
             throw xft
@@ -1433,11 +1434,11 @@ function! TemplateCzo (...)
                  \\<nl> * Author: Olivier Sirol <czo@free.fr>
                  \\<nl> * License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl> * File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl> * Last Modified: Thursday 28 November 2019, 15:38
-                 \\<nl> * Edit Time: 0:00:18
+                 \\<nl> * Last Modified: Wednesday 24 December 2025, 11:05
+                 \\<nl> * Edit Time: 0:00:03
                  \\<nl> * Description:
                  \\<nl> *
-                 \\<nl> * Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
+                 \\<nl> * Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
                  \\<nl> */
                  \\<nl>
                  \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
@@ -1456,15 +1457,22 @@ function! TemplateCzo (...)
                  \\<nl> * #### Main
                  \\<nl> */
                  \\<nl>
-                 \\<nl>int main (int argc, char *argv[], char *envp[])
-                 \\<nl>{
-                 \\<nl>    printf (\\"Size of   char: %d bytes\\n\\", sizeof(char));
-                 \\<nl>    printf (\\"Size of    int: %d bytes\\n\\", sizeof(int));
-                 \\<nl>    printf (\\"Size of  float: %d bytes\\n\\", sizeof(float));
-                 \\<nl>    printf (\\"Size of double: %d bytes\\n\\", sizeof(double));
+                 \\<nl>int main(int argc, char *argv[], char *envp[]) {
+                 \\<nl>    printf(\\"TYPE:         SIZEOF:   FORMAT:\\n\\");
+                 \\<nl>    printf(\\"       char: %2d byte    %%c   \\n\\", (int)sizeof(char));
+                 \\<nl>    printf(\\"      short: %2d bytes   %%hd  \\n\\", (int)sizeof(short));
+                 \\<nl>    printf(\\"        int: %2d bytes   %%d   \\n\\", (int)sizeof(int));
+                 \\<nl>    printf(\\"       long: %2d bytes   %%ld  \\n\\", (int)sizeof(long));
+                 \\<nl>    printf(\\"  long long: %2d bytes   %%lld \\n\\", (int)sizeof(long long));
+                 \\<nl>    printf(\\"      float: %2d bytes   %%f   \\n\\", (int)sizeof(float));
+                 \\<nl>    printf(\\"     double: %2d bytes   %%lf  \\n\\", (int)sizeof(double));
+                 \\<nl>    printf(\\"long double: %2d bytes   %%Lf  \\n\\", (int)sizeof(long double));
+                 \\<nl>
+                 \\<nl>    printf(\\"\\nFor unsigned elements, replace 'd' with 'u' in the format.\\n\\");
                  \\<nl>
                  \\<nl>    return (0);
                  \\<nl>}
+                 \\<nl>
                  \\"
 
             "## template.cpp #########################################
@@ -1474,11 +1482,11 @@ function! TemplateCzo (...)
                  \\<nl>// Author: Olivier Sirol <czo@free.fr>
                  \\<nl>// License: GPL-2.0 (http://www.gnu.org/copyleft)
                  \\<nl>// File Created: VIMEX{=strftime(\\"%d %B %Y\\")}
-                 \\<nl>// Last Modified: Thursday 28 November 2019, 15:38
-                 \\<nl>// Edit Time: 0:00:18
+                 \\<nl>// Last Modified: Wednesday 24 December 2025, 11:15
+                 \\<nl>// Edit Time: 0:00:03
                  \\<nl>// Description:
                  \\<nl>//
-                 \\<nl>// Copyright: (C) 2019 Olivier Sirol <czo@free.fr>
+                 \\<nl>// Copyright: (C) 2025 Olivier Sirol <czo@free.fr>
                  \\<nl>
                  \\<nl>
                  \\<nl>#ident \\"$VIMEX{=strftime(\\"Id:$\\")}\\"
@@ -1495,10 +1503,15 @@ function! TemplateCzo (...)
                  \\<nl>
                  \\<nl>int main (int argc, char *argv[], char *envp[])
                  \\<nl>{
-                 \\<nl>    cout << \\"Size of   char: \\" << sizeof(char)   << \\" bytes\\" << endl;
-                 \\<nl>    cout << \\"Size of    int: \\" << sizeof(int)    << \\" bytes\\" << endl;
-                 \\<nl>    cout << \\"Size of  float: \\" << sizeof(float)  << \\" bytes\\" << endl;
-                 \\<nl>    cout << \\"Size of double: \\" << sizeof(double) << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"TYPE:        SIZEOF:\\"    << endl;
+                 \\<nl>    cout << \\"       char: \\" << sizeof(char)        << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"      short: \\" << sizeof(short)       << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"        int: \\" << sizeof(int)         << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"       long: \\" << sizeof(long)        << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"  long long: \\" << sizeof(long long)   << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"      float: \\" << sizeof(float)       << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"     double: \\" << sizeof(double)      << \\" bytes\\" << endl;
+                 \\<nl>    cout << \\"long double: \\" << sizeof(long double) << \\" bytes\\" << endl;
                  \\<nl>
                  \\<nl>    return (0);
                  \\<nl>}
