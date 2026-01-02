@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Thursday 01 January 2026, 18:37
-" $Id: .vimrc,v 1.555 2026/01/02 17:14:38 czo Exp $
-" Edit Time: 267:46:19
+" Last Modified: Friday 02 January 2026, 18:34
+" $Id: .vimrc,v 1.556 2026/01/02 17:34:27 czo Exp $
+" Edit Time: 267:55:10
 " Description:
 "
 "                 vim config file
@@ -589,8 +589,8 @@ endfunction
 command!  CzoVisualGrey call CzoVisualGrey ()
 function! CzoVisualGrey ()
     hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-    hi Search        guifg=#48393d guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
-    hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+    hi Search        guifg=#48393d guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
+    hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=yellow     ctermbg=Black    cterm=inverse   term=inverse
 endfunction
 
 " for autocmd
@@ -1206,7 +1206,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.555 2026/01/02 17:14:38 czo Exp $
+            " $Id: .vimrc,v 1.556 2026/01/02 17:34:27 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
