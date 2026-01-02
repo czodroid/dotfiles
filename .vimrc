@@ -6,16 +6,16 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 24 December 2025, 11:19
-" $Id: .vimrc,v 1.554 2025/12/24 10:19:58 czo Exp $
-" Edit Time: 267:44:48
+" Last Modified: Thursday 01 January 2026, 18:37
+" $Id: .vimrc,v 1.555 2026/01/02 17:14:38 czo Exp $
+" Edit Time: 267:46:19
 " Description:
 "
 "                 vim config file
 "
 "   self contained, no .gvimrc, nothing in ~/.vim/
 "
-" Copyright: (C) 1995-2025 Olivier Sirol <czo@free.fr>
+" Copyright: (C) 1995-2026 Olivier Sirol <czo@free.fr>
 
 if version >= 505
 
@@ -582,14 +582,14 @@ endfunction
 command!  CzoVisualClear call CzoVisualClear ()
 function! CzoVisualClear ()
     hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-    hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+    hi Search        guifg=NONE    guibg=#48393d gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
     hi IncSearch     guifg=NONE    guibg=#596b63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
 endfunction
 
 command!  CzoVisualGrey call CzoVisualGrey ()
 function! CzoVisualGrey ()
     hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-    hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+    hi Search        guifg=#48393d guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
     hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endfunction
 
@@ -926,12 +926,12 @@ hi diffAdded     guifg=#2F5F2F guibg=NONE    gui=NONE      ctermfg=Green      ct
 hi diffRemoved   guifg=#753730 guibg=NONE    gui=NONE      ctermfg=Red        ctermbg=NONE     cterm=NONE      term=NONE
 
 hi Visual        guifg=NONE    guibg=#36403c gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
-hi Search        guifg=NONE    guibg=#503825 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
+hi Search        guifg=NONE    guibg=#48393d gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
 hi IncSearch     guifg=NONE    guibg=#596b63 gui=NONE      ctermfg=Black      ctermbg=Blue     cterm=NONE      term=NONE
 
 if &t_Co < 16
 hi Visual        guifg=#36403c guibg=#ebdbb2 gui=inverse   ctermfg=Gray       ctermbg=Black    cterm=inverse   term=inverse
-hi Search        guifg=#503825 guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
+hi Search        guifg=#48393d guibg=#ebdbb2 gui=inverse   ctermfg=Yellow     ctermbg=Black    cterm=inverse   term=inverse
 hi IncSearch     guifg=#596b63 guibg=#ebdbb2 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 endif
 
@@ -1206,7 +1206,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.554 2025/12/24 10:19:58 czo Exp $
+            " $Id: .vimrc,v 1.555 2026/01/02 17:14:38 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
