@@ -2,18 +2,20 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 2021
-# Last Modified: Thursday 09 October 2025, 19:44
-# $Id: Gruvbox64.colorscheme,v 1.5 2025/10/09 18:09:08 czo Exp $
-# Edit Time: 0:49:20
+# Last Modified: Thursday 29 January 2026, 19:02
+# $Id: Gruvbox64.colorscheme,v 1.7 2026/01/29 18:02:59 czo Exp $
+# Edit Time: 1:10:21
 # Description:
 #
-#    gruvbox64's colors for qterminal
+#    gruvbox64's colors for konsole and qterminal
+#
+#    ~/.local/share/konsole/Gruvbox64.colorscheme
 #    /usr/share/qtermwidget5/color-schemes/Gruvbox64.colorscheme
 #
-# Copyright: (C) 2021-2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 2021-2026 Olivier Sirol <czo@free.fr>
 
 [General]
-Description=Gruvbox
+Description=Gruvbox 64
 Opacity=1
 Wallpaper=
 
@@ -76,4 +78,15 @@ Color=#c9b788
 
 [Color7Intense]
 Color=#fbf1c7
+
+## doesn't work
+# [SelectionForeground]
+# Color=#fbf1c7
+#
+# [SelectionBackground]
+# Color=#458588
+#
+# [Cursor]
+# Color=#98971a
+
 

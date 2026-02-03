@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Saturday 30 March 2024, 17:36
-# $Id: config-fast-copy,v 1.38 2024/03/30 16:38:50 czo Exp $
-# Edit Time: 6:15:35
+# Last Modified: Tuesday 03 February 2026, 11:10
+# $Id: config-fast-copy,v 1.39 2026/02/03 10:16:12 czo Exp $
+# Edit Time: 6:17:35
 # Description:
 #
 #  copy my config files (you must do a "cd" before running this script)
@@ -17,14 +17,14 @@
 #   curl -k -fsSLO $GIT/$f
 #   wget --no-check-certificate -q $GIT/$f -O $f
 #
-# Copyright: (C) 1999-2024 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1999-2026 Olivier Sirol <czo@free.fr>
 
 ## gitlab origin
 # GIT='https://gitlab.com/czo/dotfiles/raw/master'
 ## github origin
 GIT='https://raw.githubusercontent.com/czodroid/dotfiles/master'
 
-echo "## -> copy my config files"
+echo "## -> copy my config files in $(pwd)"
 
 mkdir -p .config/htop
 mkdir -p .config/mc

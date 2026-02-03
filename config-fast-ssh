@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Thursday 09 October 2025, 13:09
-# $Id: config-fast-ssh,v 1.30 2025/10/09 11:10:27 czo Exp $
-# Edit Time: 11:12:09
+# Last Modified: Tuesday 03 February 2026, 11:09
+# $Id: config-fast-ssh,v 1.31 2026/02/03 10:16:12 czo Exp $
+# Edit Time: 11:13:39
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -17,9 +17,9 @@
 #
 #   You must do a "cd" before running this script to modify your own ssh configuration.
 #
-# Copyright: (C) 1999-2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1999-2026 Olivier Sirol <czo@free.fr>
 
-echo "## -> ssh-keygen + authorized_keys"
+echo "## -> ssh-keygen + authorized_keys in $(pwd)"
 
 ## This script works in '.', so in current directory!!!!
 

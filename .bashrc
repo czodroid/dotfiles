@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Thursday 13 November 2025, 11:06
-# $Id: .bashrc,v 1.747 2025/11/13 10:07:57 czo Exp $
-# Edit Time: 175:13:36
+# Last Modified: Monday 26 January 2026, 10:25
+# $Id: .bashrc,v 1.750 2026/01/26 09:26:27 czo Exp $
+# Edit Time: 176:10:29
 # Description:
 #
 #       bash config file
@@ -23,7 +23,7 @@
 #       `rm ~/.bash_profile ~/.bash_login' which are not compatible
 #       with ~/.profile.
 #
-# Copyright: (C) 1998-2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1998-2026 Olivier Sirol <czo@free.fr>
 
 
 ##======= Debug ======================================================##
@@ -44,16 +44,17 @@ export TMPDIR=${TMPDIR-/tmp}
 
 if [ -n "$BASH_VERSION" ]; then
     HISTFILE=$HOME/.sh_history
-    HISTFILESIZE=55000
-    HISTSIZE=44000
-    HISTCONTROL=ignorespace:erasedups
+    # HISTSIZE listed below for mips and arm
+    HISTFILESIZE=99000
+    HISTSIZE=99000
+    # HISTCONTROL=erasedups:ignorespace
+    HISTCONTROL=erasedups
 
-    # avoid overwriting history
-    #shopt -s histappend
-    shopt -u autocd
+    shopt -s histappend
     shopt -s checkwinsize
-    shopt -s dotglob
     shopt -s globstar
+    shopt -u dotglob
+    shopt -u autocd
 fi
 
 TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
@@ -105,6 +106,14 @@ export PLATFORM
 ## OpenWRT MIPS
 if [ "X${PLATFORM}" = "XLinux_mips" ]; then
     HISTFILE=$TMPDIR/.sh_history
+    HISTFILESIZE=1000
+    HISTSIZE=1000
+fi
+
+## OpenWRT/Rutx/Android Arm
+if [ "X${PLATFORM}" = "XLinux_arm" ]; then
+    HISTFILESIZE=5000
+    HISTSIZE=5000
 fi
 
 [ -n "$RTMStart" ] && { echo -n "DEBUG       Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }

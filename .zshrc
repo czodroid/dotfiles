@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 13 November 2025, 11:06
-# $Id: .zshrc,v 1.672 2025/11/13 10:07:57 czo Exp $
-# Edit Time: 143:58:08
+# Last Modified: Monday 26 January 2026, 19:33
+# $Id: .zshrc,v 1.676 2026/01/26 18:34:03 czo Exp $
+# Edit Time: 144:28:35
 # Description:
 #
 #       zsh config file
@@ -23,7 +23,7 @@
 #       This is Alex Fenyo, my guru, who made me discover this
 #       amazing shell in 1996... I am forever grateful to him.
 #
-# Copyright: (C) 1996-2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1996-2026 Olivier Sirol <czo@free.fr>
 
 
 ##======= Debug ======================================================##
@@ -39,16 +39,17 @@
 export TMPDIR=${TMPDIR-/tmp}
 
 setopt ALWAYS_TO_END          # On completion go to end of word
-setopt NO_AUTO_CD             # Directory as command does cd
+setopt INC_APPEND_HISTORY     # New history lines are added incrementally
+setopt NO_AUTO_CD             # (!*)Directory as command does cd
 setopt AUTO_PUSHD             # cd uses directory stack too
 setopt NO_BG_NICE             # (!*)Background jobs at lower priority
 setopt CD_SILENT              # Never print the working directory (new zsh version...)
 setopt NO_CHECK_JOBS          # (!*)Check jobs before exiting shell
 setopt COMBINING_CHARS        # Displays combining characters correctly
-#setopt COMPLETE_IN_WORD       # Completion works inside words (doesnt work: scp root@myhost-M:/foo)
-setopt NO_EXTENDED_GLOB       # See globbing section above
+setopt NO_COMPLETE_IN_WORD    # (!*)Completion works inside words
+setopt NO_EXTENDED_GLOB       # Disables advanced extended glob patterns (bash like)
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt GLOB_DOTS              # Patterns may match leading dots
+setopt NO_GLOB_DOTS           # (!*)Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving
@@ -57,16 +58,17 @@ setopt INTERACTIVE_COMMENTS   # Dash on interactive line for comment
 setopt INTERACTIVE            # Shell is interactive
 setopt LONG_LIST_JOBS         # More verbose listing of jobs
 setopt MONITOR                # Shell has job control enabled
-setopt NO_NOMATCH             # No errors for filename pattern matches (bash)
+setopt NO_NOMATCH             # (!*)No errors for filename pattern matches (bash like)
 setopt PROMPT_SUBST           # $ expansion etc. in prompts
 setopt PUSHD_IGNORE_DUPS      # Don't push dir multiply on stack
 setopt PUSHD_MINUS            # Reverse sense of - and + in pushd
 setopt RM_STAR_SILENT         # Don't warn on rm *
 setopt SH_WORD_SPLIT          # Split non array variables yuckily
 
+# HISTSIZE listed below for mips and arm
 HISTFILE=$HOME/.sh_history
-SAVEHIST=55000
-HISTSIZE=44000
+SAVEHIST=99000
+HISTSIZE=99000
 
 ## screen size
 # export LISTMAX=0
@@ -131,6 +133,14 @@ export PLATFORM
 ## OpenWRT MIPS
 if [ "X${PLATFORM}" = "XLinux_mips" ]; then
     HISTFILE=$TMPDIR/.sh_history
+    HISTFILESIZE=1000
+    HISTSIZE=1000
+fi
+
+## OpenWRT/Rutx/Android Arm
+if [ "X${PLATFORM}" = "XLinux_arm" ]; then
+    HISTFILESIZE=5000
+    HISTSIZE=5000
 fi
 
 [ -n "$RTMStart" ] && { echo -n "DEBUG       Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
