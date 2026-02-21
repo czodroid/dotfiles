@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Monday 26 January 2026, 10:25
-# $Id: .bashrc,v 1.750 2026/01/26 09:26:27 czo Exp $
-# Edit Time: 176:10:29
+# Last Modified: Saturday 21 February 2026, 02:24
+# $Id: .bashrc,v 1.756 2026/02/21 01:28:49 czo Exp $
+# Edit Time: 202:40:58
 # Description:
 #
 #       bash config file
@@ -123,7 +123,7 @@ fi
 # Super big path pour Linux, FreeBSD, SunOS, Solaris
 
 #FIXME: zsh typeset -U
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:$HOME/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/etc/shell:$HOME/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/pkg/bin:/usr/gnu/bin:/usr/local/ssh/bin:/usr/local/adm:/usr/local/etc:/usr/local/games:/usr/5bin:/usr/X11/bin:/usr/X11R5/bin:/usr/andrew/bin:/usr/bin/games:/usr/ccs/bin:/opt/csw/bin:/usr/dt/bin:/usr/etc:/usr/lang/bin:/usr/lib/teTeX/bin:/usr/libexec:/usr/mail/bin:/usr/oasys/bin:/usr/openwin/bin:/usr/sadm/bin:/usr/ucb:/usr/ucb/bin:/usr/share/bin:/usr/snadm/bin:/usr/vmsys/bin:/usr/xpg4/bin:/opt/bin:/usr/lib/gmt/bin:$PATH"
 
 # $HOME/node_modules/.bin: needed for prettier, link in $HOME/.local/bin
 # /usr/lib: needed 25 years ago...
@@ -421,16 +421,6 @@ case $PLATFORM in
         if ( \diff --color=auto / / ) >/dev/null 2>&1; then
             alias diff='\diff --color=auto'
         fi
-        if \pgrep -fia sh >/dev/null 2>&1; then
-            alias pg='\pgrep -fia'
-            alias pk='\pkill -fie'
-        elif \pgrep -fa sh >/dev/null 2>&1; then
-            alias pg='\pgrep -fa'
-            alias pk='\pkill -fe'
-        else
-            alias pg='\pgrep -fl'
-            alias pk='\pkill -f'
-        fi
         if \lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,UUID,MODEL >/dev/null 2>&1; then
             alias lsblk='\lsblk -o NAME,SIZE,TYPE,PTTYPE,LABEL,FSTYPE,MOUNTPOINT,UUID,MODEL'
         elif \lsblk -o NAME,SIZE,TYPE,LABEL,FSTYPE,MOUNTPOINT,MODEL >/dev/null 2>&1; then
@@ -444,8 +434,6 @@ case $PLATFORM in
         alias grep='\grep --color'
         alias diff='\diff --color=auto'
         alias ps='\ps -Awww'
-        alias pg='\pgrep -fil'
-        alias pk='\pkill -fil'
         { command -v gnuls >/dev/null 2>&1 && alias ls='\gnuls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
@@ -462,16 +450,12 @@ case $PLATFORM in
         alias grep='\grep --color'
         alias diff='\diff --color=auto'
         alias ps='\ps -Awww'
-        alias pg='\pgrep -fil'
-        alias pk='\pkill -fil'
         { command -v gls >/dev/null 2>&1 && alias ls='\gls --time-style=long-iso --color=auto -a'; } || alias ls='\ls -G -a'
         ;;
 
     SunOS | Solaris)
         alias ps='\ps -ef'
         alias ls='\ls -a'
-        alias pg='\pgrep -fl'
-        alias pk='\pkill -fl'
         ;;
 
     Cygwin | Mingw)
@@ -481,8 +465,6 @@ case $PLATFORM in
         alias grep='\grep --color=auto'
         alias diff='\diff --color=auto'
         alias ps='\ps -aflW'
-        alias pg='\pgrep -fia'
-        alias pk='\pkill -fie'
         alias ls='\ls --time-style=long-iso --color=auto -a'
         ;;
 
@@ -508,7 +490,18 @@ alias gl_cs='\ls -1rt * | xargs grep -s'
 ff() { find . -iname "*$1*"; }
 ff_cs() { find . -name "*$1*"; }
 
-## TODO: might block, then .
+if command -v pgrep >/dev/null 2>&1; then
+    if LC_ALL=C \pgrep -fia sh 2>&1 | grep -q "invalid option" 2>/dev/null || ! LC_ALL=C \pgrep -fia sh >/dev/null 2>&1; then
+        # solaris, old *bsd, old fedora, old debian
+        alias pg='\pgrep -fl'
+        alias pk='\pkill -f'
+    else
+        # debian >= 9
+        alias pg='\pgrep -fia'
+        alias pk='\pkill -fie'
+    fi
+fi
+
 if \df -P -T -k . >/dev/null 2>&1; then
     alias df='\df -P -T -k'
 elif \df -P -k . >/dev/null 2>&1; then
@@ -538,13 +531,17 @@ if command -v vim >/dev/null 2>&1 || command -v vimx >/dev/null 2>&1 || command 
     alias vi=vim
 fi
 
-alias ne='\emacs -nw'
-command -v less >/dev/null 2>&1 && alias more=less
+command -v emacs >/dev/null 2>&1 && alias ne="\emacs -nw"
 
-# catc: cat color, highlight v4.10, bat & batcat for debian
-command -v highlight >/dev/null 2>&1 && alias catc='\highlight --force -O xterm256 -s base16/gruvbox-dark-hard'
-command -v bat >/dev/null 2>&1       && alias catc='\bat    --style=plain --paging=never --theme=gruvbox-dark'
-command -v batcat >/dev/null 2>&1    && alias catc='\batcat --style=plain --paging=never --theme=gruvbox-dark'
+alias c='\cat'
+command -v bat >/dev/null 2>&1    && alias c="\bat    --style=plain --paging=never --theme=gruvbox-dark"
+command -v batcat >/dev/null 2>&1 && alias c="\batcat --style=plain --paging=never --theme=gruvbox-dark"
+
+if command -v bat >/dev/null 2>&1 || command -v batcat >/dev/null 2>&1; then
+    command -v bat >/dev/null 2>&1    && alias less="\bat    --style=plain --theme=gruvbox-dark"
+    command -v batcat >/dev/null 2>&1 && alias less="\batcat --style=plain --theme=gruvbox-dark"
+fi
+command -v less >/dev/null 2>&1 && { alias more=less; alias p=less; }
 
 # command: takes the functions defined here in some shell
 if [ -n "$BASH_VERSION" ]; then
@@ -665,6 +662,7 @@ alias  gts='git status'
 alias  gta='git add .'
 alias  gtb='git branch -a'
 alias  gtf='git fetch; git diff master origin/master'
+alias  gtl="git log --all --reverse --pretty=format:'%C(red)%h%Creset %C(cyan)%ad%Creset%C(yellow)%d%Creset %s' --date=format-local:'%Y-%m-%d %H:%M:%S'"
 alias gtgc='git gc'
 alias gtcl='git clean -dfn'
 

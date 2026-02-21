@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Tuesday 03 February 2026, 18:17
-# $Id: czolsb,v 1.79 2026/02/03 17:17:41 czo Exp $
-# Edit Time: 65:50:42
+# Last Modified: Wednesday 04 February 2026, 14:40
+# $Id: czolsb,v 1.82 2026/02/04 13:40:55 czo Exp $
+# Edit Time: 68:39:54
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -45,13 +45,21 @@ $debug       = 0;
 ## print debug
 
 sub printd {
-    warn(@_) if $debug;
+    if ($debug) {
+        ($line) = @_;
+        chomp $line;
+        $line =~ s/^/DEBUG: /;
+        $line =~ s/$/\n/;
+        warn($line);
+    }
 }
 
 sub printv {
     if ($debug) {
         while ( $s = shift ) {
-            warn( $s . ": '" . $$s . "'\n" );
+            if ( ( defined $s ) && ( defined $$s ) ) {
+                warn( "DEBUGVAR: " . $s . ": '" . $$s . "'\n" );
+            }
         }
     }
 }
@@ -155,6 +163,24 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
                 }
             }
         }
+
+        if ( $PRETTY_NAME =~ /openwrt/i ) {
+            ## test rutx version
+            # system.system.device_code='RUTXR100XXXX'
+            # system.system.device_fw_version='RUTX_R_00.07.05.4'
+            foreach (qx(uci show system 2>/dev/null)) {
+                chomp;
+                if (/^system.system.device_code='(.*)'/m)       { $rutxD = $1; }
+                if (/^system.system.device_fw_version='(.*)'/m) { $rutxV = $1; }
+            }
+            if ( defined($rutxD) && defined($rutxV) ) {
+                $rutxD =~ s/00XXXX//;
+                $rutxV =~ s/RUTX_R_00.0//;
+                $ID          = "RutOS";
+                $PRETTY_NAME = $ID . " " . $rutxV  . " (" . $rutxD . ")";
+                $VERSION_ID  = $rutxV;
+            }
+        }
     } else {
         $ID          = "Windows";
         $OSN         = lc($OSN);
@@ -212,8 +238,11 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
     }
 
     if ( !defined($CCOREMODEL) ) {
-        $CNBCORE    = '???';
         $CCOREMODEL = '???';
+    }
+
+    if ( !defined($CNBCORE) ) {
+        $CNBCORE = '???';
     }
 
     ## Memory
@@ -374,6 +403,7 @@ elsif ( $OSN =~ /^SunOS/ ) {
 # Result
 $CCOREMODEL =~ s/\(TM\)|\(R\)//gi;
 $CCOREMODEL =~ s/ +$//g;
+$CCOREMODEL =~ s/ +/ /g;
 
 if ( -r $lsb_czo_file ) {
     if ( open( FILE, "<$lsb_czo_file" ) ) {
@@ -387,9 +417,12 @@ if ( -r $lsb_czo_file ) {
 } else {
     $CTAG = $ID . "_" . $VERSION_ID . "-" . $CCNAME . "-czo-???";
 }
+$CTAG =~ s/ /_/g;
+$CTAG =~ s/_+/_/g;
 $CTAG =~ s/(.*)/\L$1/;
 
-# printv(qw(HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CMEM CSWAP CTAG));
+printv(qw(HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOREMODEL CVENDOR CMEM CSWAP CTAG));
+
 ($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
 
 print <<HEREDOC
