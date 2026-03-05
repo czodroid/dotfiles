@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 21 February 2026, 02:24
-# $Id: .bashrc,v 1.756 2026/02/21 01:28:49 czo Exp $
-# Edit Time: 202:40:58
+# Last Modified: Thursday 05 March 2026, 17:55
+# $Id: .bashrc,v 1.758 2026/03/05 16:57:28 czo Exp $
+# Edit Time: 203:38:30
 # Description:
 #
 #       bash config file
@@ -600,9 +600,10 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -e 'use File::Find (); File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias ifw='curl czo.free.fr/ip'
-alias ifa='ifconfig | grep "^\s*inet "'
-alias ipa='ip a | grep "^\s*inet "'
+alias cfw='curl czo.free.fr/ip'
+alias wfw='wget -qO- http://czo.free.fr/ip'
+alias ifa='ifconfig | grep "^ *inet "'
+alias ipa='ip a | grep "^ *inet "'
 
 alias lsusb_tree='lsusb -tv'
 
@@ -652,6 +653,9 @@ alias cvd='cd ~/etc ; cvs diff | colordiff ; cd -'
 alias cvc='cd ~/etc ; cvs ci -mupdate ; cd -'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" | sed -e '2!d' ) $F | colordiff; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
+
+alias ffmpeg='\ffmpeg -hide_banner'
+alias ffprobe='\ffprobe -hide_banner'
 
 alias  gtu='git pull'
 alias  gtp='git push'

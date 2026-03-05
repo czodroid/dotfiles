@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 April 1993
-# Last Modified: Tuesday 28 October 2025, 18:22
-# $Id: .cshrc,v 1.189 2025/10/28 17:23:37 czo Exp $
-# Edit Time: 33:27:16
+# Last Modified: Thursday 05 March 2026, 17:54
+# $Id: .cshrc,v 1.190 2026/03/05 16:57:28 czo Exp $
+# Edit Time: 33:34:02
 # Description:
 #
 #       csh and tcsh config file
@@ -19,7 +19,7 @@
 #       and I don't know if all the alias are OK...
 #       keep this for fun!
 #
-# Copyright: (C) 1993-2025 Olivier Sirol <czo@free.fr>
+# Copyright: (C) 1993-2026 Olivier Sirol <czo@free.fr>
 
 ##======= Csh Settings ===============================================##
 
@@ -356,9 +356,10 @@ alias tarxiso  'bsdtar -xf'
 
 alias tsu      'su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /data/data/com.termux/files/home/.bashrc"'
 
-alias ipl      'echo `wget -q -O- http://czo.free.fr/ip.php`'
-alias ipa      'ip a | grep "inet "'
-alias ifa      'ifconfig | grep "inet "'
+alias cfw      'curl czo.free.fr/ip'
+alias wfw      'wget -qO- http://czo.free.fr/ip'
+alias ifa      'ifconfig | grep "^ *inet "'
+alias ipa      'ip a | grep "^ *inet "'
 
 alias screena  'screen -d -R'
 alias tmuxa    'tmux attach -t 0'
