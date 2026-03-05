@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Thursday 05 March 2026, 19:17
-# $Id: czolsb,v 1.84 2026/03/05 18:18:04 czo Exp $
-# Edit Time: 68:58:05
+# Last Modified: Thursday 05 March 2026, 19:31
+# $Id: czolsb,v 1.85 2026/03/05 18:33:20 czo Exp $
+# Edit Time: 69:03:01
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -39,10 +39,11 @@ $lsb_czo_file        = '/etc/lsb-czo-updatedate';
 
 $ENV{LC_ALL} = "C";
 $ENV{PATH}   = "$ENV{PATH}:/sbin";
-$debug       = 0;
 
 ##=======================================================
 ## print debug
+
+$debug = 0;
 
 sub printd {
     if ($debug) {
@@ -403,6 +404,7 @@ elsif ( $OSN =~ /^SunOS/ ) {
 }
 
 # Result
+$CCOREMODEL =~ s/ by AMD PCS//gi;
 $CCOREMODEL =~ s/\(TM\)|\(R\)//gi;
 $CCOREMODEL =~ s/ +$//g;
 $CCOREMODEL =~ s/ +/ /g;
