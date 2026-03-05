@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Wednesday 04 February 2026, 14:40
-# $Id: czolsb,v 1.82 2026/02/04 13:40:55 czo Exp $
-# Edit Time: 68:39:54
+# Last Modified: Thursday 05 March 2026, 19:17
+# $Id: czolsb,v 1.84 2026/03/05 18:18:04 czo Exp $
+# Edit Time: 68:58:05
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -150,7 +150,9 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
         }
 
         if ( $ID =~ /debian/i || $ID =~ /raspbian/i ) {
-            if ( $VERSION_ID >= 10 ) {
+            $VERSION_ID_NUM = $VERSION_ID;
+            $VERSION_ID_NUM =~ s/\..*$//;
+            if ( $VERSION_ID_NUM >= 10 ) {
                 printd "-> debian >= 10: no more dot release, but keeping it\n";
                 if ( -r $debian_version_file ) {
                     if ( open( FILE, "<$debian_version_file" ) ) {
@@ -177,7 +179,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
                 $rutxD =~ s/00XXXX//;
                 $rutxV =~ s/RUTX_R_00.0//;
                 $ID          = "RutOS";
-                $PRETTY_NAME = $ID . " " . $rutxV  . " (" . $rutxD . ")";
+                $PRETTY_NAME = $ID . " " . $rutxV . " (" . $rutxD . ")";
                 $VERSION_ID  = $rutxV;
             }
         }
@@ -197,15 +199,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
         if (/^\s*Vendor ID:\s+(.*)/m)  { $CVENDOR    = $1 if ( !defined($CVENDOR) ); }
     }
 
-    if ( defined($CCOREMODEL) ) {
-        ## other SOC
-        if ( $CCOREMODEL =~ /^[\d\/ \.]+$/ ) {
-            if ( defined($CVENDOR) ) {
-                $CCOREMODEL = $CVENDOR . " " . $CCOREMODEL;
-                printv(qw(CCOREMODEL CNBCORE CVENDOR));
-            }
-        }
-    } else {
+    if ( !defined($CCOREMODEL) ) {
         ## CPU
         $CNBCORE = 0;
         if ( open( FILE, "</proc/cpuinfo" ) ) {
@@ -237,7 +231,15 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
         }
     }
 
-    if ( !defined($CCOREMODEL) ) {
+    if ( defined($CCOREMODEL) ) {
+        ## other SOC
+        if ( $CCOREMODEL =~ /^[\d\/ \.]+$/ ) {
+            if ( defined($CVENDOR) ) {
+                $CCOREMODEL = $CVENDOR . " " . $CCOREMODEL;
+                printv(qw(CCOREMODEL CNBCORE CVENDOR));
+            }
+        }
+    } else {
         $CCOREMODEL = '???';
     }
 
