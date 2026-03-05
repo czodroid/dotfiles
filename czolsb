@@ -4,29 +4,31 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Thursday 05 March 2026, 19:31
-# $Id: czolsb,v 1.85 2026/03/05 18:33:20 czo Exp $
-# Edit Time: 69:03:01
+# Last Modified: Thursday 05 March 2026, 20:56
+# $Id: czolsb,v 1.87 2026/03/05 19:57:37 czo Exp $
+# Edit Time: 69:21:44
 # Description:
 #
 #   This script displays the hostname, distribution version,
-#   machine hardware name, kernel version, number of processors
-#   and their make/model, memory, swap space and a version with
-#   the latest update, which can be placed in the /etc/motd file
+#   machine architecture, kernel version, number of processors
+#   and their make/model, memory, swap space, and the date of
+#   the latest system update. Its output can be placed in the
+#   motd file.
 #
-#   I wrote `czolsb' for Linux when I had to give ESA the well
-#   defined version 'centos_6.5-x86_64-czo_servup-20140410'
+#   I originally wrote `czolsb' for Linux when I needed to
+#   provide ESA with a well-defined system version string
+#   such as 'centos_6.5-x86_64-czo_servup-20140410'.
 #
-#   Now it works for Linux, Android, FreeBSD, OpenBSD, NetBSD,
-#   macOS, Windows (Cygwin/Mingw)
+#   It now supports Linux, Android, FreeBSD, OpenBSD, NetBSD,
+#   macOS, and Windows (Cygwin/MinGW).
 #
-#   It will give you the update date if you enter the date in
-#   each update as follows:
+#   To display the last update date, record it during each
+#   update with:
 #    echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate
 #
-#   On Linux copy this script to /etc and make a cron
-#   /etc/cron.d/czo-motd-czolsb:
-#    @reboot      root   /etc/czolsb > /etc/motd 2> /dev/null
+#   On Linux, copy the script to /etc and set up a cron job
+#   in /etc/cron.d/czo-motd-czolsb:
+#    @reboot      root   /etc/czolsb > /etc/motd 2>/dev/null
 #
 # Copyright: (C) 2009-2026 Olivier Sirol <czo@free.fr>
 
@@ -262,7 +264,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
             if ( $_ =~ /^SwapTotal:\s*(.*) kB/ ) {
                 $CSWAP = $1;
                 printv(qw(CSWAP));
-                if ( $CSWAP eq 0 ) {
+                if ( $CSWAP == 0 ) {
                     $CSWAP = "no swap";
                 } else {
                     ## in KB
@@ -317,7 +319,7 @@ elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
 
         ($CSWAP) = ( qx'swapctl -sk' =~ /^total:\s*([^\s]*) .*/i );
         printv(qw(CSWAP));
-        if ( $CSWAP eq 0 ) {
+        if ( $CSWAP == 0 ) {
             $CSWAP = "no swap";
         } else {
             ## in KB
@@ -341,7 +343,7 @@ elsif ( $OSN =~ /^FreeBSD|^OpenBSD|^NetBSD|^Darwin/ ) {
 
         ($CSWAP) = ( qx'sysctl -n vm.swapusage' =~ /^total = ([^M]*)M .*/ );
         printv(qw(CSWAP));
-        if ( $CSWAP =~ '0.00' ) {
+        if ( $CSWAP == 0 ) {
             $CSWAP = "no swap";
         } else {
             ## in MB
@@ -383,7 +385,7 @@ elsif ( $OSN =~ /^SunOS/ ) {
     # total: 163480k bytes allocated + 16100k reserved = 179580k used, 1013712k available
     ($CSWAP) = ( qx'swap -s' =~ /^total:.*, ([0-9]+)k available/mi );
     printv(qw(CSWAP));
-    if ( $CSWAP eq 0 ) {
+    if ( $CSWAP == 0 ) {
         $CSWAP = "no swap";
     } else {
         ## in KB
@@ -429,7 +431,7 @@ printv(qw(HOSTNAME PRETTY_NAME ID VERSION_ID CRELEASE CCNAME CKNAME CNBCORE CCOR
 
 ($WELCOME) = map { ( " " x ( ( 72 - length $_ ) / 2 ) ) . $_ } "Welcome on $HOSTNAME";
 
-print <<HEREDOC
+print <<HEREDOC;
               ,,,
              (o o)
 ####=====oOO==(_)==OOo==============================================####
