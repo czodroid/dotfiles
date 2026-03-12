@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 03 February 2026, 11:55
-" $Id: .vimrc,v 1.557 2026/02/03 17:17:41 czo Exp $
-" Edit Time: 267:57:01
+" Last Modified: Thursday 12 March 2026, 15:56
+" $Id: .vimrc,v 1.559 2026/03/12 15:11:33 czo Exp $
+" Edit Time: 270:46:19
 " Description:
 "
 "                 vim config file
@@ -57,7 +57,7 @@ set ruler
 set shortmess=aOt
 set laststatus=2
 set cmdheight=1
-set scrolloff=0
+set scrolloff=2
 
 "set helpheight=999000
 
@@ -1123,40 +1123,45 @@ command! TemplateTimeStamp call TemplateTimeStamp ()
 autocmd BufReadPre,FileReadPre   * call TemplateGetTime ()
 autocmd BufWritePre,FileWritePre * call TemplateTimeStamp ()
 
-function! TemplateDate()
+" Saturday 15 February 1997, 14:03
+function! TemplateModDate()
     let save_lang = v:lc_time
     silent! exec 'language time C'
     " my date: between French and English
-    let LastModDate=strftime("%A %d %B %Y, %H:%M")
+    let ModDate=strftime("%A %d %B %Y, %H:%M")
     " create a RFC822-conformant date
-    "let LastModDate=strftime("%a, %d %b %Y %H:%M:%S %z")
+    "let ModDate=strftime("%a, %d %b %Y %H:%M:%S %z")
     silent! exec 'language time ' . save_lang
-    return LastModDate
+    return ModDate
 endfunction
 
-function! TemplateGitId()
+" 1997/02/15 14:03:06
+" $I\d: a.sh,v 1.42 1997/02/15 14:03:06 czo Git $
+function! TemplateGitCvsId()
     let save_lang = v:lc_time
     silent! exec 'language time C'
-    let GitId=escape(strftime("%Y/%m/%d %T"), '/')
-    let GitId= expand("%:t") . ',v 1.42 ' . GitId
+    let CvsId=escape(strftime("%Y/%m/%d %T"), '/')
+    let CvsId=expand("%:t") . ',v 1.42 ' . CvsId
     silent! exec 'language time ' . save_lang
-    return GitId
+    return CvsId
 endfunction
 
-function! TemplateGitDate()
+" 1997-02-15 14:03
+function! TemplateCzoDate()
     let save_lang = v:lc_time
     silent! exec 'language time C'
-    let GitDate=strftime("%Y-%m-%d %H:%M")
+    let CzoDate=strftime("%Y-%m-%d %H:%M")
     silent! exec 'language time ' . save_lang
-    return GitDate
+    return CzoDate
 endfunction
 
-function! TemplateAppDate()
+" 1997-02-15
+function! TemplateIsoDate()
     let save_lang = v:lc_time
     silent! exec 'language time C'
-    let AppDate=strftime('"%Y-%m-%d"')
+    let IsoDate=strftime("%Y-%m-%d")
     silent! exec 'language time ' . save_lang
-    return AppDate
+    return IsoDate
 endfunction
 
 function! TemplateCopyrightDate()
@@ -1206,7 +1211,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.557 2026/02/03 17:17:41 czo Exp $
+            " $Id: .vimrc,v 1.559 2026/03/12 15:11:33 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -1217,21 +1222,22 @@ function! TemplateTimeStamp ()
             " substitute CVS $I d:$ because I now use git...
             let pattern = '\(\$I'.'d:\).*\( czo Git \$\)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.TemplateGitId().'\2/e'
+                exec 's/'.pattern.'/\1 '.TemplateGitCvsId().'\2/e'
                 call histdel("search",-1)
             endif
 
             " substitute ( CzoDat e: ) by ( CzoDat e: 2024-03-14 14:36 )
             let pattern = '\(( CzoDat'.'e:\)\s*[0-9 -:]*\s*)'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.TemplateGitDate().' )/e'
+                exec 's/'.pattern.'/\1 '.TemplateCzoDate().' )/e'
                 call histdel("search",-1)
             endif
 
-            " substitute $CzoAppDat e=; by $CzoAppDat e = '2024-03-14';
+            " substitute $CzoAppDat e=; by $CzoAppDat e = "2024-03-14";
+            " I don't remember why I did that...
             let pattern = '\($CzoAppDat'.'e\)\s*=\s*[0-9"-]*\s*;'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 = '.TemplateAppDate().';/e'
+                exec 's/'.pattern.'/\1 = "'.TemplateIsoDate().'";/e'
                 call histdel("search",-1)
             endif
 
@@ -1290,11 +1296,11 @@ function! TemplateTimeStamp ()
             " time stamp
             let pattern = '\(^.\=.\=.\=\s* Last Modified:\).*'
             if FindStrInHeader(pattern)
-                exec 's/'.pattern.'/\1 '.TemplateDate().'/e'
+                exec 's/'.pattern.'/\1 '.TemplateModDate().'/e'
                 call histdel("search",-1)
             endif
 
-            " edit time
+            " accumulates editing time
             let pattern = '\(^.\=.\=.\=\s* Edit Time:\)\s*\([0-9]*:[0-9]*:[0-9]*\).*'
             if FindStrInHeader(pattern)
                 let editline = getline (".")
@@ -1324,14 +1330,14 @@ function! TemplateTimeStamp ()
                 let  b:Template_opentime=localtime()
             endif
 
-            " copy file's created year for Copyright
+            " year/s for Copyright
             let pattern = '\(^.\=.\=.\=\s* File Created:\)\s*\(.*\)'
             if FindStrInHeader(pattern)
                 let editline = getline (".")
                 let editline = substitute(editline, pattern, '\2', "")
                 let Fyear = substitute(editline, '.*\([0-9][0-9][0-9][0-9]\).*', '\1', "")
             else
-                let Fyear = '1992'
+                let Fyear = strftime("%Y")
             endif
             let Lyear = strftime("%Y")
             if ((Lyear == Fyear) || (Lyear < Fyear))
