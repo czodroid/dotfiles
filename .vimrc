@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 15 March 2026, 13:29
-" $Id: .vimrc,v 1.576 2026/03/15 12:29:36 czo Exp $
-" Edit Time: 286:13:55
+" Last Modified: Friday 20 March 2026, 10:13
+" $Id: .vimrc,v 1.577 2026/03/20 09:13:47 czo Exp $
+" Edit Time: 286:52:15
 " Description:
 "
 "                 vim config file
@@ -1124,12 +1124,12 @@ if version >= 602
 
 command! -nargs=? Template call Template (<q-args>)
 command! TemplateMacro call TemplateMacro ()
-command! TemplateTimeStamp call TemplateTimeStamp ()
+command! TemplateUpdate call TemplateUpdate ()
 
 "" remove call Template() for a new file
 " autocmd BufNewFile * call TemplateNewFile ("")
 autocmd BufReadPre,FileReadPre   * call TemplateGetTime ()
-autocmd BufWritePre,FileWritePre * call TemplateTimeStamp ()
+autocmd BufWritePre,FileWritePre * call TemplateUpdate ()
 
 " Saturday 15 February 1997, 14:03
 function! TemplateLongDate()
@@ -1205,7 +1205,7 @@ function! FindStrInHeader(pat)
     return 0
 endfunction
 
-function! TemplateTimeStamp ()
+function! TemplateUpdate ()
 
     " echow "WARNING: ..." . escape(expand("%:p"), '/')
 
@@ -1228,7 +1228,7 @@ function! TemplateTimeStamp ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.576 2026/03/15 12:29:36 czo Exp $
+            " $Id: .vimrc,v 1.577 2026/03/20 09:13:47 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -2395,7 +2395,7 @@ function! TemplateCzo (...)
     exec ':0'
     call TemplateMacro ()
     call TemplateGetTime ()
-    call TemplateTimeStamp ()
+    call TemplateUpdate ()
 endfunction
 
 " to save all buffer with are not modified do a
