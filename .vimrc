@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Friday 20 March 2026, 10:13
-" $Id: .vimrc,v 1.577 2026/03/20 09:13:47 czo Exp $
-" Edit Time: 286:52:15
+" Last Modified: Sunday 22 March 2026, 11:23
+" $Id: .vimrc,v 1.578 2026/03/22 11:21:47 czo Exp $
+" Edit Time: 302:36:00
 " Description:
 "
 "                 vim config file
@@ -324,17 +324,24 @@ iab _e    <C-R>=expand("%:e")<cr>
 iab _fn   <C-R>=expand("%:t")<cr>
 iab _ffn  <C-R>=expand("%:p")<cr>
 
+" insert $env:
 iab _uh   <C-R>=$USER<cr>@<C-R>=$HOSTNAME<cr>
 iab _uu   <C-R>=$USER<cr>
 iab _hh   <C-R>=hostname()<cr>
 iab _home <C-R>=$HOME<cr>
 iab _vim  <C-R>=$VIMRUNTIME<cr>
-iab _date <C-R>=strftime("%Y-%m-%d")<cr>
-iab _ma   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@asim.lip6.fr>
-iab _mc   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@free.fr>
-iab _mi   # <C-R>=strftime("%Y-%m-%d")<cr> : Modified by Olivier Sirol <czo@ipgp.fr>
-iab _git  "<C-R>=expand("$")<cr>Id: <C-R>=expand("%:t")<cr>,v 1.42 <C-R>=strftime("%Y/%m/%d %T")<cr> czo Git $"
 
+" insert date:
+iab _date <C-R>=strftime("%Y-%m-%d")<cr>
+iab _mc   # <C-R>=strftime("%Y-%m-%d")<cr>: Modified by Olivier Sirol <czo@free.fr>
+iab _mca   # <C-R>=strftime("%Y-%m-%d")<cr>: Modified by Olivier Sirol <czo@asim.lip6.fr>
+iab _mci   # <C-R>=strftime("%Y-%m-%d")<cr>: Modified by Olivier Sirol <czo@ipgp.fr>
+iab _git  "<C-R>=expand("$")<cr>Id: <C-R>=expand("%:t")<cr>,v 1.42 <C-R>=strftime("%Y/%m/%d %T")<cr> czo Git $"
+iab _czo   Olivier Sirol <czo@free.fr>
+iab _czoa  Olivier Sirol <czo@asim.lip6.fr>
+iab _czoi  Olivier Sirol <czo@ipgp.fr>
+
+" insert this ;-)
 iab _abc   abcdefghijklmnopqrstuvwxyz
 iab _ABC   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 iab _123   12345678911234567892123456789
@@ -342,10 +349,6 @@ iab _rul   ....\|....1....\|....2....\|....3....\|....4....\|....5....\|....6...
 
 iab _www   http://www-asim.lip6.fr/~czo/
 iab _ftp   ftp://ftp-asim.lip6.fr/
-
-iab _czo   Olivier Sirol <czo@free.fr>
-iab _czoa  Olivier Sirol <czo@asim.lip6.fr>
-iab _czoi  Olivier Sirol <czo@ipgp.fr>
 iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire d'Informatique de Paris 6<CR>Achitecture des Systemes Integres et Micro-Electronique<CR><CR>Coul. 55-65, 3e etg, Bur. 309<CR>4, Place Jussieu<CR>75252 Paris Cedex 05<CR>France<CR><CR>Tel: +33 1 44 27 53 24<CR>Fax: +33 1 44 27 72 80<CR><CR>http://www-asim.lip6.fr/alliance/<CR>mailto:alliance-support@asim.lip6.fr<CR>
 
 
@@ -1228,7 +1231,7 @@ function! TemplateUpdate ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.577 2026/03/20 09:13:47 czo Exp $
+            " $Id: .vimrc,v 1.578 2026/03/22 11:21:47 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

@@ -2,9 +2,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 04 December 2018
-# Last Modified: Sunday 25 January 2026, 18:43
-# $Id: .clang-format,v 1.16 2026/01/25 18:23:26 czo Exp $
-# Edit Time: 20:22:47
+# Last Modified: Thursday 02 April 2026, 00:19
+# $Id: .clang-format,v 1.18 2026/04/02 13:18:41 czo Exp $
+# Edit Time: 20:40:04
 # Description:
 #
 #           C/C++/java beautifier / formatter
@@ -15,7 +15,8 @@
 BasedOnStyle: LLVM
 
 # ColumnLimit: 80
-ColumnLimit: 132
+# ColumnLimit: 132
+ColumnLimit: 160
 # ColumnLimit: 264
 
 # IndentWidth: 2
@@ -26,6 +27,8 @@ UseTab: Never
 SortIncludes: false
 
 AlwaysBreakAfterReturnType: None
-AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: true
+# AllowShortFunctionsOnASingleLine: All
+AllowShortFunctionsOnASingleLine: Empty
+# AllowShortIfStatementsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: WithoutElse
 

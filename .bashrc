@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 14 March 2026, 09:34
-# $Id: .bashrc,v 1.763 2026/03/14 08:34:43 czo Exp $
-# Edit Time: 203:51:24
+# Last Modified: Thursday 02 April 2026, 18:17
+# $Id: .bashrc,v 1.764 2026/04/02 16:17:55 czo Exp $
+# Edit Time: 203:53:27
 # Description:
 #
 #       bash config file
@@ -765,9 +765,9 @@ sq() { SB=$( perl -MDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m 
 ## GEOSCOPE
 alias slink='slinktool -Q :18000'
 alias slink1='slinktool -Q rtserver.ipgp.fr'
-alias socksipgp='ssh -ND 63128 root@geoscopevpn'
-alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
-alias socksEDA='ssh -J bunnahabhain+b,root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@192.168.34.7 -p 222'
+alias socksGS='ssh -ND 63128 root@geoscopevpn'
+alias socksGS_EDA='ssh -J root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@192.168.34.7 -p 222'
+# alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
 
 ## OLD and RemeberThis_
 alias RemeberThis_mailq_repost='postqueue -p | awk "/^[0-9A-F]/ { print \"postqueue -i \" \$1 \" ; sleep 1s ;\" }" | sh'
