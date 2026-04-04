@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 22 March 2026, 11:23
-" $Id: .vimrc,v 1.578 2026/03/22 11:21:47 czo Exp $
-" Edit Time: 302:36:00
+" Last Modified: Saturday 04 April 2026, 16:58
+" $Id: .vimrc,v 1.581 2026/04/04 15:41:13 czo Exp $
+" Edit Time: 304:01:43
 " Description:
 "
 "                 vim config file
@@ -485,7 +485,7 @@ command!  CzoMSwinEnable call CzoMSwinEnable ()
 function! CzoMSwinEnable ()
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
-        " but dont use Ctrl-A
+        "" but dont use Ctrl-A
         noremap     <C-A>   <C-A>
         inoremap    <C-A>   <C-A>
         noremap     <C-Y>   <C-Y>
@@ -656,20 +656,43 @@ endfunction
 "
 " https://github.com/kana/vim-fakeclip
 
+function! WarningCzoMSwinNoX11()
+    if version >= 601
+        exec "redraw"
+    endif
+    echohl ErrorMsg
+    " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
+    echo "WARNING: vim is compiled without system clipboard or works without X11!!!"
+    echohl None
+endfunction
+
+function! WarningCzoMSwinDisable()
+    if version >= 601
+        exec "redraw"
+    endif
+    echohl ErrorMsg
+    echo "WARNING: too old version of vim, behave xterm..."
+    echohl None
+endfunction
+
 if version >= 601
     if has('clipboard')
         call CzoMSwinEnable()
     else
-        " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
-        "echo "WARNING: vim is compiled without system clipboard or works without X11!!!"
+        autocmd VimEnter * call WarningCzoMSwinNoX11()
         call CzoMSwinNoX11()
     endif
 else
-    "echo "WARNING: too old version of vim, behave xterm..."
+    autocmd VimEnter * call WarningCzoMSwinDisable()
     call CzoMSwinDisable()
 endif
 
 " keyboard
+noremap     +               <C-A>
+noremap     -               <C-X>
+noremap     <C-A>           maggVG
+vnoremap    <C-A>           <C-C>maggVG<C-O>
+inoremap    <C-A>           <Esc>maggVG
 noremap     <C-S>           :update<CR>
 vnoremap    <C-S>           <C-C>:update<CR>
 inoremap    <C-S>           <Esc>:update<CR>gi
@@ -1231,7 +1254,7 @@ function! TemplateUpdate ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.578 2026/03/22 11:21:47 czo Exp $
+            " $Id: .vimrc,v 1.581 2026/04/04 15:41:13 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
@@ -2409,11 +2432,11 @@ endfunction
 " :xa
 
 function! TemplateNewFile (...)
-    execute "call TemplateCzo(a:1)"
+    exec "call TemplateCzo(a:1)"
 endfunction
 
 function! Template (...)
-    execute "call TemplateCzo(a:1)"
+    exec "call TemplateCzo(a:1)"
     set modified
 endfunction
 
