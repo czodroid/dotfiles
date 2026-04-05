@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 02 April 2026, 18:17
-# $Id: .zshrc,v 1.689 2026/04/02 16:17:55 czo Exp $
-# Edit Time: 144:39:34
+# Last Modified: Sunday 05 April 2026, 12:15
+# $Id: .zshrc,v 1.690 2026/04/05 10:17:13 czo Exp $
+# Edit Time: 144:40:34
 # Description:
 #
 #       zsh config file
@@ -49,7 +49,7 @@ setopt COMBINING_CHARS        # Displays combining characters correctly
 setopt NO_COMPLETE_IN_WORD    # (!*)Completion works inside words
 setopt NO_EXTENDED_GLOB       # Disables advanced extended glob patterns (bash like)
 setopt GLOB_COMPLETE          # Patterns are active in completion
-setopt NO_GLOB_DOTS           # (!*)Patterns may match leading dots
+setopt GLOB_DOTS              # Patterns may match leading dots
 setopt HIST_IGNORE_ALL_DUPS   # Remove all earlier duplicate lines
 setopt HIST_REDUCE_BLANKS     # Trim multiple insgnificant blanks
 setopt HIST_SAVE_NO_DUPS      # Remove duplicates when saving

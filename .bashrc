@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Thursday 02 April 2026, 18:17
-# $Id: .bashrc,v 1.764 2026/04/02 16:17:55 czo Exp $
-# Edit Time: 203:53:27
+# Last Modified: Sunday 05 April 2026, 12:14
+# $Id: .bashrc,v 1.765 2026/04/05 10:17:13 czo Exp $
+# Edit Time: 203:53:43
 # Description:
 #
 #       bash config file
@@ -53,7 +53,7 @@ if [ -n "$BASH_VERSION" ]; then
     shopt -s histappend
     shopt -s checkwinsize
     shopt -s globstar
-    shopt -u dotglob
+    shopt -s dotglob
     shopt -u autocd
 fi
 
