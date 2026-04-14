@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Saturday 04 April 2026, 16:58
-" $Id: .vimrc,v 1.581 2026/04/04 15:41:13 czo Exp $
-" Edit Time: 304:01:43
+" Last Modified: Tuesday 14 April 2026, 20:26
+" $Id: .vimrc,v 1.585 2026/04/14 18:26:58 czo Exp $
+" Edit Time: 305:02:26
 " Description:
 "
 "                 vim config file
@@ -352,6 +352,46 @@ iab _ftp   ftp://ftp-asim.lip6.fr/
 iab _als   Alliance Support<CR>Université Pierre et Marie Curie<CR>Laboratoire d'Informatique de Paris 6<CR>Achitecture des Systemes Integres et Micro-Electronique<CR><CR>Coul. 55-65, 3e etg, Bur. 309<CR>4, Place Jussieu<CR>75252 Paris Cedex 05<CR>France<CR><CR>Tel: +33 1 44 27 53 24<CR>Fax: +33 1 44 27 72 80<CR><CR>http://www-asim.lip6.fr/alliance/<CR>mailto:alliance-support@asim.lip6.fr<CR>
 
 
+" == Warning functions =================================================
+
+function! WarningCzoNoMSwin()
+    if version >= 601
+        exec "redraw"
+    endif
+    echohl ErrorMsg
+    echo "WARNING: no $VIMRUNTIME/mswin.vim..."
+    echohl None
+endfunction
+
+function! WarningCzoMSwinNoX11()
+    if version >= 601
+        exec "redraw"
+    endif
+    echohl ErrorMsg
+    echo "WARNING: vim works without X11, no system clipboard..."
+    echohl None
+endfunction
+
+function! WarningCzoMSwinNoClipboard()
+    if version >= 601
+        exec "redraw"
+    endif
+    echohl ErrorMsg
+    " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
+    echo "WARNING: vim is compiled without system clipboard..."
+    echohl None
+endfunction
+
+function! WarningCzoMSwinDisable()
+    if version >= 601
+        exec "redraw"
+    endif
+    echohl ErrorMsg
+    echo "WARNING: too old version of vim, behave xterm..."
+    echohl None
+endfunction
+
+
 " == Command ===========================================================
 
 " My Template
@@ -493,7 +533,7 @@ function! CzoMSwinEnable ()
         noremap     <C-F>   <C-F>
         inoremap    <C-F>   <C-F>
     else
-        "echo "WARNING: no $VIMRUNTIME/mswin.vim..."
+        " autocmd VimEnter * call WarningCzoNoMSwin()
         behave mswin
         " Sort of for noX11
         vnoremap    <C-X>       "+x
@@ -509,8 +549,8 @@ function! CzoMSwinEnable ()
     endif
 endfunction
 
-command!  CzoMSwinNoX11 call CzoMSwinNoX11 ()
-function! CzoMSwinNoX11 ()
+command!  CzoMSwinNoClipboard call CzoMSwinNoClipboard ()
+function! CzoMSwinNoClipboard ()
     if filereadable(expand("$VIMRUNTIME/mswin.vim"))
         so $VIMRUNTIME/mswin.vim
         " but dont use Ctrl-A
@@ -521,7 +561,7 @@ function! CzoMSwinNoX11 ()
         noremap     <C-F>   <C-F>
         inoremap    <C-F>   <C-F>
     else
-        "echo "WARNING: no $VIMRUNTIME/mswin.vim..."
+        " autocmd VimEnter * call WarningCzoNoMSwin()
         behave mswin
     endif
 
@@ -656,31 +696,24 @@ endfunction
 "
 " https://github.com/kana/vim-fakeclip
 
-function! WarningCzoMSwinNoX11()
-    if version >= 601
-        exec "redraw"
-    endif
-    echohl ErrorMsg
-    " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
-    echo "WARNING: vim is compiled without system clipboard or works without X11!!!"
-    echohl None
-endfunction
-
-function! WarningCzoMSwinDisable()
-    if version >= 601
-        exec "redraw"
-    endif
-    echohl ErrorMsg
-    echo "WARNING: too old version of vim, behave xterm..."
-    echohl None
-endfunction
-
 if version >= 601
     if has('clipboard')
         call CzoMSwinEnable()
+        if has('macunix') || has('mac') || (has('unix') && system('uname') =~? '^Darwin')
+            set clipboard=unnamedplus
+        elseif has('win32') || has('win64')
+            set clipboard=unnamedplus
+        else
+            if (system('command -v xset >/dev/null 2>&1 && xset q >/dev/null 2>&1') == 0) && (version >= 704)
+                set clipboard=unnamedplus,unnamed,autoselect,exclude:cons\|linux
+            else
+                set clipboard=unnamed,autoselect,exclude:cons\|linux
+                autocmd VimEnter * call WarningCzoMSwinNoX11()
+            endif
+        endif
     else
-        autocmd VimEnter * call WarningCzoMSwinNoX11()
-        call CzoMSwinNoX11()
+        autocmd VimEnter * call WarningCzoMSwinNoClipboard()
+        call CzoMSwinNoClipboard()
     endif
 else
     autocmd VimEnter * call WarningCzoMSwinDisable()
@@ -1254,7 +1287,7 @@ function! TemplateUpdate ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.581 2026/04/04 15:41:13 czo Exp $
+            " $Id: .vimrc,v 1.585 2026/04/14 18:26:58 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
