@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 05 April 2026, 12:14
-# $Id: .bashrc,v 1.765 2026/04/05 10:17:13 czo Exp $
-# Edit Time: 203:53:43
+# Last Modified: Sunday 26 April 2026, 11:04
+# $Id: .bashrc,v 1.771 2026/04/26 09:05:38 czo Exp $
+# Edit Time: 204:48:27
 # Description:
 #
 #       bash config file
@@ -30,8 +30,29 @@
 
 # set -v
 # set -x
-## need to have GNU date
-# RTMStart=$(date +%s%N); RTMTotalTime=$(date +%s%N)
+
+## uncomment for DEBUG, need to have GNU date
+# RTMStart=$(date +%s%N); RTMTotalTime=$RTMStart
+
+RTM_debug() {
+    EXIT_STATUS=$?
+    if [ -n "$RTMStart" ]; then
+        printf 'DEBUG %15s' "$*"
+        RTMStop=$(date +%s%N)
+        printf '%4d ms\n' "$((($RTMStop-$RTMStart)/1000000))"
+        RTMStart=$RTMStop
+    fi
+    return $EXIT_STATUS
+}
+
+RTM_debug_total() {
+    EXIT_STATUS=$?
+    if [ -n "$RTMStart" ]; then
+        printf 'DEBUG %15s' "$*"
+        printf '%4d ms\n' "$((($RTMStop-$RTMTotalTime)/1000000))"
+    fi
+    return $EXIT_STATUS
+}
 
 ##======= Interactive ================================================##
 
@@ -62,7 +83,7 @@ TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
 #BASHMISSING : REPORTTIME, complete alias, equal =foo
 # removed zsh preexec implementation of REPORTTIME, see rev 1.32
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG   BashSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "BashSettings:"
 
 ##======= Platform ===================================================##
 
@@ -116,7 +137,7 @@ if [ "X${PLATFORM}" = "XLinux_arm" ]; then
     HISTSIZE=5000
 fi
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG       Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Platform:"
 
 ##======= Paths ======================================================##
 
@@ -214,7 +235,7 @@ fi
 
 export PATH
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG          Paths:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Paths:"
 
 ##======= Environment Variables ======================================##
 
@@ -261,7 +282,7 @@ case $(domainname 2>/dev/null) in
     *) export PRINTER=LaserJet ;;
 esac
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "EnvironmentVar:"
 
 ##======= Key bindings ===============================================##
 
@@ -354,7 +375,7 @@ if [ "X${SHELLNAME}" = "Xmksh" ]; then
     bind "^[[B"=search-history-down
 fi
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG    Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Keybindings:"
 
 ##======= Completions ================================================##
 
@@ -375,7 +396,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG    Completions:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Completions:"
 
 ##======= Aliases & Functions ========================================##
 
@@ -770,11 +791,14 @@ alias socksGS_EDA='ssh -J root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@
 # alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
 
 ## OLD and RemeberThis_
+# for i in /dev /dev/pts /proc /sys /sys/firmware/efi/efivars /run; do mount -B $i /mnt/$i; done
+# for p in proc sys dev dev/pts run; do mount --make-rslave --rbind /$p $LIVE_BOOT/chroot/$p ; done
+# umount -lf $LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}
 alias RemeberThis_mailq_repost='postqueue -p | awk "/^[0-9A-F]/ { print \"postqueue -i \" \$1 \" ; sleep 1s ;\" }" | sh'
-alias RemeberThis_vnc_bowmore='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
-alias RemeberThis_vnc_bowmore_view='ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
-alias RemeberThis_vnc_bowmore_bad='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd bowmore:32'
-alias RemeberThis_vnc_bowmore_view_bad='vncviewer -FullScreen -passwd ~/.vnc/passwd bowmore:32'
+alias RemeberThis_vnc_ardbeg='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_ardbeg_view='ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_ardbeg_bad='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
+alias RemeberThis_vnc_ardbeg_view_bad='vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
 alias RemeberThis_vnc_passwd_decrypt='echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv'
 alias RemeberThis_chrome_https_not_sercure='certutil -d sql:$HOME/.pki/nssdb -A -t 'P,,' -n bunnahabhain.ipgp.fr -i Desktop/bunnahabhain.ipgp.fr:8006'
 alias RemeberThis_chrome_https_not_sercure_list='certutil -d sql:$HOME/.pki/nssdb -L'
@@ -783,7 +807,7 @@ alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
 alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
 alias RemeberThis_7z_passwd='7z a -mhe=on -pfoo bidule.7z bidule'
 alias RemeberThis_GoPro_fps='ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 22 -c:a aac -strict experimental -pix_fmt yuv420p -r 29.97 out.mp4'
-alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file $PWD/$f"; done) -c copy output.mp4'
+alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file ${PWD}/$f"; done) -c copy output.mp4'
 alias RemeberThis_iMovie_fps2997='export FPS=29.97 ; ffmpeg -f lavfi -i testsrc=duration=10:size=1920x1080:rate=$FPS -vf "drawtext=text=%{n}:fontsize=72:r=$FPS:x=(w-tw)/2: y=h-(2*lh):fontcolor=white:box=1:boxcolor=0x00000099" -pix_fmt yuv420p test-${FPS}fps.mp4'
 alias RemeberThis_poweroff_FreeBSD5='shutdown -p +0'
 alias RemeberThis_poweroff_macOS='shutdown -h now'
@@ -865,38 +889,38 @@ if [ "X${SHELLNAME}" = "Xmksh" ]; then
     alias t='\\builtin whence -v'
 fi
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG          Alias:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Alias:"
 
 ##======= Main ======================================================##
 
+safe_txt() {
+    printf '%s' "$*" | LC_ALL=C tr -d '\000-\037\177' | sed 's/\\/\\\\/g' | cut -c 1-150
+}
+
 # Terminal title
 title() {
+    SAFE_TITLE=$(safe_txt "$*")
     case "$TERM" in
         xterm* | rxvt*)
-            printf '\033]0;%s\007' "$*"
+            printf '\033]0;%s\007' "$SAFE_TITLE"
             ;;
         screen*)
-            printf '\033k%s\033\\' "$*"
-            printf '\033]0;%s\007' "$*"
+            printf '\033k%s\033\\' "$SAFE_TITLE"
+            printf '\033]0;%s\007' "$SAFE_TITLE"
             ;;
     esac
 }
 
+# precmd: Executed before each prompt.
 precmd() {
     title "${SHELLNAME} ${PWD} (${USER}@${HOSTNAME})"
 }
-
-# precmd Executed before each prompt.
 PROMPT_COMMAND="precmd"
 # run once for non bash shells
 precmd
 
-# like zsh preexec : it works in bash 5 !!!
+# like zsh preexec: Executed just after a command has been read and is about to be executed, it works in bash 5 !!!
 if [ -n "$BASH_VERSION" ]; then
-    # history 1 | sed "s/^\s*[0-9]\+\s\+//" # works in GNU, but doesnt on BSD
-    # history 1 | awk "{sub(/^\s*[0-9]+\s+/,\"\") ; print}" # works in GNU, but doesnt on BSD
-    # history 1 | perl -pe "s/^\s*[0-9]+\s+//" # maybe perl is not installed - but I love perl!
-    # history 1 | awk "{sub(/^[ \t]*[0-9]+[ \t]+/,\"\") ; print}" # good on awk bsd and gnu!!!!!
     PS0='$(title "$(history 1 2>/dev/null | awk "{sub(/^[ \t]*[0-9]+[ \t]+/,\"\") ; print}" 2>/dev/null) (${USER}@${HOSTNAME})")'
 fi
 
@@ -918,9 +942,9 @@ fi
 
 # git (faster than /etc/bash_completion.d/git-prompt)
 if command -v git >/dev/null 2>&1; then
-    __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+    git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
 else
-    __git_ps1() { :; }
+    git_ps1() { :; }
 fi
 
 if command -v tty >/dev/null 2>&1; then
@@ -930,19 +954,19 @@ fi
 if [ -n "$BASH_VERSION" ]; then
     # $'ANSI-C quoting'
     # \[ \] non-printable characters for calculating the size of the prompt
-    PS1=$'\[\e[m\]\n\[\e[97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[9${USER_PROMPT_COLOR}m\]${USER}\[\e[97m\]@\[\e[9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[97m\]:\[\e[96m\]$PWD\[\e[m\]\n\[\e[33m\]${MYCHROOT}$(__git_ps1)\[\e[97m\]>>\[\e[m\] '
+    PS1=$'\[\e[m\]\n\[\e[97m\][${PLATFORM}/${SHELLNAME}] - \D{.%Y%m%d_%Hh%M} - ${TERM}:${MYTTY}:sh${SHLVL} - \[\e[9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m\][$?]\[\e[m\]\n\[\e[9${USER_PROMPT_COLOR}m\]${USER}\[\e[97m\]@\[\e[9${HOST_PROMPT_COLOR}m\]${HOSTNAME}\[\e[97m\]:\[\e[96m\]${PWD}\[\e[m\]\n\[\e[33m\]${MYCHROOT}$(git_ps1)\[\e[97m\]>>\[\e[m\] '
 else
     # old sh/ash/dash/mksh works with: export ENV="$HOME/.bashrc" and start with -l
     # $' works in sh android but not in sh freebsd, and really old sh can can't handle
     # \033 or \x1b, so escape character in binary form for starting ANSI escape sequences
     PS1='[m
 [97m[${PLATFORM}/${SHELLNAME}] - $(E=$?; date +.%Y%m%d_%Hh%M; exit $E) - ${TERM}:${MYTTY}:sh${SHLVL} - [9$(E=$?; if [ $E -eq 0 ]; then echo 7; else echo 1; fi; exit $E 2>/dev/null)m[$?][m
-[9${USER_PROMPT_COLOR}m${USER}[97m@[9${HOST_PROMPT_COLOR}m${HOSTNAME}[97m:[96m$PWD[m
-[33m${MYCHROOT}$(__git_ps1)[97m>>[m '
+[9${USER_PROMPT_COLOR}m${USER}[97m@[9${HOST_PROMPT_COLOR}m${HOSTNAME}[97m:[96m${PWD}[m
+[33m${MYCHROOT}$(git_ps1)[97m>>[m '
 fi
 
 ## if PS1 doesnt work:
-# PS1='${USER}@${HOSTNAME}:$PWD >> '
+# PS1='${USER}@${HOSTNAME}:${PWD} >> '
 
 # limit -s
 # ulimit unlimited
@@ -958,8 +982,8 @@ if command -v awk >/dev/null 2>&1; then
     export PATH=$(echo "$PATH" | awk -F: '{for (i=1;i<=NF;i++) {if ( !x[$i]++ ) {if (ft++) printf(":"); printf("%s",$i); }}}')
 fi
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG           Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
-[ -n "$RTMStart" ] && { echo -n "DEBUG   RTMTotalTime:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMTotalTime)/1000000))ms"; }
+RTM_debug "Main:"
+RTM_debug_total "RTMTotalTime:"
 
 # EOF
 

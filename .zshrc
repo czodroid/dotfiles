@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 05 April 2026, 12:15
-# $Id: .zshrc,v 1.690 2026/04/05 10:17:13 czo Exp $
-# Edit Time: 144:40:34
+# Last Modified: Sunday 26 April 2026, 11:04
+# $Id: .zshrc,v 1.695 2026/04/26 09:05:38 czo Exp $
+# Edit Time: 144:57:50
 # Description:
 #
 #       zsh config file
@@ -31,8 +31,29 @@
 # zmodload zsh/zprof
 # set -v
 # set -x
-## need to have GNU date
-# RTMStart=$(date +%s%N); RTMTotalTime=$(date +%s%N)
+
+## uncomment for DEBUG, need to have GNU date
+# RTMStart=$(date +%s%N); RTMTotalTime=$RTMStart
+
+RTM_debug() {
+    EXIT_STATUS=$?
+    if [ -n "$RTMStart" ]; then
+        printf 'DEBUG %15s' "$*"
+        RTMStop=$(date +%s%N)
+        printf '%4d ms\n' "$((($RTMStop-$RTMStart)/1000000))"
+        RTMStart=$RTMStop
+    fi
+    return $EXIT_STATUS
+}
+
+RTM_debug_total() {
+    EXIT_STATUS=$?
+    if [ -n "$RTMStart" ]; then
+        printf 'DEBUG %15s' "$*"
+        printf '%4d ms\n' "$((($RTMStop-$RTMTotalTime)/1000000))"
+    fi
+    return $EXIT_STATUS
+}
 
 ##======= Zsh Settings ===============================================##
 
@@ -89,7 +110,7 @@ WATCHFMT='%n %a %l from %m at %t.'
 
 TIMEFMT=$'\n%*E real    %*U user    %*S system    %P'
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG    ZshSettings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "ZshSettings:"
 
 ##======= Platform ===================================================##
 
@@ -143,7 +164,7 @@ if [ "X${PLATFORM}" = "XLinux_arm" ]; then
     HISTSIZE=5000
 fi
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG       Platform:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Platform:"
 
 ##======= Paths ======================================================##
 
@@ -241,7 +262,7 @@ fi
 
 export -U PATH
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG          Paths:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Paths:"
 
 ##======= Environment Variables ======================================##
 
@@ -286,7 +307,7 @@ case $(domainname 2>/dev/null) in
     *) export PRINTER=LaserJet ;;
 esac
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG EnvironmentVar:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "EnvironmentVar:"
 
 ##======= Autoload functions =========================================##
 
@@ -474,7 +495,7 @@ for key     kcap   seq        mode   widget (
   bindkey "${terminfo[$kcap]-$seq}" key-$key
 }
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG    Keybindings:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Keybindings:"
 
 ##======= Completions ================================================##
 
@@ -499,7 +520,7 @@ zstyle ':completion:*:messages'     format $' %{\e[0;93m%}-- %d --%{\e[m%}'
 zstyle ':completion:*:corrections'  format $' %{\e[0;91m%}-- %d (errors: %e) --%{\e[m%}'
 zstyle ':completion:*:warnings'     format $' %{\e[0;91m%}-- no matches for: %d --%{\e[m%}'
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG    Completions:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Completions:"
 
 ##======= Aliases & Functions ========================================##
 
@@ -882,10 +903,10 @@ alias socksGS_EDA='ssh -J root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@
 
 ## OLD and RemeberThis_
 alias RemeberThis_mailq_repost='postqueue -p | awk "/^[0-9A-F]/ { print \"postqueue -i \" \$1 \" ; sleep 1s ;\" }" | sh'
-alias RemeberThis_vnc_bowmore='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
-alias RemeberThis_vnc_bowmore_view='ssh -fL 5933:localhost:5932 bowmore sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
-alias RemeberThis_vnc_bowmore_bad='ssh bowmore "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd bowmore:32'
-alias RemeberThis_vnc_bowmore_view_bad='vncviewer -FullScreen -passwd ~/.vnc/passwd bowmore:32'
+alias RemeberThis_vnc_ardbeg='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_ardbeg_view='ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_ardbeg_bad='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
+alias RemeberThis_vnc_ardbeg_view_bad='vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
 alias RemeberThis_vnc_passwd_decrypt='echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv'
 alias RemeberThis_chrome_https_not_sercure='certutil -d sql:$HOME/.pki/nssdb -A -t 'P,,' -n bunnahabhain.ipgp.fr -i Desktop/bunnahabhain.ipgp.fr:8006'
 alias RemeberThis_chrome_https_not_sercure_list='certutil -d sql:$HOME/.pki/nssdb -L'
@@ -894,7 +915,7 @@ alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
 alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
 alias RemeberThis_7z_passwd='7z a -mhe=on -pfoo bidule.7z bidule'
 alias RemeberThis_GoPro_fps='ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 22 -c:a aac -strict experimental -pix_fmt yuv420p -r 29.97 out.mp4'
-alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file $PWD/$f"; done) -c copy output.mp4'
+alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file ${PWD}/$f"; done) -c copy output.mp4'
 alias RemeberThis_iMovie_fps2997='export FPS=29.97 ; ffmpeg -f lavfi -i testsrc=duration=10:size=1920x1080:rate=$FPS -vf "drawtext=text=%{n}:fontsize=72:r=$FPS:x=(w-tw)/2: y=h-(2*lh):fontcolor=white:box=1:boxcolor=0x00000099" -pix_fmt yuv420p test-${FPS}fps.mp4'
 alias RemeberThis_poweroff_FreeBSD5='shutdown -p +0'
 alias RemeberThis_poweroff_macOS='shutdown -h now'
@@ -961,39 +982,39 @@ alias RemeberThis_xmbk='eval $(\xmbk -c 2>/dev/null)'
 alias RemeberThis_mbk='set | grep "MBK\|RDS\|ELP" | sort'
 alias RemeberThis_fing='finger | sort | uniq -w 15'
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG          Alias:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
+RTM_debug "Alias:"
 
 ##======= Main ======================================================##
 
+safe_txt() {
+    printf '%s' "$*" | LC_ALL=C tr -d '\000-\037\177' | sed 's/\\/\\\\/g' | cut -c 1-150
+}
+
 # Terminal title
 title() {
+    SAFE_TITLE=$(safe_txt "$*")
     case "$TERM" in
         xterm* | rxvt*)
-            printf '\033]0;%s\007' "$*"
+            printf '\033]0;%s\007' "$SAFE_TITLE"
             ;;
         screen*)
-            printf '\033k%s\033\\' "$*"
-            printf '\033]0;%s\007' "$*"
+            printf '\033k%s\033\\' "$SAFE_TITLE"
+            printf '\033]0;%s\007' "$SAFE_TITLE"
             ;;
     esac
 }
 
+# precmd: Executed before each prompt.
 precmd() {
     title "${SHELLNAME} ${PWD} (${USER}@${HOSTNAME})"
 }
 
-# preexec Executed just after a command has been read and is about to be executed
+# preexec: Executed just after a command has been read and is about to be executed
 preexec() {
     emulate -L zsh
     local -a cmd; cmd=(${(z)1})
     title "$cmd[1]:t $cmd[2,-1] (${USER}@${HOSTNAME})"
 }
-
-# don't work!
-# zshaddhistory() {
-#     print -sr "${(z)1%%$'\n'}"
-#     return 1
-# }
 
 if [[ -x /usr/lib/command-not-found ]]; then
     command_not_found_handler() {
@@ -1020,12 +1041,12 @@ fi
 
 # git (faster than ~/.oh-my-zsh/lib/git.zsh)
 if whence -p git >/dev/null 2>&1; then
-    __git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
+    git_ps1() { git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/git:(\1)/"; }
 else
-    __git_ps1() { :; }
+    git_ps1() { :; }
 fi
 
-PS1=$'%{\e[m%}\n%{\e[97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[97m%}:%{\e[91m%})[%?]%{\e[m%}\n%{\e[9${USER_PROMPT_COLOR}m%}${USER}%{\e[97m%}@%{\e[9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[97m%}:%{\e[95m%}$PWD%{\e[m%}\n%{\e[33m%}${MYCHROOT}$(__git_ps1)%{\e[97m%}>>%{\e[m%} '
+PS1=$'%{\e[m%}\n%{\e[97m%}[${PLATFORM}/${SHELLNAME}] - %D{.%Y%m%d_%Hh%M} - ${TERM}:%y:sh${SHLVL} - %(?:%{\e[97m%}:%{\e[91m%})[%?]%{\e[m%}\n%{\e[9${USER_PROMPT_COLOR}m%}${USER}%{\e[97m%}@%{\e[9${HOST_PROMPT_COLOR}m%}${HOSTNAME}%{\e[97m%}:%{\e[95m%}${PWD}%{\e[m%}\n%{\e[33m%}${MYCHROOT}$(git_ps1)%{\e[97m%}>>%{\e[m%} '
 
 # limit -s
 # ulimit unlimited
@@ -1038,8 +1059,8 @@ umask 022
 
 export -U PATH
 
-[ -n "$RTMStart" ] && { echo -n "DEBUG           Main:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMStart)/1000000))ms"; RTMStart=$RTMStop; }
-[ -n "$RTMStart" ] && { echo -n "DEBUG   RTMTotalTime:"; RTMStop=$(date +%s%N); echo " $((($RTMStop-$RTMTotalTime)/1000000))ms"; }
+RTM_debug "Main:"
+RTM_debug_total "RTMTotalTime:"
 # zprof
 
 # EOF
