@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 22 April 2009
-# Last Modified: Thursday 05 March 2026, 20:56
-# $Id: czolsb,v 1.87 2026/03/05 19:57:37 czo Exp $
-# Edit Time: 69:21:44
+# Last Modified: Thursday 14 May 2026, 16:33
+# $Id: czolsb,v 1.93 2026/05/14 14:33:47 czo Exp $
+# Edit Time: 69:47:48
 # Description:
 #
 #   This script displays the hostname, distribution version,
@@ -43,6 +43,45 @@ $ENV{LC_ALL} = "C";
 $ENV{PATH}   = "$ENV{PATH}:/sbin";
 
 ##=======================================================
+## ARM Tables for decoding /proc/cpuinfo
+%arm_impl = (
+    '0x41' => 'ARM',
+    '0x42' => 'Broadcom',
+    '0x43' => 'Cavium',
+    '0x44' => 'Digital Equipment',
+    '0x4e' => 'Nvidia',
+    '0x50' => 'AppliedMicro',
+    '0x51' => 'Qualcomm',
+    '0x53' => 'Samsung',
+    '0x56' => 'Marvell',
+    '0x61' => 'Apple',
+    '0x69' => 'Intel',
+);
+%arm_parts = (
+    '0x810' => 'ARM810',
+    '0x920' => 'ARM920',
+    '0x926' => 'ARM926',
+    '0xb02' => 'ARM1176',
+    '0xc05' => 'Cortex-A5',
+    '0xc07' => 'Cortex-A7',
+    '0xc08' => 'Cortex-A8',
+    '0xc09' => 'Cortex-A9',
+    '0xc0d' => 'Cortex-A12',
+    '0xc0f' => 'Cortex-A15',
+    '0xd01' => 'Cortex-A32',
+    '0xd03' => 'Cortex-A53',
+    '0xd04' => 'Cortex-A35',
+    '0xd05' => 'Cortex-A55',
+    '0xd07' => 'Cortex-A57',
+    '0xd08' => 'Cortex-A72',
+    '0xd09' => 'Cortex-A73',
+    '0xd0a' => 'Cortex-A75',
+    '0xd0b' => 'Cortex-A76',
+    '0xd40' => 'Neoverse-V1',
+    '0xd41' => 'Cortex-A78',
+);
+
+##=======================================================
 ## print debug
 
 $debug = 0;
@@ -71,8 +110,7 @@ sub printv {
 ## get the first line of a shell command
 
 sub qxc {
-    my $s;
-    ($s) = qx(@_ 2>/dev/null);
+    my ($s) = qx(@_ 2>/dev/null);
     chomp($s) if defined $s;
     return $s;
 }
@@ -170,7 +208,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
         }
 
         if ( $PRETTY_NAME =~ /openwrt/i ) {
-            ## test rutx version
+            ## test rutos version
             # system.system.device_code='RUTXR100XXXX'
             # system.system.device_fw_version='RUTX_R_00.07.05.4'
             foreach (qx(uci show system 2>/dev/null)) {
@@ -179,8 +217,7 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
                 if (/^system.system.device_fw_version='(.*)'/m) { $rutxV = $1; }
             }
             if ( defined($rutxD) && defined($rutxV) ) {
-                $rutxD =~ s/00XXXX//;
-                $rutxV =~ s/RUTX_R_00.0//;
+                $rutxV =~ s/RUT._R_00\.0?//;
                 $ID          = "RutOS";
                 $PRETTY_NAME = $ID . " " . $rutxV . " (" . $rutxD . ")";
                 $VERSION_ID  = $rutxV;
@@ -214,8 +251,17 @@ if ( $OSN =~ /^Linux|^Android|^Cygwin|^Mingw/i ) {
                     $CCOREMODEL =~ s/  */ /g;
                     printv(qw(CCOREMODEL CNBCORE));
                 }
+                if ( $_ =~ /^CPU implementer[\t ]*: (0x\w+)/ ) { $aimp  = $1; }
+                if ( $_ =~ /^CPU part[\t ]*: (0x\w+)/ )        { $apart = $1; }
+                if ( $_ =~ /^CPU revision[\t ]*: (\d+)/ )      { $arev  = $1; }
             }
             close FILE;
+        }
+
+        if ( !defined($CCOREMODEL) && $apart ) {
+            $v = $arm_impl{$aimp}   // "ARM";
+            $m = $arm_parts{$apart} // "v7/v8";
+            $CCOREMODEL = "$v $m rev $arev";
         }
 
         if ( $CNBCORE == 0 ) {

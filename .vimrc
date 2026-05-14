@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 14 April 2026, 20:26
-" $Id: .vimrc,v 1.585 2026/04/14 18:26:58 czo Exp $
-" Edit Time: 305:02:26
+" Last Modified: Wednesday 13 May 2026, 03:30
+" $Id: .vimrc,v 1.587 2026/05/13 01:31:07 czo Exp $
+" Edit Time: 305:09:47
 " Description:
 "
 "                 vim config file
@@ -359,7 +359,7 @@ function! WarningCzoNoMSwin()
         exec "redraw"
     endif
     echohl ErrorMsg
-    echo "WARNING: no $VIMRUNTIME/mswin.vim..."
+    echo " WARNING: no $VIMRUNTIME/mswin.vim... "
     echohl None
 endfunction
 
@@ -368,7 +368,7 @@ function! WarningCzoMSwinNoX11()
         exec "redraw"
     endif
     echohl ErrorMsg
-    echo "WARNING: vim works without X11, no system clipboard..."
+    echo " WARNING: vim works without X11, no system clipboard... "
     echohl None
 endfunction
 
@@ -378,7 +378,7 @@ function! WarningCzoMSwinNoClipboard()
     endif
     echohl ErrorMsg
     " please install vim-athena/vim-gtk (debian) or vim-X11 (redhat)
-    echo "WARNING: vim is compiled without system clipboard..."
+    echo " WARNING: vim is compiled without system clipboard... "
     echohl None
 endfunction
 
@@ -387,7 +387,7 @@ function! WarningCzoMSwinDisable()
         exec "redraw"
     endif
     echohl ErrorMsg
-    echo "WARNING: too old version of vim, behave xterm..."
+    echo " WARNING: too old version of vim, behave xterm... "
     echohl None
 endfunction
 
@@ -860,7 +860,9 @@ endif
 " source $VIMRUNTIME/syntax/hitest.vim
 
 " you can do a source ~/.vimrc, whitout "gruvbox64"
-let g:colors_name = "default"
+if filereadable(expand("$VIMRUNTIME/colors/default.vim"))
+    let g:colors_name = "default"
+endif
 
 if filereadable(expand("$VIMRUNTIME/syntax/synload.vim"))
         syntax on
@@ -965,7 +967,7 @@ hi VertSplit     guifg=#35302b guibg=#35302b gui=NONE      ctermfg=Black      ct
 hi WildMenu      guifg=#83a598 guibg=#282828 gui=inverse   ctermfg=Blue       ctermbg=Black    cterm=inverse   term=inverse
 hi Directory     guifg=#b8bb26 guibg=NONE    gui=NONE      ctermfg=Green      ctermbg=NONE     cterm=NONE      term=NONE
 hi Title         guifg=#a89984 guibg=NONE    gui=NONE      ctermfg=Gray       ctermbg=NONE     cterm=NONE      term=NONE
-hi ErrorMsg      guifg=#282828 guibg=#fb4934 gui=NONE      ctermfg=Black      ctermbg=Red      cterm=NONE      term=NONE
+hi ErrorMsg      guifg=#fbf1c7 guibg=#cc241d gui=NONE      ctermfg=White      ctermbg=DarkRed  cterm=NONE      term=NONE
 hi MoreMsg       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ctermbg=NONE     cterm=NONE      term=NONE
 hi ModeMsg       guifg=#928374 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
 hi Question      guifg=#fe8019 guibg=NONE    gui=NONE      ctermfg=Brown      ctermbg=NONE     cterm=NONE      term=NONE
@@ -1266,8 +1268,6 @@ endfunction
 
 function! TemplateUpdate ()
 
-    " echow "WARNING: ..." . escape(expand("%:p"), '/')
-
     if g:DoCzoTemplate
         if &modified == 1
             let save_report = &report
@@ -1287,7 +1287,7 @@ function! TemplateUpdate ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.585 2026/04/14 18:26:58 czo Exp $
+            " $Id: .vimrc,v 1.587 2026/05/13 01:31:07 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "

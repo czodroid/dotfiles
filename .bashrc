@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 26 April 2026, 11:04
-# $Id: .bashrc,v 1.771 2026/04/26 09:05:38 czo Exp $
-# Edit Time: 204:48:27
+# Last Modified: Monday 11 May 2026, 18:19
+# $Id: .bashrc,v 1.776 2026/05/11 16:20:51 czo Exp $
+# Edit Time: 206:43:46
 # Description:
 #
 #       bash config file
@@ -175,18 +175,22 @@ if [ -d /rom/bin ]; then
     export PATH="$PATH:/rom/bin"
 fi
 
+## config teltonika
+# if [ -d /usr/local/usr/bin ]; then
+#     export PATH="/usr/local/usr/bin:/usr/local/usr/sbin:$PATH"
+# fi
+## config RUTX 7.17.3 bug /usr/local
+## TODO: ln -sf /usr/local/usr/share/terminfo /usr/share
+# if [ -d /usr/local/lib/perl5/5.28/CORE ]; then
+#     export LD_LIBRARY_PATH="/usr/local/lib/perl5/5.28/CORE:$LD_LIBRARY_PATH"
+#     export PERL5LIB=/usr/local/usr/lib/perl5/5.28
+# fi
+
 ## config termux for android
 if [ -d /data/data/com.termux/files/usr/lib ]; then
     export TMPDIR=/data/data/com.termux/files/home/tmp
     export PATH="/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets:/system/bin:/system/xbin:$PATH"
     export LD_LIBRARY_PATH="/data/data/com.termux/files/usr/lib:$LD_LIBRARY_PATH"
-fi
-
-## config RUTX 7.17.3 bug /usr/local
-## TODO: ln -sf /usr/local/usr/share/terminfo /usr/share
-if [ -d /usr/local/lib/perl5/5.28/CORE ]; then
-    export LD_LIBRARY_PATH="/usr/local/lib/perl5/5.28/CORE:$LD_LIBRARY_PATH"
-    export PERL5LIB=/usr/local/usr/lib/perl5/5.28
 fi
 
 ## config GEOSCOPE
@@ -621,8 +625,10 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -MFile::Find -e 'File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias cfw='curl czo.free.fr/ip'
-alias wfw='wget -qO- http://czo.free.fr/ip'
+alias pubipc='curl czo.wf/ip'
+alias pubipw='wget -qO- http://czo.wf/ip'
+alias pubipcf='curl czo.free.fr/ip.php'
+alias pubipwf='wget -qO- http://czo.free.fr/ip.php'
 alias ifa='ifconfig | grep "^ *inet "'
 alias ipa='ip a | grep "^ *inet "'
 
@@ -650,7 +656,8 @@ alias mail_test_root='(LC_ALL=C date ; printf "\nExcuse me, Mr. RoBot, I dont wa
 
 alias passwd_md5='openssl passwd -1 '
 alias passwd_sha512='openssl passwd -6 '
-alias dig_lartha='curl -sk https://lartha/hosts.html'
+alias dig_lartha='curl -s http://lartha/hosts.html'
+alias dig_lartha_w='wget -qO- http://lartha/hosts.html'
 alias ssha='eval $(ssh-agent); echo; echo "To add another identity:";  echo "ssh-add"; echo "ssh-add ~/.ssh/id_rsa_czo\@bruichladdich"; echo "ssh-add ~/.ssh/id_rsa_czo\@bunnahabhain"'
 sshc() { ssh $@ -t "bash --rcfile .bashrc.czo"; }
 ssh_tmux() { ssh -t $@ 'tmux attach -d || tmux new'; }
@@ -709,17 +716,17 @@ alias pkg_arch_size="expac -H B '%m %n (%v)' | LANG=C sort -rn > pkg_size_${HOST
 
 # debian, ubuntu
 alias AU='aptitude update && aptitude upgrade && aptitude clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
-alias AI='aptitude install'
-alias AP='aptitude purge'
-alias AS='aptitude search'
-alias AW='aptitude show'
 alias AUU='apt update && apt upgrade && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias AI='aptitude install'
 alias AII='apt-get install'
+alias AP='aptitude purge'
 alias APP='apt-get remove --purge'
+alias AS='aptitude search'
 alias ASS='apt-cache search -n'
+alias AW='aptitude show'
 alias AWW='apt-cache show'
-alias ALL='apt-file list'
 alias AL='dpkg -L'
+alias ALL='apt-file list'
 alias AF='dpkg -S'
 
 # redhat, fedora
@@ -732,16 +739,6 @@ alias YW='rpm -qi'
 alias YL='rpm -ql'
 alias YF='rpm -qf'
 
-# openwrt: opkg
-alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in: /tmp/opkg.list"'
-alias OI='opkg install'
-alias OP='opkg remove'
-OS() { grep $1 /tmp/opkg.list | perl -pe '$_ =~ s/^(.{80}).*/$1/'; }
-OSS() { grep $1 /tmp/opkg.list; }
-alias OW='opkg info'
-alias OL='opkg files'
-alias OF='opkg search'
-
 # archlinux
 alias PU='pacman --noconfirm -Sy archlinux-keyring && pacman --noconfirm -Su && { yes | pacman -Scc; } && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 alias PI='pacman -Sy --needed'
@@ -751,8 +748,27 @@ alias PW='pacman -Qi'
 alias PL='pacman -Ql'
 alias PF='pacman -Qo'
 
+# openwrt: opkg
+alias OU='opkg update ; opkg list --size > /tmp/opkg.list && echo ; echo "opkg list is in: /tmp/opkg.list"'
+alias OI='opkg install'
+alias OP='opkg remove'
+OS() { grep $1 /tmp/opkg.list | cut -c 1-80; }
+OSS() { grep $1 /tmp/opkg.list; }
+alias OW='opkg info'
+alias OL='opkg files'
+alias OF='opkg search'
+
+# alpine, openwrt: apk
+alias KU='apk update'
+alias KI='apk add --allow-untrusted'
+alias KP='apk del'
+alias KS='apk search'
+alias KW='apk info'
+alias KL='apk info -L '
+alias OF='apk info --who-owns'
+
 # freebsd
-alias KU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
+alias GU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
 
 # brew macos
 alias BU='brew update && brew upgrade && brew cleanup && sudo sh -c "echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate"'
