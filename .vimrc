@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 13 May 2026, 03:30
-" $Id: .vimrc,v 1.587 2026/05/13 01:31:07 czo Exp $
-" Edit Time: 305:09:47
+" Last Modified: Tuesday 19 May 2026, 21:49
+" $Id: .vimrc,v 1.588 2026/05/19 19:50:49 czo Exp $
+" Edit Time: 306:54:26
 " Description:
 "
 "                 vim config file
@@ -798,9 +798,12 @@ imap <C-Down>       <C-O>]c
 map  <C-Up>         [c
 imap <C-Up>         <C-O>[c
 
-" search hilited text
-vmap /              y/<C-R>"<CR>
-vmap ?              y?<C-R>"<CR>
+" search highlighted text
+vnoremap //      y/\V<C-R>=escape(@",'/\')<CR><CR>
+snoremap // <C-O>y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+vnoremap ??      y?\V<C-R>=escape(@",'/\')<CR><CR>
+snoremap ?? <C-O>y?\V<C-R>=escape(@",'?\')<CR><CR>
 
 " function
 nmap <F1>           :help <C-R>=expand('<cword>')<CR>
@@ -1287,7 +1290,7 @@ function! TemplateUpdate ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.587 2026/05/13 01:31:07 czo Exp $
+            " $Id: .vimrc,v 1.588 2026/05/19 19:50:49 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
