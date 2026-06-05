@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 19 May 2026, 22:04
-" $Id: .vimrc,v 1.589 2026/05/19 20:17:40 czo Exp $
-" Edit Time: 306:58:33
+" Last Modified: Wednesday 20 May 2026, 14:57
+" $Id: .vimrc,v 1.590 2026/05/20 13:09:02 czo Exp $
+" Edit Time: 307:22:06
 " Description:
 "
 "                 vim config file
@@ -799,12 +799,16 @@ map  <C-Up>         [c
 imap <C-Up>         <C-O>[c
 
 " search highlighted text
-vnoremap //      y/\V<C-R>=escape(@",'/\')<CR><CR>
-vnoremap ??      y?\V<C-R>=escape(@",'/\')<CR><CR>
+vnoremap //         y/<C-R>"<CR>
+vnoremap ??         y?<C-R>"<CR>
 
-if version >= 701
-    snoremap // <C-O>y/\V<C-R>=escape(@",'/\')<CR><CR>
-    snoremap ?? <C-O>y?\V<C-R>=escape(@",'?\')<CR><CR>
+if version >= 601
+    vnoremap //     y/\V<C-R>=escape(@",'/\')<CR><CR>
+    vnoremap ??     y?\V<C-R>=escape(@",'/\')<CR><CR>
+endif
+if version >= 700
+    snoremap //     <C-O>y/\V<C-R>=escape(@",'/\')<CR><CR>
+    snoremap ??     <C-O>y?\V<C-R>=escape(@",'?\')<CR><CR>
 endif
 
 " function
@@ -1292,7 +1296,7 @@ function! TemplateUpdate ()
             " License: GPL-2.0 (http://www.gnu.org/copyleft)
             " File Created: oct. 1992
             " Last Modified: dimanche 09 octobre 2022, 21:58
-            " $Id: .vimrc,v 1.589 2026/05/19 20:17:40 czo Exp $
+            " $Id: .vimrc,v 1.590 2026/05/20 13:09:02 czo Exp $
             " Edit Time: 11:03:26
             " Description:
             "
