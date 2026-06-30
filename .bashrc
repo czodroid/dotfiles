@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Friday 05 June 2026, 19:45
-# $Id: .bashrc,v 1.42 2026/06/05 19:45:26 czo Git $
-# Edit Time: 207:17:49
+# Last Modified: Sunday 28 June 2026, 12:24
+# $Id: .bashrc,v 1.42 2026/06/28 12:24:19 czo Git $
+# Edit Time: 207:21:04
 # Description:
 #
 #       bash config file
@@ -244,6 +244,8 @@ RTM_debug "Paths:"
 ##======= Environment Variables ======================================##
 
 SHELLNAME=$( { echo $0 | sed 's,.*/,,' | sed 's,^-,,'; } 2>/dev/null )
+## SU
+[ "$SHELLNAME" = "su" ] && { _s=$( ps -p "$$" 2>/dev/null | awk 'NR==2{cmd=$NF; gsub(/^.*\//,"",cmd); gsub(/^-/,"",cmd); print cmd}' 2>/dev/null ); [ -n "$_s" ] && SHELLNAME=$_s; unset _s; }
 ## Android sh IS mksh
 [ -n "$KSH_VERSION" ] && SHELLNAME="mksh"
 

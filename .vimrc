@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 20 May 2026, 14:57
+" Last Modified: Tuesday 30 June 2026, 15:15
 " $Id: .vimrc,v 1.590 2026/05/20 13:09:02 czo Exp $
-" Edit Time: 307:22:06
+" Edit Time: 307:22:15
 " Description:
 "
 "                 vim config file
@@ -23,7 +23,7 @@ if version >= 505
 
 " works in gnome-shell, kde, xfce, xterm, iTerm, mintty
 " but not on apple terminal which has no 24-bit colors
-if version >= 801 && has("termguicolors")
+if version >= 800 && has("termguicolors")
     set termguicolors
 else
     if has('nvim') && has("termguicolors")
