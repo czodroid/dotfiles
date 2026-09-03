@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 30 June 2026, 15:15
+" Last Modified: Wednesday 02 September 2026, 23:07
 " $Id: .vimrc,v 1.590 2026/05/20 13:09:02 czo Exp $
-" Edit Time: 307:22:15
+" Edit Time: 307:22:28
 " Description:
 "
 "                 vim config file
@@ -189,7 +189,7 @@ if exists('+list')
 endif
 
 if exists('+commentstring')
-    setlocal commentstring=#%s
+    set commentstring=#%s
 endif
 
 " set errorformat=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
