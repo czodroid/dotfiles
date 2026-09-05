@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Friday 05 June 2026, 19:44
-# $Id: .zshrc,v 1.42 2026/06/05 19:44:50 czo Git $
-# Edit Time: 145:24:15
+# Last Modified: Saturday 05 September 2026, 19:57
+# $Id: .zshrc,v 1.42 2026/09/05 19:57:59 czo Git $
+# Edit Time: 145:24:22
 # Description:
 #
 #       zsh config file
@@ -671,6 +671,8 @@ if command -v vim >/dev/null 2>&1 || command -v vimx >/dev/null 2>&1 || command 
     command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
     alias vi=vim
 fi
+
+command -v readlink >/dev/null 2>&1 && alias pwdr='readlink -f .'
 
 command -v emacs >/dev/null 2>&1 && alias ne="\emacs -nw"
 

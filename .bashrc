@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 28 June 2026, 12:24
-# $Id: .bashrc,v 1.42 2026/06/28 12:24:19 czo Git $
-# Edit Time: 207:21:04
+# Last Modified: Saturday 05 September 2026, 19:57
+# $Id: .bashrc,v 1.42 2026/09/05 19:57:08 czo Git $
+# Edit Time: 207:31:13
 # Description:
 #
 #       bash config file
@@ -557,6 +557,8 @@ if command -v vim >/dev/null 2>&1 || command -v vimx >/dev/null 2>&1 || command 
     command -v vimx >/dev/null 2>&1 && alias vim="\vimx"
     alias vi=vim
 fi
+
+command -v readlink >/dev/null 2>&1 && alias pwdr='readlink -f .'
 
 command -v emacs >/dev/null 2>&1 && alias ne="\emacs -nw"
 
