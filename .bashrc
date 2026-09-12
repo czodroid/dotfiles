@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 05 September 2026, 19:57
-# $Id: .bashrc,v 1.42 2026/09/05 19:57:08 czo Git $
-# Edit Time: 207:31:13
+# Last Modified: Saturday 12 September 2026, 11:05
+# $Id: .bashrc,v 1.42 2026/09/12 11:05:35 czo Git $
+# Edit Time: 207:51:48
 # Description:
 #
 #       bash config file
@@ -769,10 +769,10 @@ alias OF='opkg search'
 alias KU='apk update'
 alias KI='apk add --allow-untrusted'
 alias KP='apk del'
-alias KS='apk search'
+alias KS='apk search -d'
 alias KW='apk info'
-alias KL='apk info -L '
-alias OF='apk info --who-owns'
+alias KL='apk info -L'
+alias KF='apk info -R'
 
 # freebsd
 alias GU='pkg update && pkg upgrade && pkg clean && echo $(date +%Y-%m-%d) > /etc/lsb-czo-updatedate'
