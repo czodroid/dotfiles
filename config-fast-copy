@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Monday 14 September 2026, 14:07
+# Last Modified: Monday 14 September 2026, 16:04
 # $Id: config-fast-copy,v 1.39 2026/02/03 10:16:12 czo Exp $
-# Edit Time: 6:20:40
+# Edit Time: 6:23:05
 # Description:
 #
 #  copy my config files (you must do a "cd" before running this script)
@@ -42,7 +42,6 @@ done
 
 echo "   <- /etc/mc/sfs.ini"
 curl -fsSL $GIT/.config/mc/sfs.ini -o /etc/mc/sfs.ini
-chmod 755 /etc/czolsb
 
 echo "   <- /etc/czolsb"
 curl -fsSL $GIT/czolsb -o /etc/czolsb

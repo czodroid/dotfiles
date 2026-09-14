@@ -4,9 +4,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 12 May 1999
-# Last Modified: Sunday 05 April 2026, 11:35
+# Last Modified: Monday 14 September 2026, 16:14
 # $Id: config-fast-ssh,v 1.32 2026/04/05 09:36:32 czo Exp $
-# Edit Time: 11:19:42
+# Edit Time: 11:24:19
 # Description:
 #
 #   configure ssh with my authorized_keys and config
@@ -67,9 +67,9 @@ cat << 'EOF' >> .ssh/config
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: April 2000
-# Last Modified: Sunday 05 April 2026, 11:16
-# $Id: config-fast-ssh,v 1.32 2026/04/05 09:36:32 czo Exp $
-# Edit Time: 21:43:55
+# Last Modified: Monday 14 September 2026, 16:13
+# $Id: config,v 1.108 2026/05/27 14:47:14 czo Exp $
+# Edit Time: 24:23:48
 # Description:
 #
 #   ssh settings
@@ -90,6 +90,11 @@ cat << 'EOF' >> .ssh/config
 Host *+b
  VerifyHostKeyDNS no
  ProxyCommand ssh -p52022 root@lartha nc $(echo %h | sed 's/+.*//') %p
+
+# bunnahabhain gvpn
+Host *+v
+ VerifyHostKeyDNS no
+ ProxyCommand ssh -J gvpn -p64022 localhost nc $(echo %h | sed 's/+.*//') %p
 
 # aberlour
 Host *+a
@@ -113,10 +118,15 @@ Host dalmorechezwam
 
 ## CHEZWAM
 
-Host czo-rutxr1 czo-rutx10
+Host czo.wf
+ User root
+ Port 42022
+
+Host czo-rutxr1 czo-rutx10 czo-rutc50
+ User root
  Port 222
 
-Host czophone10 czophone510 czophone515 matphone
+Host czophonex czophone10 czophone515 matphone
  Port 8022
 
 # Host test* debian* ubuntu* centos* fedora* arch* freebsd*
@@ -135,31 +145,18 @@ Host freebsd5
  # HostKeyAlgorithms +ssh-dss
  KexAlgorithms +diffie-hellman-group1-sha1
 
-## VSCODE
+Host sb pxe openvpn gs-deb10-t gs-deb12-t gs-deb13-t
+ User root
 
-Host dalmore
- ForwardAgent yes
-
-Host lagavulin
- ForwardAgent yes
-
-Host bruichladdich
- ForwardAgent yes
-
-Host askaig
- ForwardAgent yes
-
-Host gs-deb12-t
- ForwardAgent yes
-
-Host ananas
- ForwardAgent yes
-
-Host lartha
+Host lartha sw-armand sw-marion
+ User root
  ForwardX11 no
 
-## DHCP
+## VSCODE
+Host dalmore bruichladdich lagavulin askaig ardbeg ananas bunnahabhain
+ ForwardAgent yes
 
+## DHCP
 Host chezwam-* gsdhcp-* magdhcp-* 192.168.0.1  192.168.1.1
  UserKnownHostsFile /dev/null
  StrictHostKeyChecking no
@@ -168,9 +165,11 @@ Host chezwam-* gsdhcp-* magdhcp-* 192.168.0.1  192.168.1.1
 ## THE REMAINDER
 
 Host *
+
  ## new 2014-2015
  # Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
  # KexAlgorithms curve25519-sha256
+
  ## 2005
  Ciphers aes128-ctr,aes192-ctr,aes256-ctr
 
