@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Saturday 12 September 2026, 11:07
-# $Id: .zshrc,v 1.42 2026/09/12 11:07:00 czo Git $
-# Edit Time: 145:24:40
+# Last Modified: Sunday 20 September 2026, 17:52
+# $Id: .zshrc,v 1.42 2026/09/20 17:52:13 czo Git $
+# Edit Time: 145:34:13
 # Description:
 #
 #       zsh config file
@@ -524,6 +524,19 @@ zstyle ':completion:*:messages'     format $' %{\e[0;93m%}-- %d --%{\e[m%}'
 zstyle ':completion:*:corrections'  format $' %{\e[0;91m%}-- %d (errors: %e) --%{\e[m%}'
 zstyle ':completion:*:warnings'     format $' %{\e[0;91m%}-- no matches for: %d --%{\e[m%}'
 
+_makefile_targets() {
+    local -a targets
+    # POSIX-compliant version (BusyBox, FreeBSD, GNU) without \t in regex
+    targets=($(command make -qp 2>/dev/null | awk -F':' '
+        /^[a-zA-Z0-9][^$#\/=]*:([^=]|$)/ && !/^Makefile/ {
+            split($1, A, /[ \t]+/);
+            for(i in A) if (A[i] != "") print A[i]
+        }
+    '))
+    compadd -a targets
+}
+compdef _makefile_targets make
+
 RTM_debug "Completions:"
 
 ##======= Aliases & Functions ========================================##
@@ -738,10 +751,8 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -MFile::Find -e 'File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias pubipc='curl czo.wf/ip'
-alias pubipw='wget -qO- http://czo.wf/ip'
-alias pubipcf='curl czo.free.fr/ip.php'
-alias pubipwf='wget -qO- http://czo.free.fr/ip.php'
+alias publicip='curl -4 czo.wf/ip'
+alias publicipf='curl -4 czo.free.fr/ip.php'
 alias ifa='ifconfig | grep "^ *inet "'
 alias ipa='ip a | grep "^ *inet "'
 

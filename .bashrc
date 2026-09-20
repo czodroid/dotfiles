@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 12 September 2026, 11:05
-# $Id: .bashrc,v 1.42 2026/09/12 11:05:35 czo Git $
-# Edit Time: 207:51:48
+# Last Modified: Sunday 20 September 2026, 17:51
+# $Id: .bashrc,v 1.42 2026/09/20 17:51:21 czo Git $
+# Edit Time: 209:04:04
 # Description:
 #
 #       bash config file
@@ -71,11 +71,13 @@ if [ -n "$BASH_VERSION" ]; then
     # HISTCONTROL=erasedups:ignorespace
     HISTCONTROL=erasedups
 
-    shopt -s histappend
-    shopt -s checkwinsize
-    shopt -s globstar
-    shopt -s dotglob
-    shopt -u autocd
+    shopt -s histappend   # Append to history instead of overwriting
+    shopt -s checkwinsize # Update terminal window size (LINES/COLUMNS)
+    shopt -s globstar     # Enable recursive globbing (**)
+    shopt -s dotglob      # Include hidden files in globbing
+    shopt -u autocd       # Disable auto directory changing
+    # shopt -s cmdhist      # Save multi-line commands as single entry
+    # shopt -s lithist      # Preserve newlines in multi-line commands
 fi
 
 TIMEFORMAT=$'\n%3lR real    %3lU user    %3lS system    %P%%'
@@ -431,7 +433,7 @@ alias history_clear='history -c'
 alias history_clear_all_log='echo > /var/log/wtmp ; echo > /var/log/lastlog ; history -c'
 # BASHBUG history remove duplicates
 # tac for busybox: perl -e 'print reverse <>'
-alias history_bash_bug="history -n; history | perl -e 'print reverse <>' | sed 's/^ *[0-9]\+ \+//' | sed 's/\s\+$//' | perl -ne  'print if not \$x{\$_}++;' | perl -e 'print reverse <>' > $HISTFILE ; history -c ; history -r"
+alias history_bash_bug="history -n; history | perl -e 'print reverse grep { s/^\s*\d+\s+//; s/\s+$/\n/; !\$x{\$_}++ } reverse <>' > $HISTFILE ; history -c ; history -r"
 
 # csh compatibility env set
 setenv() { export $1=$2; }
@@ -629,10 +631,8 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -MFile::Find -e 'File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias pubipc='curl czo.wf/ip'
-alias pubipw='wget -qO- http://czo.wf/ip'
-alias pubipcf='curl czo.free.fr/ip.php'
-alias pubipwf='wget -qO- http://czo.free.fr/ip.php'
+alias publicip='curl -4 czo.wf/ip'
+alias publicipf='curl -4 czo.free.fr/ip.php'
 alias ifa='ifconfig | grep "^ *inet "'
 alias ipa='ip a | grep "^ *inet "'
 
