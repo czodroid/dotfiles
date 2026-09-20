@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 20 September 2026, 17:52
-# $Id: .zshrc,v 1.42 2026/09/20 17:52:13 czo Git $
-# Edit Time: 145:34:13
+# Last Modified: Sunday 20 September 2026, 18:51
+# $Id: .zshrc,v 1.42 2026/09/20 18:51:31 czo Git $
+# Edit Time: 145:34:33
 # Description:
 #
 #       zsh config file
@@ -751,8 +751,10 @@ alias tsu='su - -c "cd /; /data/data/com.termux/files/usr/bin/bash --rcfile /dat
 
 listext() { perl -MFile::Find -e 'File::Find::find(\&wanted, "."); sub wanted { if ((-f $_)) { $ext=$File::Find::name; $ext=~s,^.*\.,,; $list{$ext}++; } } foreach $key (sort {$list{$a} <=> $list{$b}} keys %list) { printf "$key : $list{$key}\n"; }'; }
 
-alias publicip='curl -4 czo.wf/ip'
-alias publicipf='curl -4 czo.free.fr/ip.php'
+alias public_ipv4='echo $(curl -s -4 czo.wf/ip)'
+alias public_ipv6='echo $(curl -s -6 czo.wf/ip)'
+alias public_ipv4_free='echo $(curl -s -4 czo.free.fr/ip.php)'
+alias public_ipv6_free='echo $(curl -s -6 czo.free.fr/ip.php)'
 alias ifa='ifconfig | grep "^ *inet "'
 alias ipa='ip a | grep "^ *inet "'
 
