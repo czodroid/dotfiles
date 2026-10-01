@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Sunday 20 September 2026, 18:51
-# $Id: .zshrc,v 1.42 2026/09/20 18:51:31 czo Git $
-# Edit Time: 145:34:33
+# Last Modified: Thursday 01 October 2026, 18:24
+# $Id: .zshrc,v 1.42 2026/10/01 18:24:27 czo Git $
+# Edit Time: 145:38:46
 # Description:
 #
 #       zsh config file
@@ -646,9 +646,15 @@ ff_cs() { find . -name "*$1*"; }
 
 if command -v pgrep >/dev/null 2>&1; then
     if LC_ALL=C \pgrep -fia sh 2>&1 | grep -q "invalid option" 2>/dev/null || ! LC_ALL=C \pgrep -fia sh >/dev/null 2>&1; then
-        # solaris, old *bsd, old fedora, old debian
-        alias pg='\pgrep -fl'
-        alias pk='\pkill -f'
+        if LC_ALL=C \pgrep -fa sh >/dev/null 2>&1; then
+            # busybox
+            alias pg='\pgrep -fa'
+            alias pk='\pkill -fe'
+        else
+            # solaris, old *bsd, old fedora, old debian
+            alias pg='\pgrep -fl'
+            alias pk='\pkill -f'
+        fi
     else
         # debian >= 9
         alias pg='\pgrep -fia'
@@ -935,89 +941,93 @@ alias socksGS='ssh -ND 63128 root@geoscopevpn'
 alias socksGS_EDA='ssh -J root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@192.168.34.7 -p 222'
 # alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
 
-## OLD and RemeberThis_
-# for i in /dev /dev/pts /proc /sys /sys/firmware/efi/efivars /run; do mount -B $i /mnt/$i; done
-# for p in proc sys dev dev/pts run; do mount --make-rslave --rbind /$p $LIVE_BOOT/chroot/$p ; done
-# umount -lf $LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}
-alias RemeberThis_mailq_repost='postqueue -p | awk "/^[0-9A-F]/ { print \"postqueue -i \" \$1 \" ; sleep 1s ;\" }" | sh'
-alias RemeberThis_vnc_ardbeg='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
-alias RemeberThis_vnc_ardbeg_view='ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
-alias RemeberThis_vnc_ardbeg_bad='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
-alias RemeberThis_vnc_ardbeg_view_bad='vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
-alias RemeberThis_vnc_passwd_decrypt='echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv'
-alias RemeberThis_chrome_https_not_sercure='certutil -d sql:$HOME/.pki/nssdb -A -t 'P,,' -n bunnahabhain.ipgp.fr -i Desktop/bunnahabhain.ipgp.fr:8006'
-alias RemeberThis_chrome_https_not_sercure_list='certutil -d sql:$HOME/.pki/nssdb -L'
-alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'
-alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
-alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
+## RemeberThis_
 alias RemeberThis_7z_passwd='7z a -mhe=on -pfoo bidule.7z bidule'
-alias RemeberThis_GoPro_fps='ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 22 -c:a aac -strict experimental -pix_fmt yuv420p -r 29.97 out.mp4'
-alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file ${PWD}/$f"; done) -c copy output.mp4'
-alias RemeberThis_iMovie_fps2997='export FPS=29.97 ; ffmpeg -f lavfi -i testsrc=duration=10:size=1920x1080:rate=$FPS -vf "drawtext=text=%{n}:fontsize=72:r=$FPS:x=(w-tw)/2: y=h-(2*lh):fontcolor=white:box=1:boxcolor=0x00000099" -pix_fmt yuv420p test-${FPS}fps.mp4'
-alias RemeberThis_poweroff_FreeBSD5='shutdown -p +0'
-alias RemeberThis_poweroff_macOS='shutdown -h now'
-alias RemeberThis_zpool_create='zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on tank1 /dev/XXX'
-alias RemeberThis_zpool_create_crypted_passwd='zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on -O encryption=on -O keyformat=passphrase -O keylocation=prompt -o feature@encryption=enabled tank1 /dev/XXX'
-alias RemeberThis_zpool_create_crypted_file='dd if=/dev/urandom bs=32 count=1 of=/run/keyfile ; zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on -O encryption=on -O keylocation=file:///run/keyfile -O keyformat=raw -o feature@encryption=enabled tank1 /dev/XXX'
-alias RemeberThis_zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive\|zfs rollback\|zfs rename\|zfs load-key"'
-alias RemeberThis_zfs_destroy='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_2023-10" | cut -f 1); do echo $snapshot ; zfs destroy -d $snapshot; done'
-alias RemeberThis_zfs_rename='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_" | grep -- "-90d" | cut -f 1); do echo $snapshot ; zfs rename $snapshot $(echo $snapshot | perl -pe "s/-90d/-60d/"); done'
-alias RemeberThis_serial_connect='picocom -e z -b 115200 /dev/ttyUSB0'
-alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; sync; rm /zero.dat'
-alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
-alias RemeberThis_git_delete_big_files='git filter-repo --strip-blobs-bigger-than 100M'
-alias RemeberThis_ssh-keygen-passwd='ssh-keygen -p -f id_rsa'
-alias RemeberThis_ssh-copy-id_openssh='cat ~/.ssh/id_rsa.pub | ssh root@debian10 "cat - >> .ssh/authorized_keys"'
-alias RemeberThis_ssh-copy-id_dropbear='cat ~/.ssh/id_rsa.pub | ssh root@sw-marion "cat - >> /etc/dropbear/authorized_keys"'
-alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
-alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
-alias RemeberThis_chroot_mount="for p in proc sys dev dev/pts run ; do mount --make-rslave --rbind /\$p \$LIVE_BOOT/chroot/\$p ; done"
-alias RemeberThis_chroot_umount="umount -lf \$LIVE_BOOT/chroot/{run,dev/pts,dev,sys,proc}"
-alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
-alias RemeberThis_find_EXEC="find . -mindepth 1 -maxdepth 1 -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
+alias RemeberThis_battery_cycle='cat /sys/class/power_supply/BAT0/cycle_count'
+alias RemeberThis_battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+alias RemeberThis_chrome_https_not_sercure='certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n bunnahabhain.ipgp.fr -i Desktop/bunnahabhain.ipgp.fr:8006'
+alias RemeberThis_chrome_https_not_sercure_list='certutil -d sql:$HOME/.pki/nssdb -L'
+# TODO: verify
+alias RemeberThis_chroot_mount="mount /dev/nvme0n1p3 /mnt ; mount /dev/nvme0n1p1 /mnt/boot/efi ; for i in dev dev/pts proc sys run; do sudo mount -B $i /mnt/$i; done ; chroot /mnt"
+alias RemeberThis_chroot_install_grub="mount -t efivarfs none /sys/firmware/efi/efivars ; grub-install --target=x86_64-efi --bootloader-id=dell --efi-directory=/boot/efi ; update-grub"
+alias RemeberThis_chroot_umount="umount -lf /mnt/{run,sys,proc,dev/pts,dev}"
+
 alias RemeberThis_find_EXECDIR="find . -type f -name '*.7z' -execdir sh -c \"echo '######### {}' && pwd\" \;"
+alias RemeberThis_find_EXEC="find . -mindepth 1 -maxdepth 1 -type d -exec sh -c \"cd '{}' && echo '######### {}' && pwd\" \;"
 alias RemeberThis_find_sort_xargs="find . -type d -print0 | sort -z | xargs -r0 -I{} sh -c 'ls -1 \"{}\" | wc -l'"
-alias RemeberThis_kfm='setxkbmap fr mac'
-alias RemeberThis_edl='export DISPLAY=localhost:0'
-alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
-alias RemeberThis_export_svg2png='inkscape --export-width=128 --export-height=128 --export-png=icon.png icon.svg'
-alias RemeberThis_slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
-alias RemeberThis_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
-alias RemeberThis_macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
-alias RemeberThis_utf8_redode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
+alias RemeberThis_git_delete_big_files='git filter-repo --strip-blobs-bigger-than 100M'
+alias RemeberThis_git_sort='git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | awk "/^blob/ {print substr(\$0,6)}" | sort --numeric-sort --key=2 | cut --complement --characters=13-40 | numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=neares'
+alias RemeberThis_GoPro_concat='ffmpeg -f concat -safe 0 -i <(for f in *0649*; do echo "file ${PWD}/$f"; done) -c copy output.mp4'
+alias RemeberThis_GoPro_fps='ffmpeg -i in.mp4 -c:v libx264 -preset slow -crf 22 -c:a aac -strict experimental -pix_fmt yuv420p -r 29.97 out.mp4'
+alias RemeberThis_hdd_clear_unused_space_with_zeros='cat /dev/zero > /zero.dat; sync; rm /zero.dat'
+alias RemeberThis_iMovie_fps2997='export FPS=29.97 ; ffmpeg -f lavfi -i testsrc=duration=10:size=1920x1080:rate=$FPS -vf "drawtext=text=%{n}:fontsize=72:r=$FPS:x=(w-tw)/2: y=h-(2*lh):fontcolor=white:box=1:boxcolor=0x00000099" -pix_fmt yuv420p test-${FPS}fps.mp4'
 alias RemeberThis_jpg_progressive='mogrify -quality 90 -auto-orient -strip -interlace plane *.jpg'
 alias RemeberThis_jpg_whatsapp='mogrify -resize 1918800@ -quality 75 *.jpg'
-alias RemeberThis_favicon_png2ico='convert -background transparent favicon.png -define icon:auto-resize=16,24,32,48,64,72,96,128 favicon.ico'
-alias RemeberThis_show_bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-alias RemeberThis_show_batcycle='cat /sys/class/power_supply/BAT0/cycle_count'
+alias RemeberThis_keyboard_french_mac='setxkbmap fr mac'
+alias RemeberThis_kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
+alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
+alias RemeberThis_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
+alias RemeberThis_macbook_vid_bright_30='echo 30 > /sys/class/backlight/acpi_video0/brightness'
 alias RemeberThis_mac_czo='openssl rand -hex 2 | sed "s/\(..\)\(..\)/00:67:90:79:\1:\2/"'
 alias RemeberThis_mac_random='openssl rand -hex 6 | sed "s/\(..\)/\1:/g; s/.$//"'
-alias RemeberThis_kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias RemeberThis_mailq_repost='postqueue -p | awk "/^[0-9A-F]/ { print \"postqueue -i \" \$1 \" ; sleep 1s ;\" }" | sh'
+alias RemeberThis_perl_sub='perl -i -pe "s/10\.9\./10.10./g" AAA*'
+alias RemeberThis_pkg_debian_purge_removed_pkg="dpkg --list | grep '^rc' | cut -d ' ' -f 3 | xargs dpkg --purge"
+alias RemeberThis_png2ico='convert -background transparent favicon.png -define icon:auto-resize=16,24,32,48,64,72,96,128 favicon.ico'
+alias RemeberThis_poweroff_FreeBSD5='shutdown -p +0'
+alias RemeberThis_poweroff_macOS='shutdown -h now'
 alias RemeberThis_proxmox_qma='qm create --memory 1024 --numa 0 --sockets 1 --cores 1 -ostype l26 --net0 virtio,bridge=vmbr0,firewall=1 --ide2 none,media=cdrom --scsihw virtio-scsi-pci --scsi0 local-vm:32,format=qcow2 --name test6000 6000'
+alias RemeberThis_remove_empty_line_and_slash_and_print="perl -n -e 'print unless m/^\s*#|^\s*$/'"
+alias RemeberThis_serial_connect='picocom -e z -b 115200 /dev/ttyUSB0'
+alias RemeberThis_sftp_code='code --file-uri vscode-remote://ssh-remote+root@ananas/etc/munin/munin.conf'
+alias RemeberThis_sftp_vim='vim sftp://root@ananas//etc/munin/munin.conf'
+alias RemeberThis_slax_create_mksquashfs='mksquashfs . ../99-czo.sb -comp xz -Xbcj x86'
+alias RemeberThis_ssh_copy_id_dropbear='cat ~/.ssh/id_rsa.pub | ssh root@sw-marion "cat - >> /etc/dropbear/authorized_keys"'
+alias RemeberThis_ssh_copy_id_openssh='cat ~/.ssh/id_rsa.pub | ssh root@debian10 "cat - >> .ssh/authorized_keys"'
+alias RemeberThis_ssh_keygen_passwd='ssh-keygen -p -f id_rsa'
+alias RemeberThis_svg2png='inkscape --export-width=128 --export-height=128 --export-png=icon.png icon.svg'
+alias RemeberThis_utf8_recode_this_directory="file -i * | grep iso-8859 | sed 's/:.*//' | xargs recode -t LATIN1..UTF-8"
+alias RemeberThis_vnc_ardbeg_bad='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost no :32" ; vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
+alias RemeberThis_vnc_ardbeg='ssh ardbeg "vncserver -kill :32 ; vncserver -depth 24 -geometry 1440x900 -dpi 96 -localhost :32" ; ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_ardbeg_view_bad='vncviewer -FullScreen -passwd ~/.vnc/passwd ardbeg:32'
+alias RemeberThis_vnc_ardbeg_view='ssh -fL 5933:localhost:5932 ardbeg sleep 10; vncviewer -FullScreen -passwd ~/.vnc/passwd localhost:33'
+alias RemeberThis_vnc_passwd_decrypt='echo -n d7a514d8c556aade | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv'
+alias RemeberThis_zfs_destroy='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_2023-10" | cut -f 1); do echo $snapshot ; zfs destroy -d $snapshot; done'
+alias RemeberThis_zfs_rename='for snapshot in $(zfs list -H -t snapshot | grep "auto_nightly_" | grep -- "-90d" | cut -f 1); do echo $snapshot ; zfs rename $snapshot $(echo $snapshot | perl -pe "s/-90d/-60d/"); done'
+alias RemeberThis_zpool_create_crypted_file='dd if=/dev/urandom bs=32 count=1 of=/run/keyfile ; zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on -O encryption=on -O keylocation=file:///run/keyfile -O keyformat=raw -o feature@encryption=enabled tank1 /dev/XXX'
+alias RemeberThis_zpool_create_crypted_passwd='zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on -O encryption=on -O keyformat=passphrase -O keylocation=prompt -o feature@encryption=enabled tank1 /dev/XXX'
+alias RemeberThis_zpool_create='zpool create -o ashift=12 -O compression=lz4 -O atime=on -O relatime=on tank1 /dev/XXX'
+alias RemeberThis_zpool_history='zpool history | grep -v "zfs destroy\|zfs snapshot\|zpool status\|zpool scrub\|zpool import\|zpool export\|zfs send\|zfs receive\|zfs rollback\|zfs rename\|zfs load-key"'
 RemeberThis_crossorigin_sri() { a=$(curl -s "$1" | openssl dgst -sha384 -binary | openssl enc -base64 -A) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 RemeberThis_crossorigin_sri2() { a=$(shasum -b -a 384 "$1" | awk '{ print $1 }' | xxd -r -p | base64) ; print "integrity=\"sha384-$a\" crossorigin=\"anonymous\""; }
 
-## GEOMAGNET
+## OLD GEOMAGNET
 alias RemeberThis_bosedemerde='ssh root@localhost /home/czo/local/Linux/bin/usbresetv2 6 5'
-alias RemeberThis_matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
-alias RemeberThis_matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
 alias RemeberThis_ifort32='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh ia32'
 alias RemeberThis_ifort64='. /users/soft/intel/Compiler/11.1/059/bin/ifortvars.sh intel64'
+alias RemeberThis_matlab-console='/users/soft/matlab/R2012A32x64/bin/matlab -nodisplay -nodesktop -nosplash'
+alias RemeberThis_matlab='/users/soft/matlab/R2012A32x64/bin/matlab'
 RemeberThis_ww() { uname -a; uptime; \ps --no-header -eo uid,user | sort -u | perl -ne 'BEGIN { $AutoReboot=0;$LoggedOnUsers=0;$RebootRequired=0; } @F=split (/\s+/) ; if ($F[1] > 1000 ) {$LoggedOnUsers++; print "$F[2] ($F[1])\n" } ; END { if ( -f "/var/run/reboot-required" ) { $RebootRequired=1; }; print "RebootRequired=$RebootRequired\n" ; print "LoggedOnUsers=$LoggedOnUsers\n" ; if ( ! $LoggedOnUsers && $RebootRequired) {$AutoReboot=1; } print "AutoReboot=$AutoReboot\n" ; exit $AutoReboot }'; }
 
-## CAO VLSI IBP.FR
-alias RemeberThis_win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
-alias RemeberThis_xroot='xv -root +noresetroot -quit'
-alias RemeberThis_xv='\xv -perfect -8'
-alias RemeberThis_xload='\xload -hl red'
-alias RemeberThis_key='perl -MCrypt::SKey -e key'
-alias RemeberThis_vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
+## OLD CAO VLSI IBP.FR
+alias RemeberThis_edl='export DISPLAY=localhost:0'
+alias RemeberThis_fing='finger | sort | uniq -w 15'
 alias RemeberThis_imprime='a2ps -2 -s2'
 alias RemeberThis_imprimeman='a2ps -2 -s2 -man'
 alias RemeberThis_imprimescript='enscript --color -j --fancy-header=edd -E -r -2'
-alias RemeberThis_xmbk='eval $(\xmbk -c 2>/dev/null)'
+alias RemeberThis_key='perl -MCrypt::SKey -e key'
 alias RemeberThis_mbk='set | grep "MBK\|RDS\|ELP" | sort'
-alias RemeberThis_fing='finger | sort | uniq -w 15'
+alias RemeberThis_vieux_acvs='export CVSROOT=/users/outil/alliance/cvsroot'
+alias RemeberThis_win='ssh-agent startx -- " -audit 4 -auth /users/cao/czo/.Xauthority"'
+alias RemeberThis_xload='\xload -hl red'
+alias RemeberThis_xmbk='eval $(\xmbk -c 2>/dev/null)'
+alias RemeberThis_xroot='xv -root +noresetroot -quit'
+alias RemeberThis_xv='\xv -perfect -8'
+
+## Source
+alias idfs='. ~/.espressif/tools/activate_idf_v6.1.sh'
+alias pyts='. ~/.local/python3/bin/activate'
 
 RTM_debug "Alias:"
 
