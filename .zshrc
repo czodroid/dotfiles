@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 01 October 2026, 18:24
-# $Id: .zshrc,v 1.42 2026/10/01 18:24:27 czo Git $
-# Edit Time: 145:38:46
+# Last Modified: Saturday 03 October 2026, 17:31
+# $Id: .zshrc,v 1.42 2026/10/03 17:31:21 czo Git $
+# Edit Time: 145:40:14
 # Description:
 #
 #       zsh config file
@@ -224,7 +224,7 @@ fi
 
 ## seiscomp
 # /data + seiscomp v3, gvpn + rutx seiscomp v5 + seiscomp v4 v5 v6
-for SCO in /data/seiscomp /home/sysop/seiscomp3 /opt/seiscomp /home/sysop/seiscomp; do
+for SCO in /data/seiscomp /home/sysop/seiscomp3 /opt/seiscomp /usr/local/opt/seiscomp /home/sysop/seiscomp; do
     # echo A${SCO}B
     if [ -x "$SCO/bin/seiscomp" ]; then
         export SEISCOMP_ROOT=$SCO
@@ -937,9 +937,10 @@ sq() { SB=$( perl -MDigest::MD5=md5_hex -e 'print qq+squeezelite -n $ARGV[0] -m 
 ## GEOSCOPE
 alias slink='slinktool -Q :18000'
 alias slink1='slinktool -Q rtserver.ipgp.fr'
-alias socksGS='ssh -ND 63128 root@geoscopevpn'
-alias socksGS_EDA='ssh -J root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@192.168.34.7 -p 222'
-# alias sockschezwam='ssh -J bunnahabhain+b -ND 63128 root@geoscopevpn'
+alias socksGSgvpn_EDA='ssh -J root@geoscopevpn,root@192.168.34.1:222 -ND 63128 root@192.168.34.7 -p 222'
+alias socksGSgvpn='ssh -ND 63128 gvpn'
+alias socksGSgln='ssh -ND 63128 gln'
+alias socksGSgrt='ssh -ND 63128 grt'
 
 ## RemeberThis_
 alias RemeberThis_7z_passwd='7z a -mhe=on -pfoo bidule.7z bidule'
@@ -965,6 +966,8 @@ alias RemeberThis_jpg_progressive='mogrify -quality 90 -auto-orient -strip -inte
 alias RemeberThis_jpg_whatsapp='mogrify -resize 1918800@ -quality 75 *.jpg'
 alias RemeberThis_keyboard_french_mac='setxkbmap fr mac'
 alias RemeberThis_kvm_pxe='kvm -m 1024 -device e1000,netdev=net0,mac=08:11:27:B8:F8:C8 -netdev tap,id=net0'
+alias RemeberThis_ldd_readelf='readelf -d tmux | grep NEEDED'
+alias RemeberThis_ldd_objdump='objdump -p tmux | grep NEEDED'
 alias RemeberThis_list_path_binaries_bash='compgen -c | sort -u'
 alias RemeberThis_list_path_binaries_zsh='print -rC1 -- ${(ko)commands}'
 alias RemeberThis_macbook_kbd_bright_30='echo 30 > /sys/class/leds/smc\:\:kbd_backlight/brightness'
