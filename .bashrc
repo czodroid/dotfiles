@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Saturday 03 October 2026, 08:46
-# $Id: .bashrc,v 1.42 2026/10/03 08:46:03 czo Git $
-# Edit Time: 210:41:05
+# Last Modified: Sunday 11 October 2026, 16:21
+# $Id: .bashrc,v 1.42 2026/10/11 16:21:30 czo Git $
+# Edit Time: 210:50:28
 # Description:
 #
 #       bash config file
@@ -688,7 +688,7 @@ alias dft='df -hPT'
 alias ffmpeg='\ffmpeg -hide_banner'
 alias ffprobe='\ffprobe -hide_banner'
 
-## at last: goodbye CVS!
+## at last in 2026: goodbye CVS!
 alias cvu='cd ~/etc ; git status ; git pull ; cd -'
 alias cvd='cd ~/etc ; git diff ; cd -'
 alias cvc='cd ~/etc ; git commit -a -mupdate ; git push ; cd -'
@@ -699,7 +699,7 @@ alias tree-cvs='tree -adn | grep -v CVS'
 cvsdiff() { F=$1 ; cvs diff $(cvs log $F | grep "^revision" | sed -e "s/^revision/-r/" | sed -e '2!d' ) $F | colordiff; }
 cvsadddir() { find $1 -type d \! -name CVS -exec cvs add '{}' \; && find $1 \( -type d -name CVS -prune \) -o \( -type f -exec echo cvs add '{}' \; \); }
 
-alias  gtu='git pull'
+alias  gtu='git status ; git pull'
 alias  gtp='git push'
 alias  gtd='git diff'
 alias  gtc='git commit -a'
@@ -710,7 +710,7 @@ alias  gtb='git branch -a'
 alias  gtf='git fetch; git diff origin'
 alias  gtl="git log --all --reverse --pretty=format:'%C(red)%h%Creset %C(cyan)%ad%Creset%C(yellow)%d%Creset %s' --date=format-local:'%Y-%m-%d %H:%M:%S'"
 alias gtgc='git gc'
-alias gtcl='git clean -dfn'
+alias gtrn='git clean -dfn'
 
 #alias pkg_debian_list="apt-mark showmanual | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
 alias pkg_debian_list="aptitude search '~i !~M' -F %p | sed 's/\s\+$//' | LANG=C sort > pkg_list_${HOSTNAME}_$(date +%Y%m%d).txt"
