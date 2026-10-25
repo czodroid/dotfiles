@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Wednesday 02 September 2026, 23:07
+" Last Modified: Sunday 25 October 2026, 20:23
 " $Id: .vimrc,v 1.590 2026/05/20 13:09:02 czo Exp $
-" Edit Time: 307:22:28
+" Edit Time: 308:33:39
 " Description:
 "
 "                 vim config file
@@ -184,8 +184,9 @@ if exists('+listchars')
     endif
 endif
 
+" SpecialKey color
 if exists('+list')
-    "set list
+    " set list
 endif
 
 if exists('+commentstring')
@@ -206,6 +207,32 @@ if exists('+complete')
     set complete=.,w,b,t
     " set complete=.,w,b,u,t,i
 endif
+
+
+" == Plugins ===========================================================
+
+" indentLine
+let g:indentLine_setColors = 0
+let g:indentLine_char = '┆'
+let g:indentLine_enabled = 1
+let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_leadingSpaceEnabled = 1
+
+" Template
+let g:DoCzoTemplate=1
+let g:DoCzoTab=1
+let g:TemplateMaxHeaderLines=50
+let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
+let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
+
+" Correct if needed
+let vimtemplatefile="$HOME/.vimtemplate"
+if filereadable(expand(vimtemplatefile))
+    exe 'source' vimtemplatefile
+endif
+
+" Move cursor
+let g:DoCzoLineMove=0
 
 
 " == Statusline ========================================================
@@ -393,22 +420,6 @@ endfunction
 
 
 " == Command ===========================================================
-
-" My Template
-let g:DoCzoTemplate=1
-let g:DoCzoTab=1
-let g:TemplateMaxHeaderLines=50
-let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
-let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
-
-" Correct if needed
-let vimtemplatefile="$HOME/.vimtemplate"
-if filereadable(expand(vimtemplatefile))
-    exe 'source' vimtemplatefile
-endif
-
-" Move cursor
-let g:DoCzoLineMove=0
 
 command!  CzoATabToSpaceAndTrailWhite call CzoATabToSpaceAndTrailWhite ()
 function! CzoATabToSpaceAndTrailWhite ()
@@ -964,9 +975,10 @@ hi Special       guifg=#fabd2f guibg=NONE    gui=NONE      ctermfg=Yellow     ct
 hi Error         guifg=#fb4934 guibg=bg      gui=inverse   ctermfg=Red        ctermbg=bg       cterm=inverse   term=inverse
 hi Todo          guifg=#83a598 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
 
-hi NonText       guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
-hi SpecialKey    guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
-hi Conceal       guifg=#3c3836 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
+hi Whitespace    guifg=#494244 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
+hi SpecialKey    guifg=#494244 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
+hi NonText       guifg=#494244 guibg=NONE    gui=NONE      ctermfg=DarkGray   ctermbg=NONE     cterm=NONE      term=NONE
+hi Conceal       guifg=#494244 guibg=NONE    gui=NONE      ctermfg=Blue       ctermbg=NONE     cterm=NONE      term=NONE
 hi TabLineFill   guifg=#7c6f64 guibg=#35302b gui=NONE      ctermfg=DarkGray   ctermbg=Black    cterm=NONE      term=NONE
 hi TabLineSel    guifg=#ebdbb2 guibg=#282828 gui=NONE      ctermfg=White      ctermbg=Black    cterm=NONE      term=NONE
 hi MatchParen    guifg=NONE    guibg=#665c54 gui=NONE      ctermfg=NONE       ctermbg=DarkGray cterm=NONE      term=NONE
@@ -1180,12 +1192,6 @@ autocmd FileType json      syntax match Comment "//.*$"
 " VIm Template
 " Based on Header.vim by Johannes Zellner
 " http://www.zellner.org/vim/functions/Header.vim)
-"
-"" Now in command section
-" let g:DoCzoTemplate=1
-" let g:TemplateMaxHeaderLines=50
-" let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
-" let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
 "
 "" 2011/01/27:
 " I just have a single .vimrc now; no more separate config and template files.
