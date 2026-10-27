@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Sunday 25 October 2026, 20:23
+" Last Modified: Tuesday 27 October 2026, 16:59
 " $Id: .vimrc,v 1.590 2026/05/20 13:09:02 czo Exp $
-" Edit Time: 308:33:39
+" Edit Time: 308:33:59
 " Description:
 "
 "                 vim config file
@@ -221,7 +221,7 @@ let g:indentLine_leadingSpaceEnabled = 1
 " Template
 let g:DoCzoTemplate=1
 let g:DoCzoTab=1
-let g:TemplateMaxHeaderLines=50
+let g:TemplateMaxHeaderLines=150
 let g:TemplateAuthor="Olivier Sirol <czo@free.fr>"
 let g:TemplateLicense="GPL-2.0 (http:\\/\\/www.gnu.org\\/copyleft)"
 
