@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 November 1998
-# Last Modified: Sunday 11 October 2026, 16:21
-# $Id: .bashrc,v 1.42 2026/10/11 16:21:30 czo Git $
-# Edit Time: 210:50:28
+# Last Modified: Thursday 05 November 2026, 22:13
+# $Id: .bashrc,v 1.42 2026/11/05 22:13:07 czo Git $
+# Edit Time: 210:55:53
 # Description:
 #
 #       bash config file
@@ -688,7 +688,7 @@ alias dft='df -hPT'
 alias ffmpeg='\ffmpeg -hide_banner'
 alias ffprobe='\ffprobe -hide_banner'
 
-## at last in 2026: goodbye CVS!
+## finally, in 2026: goodbye CVS, hello Git
 alias cvu='cd ~/etc ; git status ; git pull ; cd -'
 alias cvd='cd ~/etc ; git diff ; cd -'
 alias cvc='cd ~/etc ; git commit -a -mupdate ; git push ; cd -'

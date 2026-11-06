@@ -6,9 +6,9 @@
 " Author: Olivier Sirol <czo@free.fr>
 " License: GPL-2.0 (http://www.gnu.org/copyleft)
 " File Created: 11 mai 1995
-" Last Modified: Tuesday 27 October 2026, 16:59
+" Last Modified: Tuesday 03 November 2026, 11:28
 " $Id: .vimrc,v 1.590 2026/05/20 13:09:02 czo Exp $
-" Edit Time: 308:33:59
+" Edit Time: 308:47:49
 " Description:
 "
 "                 vim config file
@@ -62,7 +62,7 @@ set scrolloff=2
 "set helpheight=999000
 
 set modeline
-set modelines=20
+set modelines=50
 
 set history=5000
 set viminfo='100,\"1000,ra:,rb:,rz:,%
