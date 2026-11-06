@@ -6,9 +6,9 @@
 # Author: Olivier Sirol <czo@free.fr>
 # License: GPL-2.0 (http://www.gnu.org/copyleft)
 # File Created: 23 April 1996
-# Last Modified: Thursday 05 November 2026, 22:13
-# $Id: .zshrc,v 1.42 2026/11/05 22:13:32 czo Git $
-# Edit Time: 145:44:43
+# Last Modified: Friday 06 November 2026, 18:05
+# $Id: .zshrc,v 1.42 2026/11/06 18:05:10 czo Git $
+# Edit Time: 145:44:54
 # Description:
 #
 #       zsh config file
@@ -941,6 +941,7 @@ alias socksGSgvpn_EDA='ssh -J root@geoscopevpn,root@192.168.34.1:222 -ND 63128 r
 alias socksGSgvpn='ssh -ND 63128 gvpn'
 alias socksGSgln='ssh -ND 63128 gln'
 alias socksGSgrt='ssh -ND 63128 grt'
+alias socksGSint='ssh -J gvpn -ND 63128 root@10.9.5.56'
 
 ## RemeberThis_
 alias RemeberThis_7z_passwd='7z a -mhe=on -pfoo bidule.7z bidule'
